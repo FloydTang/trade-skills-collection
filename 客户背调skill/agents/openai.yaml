@@ -1,0 +1,7 @@
+interface:
+  display_name: "Trade Customer Intel"
+  short_description: "外贸客户公开信息背调与开发画像双语报告"
+  default_prompt: "Use $trade-customer-intel to research a prospect company or contact from a company name, person name, or email and produce a bilingual evidence-backed sales intel report."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TradeCustomerIntelLeadInput",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "company_name": {
+      "type": "string"
+    },
+    "person_name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "company_website": {
+      "type": "string"
+    },
+    "country_or_market": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "company_name",
+    "person_name",
+    "email",
+    "company_website",
+    "country_or_market",
+    "notes"
+  ]
+}

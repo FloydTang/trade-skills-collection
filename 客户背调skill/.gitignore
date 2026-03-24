@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.DS_Store
+.env
+.venv/
+venv/
+dist/
+build/
+*.log
+/outputs/
+/tmp/
+/reports/
+/safi_resources_intel_report.md

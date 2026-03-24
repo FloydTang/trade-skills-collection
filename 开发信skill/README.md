@@ -67,6 +67,7 @@
 - 已达到“可演示”
 - 已达到“可交付”
 - 后续增强项见 `/Users/evenbetter/Downloads/C&CStudio/外贸skill/开发信skill/验收记录.md`
+- 采用“双轨逻辑”维护：可作为独立仓库发布，也可作为合集仓库中的稳定节点副本分发
 
 后续进入开发或扩展前请先完成：
 
@@ -122,3 +123,7 @@ python3 ./scripts/run_pre_release_gate.py
 - 保留当前本地版的保守输出原则
 - 假设客户背景摘要、历史沟通、风险提示等上游上下文由 OpenClaw 工作流先整理
 - Python 包装脚本只负责把 OpenClaw 输入合并并转交给核心草稿生成器
+
+## 作者
+
+半斤九两科技

@@ -1,0 +1,78 @@
+{
+  "lead": {
+    "company_name": "Acme Industrial",
+    "person_name": "Jane Smith",
+    "email": "jane@acme-industrial.com",
+    "company_website": "",
+    "country_or_market": "United States",
+    "notes": "Sample OpenClaw payload with snippet-only and page-text evidence."
+  },
+  "evidence_bundle": {
+    "search_results": [
+      {
+        "query": "\"Acme Industrial\" official website",
+        "title": "Acme Industrial | Industrial Components and Export Solutions",
+        "url": "https://www.acme-industrial.com",
+        "snippet": "Acme Industrial provides industrial components, export support, and manufacturing solutions for global buyers.",
+        "source": "coze-web-search",
+        "platform": "web"
+      },
+      {
+        "query": "site:linkedin.com/company \"Acme Industrial\"",
+        "title": "Acme Industrial | LinkedIn",
+        "url": "https://www.linkedin.com/company/acme-industrial/",
+        "snippet": "Acme Industrial is a manufacturing and export-focused company serving global industrial buyers.",
+        "source": "coze-web-search",
+        "platform": "linkedin"
+      },
+      {
+        "query": "site:instagram.com \"Acme Industrial\"",
+        "title": "Acme Industrial (@acmeindustrial) • Instagram photos and videos",
+        "url": "https://www.instagram.com/acmeindustrial/",
+        "snippet": "Product displays, factory visuals, and shipping highlights from Acme Industrial.",
+        "source": "coze-web-search",
+        "platform": "instagram"
+      }
+    ],
+    "page_snapshots": [
+      {
+        "url": "https://www.acme-industrial.com",
+        "title": "Acme Industrial",
+        "text": "Acme Industrial supplies industrial components, export support, and customized production for international buyers across multiple markets.",
+        "source": "scrapling-official",
+        "status": "ok"
+      },
+      {
+        "url": "https://www.linkedin.com/company/acme-industrial/",
+        "title": "Acme Industrial | LinkedIn",
+        "text": "",
+        "source": "coze-web-fetch",
+        "status": "fallback_snippet_only"
+      }
+    ],
+    "search_runs": [
+      {
+        "stage": "official_website",
+        "provider": "coze-web-search",
+        "query": "\"Acme Industrial\" official website",
+        "status": "ok",
+        "result_count": 1
+      },
+      {
+        "stage": "linkedin",
+        "provider": "coze-web-search",
+        "query": "site:linkedin.com/company \"Acme Industrial\"",
+        "status": "ok",
+        "result_count": 1
+      }
+    ],
+    "errors": [
+      {
+        "stage": "linkedin_fetch",
+        "provider": "scrapling-official",
+        "url": "https://www.linkedin.com/company/acme-industrial/",
+        "message": "Primary fetch blocked; fallback retained search snippet only."
+      }
+    ]
+  }
+}
