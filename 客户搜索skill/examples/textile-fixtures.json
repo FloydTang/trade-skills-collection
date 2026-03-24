@@ -1,0 +1,52 @@
+{
+  "washed linen table textile Germany brand": [
+    {
+      "title": "Atelier Loom GmbH",
+      "url": "https://atelier-loom.de",
+      "snippet": "Design-led table linen brand for premium home textile collections in Germany.",
+      "source": "fixture"
+    },
+    {
+      "title": "NordHaus Tableware collection page",
+      "url": "https://nordhaus-tableware.de",
+      "snippet": "NordHaus presents natural table linen ranges for boutique home stores.",
+      "source": "fixture"
+    }
+  ],
+  "table linen brand Germany importer distributor brand buyer": [
+    {
+      "title": "Atelier Loom showroom",
+      "url": "https://atelier-loom.de/about",
+      "snippet": "Contact Mira Stein for design-led washed linen table textile projects.",
+      "source": "fixture"
+    },
+    {
+      "title": "NordHaus marketplace profile",
+      "url": "https://marketplace.example/nordhaus",
+      "snippet": "NordHaus Tableware sells premium table linen collections for retail buyers.",
+      "source": "fixture"
+    }
+  ],
+  "site:linkedin.com/company washed linen table textile Germany brand": [
+    {
+      "title": "Atelier Loom GmbH | LinkedIn",
+      "url": "https://www.linkedin.com/company/atelier-loom",
+      "snippet": "Atelier Loom GmbH develops table textile collections for premium home brands.",
+      "source": "fixture"
+    },
+    {
+      "title": "NordHaus Tableware | LinkedIn",
+      "url": "https://www.linkedin.com/company/nordhaus-tableware",
+      "snippet": "NordHaus Tableware focuses on home tabletop collections and design buyers.",
+      "source": "fixture"
+    }
+  ],
+  "washed linen table textile Germany brand \"design\"": [
+    {
+      "title": "Atelier Loom design collections",
+      "url": "https://atelier-loom.de/collections",
+      "snippet": "Washed linen table textile collections for design-focused tabletop programs.",
+      "source": "fixture"
+    }
+  ]
+}

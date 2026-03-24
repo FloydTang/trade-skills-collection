@@ -1,0 +1,52 @@
+{
+  "frozen mixed vegetables Poland importer": [
+    {
+      "title": "GreenHarvest Foods | Frozen vegetables importer in Poland",
+      "url": "https://greenharvestfoods.com",
+      "snippet": "GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland.",
+      "source": "fixture"
+    },
+    {
+      "title": "PolFood Sourcing directory profile",
+      "url": "https://directory.example/polfood-sourcing",
+      "snippet": "Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries.",
+      "source": "fixture"
+    }
+  ],
+  "frozen food importer Poland importer distributor brand buyer": [
+    {
+      "title": "Baltic Frozen Trade",
+      "url": "https://balticfrozentrade.pl",
+      "snippet": "Supplier and importer of frozen vegetables and fruit for private label retail in Poland.",
+      "source": "fixture"
+    },
+    {
+      "title": "GreenHarvest Foods contact",
+      "url": "https://greenharvestfoods.com/contact",
+      "snippet": "Email anna@greenharvestfoods.com for frozen mixed vegetables sourcing.",
+      "source": "fixture"
+    }
+  ],
+  "site:linkedin.com/company frozen mixed vegetables Poland importer": [
+    {
+      "title": "GreenHarvest Foods | LinkedIn",
+      "url": "https://www.linkedin.com/company/greenharvestfoods",
+      "snippet": "GreenHarvest Foods supports private-label frozen food distribution in Poland.",
+      "source": "fixture"
+    },
+    {
+      "title": "Baltic Frozen Trade | LinkedIn",
+      "url": "https://www.linkedin.com/company/baltic-frozen-trade",
+      "snippet": "Baltic Frozen Trade serves import and retail sourcing teams in Central Europe.",
+      "source": "fixture"
+    }
+  ],
+  "frozen mixed vegetables Poland importer \"retail\"": [
+    {
+      "title": "GreenHarvest Foods retail focus",
+      "url": "https://greenharvestfoods.com/retail",
+      "snippet": "Retail and private label frozen vegetable solutions for supermarket chains.",
+      "source": "fixture"
+    }
+  ]
+}

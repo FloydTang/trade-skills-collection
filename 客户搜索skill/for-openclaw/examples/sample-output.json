@@ -1,0 +1,146 @@
+{
+  "summary": {
+    "product_or_offer": "washed linen table textile",
+    "target_market": "Germany",
+    "customer_type": "brand",
+    "queries": [
+      "washed linen table textile Germany brand",
+      "table linen brand Germany importer distributor brand buyer",
+      "site:linkedin.com/company washed linen table textile Germany brand",
+      "washed linen table textile Germany brand \"design\""
+    ],
+    "raw_result_count": 7,
+    "candidate_count": 4
+  },
+  "candidates": [
+    {
+      "candidate_id": "candidate-001",
+      "company_name": "Atelier Loom GmbH",
+      "company_website": "https://atelier-loom.de",
+      "source_url": "https://atelier-loom.de",
+      "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
+      "country_or_market": "Germany",
+      "visible_contact_clues": [
+        "Atelier Loom",
+        "Design",
+        "Germany",
+        "Contact Mira Stein",
+        "Washed"
+      ],
+      "search_snippet": "Design-led table linen brand for premium home textile collections in Germany.",
+      "search_query_used": [
+        "washed linen table textile Germany brand",
+        "table linen brand Germany importer distributor brand buyer",
+        "washed linen table textile Germany brand \"design\"",
+        "site:linkedin.com/company washed linen table textile Germany brand"
+      ],
+      "follow_up_suggestion": "先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。",
+      "source_type": "web"
+    },
+    {
+      "candidate_id": "candidate-002",
+      "company_name": "NordHaus marketplace profile",
+      "company_website": "https://marketplace.example/nordhaus",
+      "source_url": "https://marketplace.example/nordhaus",
+      "linkedin_url": "",
+      "country_or_market": "Germany",
+      "visible_contact_clues": [
+        "Tableware"
+      ],
+      "search_snippet": "NordHaus Tableware sells premium table linen collections for retail buyers.",
+      "search_query_used": [
+        "table linen brand Germany importer distributor brand buyer"
+      ],
+      "follow_up_suggestion": "先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
+      "source_type": "web"
+    },
+    {
+      "candidate_id": "candidate-003",
+      "company_name": "NordHaus Tableware collection page",
+      "company_website": "https://nordhaus-tableware.de",
+      "source_url": "https://nordhaus-tableware.de",
+      "linkedin_url": "",
+      "country_or_market": "Germany",
+      "visible_contact_clues": [
+        "Tableware"
+      ],
+      "search_snippet": "NordHaus presents natural table linen ranges for boutique home stores.",
+      "search_query_used": [
+        "washed linen table textile Germany brand"
+      ],
+      "follow_up_suggestion": "先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
+      "source_type": "web"
+    },
+    {
+      "candidate_id": "candidate-004",
+      "company_name": "NordHaus Tableware",
+      "company_website": "",
+      "source_url": "https://www.linkedin.com/company/nordhaus-tableware",
+      "linkedin_url": "https://www.linkedin.com/company/nordhaus-tableware",
+      "country_or_market": "Germany",
+      "visible_contact_clues": [
+        "Tableware"
+      ],
+      "search_snippet": "NordHaus Tableware focuses on home tabletop collections and design buyers.",
+      "search_query_used": [
+        "site:linkedin.com/company washed linen table textile Germany brand"
+      ],
+      "follow_up_suggestion": "先补官网或公司域名，再进入线索整理。",
+      "source_type": "linkedin"
+    }
+  ],
+  "lead_screening_input": {
+    "default_country_or_market": "",
+    "operator_notes": "Prefer design-led brands.",
+    "leads": [
+      {
+        "company_name": "Atelier Loom GmbH",
+        "company_website": "https://atelier-loom.de",
+        "person_name": "Atelier Loom",
+        "email": "",
+        "country_or_market": "Germany",
+        "source_url": "https://atelier-loom.de",
+        "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
+        "notes": "Prefer design-led brands. | Design-led table linen brand for premium home textile collections in Germany. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。",
+        "product_keywords": "",
+        "source_type": "web"
+      },
+      {
+        "company_name": "NordHaus marketplace profile",
+        "company_website": "https://marketplace.example/nordhaus",
+        "person_name": "",
+        "email": "",
+        "country_or_market": "Germany",
+        "source_url": "https://marketplace.example/nordhaus",
+        "linkedin_url": "",
+        "notes": "Prefer design-led brands. | NordHaus Tableware sells premium table linen collections for retail buyers. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
+        "product_keywords": "",
+        "source_type": "web"
+      },
+      {
+        "company_name": "NordHaus Tableware collection page",
+        "company_website": "https://nordhaus-tableware.de",
+        "person_name": "",
+        "email": "",
+        "country_or_market": "Germany",
+        "source_url": "https://nordhaus-tableware.de",
+        "linkedin_url": "",
+        "notes": "Prefer design-led brands. | NordHaus presents natural table linen ranges for boutique home stores. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
+        "product_keywords": "",
+        "source_type": "web"
+      },
+      {
+        "company_name": "NordHaus Tableware",
+        "company_website": "",
+        "person_name": "",
+        "email": "",
+        "country_or_market": "Germany",
+        "source_url": "https://www.linkedin.com/company/nordhaus-tableware",
+        "linkedin_url": "https://www.linkedin.com/company/nordhaus-tableware",
+        "notes": "Prefer design-led brands. | NordHaus Tableware focuses on home tabletop collections and design buyers. | 先补官网或公司域名，再进入线索整理。",
+        "product_keywords": "",
+        "source_type": "linkedin"
+      }
+    ]
+  }
+}
