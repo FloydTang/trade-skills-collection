@@ -40,6 +40,14 @@
 - 合集目录：`开发信skill/`
 - 独立仓库：[trade-outreach-email](https://github.com/FloydTang/trade-outreach-email)
 
+### 3. 线索整理 / 初筛 Skill
+
+- 作用：把零散候选线索整理成可继续进入客户背调的标准输入
+- 当前状态：可交付
+- 适合场景：搜索结果整理、字段统一、缺失提示、初步分类
+- 合集目录：`线索整理skill/`
+- 独立仓库：[trade-lead-screening](https://github.com/FloydTang/trade-lead-screening)
+
 ## 如何选择下载方式
 
 ### 方式一：直接下载这个合集仓库
@@ -72,7 +80,7 @@
 
 如果你想体验主动开发链路，当前建议从这条路径开始：
 
-`客户背调skill -> 开发信skill`
+`线索整理skill -> 客户背调skill -> 开发信skill`
 
 后续会继续补齐：
 
@@ -135,6 +143,7 @@
 
 - `客户背调skill/`：已作为首个样板 Skill 落地，当前在母目录中保留其目录、脚本和说明，用于承接后续链路衔接与课程表达
 - `开发信skill/`：已达到“可交付”，具备本地版脚本、schema 校验、样例输入输出、回归检查、pre-release gate 和最小 `for-openclaw/` 变体
+- `线索整理skill/`：已达到“可交付”，具备字段规范化、客户背调桥接输出、schema、样例输入输出、回归检查、pre-release gate 和最小 `for-openclaw/` 变体
 - `skill需求池.md`：已明确主动开发推荐链路和当前优先级
 - `模板/`：已用于后续单节点 Skill 的立项和验收
 
@@ -150,6 +159,11 @@
 `开发信skill/` 也采用相同逻辑：
 
 - 独立仓库：`https://github.com/FloydTang/trade-outreach-email`
+- 合集仓库：保留当前阶段的稳定副本，便于用户一键下载与课程演示
+
+`线索整理skill/` 也采用相同逻辑：
+
+- 独立仓库：`https://github.com/FloydTang/trade-lead-screening`
 - 合集仓库：保留当前阶段的稳定副本，便于用户一键下载与课程演示
 
 ## 当前推送策略

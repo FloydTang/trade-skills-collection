@@ -1,0 +1,105 @@
+{
+  "summary": {
+    "total_leads": 3,
+    "ready_for_customer_intel": 2,
+    "need_enrichment": 1,
+    "manual_review": 0,
+    "operator_notes": "Prioritize leads that can move into customer intel without additional web search."
+  },
+  "leads": [
+    {
+      "lead_id": "lead-001",
+      "normalized_company_name": "Nordic Home Textile AB",
+      "normalized_person_name": "Nadia",
+      "email": "",
+      "email_domain_clue": "",
+      "company_website": "https://www.nordichometextile.example",
+      "country_or_market": "Sweden",
+      "source_url": "https://www.linkedin.com/company/nordic-home-textile-ab",
+      "linkedin_url": "",
+      "product_keywords": "linen table textile",
+      "source_type": "linkedin",
+      "lead_bucket": "website_company_partial_contact",
+      "missing_fields": [
+        "email"
+      ],
+      "manual_review_reasons": [],
+      "recommended_next_action": "enter_customer_intel",
+      "follow_up_suggestions": [
+        "如后续要开发信，可优先补公司邮箱或联系人邮箱。"
+      ],
+      "customer_intel_input": {
+        "company_name": "Nordic Home Textile AB",
+        "person_name": "Nadia",
+        "email": "",
+        "company_website": "https://www.nordichometextile.example",
+        "country_or_market": "Sweden",
+        "notes": "Found via home textile search results | Source URL: https://www.linkedin.com/company/nordic-home-textile-ab"
+      }
+    },
+    {
+      "lead_id": "lead-002",
+      "normalized_company_name": "",
+      "normalized_person_name": "",
+      "email": "purchasing@acme-industrial.com",
+      "email_domain_clue": "acme-industrial.com",
+      "company_website": "",
+      "country_or_market": "United States",
+      "source_url": "https://example.com/acme",
+      "linkedin_url": "",
+      "product_keywords": "industrial fasteners",
+      "source_type": "directory",
+      "lead_bucket": "email_only_clue",
+      "missing_fields": [
+        "company_name",
+        "company_website",
+        "person_name"
+      ],
+      "manual_review_reasons": [
+        "当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
+      ],
+      "recommended_next_action": "enrich_then_customer_intel",
+      "follow_up_suggestions": [
+        "补公司正式名称或官网标题。",
+        "先根据邮箱域名确认官网是否存在。",
+        "先处理人工复核项，再决定是否进入客户背调。"
+      ],
+      "customer_intel_input": {
+        "company_name": "",
+        "person_name": "",
+        "email": "purchasing@acme-industrial.com",
+        "company_website": "",
+        "country_or_market": "United States",
+        "notes": "Email collected from directory page | Source URL: https://example.com/acme | Review: 当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
+      }
+    },
+    {
+      "lead_id": "lead-003",
+      "normalized_company_name": "GreenHarvest Foods",
+      "normalized_person_name": "Anna",
+      "email": "anna@greenharvestfoods.com",
+      "email_domain_clue": "greenharvestfoods.com",
+      "company_website": "https://greenharvestfoods.com",
+      "country_or_market": "Poland",
+      "source_url": "https://greenharvestfoods.com/contact",
+      "linkedin_url": "https://www.linkedin.com/company/greenharvestfoods",
+      "product_keywords": "frozen vegetables",
+      "source_type": "website",
+      "lead_bucket": "website_company_full_contact",
+      "missing_fields": [],
+      "manual_review_reasons": [],
+      "recommended_next_action": "enter_customer_intel",
+      "follow_up_suggestions": [
+        "可直接进入客户背调，并在背调阶段继续核对实体匹配。"
+      ],
+      "customer_intel_input": {
+        "company_name": "GreenHarvest Foods",
+        "person_name": "Anna",
+        "email": "anna@greenharvestfoods.com",
+        "company_website": "https://greenharvestfoods.com",
+        "country_or_market": "Poland",
+        "notes": "Looks ready for background research. | Source URL: https://greenharvestfoods.com/contact | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods"
+      }
+    }
+  ]
+}

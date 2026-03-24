@@ -1,0 +1,42 @@
+{
+  "default_country_or_market": "",
+  "operator_notes": "Prioritize leads that can move into customer intel without additional web search.",
+  "leads": [
+    {
+      "company_name": "Nordic Home Textile AB",
+      "company_website": "www.nordichometextile.example",
+      "person_name": "Nadia",
+      "email": "",
+      "country_or_market": "Sweden",
+      "source_url": "https://www.linkedin.com/company/nordic-home-textile-ab",
+      "linkedin_url": "",
+      "notes": "Found via home textile search results",
+      "product_keywords": "linen table textile",
+      "source_type": "linkedin"
+    },
+    {
+      "company_name": "",
+      "company_website": "",
+      "person_name": "",
+      "email": "purchasing@acme-industrial.com",
+      "country_or_market": "United States",
+      "source_url": "https://example.com/acme",
+      "linkedin_url": "",
+      "notes": "Email collected from directory page",
+      "product_keywords": "industrial fasteners",
+      "source_type": "directory"
+    },
+    {
+      "company_name": "GreenHarvest Foods",
+      "company_website": "greenharvestfoods.com",
+      "person_name": "Anna",
+      "email": "anna@greenharvestfoods.com",
+      "country_or_market": "Poland",
+      "source_url": "https://greenharvestfoods.com/contact",
+      "linkedin_url": "https://www.linkedin.com/company/greenharvestfoods",
+      "notes": "Looks ready for background research.",
+      "product_keywords": "frozen vegetables",
+      "source_type": "website"
+    }
+  ]
+}

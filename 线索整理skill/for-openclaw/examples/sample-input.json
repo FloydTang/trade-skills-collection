@@ -1,0 +1,28 @@
+{
+  "country_or_market": "Germany",
+  "operator_notes": "Use conservative screening before sending any textile lead into customer intel.",
+  "lead_candidates": [
+    {
+      "company_name": "Atelier Loom GmbH",
+      "company_website": "atelier-loom.de",
+      "person_name": "Mira Stein",
+      "email": "mira@atelier-loom.de",
+      "source_url": "https://atelier-loom.de/about",
+      "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
+      "notes": "Premium table textile positioning.",
+      "product_keywords": "washed linen table textile",
+      "source_type": "website"
+    },
+    {
+      "company_name": "",
+      "company_website": "",
+      "person_name": "",
+      "email": "hello@gmail.com",
+      "source_url": "https://marketplace.example/nordhaus",
+      "linkedin_url": "",
+      "notes": "Marketplace listing only.",
+      "product_keywords": "table linen",
+      "source_type": "marketplace"
+    }
+  ]
+}

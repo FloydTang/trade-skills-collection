@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lead Screening Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["leads"],
+  "properties": {
+    "default_country_or_market": {
+      "type": "string"
+    },
+    "operator_notes": {
+      "type": "string"
+    },
+    "leads": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "company_name": { "type": "string" },
+          "company_website": { "type": "string" },
+          "person_name": { "type": "string" },
+          "email": { "type": "string" },
+          "country_or_market": { "type": "string" },
+          "source_url": { "type": "string" },
+          "linkedin_url": { "type": "string" },
+          "notes": { "type": "string" },
+          "product_keywords": { "type": "string" },
+          "source_type": { "type": "string" }
+        }
+      }
+    }
+  }
+}

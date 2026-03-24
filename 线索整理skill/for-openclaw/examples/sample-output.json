@@ -1,0 +1,76 @@
+{
+  "summary": {
+    "total_leads": 2,
+    "ready_for_customer_intel": 1,
+    "need_enrichment": 0,
+    "manual_review": 1,
+    "operator_notes": "Use conservative screening before sending any textile lead into customer intel."
+  },
+  "leads": [
+    {
+      "lead_id": "lead-001",
+      "normalized_company_name": "Atelier Loom GmbH",
+      "normalized_person_name": "Mira Stein",
+      "email": "mira@atelier-loom.de",
+      "email_domain_clue": "atelier-loom.de",
+      "company_website": "https://atelier-loom.de",
+      "country_or_market": "Germany",
+      "source_url": "https://atelier-loom.de/about",
+      "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
+      "product_keywords": "washed linen table textile",
+      "source_type": "website",
+      "lead_bucket": "website_company_full_contact",
+      "missing_fields": [],
+      "manual_review_reasons": [],
+      "recommended_next_action": "enter_customer_intel",
+      "follow_up_suggestions": [
+        "可直接进入客户背调，并在背调阶段继续核对实体匹配。"
+      ],
+      "customer_intel_input": {
+        "company_name": "Atelier Loom GmbH",
+        "person_name": "Mira Stein",
+        "email": "mira@atelier-loom.de",
+        "company_website": "https://atelier-loom.de",
+        "country_or_market": "Germany",
+        "notes": "Premium table textile positioning. | Source URL: https://atelier-loom.de/about | LinkedIn URL: https://www.linkedin.com/company/atelier-loom"
+      }
+    },
+    {
+      "lead_id": "lead-002",
+      "normalized_company_name": "",
+      "normalized_person_name": "",
+      "email": "hello@gmail.com",
+      "email_domain_clue": "gmail.com",
+      "company_website": "",
+      "country_or_market": "Germany",
+      "source_url": "https://marketplace.example/nordhaus",
+      "linkedin_url": "",
+      "product_keywords": "table linen",
+      "source_type": "marketplace",
+      "lead_bucket": "email_only_clue",
+      "missing_fields": [
+        "company_name",
+        "company_website",
+        "person_name"
+      ],
+      "manual_review_reasons": [
+        "邮箱使用公共域名，不能直接当作企业身份强证据。",
+        "当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
+      ],
+      "recommended_next_action": "hold_for_manual_review",
+      "follow_up_suggestions": [
+        "补公司正式名称或官网标题。",
+        "先根据邮箱域名确认官网是否存在。",
+        "先处理人工复核项，再决定是否进入客户背调。"
+      ],
+      "customer_intel_input": {
+        "company_name": "",
+        "person_name": "",
+        "email": "hello@gmail.com",
+        "company_website": "",
+        "country_or_market": "Germany",
+        "notes": "Marketplace listing only. | Source URL: https://marketplace.example/nordhaus | Review: 邮箱使用公共域名，不能直接当作企业身份强证据。；当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
+      }
+    }
+  ]
+}
