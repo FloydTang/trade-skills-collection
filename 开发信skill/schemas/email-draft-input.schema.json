@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/trade-outreach-email/email-draft-input.schema.json",
+  "title": "Trade Outreach Email Input",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "email_type",
+    "customer_name",
+    "company_name",
+    "product_or_offer",
+    "goal"
+  ],
+  "properties": {
+    "email_type": {
+      "type": "string",
+      "enum": ["first_touch", "follow_up"],
+      "description": "邮件场景类型。"
+    },
+    "customer_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "客户联系人名；未知时不要伪造。"
+    },
+    "company_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "客户公司名。"
+    },
+    "product_or_offer": {
+      "type": "string",
+      "minLength": 1,
+      "description": "你的产品、品类或解决方案。"
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "description": "本封邮件的业务目标，建议写成一句可执行动作。"
+    },
+    "country_or_market": {
+      "type": "string",
+      "description": "客户所在国家或目标市场，可为空。"
+    },
+    "customer_profile_summary": {
+      "type": "string",
+      "description": "来自公开资料或已确认输入的客户画像摘要。"
+    },
+    "previous_contact_context": {
+      "type": "string",
+      "description": "仅用于 follow_up 的历史沟通背景。"
+    },
+    "tone": {
+      "type": "string",
+      "description": "语气标签，例如 professional,warm。"
+    },
+    "sender_name": {
+      "type": "string",
+      "description": "发件人姓名。"
+    },
+    "sender_company": {
+      "type": "string",
+      "description": "发件人公司名。"
+    },
+    "signature": {
+      "type": "string",
+      "description": "完整签名；为空时脚本会自动拼默认签名。"
+    },
+    "constraints": {
+      "type": "string",
+      "description": "额外写作约束。"
+    },
+    "source_context": {
+      "type": "object",
+      "description": "桥接场景下的来源上下文，不直接进入邮件正文。",
+      "additionalProperties": true
+    }
+  }
+}

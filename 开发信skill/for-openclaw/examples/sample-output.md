@@ -1,0 +1,61 @@
+# Email Draft Package
+
+## Scenario
+- Email Type: Follow Up
+- Goal: follow up on our catalog sharing and ask whether selected fabric swatches would be useful for review
+
+## Subject Options
+1. Following Up on Washed Linen Table Textile Collections for Nordic Home Textile AB
+2. Checking Whether Washed Linen Table Textile Collections Samples Would Help
+
+## Draft Version A
+Dear Nadia,
+
+I hope you have been well since my last email.
+
+I wanted to follow up regarding our earlier note about washed linen table textile collections and see whether it may be relevant for Nordic Home Textile AB. In my last message, I shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.
+
+I wanted to check in specifically about our catalog sharing and ask whether selected fabric swatches would be useful for review.
+
+If useful, I can resend the key product details and prepare sample information for your review.
+
+Please let me know whether it would be helpful for me to send the next details or samples.
+
+Best regards,
+Mia
+Hangzhou LinenCraft Textiles
+
+## Draft Version B
+Dear Nadia,
+
+I hope you have been well since my last email.
+
+I am following up on washed linen table textile collections. Last time, I shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.
+
+If this is still relevant for your team, I would be glad to send the next details.
+
+Please let me know whether it would be helpful for me to send the next details or samples.
+
+Best regards,
+Mia
+Hangzhou LinenCraft Textiles
+
+## Review Notes
+- 建议人工复核后发送，不要把未确认信息直接写成既定事实。
+- 邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。
+- 跟进内容引用了历史沟通背景，请确认时间点、附件和表达与实际一致。
+- 已应用输入约束：Keep the follow-up soft and design-oriented.
+
+## Input Signals Used
+- email_type: follow_up
+- customer_name: Nadia
+- company_name: Nordic Home Textile AB
+- product_or_offer: washed linen table textile collections
+- goal: follow up on our catalog sharing and ask whether selected fabric swatches would be useful for review
+- country_or_market: Sweden
+- customer_profile_summary: Brand appears focused on Scandinavian home textile collections with natural material positioning.
+- previous_contact_context: We shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.
+- tone: professional,warm
+- sender_name: Mia
+- sender_company: Hangzhou LinenCraft Textiles
+- constraints: Keep the follow-up soft and design-oriented.

@@ -1,0 +1,3 @@
+[submodule "客户背调skill"]
+	path = 客户背调skill
+	url = https://github.com/FloydTang/trade-customer-intel.git

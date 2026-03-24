@@ -1,0 +1,15 @@
+{
+  "email_type": "first_touch",
+  "customer_name": "Anna",
+  "company_name": "Acme Foods",
+  "product_or_offer": "frozen mixed vegetables",
+  "goal": "introduce our factory and ask whether they are open to new suppliers",
+  "country_or_market": "Poland",
+  "customer_profile_summary": "Company website shows private-label frozen food focus in EU retail.",
+  "previous_contact_context": "",
+  "tone": "professional,warm",
+  "sender_name": "Leo",
+  "sender_company": "Ningbo FreshGrow Foods",
+  "signature": "Best regards,\nLeo\nNingbo FreshGrow Foods",
+  "constraints": "Keep the email concise and avoid hard selling."
+}

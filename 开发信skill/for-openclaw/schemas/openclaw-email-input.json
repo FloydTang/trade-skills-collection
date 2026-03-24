@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/trade-outreach-email/for-openclaw/openclaw-email-input.json",
+  "title": "OpenClaw Outreach Email Input",
+  "type": "object",
+  "required": ["operator_input", "public_context"],
+  "additionalProperties": true,
+  "properties": {
+    "operator_input": {
+      "type": "object",
+      "required": [
+        "email_type",
+        "customer_name",
+        "company_name",
+        "product_or_offer",
+        "goal"
+      ],
+      "additionalProperties": true
+    },
+    "public_context": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

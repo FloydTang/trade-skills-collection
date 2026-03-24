@@ -1,0 +1,21 @@
+{
+  "email_type": "first_touch",
+  "customer_name": "Anna",
+  "company_name": "Acme Foods",
+  "product_or_offer": "frozen mixed vegetables",
+  "goal": "introduce our offer with a relevant angle: Lead with private-label support and stable frozen vegetable specifications relevant to retail programs.",
+  "country_or_market": "Poland",
+  "customer_profile_summary": "Company appears focused on private-label frozen food products for EU retail channels.",
+  "previous_contact_context": "",
+  "tone": "professional,conservative",
+  "sender_name": "Leo",
+  "sender_company": "Ningbo FreshGrow Foods",
+  "signature": "",
+  "constraints": "Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent.",
+  "source_context": {
+    "risk_rating": "Medium",
+    "entity_confidence": "medium",
+    "ambiguity_notes": [],
+    "recommended_sales_angle_en": "Lead with private-label support and stable frozen vegetable specifications relevant to retail programs."
+  }
+}

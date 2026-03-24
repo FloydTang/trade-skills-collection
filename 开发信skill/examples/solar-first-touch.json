@@ -1,0 +1,15 @@
+{
+  "email_type": "first_touch",
+  "customer_name": "Carlos",
+  "company_name": "SunGrid Solutions",
+  "product_or_offer": "residential hybrid inverter systems",
+  "goal": "introduce our manufacturing capability and ask whether they are open to reviewing a new supplier option",
+  "country_or_market": "Chile",
+  "customer_profile_summary": "Company appears active in residential solar distribution and installer support.",
+  "previous_contact_context": "",
+  "tone": "professional,clear",
+  "sender_name": "Ivy",
+  "sender_company": "Shenzhen PowerNest Energy",
+  "signature": "Best regards,\nIvy\nShenzhen PowerNest Energy",
+  "constraints": "Keep the wording practical and avoid sounding too technical."
+}

@@ -1,0 +1,97 @@
+{
+  "summary_cn": "当前线索更像是 Acme Foods。公开网络足迹主要集中在 linkedin, web。建议优先围绕其公开业务方向切入，再决定是否进入深度样品沟通。",
+  "summary_en": "The lead most likely maps to Acme Foods. The strongest public footprint appears on linkedin and general web results. Lead with a relevant business angle grounded in public evidence before moving to pricing or sample discussions.",
+  "missing_input_fields": [],
+  "identity_snapshot": {
+    "company_name": "Acme Foods",
+    "person_name": "Anna",
+    "email": "anna@acmefoods.example",
+    "email_domain": "acmefoods.example",
+    "website": "https://www.acmefoods.example",
+    "country_or_market": "Poland",
+    "entity_confidence": "medium",
+    "ambiguity_notes": []
+  },
+  "company_profile": {
+    "apparent_business": "Company appears focused on private-label frozen food products for EU retail channels.",
+    "website_quality": "basic",
+    "social_presence_overview": "识别到 2 个主要公开平台线索。",
+    "team_or_scale_clues": "可从官网和 LinkedIn 页面进一步补充。"
+  },
+  "digital_footprint": [
+    {
+      "platform": "linkedin",
+      "url": "https://linkedin.com/company/acme-foods",
+      "confidence": "medium",
+      "activity": "medium",
+      "notes": "Company page located."
+    }
+  ],
+  "interest_signals": [
+    {
+      "title": "private label",
+      "why_it_matters": "May indicate OEM or customized packaging relevance.",
+      "confidence": "medium"
+    }
+  ],
+  "sales_angles": [
+    {
+      "cn": "可从其零售渠道和自有品牌支持切入，强调稳定规格与配合度。",
+      "en": "Lead with private-label support and stable frozen vegetable specifications relevant to retail programs.",
+      "why": "This angle aligns with the apparent business profile.",
+      "avoid": "Avoid claiming confirmed sourcing demand."
+    }
+  ],
+  "risk_rating": "Medium",
+  "risk_reasons": [
+    "官网和 LinkedIn 存在，但公开信息仍有限。"
+  ],
+  "phase_2_status": "generated",
+  "outreach_persona_card": {
+    "themes": [
+      {
+        "title": "private-label frozen food",
+        "confidence": "medium",
+        "evidence": [
+          "Company profile summary"
+        ]
+      }
+    ],
+    "communication_style": [
+      "Likely B2B-oriented and product-focused."
+    ],
+    "recommended_angles": [
+      "Keep the message concise and commercially relevant."
+    ]
+  },
+  "personalized_outreach_pack": {
+    "opening_angles": [
+      {
+        "cn": "围绕其自有品牌冷冻食品方向切入。",
+        "en": "Reference possible private-label frozen food relevance carefully.",
+        "evidence": [
+          "Company profile summary"
+        ]
+      }
+    ],
+    "first_message_en": [
+      "We noticed your apparent focus on private-label frozen food lines and thought our product range may be relevant."
+    ],
+    "follow_up_en": [
+      "I wanted to follow up in case private-label frozen vegetable support is still relevant."
+    ],
+    "avoid_points": [
+      "Do not imply confirmed purchasing plans."
+    ]
+  },
+  "evidence": [
+    {
+      "title": "Acme Foods website",
+      "url": "https://www.acmefoods.example",
+      "source_type": "web",
+      "note": "Basic company description."
+    }
+  ],
+  "notes": null,
+  "generated_at": "2026-03-24T00:00:00+00:00"
+}

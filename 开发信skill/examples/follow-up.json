@@ -1,0 +1,15 @@
+{
+  "email_type": "follow_up",
+  "customer_name": "Michael",
+  "company_name": "Blue Harbor Imports",
+  "product_or_offer": "stainless steel kitchenware",
+  "goal": "follow up on our earlier introduction and ask whether samples would be useful",
+  "country_or_market": "Canada",
+  "customer_profile_summary": "Distributor focused on household product lines for regional retailers.",
+  "previous_contact_context": "We shared our catalog last week and introduced our OEM support.",
+  "tone": "professional,helpful",
+  "sender_name": "Sophie",
+  "sender_company": "Taizhou HomePro Manufacturing",
+  "signature": "Best regards,\nSophie\nTaizhou HomePro Manufacturing",
+  "constraints": "Avoid sounding pushy and keep the follow-up short."
+}
