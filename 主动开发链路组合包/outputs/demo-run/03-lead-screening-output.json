@@ -1,0 +1,105 @@
+{
+  "summary": {
+    "total_leads": 3,
+    "ready_for_customer_intel": 2,
+    "need_enrichment": 1,
+    "manual_review": 0,
+    "operator_notes": "Prefer companies that look ready for private-label frozen food sourcing."
+  },
+  "leads": [
+    {
+      "lead_id": "lead-001",
+      "normalized_company_name": "Baltic Frozen Trade",
+      "normalized_person_name": "",
+      "email": "",
+      "email_domain_clue": "",
+      "company_website": "https://balticfrozentrade.pl",
+      "country_or_market": "Poland",
+      "source_url": "https://balticfrozentrade.pl",
+      "linkedin_url": "https://www.linkedin.com/company/baltic-frozen-trade",
+      "product_keywords": "",
+      "source_type": "web",
+      "lead_bucket": "website_company_basic",
+      "missing_fields": [
+        "person_name",
+        "email"
+      ],
+      "manual_review_reasons": [],
+      "recommended_next_action": "enrich_then_customer_intel",
+      "follow_up_suggestions": [
+        "如后续要开发信，可优先补公司邮箱或联系人邮箱。"
+      ],
+      "customer_intel_input": {
+        "company_name": "Baltic Frozen Trade",
+        "person_name": "",
+        "email": "",
+        "company_website": "https://balticfrozentrade.pl",
+        "country_or_market": "Poland",
+        "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Supplier and importer of frozen vegetables and fruit for private label retail in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Source URL: https://balticfrozentrade.pl | LinkedIn URL: https://www.linkedin.com/company/baltic-frozen-trade"
+      }
+    },
+    {
+      "lead_id": "lead-002",
+      "normalized_company_name": "GreenHarvest Foods",
+      "normalized_person_name": "",
+      "email": "anna@greenharvestfoods.com",
+      "email_domain_clue": "greenharvestfoods.com",
+      "company_website": "https://greenharvestfoods.com",
+      "country_or_market": "Poland",
+      "source_url": "https://greenharvestfoods.com",
+      "linkedin_url": "https://www.linkedin.com/company/greenharvestfoods",
+      "product_keywords": "",
+      "source_type": "web",
+      "lead_bucket": "website_company_partial_contact",
+      "missing_fields": [
+        "person_name"
+      ],
+      "manual_review_reasons": [],
+      "recommended_next_action": "enter_customer_intel",
+      "follow_up_suggestions": [
+        "可直接进入客户背调，并在背调阶段继续核对实体匹配。"
+      ],
+      "customer_intel_input": {
+        "company_name": "GreenHarvest Foods",
+        "person_name": "",
+        "email": "anna@greenharvestfoods.com",
+        "company_website": "https://greenharvestfoods.com",
+        "country_or_market": "Poland",
+        "notes": "Prefer companies that look ready for private-label frozen food sourcing. | GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Source URL: https://greenharvestfoods.com | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods"
+      }
+    },
+    {
+      "lead_id": "lead-003",
+      "normalized_company_name": "PolFood Sourcing directory profile",
+      "normalized_person_name": "Anna Kowalska",
+      "email": "",
+      "email_domain_clue": "",
+      "company_website": "https://directory.example/polfood-sourcing",
+      "country_or_market": "Poland",
+      "source_url": "https://directory.example/polfood-sourcing",
+      "linkedin_url": "",
+      "product_keywords": "",
+      "source_type": "web",
+      "lead_bucket": "website_company_partial_contact",
+      "missing_fields": [
+        "email"
+      ],
+      "manual_review_reasons": [
+        "公司名与官网域名对应关系较弱，建议人工确认主体匹配。"
+      ],
+      "recommended_next_action": "enter_customer_intel",
+      "follow_up_suggestions": [
+        "如后续要开发信，可优先补公司邮箱或联系人邮箱。",
+        "先处理人工复核项，再决定是否进入客户背调。"
+      ],
+      "customer_intel_input": {
+        "company_name": "PolFood Sourcing directory profile",
+        "person_name": "Anna Kowalska",
+        "email": "",
+        "company_website": "https://directory.example/polfood-sourcing",
+        "country_or_market": "Poland",
+        "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。 | Source URL: https://directory.example/polfood-sourcing | Review: 公司名与官网域名对应关系较弱，建议人工确认主体匹配。"
+      }
+    }
+  ]
+}

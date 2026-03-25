@@ -1,0 +1,112 @@
+{
+  "summary_cn": "当前线索更像是 GreenHarvest Foods。公开线索主要集中在官网联系页与 LinkedIn 公司页，现阶段更适合先用保守的一封首轮开发信验证对方是否有进一步沟通意愿。",
+  "summary_en": "The lead most likely maps to GreenHarvest Foods. The strongest public footprint appears on the company website and LinkedIn company page. Use a conservative first-touch email before moving to pricing, MOQ, or sample discussions.",
+  "missing_input_fields": [],
+  "identity_snapshot": {
+    "company_name": "GreenHarvest Foods",
+    "person_name": "Anna",
+    "email": "anna@greenharvestfoods.com",
+    "email_domain": "greenharvestfoods.com",
+    "website": "https://greenharvestfoods.com",
+    "country_or_market": "Poland",
+    "entity_confidence": "medium",
+    "ambiguity_notes": []
+  },
+  "company_profile": {
+    "apparent_business": "Company appears focused on imported frozen vegetables and private-label frozen food programs for the Poland market.",
+    "website_quality": "basic",
+    "social_presence_overview": "识别到官网联系页与 LinkedIn 公司页两类主要公开线索。",
+    "team_or_scale_clues": "可在后续人工复核时继续补充团队规模、采购角色与分销渠道线索。"
+  },
+  "digital_footprint": [
+    {
+      "platform": "website",
+      "url": "https://greenharvestfoods.com/contact",
+      "confidence": "medium",
+      "activity": "medium",
+      "notes": "Contact page shows company contact pathway."
+    },
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/company/greenharvestfoods",
+      "confidence": "medium",
+      "activity": "medium",
+      "notes": "Company page located."
+    }
+  ],
+  "interest_signals": [
+    {
+      "title": "private label",
+      "why_it_matters": "May indicate OEM or customized frozen vegetable supply relevance.",
+      "confidence": "medium"
+    }
+  ],
+  "sales_angles": [
+    {
+      "cn": "可从其 private label 冷冻食品方向切入，强调稳定规格、包装配合与基础供货能力。",
+      "en": "Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+      "why": "This angle aligns with the apparent business profile and avoids overclaiming demand.",
+      "avoid": "Avoid claiming confirmed sourcing demand, pricing readiness, or purchase intent."
+    }
+  ],
+  "risk_rating": "Medium",
+  "risk_reasons": [
+    "官网和 LinkedIn 线索基本一致，但公开细节仍有限。",
+    "当前仍需人工确认采购角色与实际产品匹配度。"
+  ],
+  "phase_2_status": "generated",
+  "outreach_persona_card": {
+    "themes": [
+      {
+        "title": "private-label frozen vegetables",
+        "confidence": "medium",
+        "evidence": [
+          "Company profile summary",
+          "Website and LinkedIn footprint"
+        ]
+      }
+    ],
+    "communication_style": [
+      "Likely B2B-oriented and product-focused."
+    ],
+    "recommended_angles": [
+      "Keep the message concise and commercially relevant."
+    ]
+  },
+  "personalized_outreach_pack": {
+    "opening_angles": [
+      {
+        "cn": "围绕其 private label 冷冻蔬菜方向保守切入。",
+        "en": "Reference possible private-label frozen vegetable relevance carefully.",
+        "evidence": [
+          "Company profile summary"
+        ]
+      }
+    ],
+    "first_message_en": [
+      "We noticed your apparent focus on imported frozen vegetables and thought our product range may be relevant."
+    ],
+    "follow_up_en": [
+      "I wanted to follow up in case private-label frozen vegetable support is still relevant."
+    ],
+    "avoid_points": [
+      "Do not imply confirmed purchasing plans."
+    ]
+  },
+  "evidence": [
+    {
+      "title": "GreenHarvest Foods contact page",
+      "url": "https://greenharvestfoods.com/contact",
+      "source_type": "web",
+      "note": "Public contact page with company contact clues."
+    },
+    {
+      "title": "GreenHarvest Foods LinkedIn company page",
+      "url": "https://www.linkedin.com/company/greenharvestfoods",
+      "source_type": "linkedin",
+      "note": "Public company page."
+    }
+  ],
+  "notes": "这是组合包首版的稳定背调 fixture，用于课程演示和本地闭环验证，不表示实时联网抓取结果。",
+  "generated_at": "2026-03-25T00:00:00+08:00"
+}

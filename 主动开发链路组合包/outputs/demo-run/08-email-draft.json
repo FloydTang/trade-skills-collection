@@ -1,0 +1,33 @@
+{
+  "scenario": {
+    "email_type": "first_touch",
+    "goal": "introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs."
+  },
+  "subject_options": [
+    "Frozen Mixed Vegetables Supply for GreenHarvest Foods",
+    "Possible Support for GreenHarvest Foods' Frozen Mixed Vegetables Needs"
+  ],
+  "drafts": {
+    "version_a": "Dear Anna,\n\nI hope you are doing well.\n\nI am reaching out from Ningbo FreshGrow Foods regarding our frozen mixed vegetables and the possibility of supporting GreenHarvest Foods. We understand your team is active in the Poland market. Based on the profile information provided, your business appears relevant to this offer.\n\nOur purpose is simple: introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.\n\nIf appropriate, I can share a brief product overview, standard specifications, and a starting point for discussion.\n\nPlease let me know if you would be open to a short exchange on this.\n\nBest regards,\nLeo\nNingbo FreshGrow Foods",
+    "version_b": "Dear Anna,\n\nI hope you are doing well.\n\nI am contacting you about frozen mixed vegetables and would like to introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.\n\nIf this is relevant for your team, I would be glad to share the next details.\n\nPlease let me know if you would be open to a short exchange on this.\n\nBest regards,\nLeo\nNingbo FreshGrow Foods"
+  },
+  "review_notes": [
+    "建议人工复核后发送，不要把未确认信息直接写成既定事实。",
+    "邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。",
+    "若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。",
+    "已应用输入约束：Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent."
+  ],
+  "input_signals_used": [
+    "email_type: first_touch",
+    "customer_name: Anna",
+    "company_name: GreenHarvest Foods",
+    "product_or_offer: frozen mixed vegetables",
+    "goal: introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+    "country_or_market: Poland",
+    "customer_profile_summary: Company appears focused on imported frozen vegetables and private-label frozen food programs for the Poland market.",
+    "tone: professional,conservative",
+    "sender_name: Leo",
+    "sender_company: Ningbo FreshGrow Foods",
+    "constraints: Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent."
+  ]
+}
