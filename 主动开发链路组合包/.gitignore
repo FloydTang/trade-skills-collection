@@ -1,0 +1,5 @@
+# Keep the stable sample output, ignore ad-hoc local runs.
+outputs/*
+!outputs/README.md
+!outputs/demo-run/
+!outputs/demo-run/**

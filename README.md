@@ -22,6 +22,27 @@
 2. 再看“如何选择下载方式”
 3. 最后再看“发布结构”和“方法论”
 
+## Quick Start
+
+如果你想先把当前主动开发闭环跑起来，直接在母目录执行：
+
+```bash
+python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
+```
+
+跑完后优先看这几个文件：
+
+- `主动开发链路组合包/outputs/demo-run/03-lead-screening-output.md`
+- `主动开发链路组合包/outputs/demo-run/05-selected-customer-intel-input.json`
+- `主动开发链路组合包/outputs/demo-run/06-customer-intel-report.json`
+- `主动开发链路组合包/outputs/demo-run/08-email-draft.md`
+
+如果你想先做一次公开仓库自检，执行：
+
+```bash
+python3 ./主动开发链路组合包/scripts/run_regression_checks.py
+```
+
 ## 当前可直接使用的 Skill / 组合包
 
 ### 1. 主动开发最小闭环链路组合包
