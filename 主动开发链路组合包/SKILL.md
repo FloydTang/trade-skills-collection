@@ -17,6 +17,12 @@ description: Run a minimal active-outreach workflow by reusing four existing for
 - 保留每一步中间产物，方便复核、教学和排错
 - 让公开仓库用户更容易理解这 4 个节点如何衔接
 
+当前边界：
+
+- 当前只围绕这 4 个已完成节点运行
+- 不把母目录里其他占位目录默认视为当前可调用链路的一部分
+- 当前优先目标是把这 4 个节点持续测试、验证和修补稳定
+
 ## Standard Input
 
 这个组合包当前优先使用固定样例模式。
