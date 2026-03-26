@@ -23,6 +23,7 @@
 
 如果你希望给 OpenClaw、Codex 或其他 agent 一个最直接的安装范围说明，请先看：
 
+- `OPENCLAW.md`
 - `当前推荐安装清单.md`
 
 ## 这个仓库适合谁
