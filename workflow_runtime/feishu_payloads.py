@@ -90,10 +90,10 @@ def master_table_schema() -> dict[str, Any]:
             {"name": "owner", "type": "text"},
             {"name": "next_follow_up_date", "type": "date"},
             {"name": "last_updated_at", "type": "datetime"},
-            {"name": "search_doc_url", "type": "url"},
-            {"name": "screening_table_record_url", "type": "url"},
-            {"name": "intel_doc_url", "type": "url"},
-            {"name": "email_doc_url", "type": "url"},
+            {"name": "search_asset_ref", "type": "text"},
+            {"name": "screening_asset_ref", "type": "text"},
+            {"name": "intel_asset_ref", "type": "text"},
+            {"name": "email_asset_ref", "type": "text"},
             {"name": "combo_run_id", "type": "text"},
             {"name": "asset_keys", "type": "multiline_text"},
             {"name": "failure_reason", "type": "multiline_text"},
@@ -530,10 +530,10 @@ def master_records(
                     "owner": "",
                     "next_follow_up_date": "",
                     "last_updated_at": utc_now_iso(),
-                    "search_doc_url": "",
-                    "screening_table_record_url": "",
-                    "intel_doc_url": "",
-                    "email_doc_url": "",
+                    "search_asset_ref": search_asset_key,
+                    "screening_asset_ref": screening_asset_key,
+                    "intel_asset_ref": intel_asset_key,
+                    "email_asset_ref": email_asset_key,
                     "combo_run_id": combo_run_id,
                     "asset_keys": json.dumps(
                         compact_dict(
@@ -550,4 +550,3 @@ def master_records(
             )
         )
     return records
-

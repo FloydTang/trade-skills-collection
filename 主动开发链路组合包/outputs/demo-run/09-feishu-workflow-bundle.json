@@ -3,8 +3,38 @@
     "combo_run_id": "demo-run",
     "selected_lead_id": "lead-002",
     "workflow_id": "demo-run-lead-002-greenharvest-foods",
-    "generated_at": "2026-03-27T09:59:13+00:00",
+    "generated_at": "2026-03-27T14:46:29+00:00",
     "bundle_scope": "trade-skill-collection-feishu-handoff"
+  },
+  "workspace_container": {
+    "container_type": "single_base_workspace",
+    "base_name": "Trade Lead Workflow Hub",
+    "base_reuse_policy": "reuse_existing_base_before_create",
+    "create_new_base_when_missing": true,
+    "forbid_parallel_bases_for_each_stage": true,
+    "tables": [
+      {
+        "table_name": "Lead Workflow Master",
+        "role": "master_index",
+        "bootstrap_mode": "create_if_missing_then_reuse"
+      },
+      {
+        "table_name": "Lead Discovery Results",
+        "role": "stage_table",
+        "bootstrap_mode": "create_if_missing_then_reuse"
+      },
+      {
+        "table_name": "Lead Screening Results",
+        "role": "stage_table",
+        "bootstrap_mode": "create_if_missing_then_reuse"
+      }
+    ],
+    "doc_spaces": [
+      "Customer Intel Docs",
+      "Outreach Email Docs",
+      "Run Logs",
+      "Failure Notes"
+    ]
   },
   "master_table_schema": {
     "table_name": "Lead Workflow Master",
@@ -74,20 +104,20 @@
         "type": "datetime"
       },
       {
-        "name": "search_doc_url",
-        "type": "url"
+        "name": "search_asset_ref",
+        "type": "text"
       },
       {
-        "name": "screening_table_record_url",
-        "type": "url"
+        "name": "screening_asset_ref",
+        "type": "text"
       },
       {
-        "name": "intel_doc_url",
-        "type": "url"
+        "name": "intel_asset_ref",
+        "type": "text"
       },
       {
-        "name": "email_doc_url",
-        "type": "url"
+        "name": "email_asset_ref",
+        "type": "text"
       },
       {
         "name": "combo_run_id",
@@ -107,7 +137,7 @@
     "lead_discovery": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
-        "generated_at": "2026-03-27T09:59:13+00:00",
+        "generated_at": "2026-03-27T14:46:29+00:00",
         "stage_scope": "lead_discovery_batch"
       },
       "lead_identity": null,
@@ -160,7 +190,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T09:59:13+00:00",
+            "generated_at": "2026-03-27T14:46:29+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -244,7 +274,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T09:59:13+00:00",
+            "generated_at": "2026-03-27T14:46:29+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -335,7 +365,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T09:59:13+00:00",
+            "generated_at": "2026-03-27T14:46:29+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -423,7 +453,7 @@
     "lead_screening": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
-        "generated_at": "2026-03-27T09:59:13+00:00",
+        "generated_at": "2026-03-27T14:46:29+00:00",
         "stage_scope": "lead_screening_batch"
       },
       "lead_identity": null,
@@ -469,7 +499,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T09:59:13+00:00",
+            "generated_at": "2026-03-27T14:46:29+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -558,7 +588,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T09:59:13+00:00",
+            "generated_at": "2026-03-27T14:46:29+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -649,7 +679,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T09:59:13+00:00",
+            "generated_at": "2026-03-27T14:46:29+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -908,7 +938,7 @@
       "workflow_meta": {
         "combo_run_id": "demo-run",
         "workflow_id": "demo-run-lead-002-greenharvest-foods",
-        "generated_at": "2026-03-27T09:59:13+00:00"
+        "generated_at": "2026-03-27T14:46:29+00:00"
       },
       "lead_identity": {
         "lead_id": "lead-002",
@@ -1023,7 +1053,9 @@
       "current_stage": "lead_screening",
       "current_status": "needs_enrichment",
       "recommended_next_action": "enrich_then_customer_intel",
-      "last_updated_at": "2026-03-27T09:59:13+00:00",
+      "last_updated_at": "2026-03-27T14:46:29+00:00",
+      "search_asset_ref": "search-record:demo-run:lead-001",
+      "screening_asset_ref": "screening-record:demo-run:lead-001",
       "combo_run_id": "demo-run",
       "asset_keys": "{\"search\": \"search-record:demo-run:lead-001\", \"screening\": \"screening-record:demo-run:lead-001\"}"
     },
@@ -1039,7 +1071,11 @@
       "recommended_next_action": "enter_customer_intel",
       "risk_rating": "Medium",
       "entity_confidence": "medium",
-      "last_updated_at": "2026-03-27T09:59:13+00:00",
+      "last_updated_at": "2026-03-27T14:46:29+00:00",
+      "search_asset_ref": "search-record:demo-run:lead-002",
+      "screening_asset_ref": "screening-record:demo-run:lead-002",
+      "intel_asset_ref": "intel-doc:demo-run-lead-002-greenharvest-foods",
+      "email_asset_ref": "email-doc:demo-run-lead-002-greenharvest-foods",
       "combo_run_id": "demo-run",
       "asset_keys": "{\"search\": \"search-record:demo-run:lead-002\", \"screening\": \"screening-record:demo-run:lead-002\", \"intel\": \"intel-doc:demo-run-lead-002-greenharvest-foods\", \"email\": \"email-doc:demo-run-lead-002-greenharvest-foods\"}"
     },
@@ -1053,14 +1089,19 @@
       "current_stage": "lead_screening",
       "current_status": "waiting_selection",
       "recommended_next_action": "enter_customer_intel",
-      "last_updated_at": "2026-03-27T09:59:13+00:00",
+      "last_updated_at": "2026-03-27T14:46:29+00:00",
+      "search_asset_ref": "search-record:demo-run:lead-003",
+      "screening_asset_ref": "screening-record:demo-run:lead-003",
       "combo_run_id": "demo-run",
       "asset_keys": "{\"search\": \"search-record:demo-run:lead-003\", \"screening\": \"screening-record:demo-run:lead-003\"}"
     }
   ],
   "openclaw_handoff": {
     "execution_order": [
+      "create_or_open_workspace_base",
+      "create_or_open_required_tables",
       "create_or_open_master_table",
+      "resolve_or_create_master_record",
       "upsert_lead_discovery_records",
       "upsert_lead_screening_records",
       "create_or_update_customer_intel_doc_for_selected_lead",
@@ -1077,12 +1118,40 @@
       "搜索完成后写主表 current_stage=lead_discovery 或 lead_screening。",
       "recommended_next_action=enter_customer_intel 但未被本轮选中时，current_status=waiting_selection。",
       "recommended_next_action=enrich_then_customer_intel 时，不创建背调文档。",
-      "开发信草稿完成后，主表 current_stage=outreach_email, current_status=draft_ready。"
+      "开发信草稿完成后，主表 current_stage=outreach_email, current_status=draft_ready。",
+      "URL 字段不是首次试跑硬前置，主表默认写文本 asset_ref。",
+      "失败时也要回写 current_stage/current_status/failure_reason/last_updated_at。"
     ],
+    "single_skill_attach_rules": [
+      "单独跑客户背调时，也必须先查 Lead Workflow Master。",
+      "单独跑开发信时，也必须先查 Lead Workflow Master。",
+      "同一 lead 后续补跑其他节点时，优先更新原主记录。",
+      "找不到原记录时，才允许创建最小主记录。"
+    ],
+    "lead_match_policy": {
+      "primary_key": "lead_id",
+      "secondary_keys": [
+        "company_name",
+        "company_website_or_domain",
+        "email"
+      ],
+      "on_ambiguity": "write_failure_reason_and_hold_for_manual_review"
+    },
     "rerun_policy": {
       "table_records": "按 combo_run_id + lead_id upsert，避免重复插入。",
       "intel_doc": "优先复用已存在文档，再追加本次版本区块。",
-      "email_doc": "优先复用已存在文档，再追加新草稿版本。"
+      "email_doc": "优先复用已存在文档，再追加新草稿版本。",
+      "master_record": "优先复用原 lead 主记录，不新建平行 lead。"
+    },
+    "failure_writeback_policy": {
+      "always_write_master_status": true,
+      "required_fields": [
+        "current_stage",
+        "current_status",
+        "failure_reason",
+        "last_updated_at"
+      ],
+      "keep_partial_assets": true
     }
   }
 }

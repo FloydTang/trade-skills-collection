@@ -19,6 +19,32 @@
 
 当前不把母目录里其他占位目录视为本组合包的一部分，也不建议 agent 在首版运行时主动扩展到其他未完成 Skill。
 
+## 当前飞书落地原则
+
+当前 Feishu / OpenClaw 落地默认采用：
+
+- 一个主 Base
+- 多张子表
+- 主表作为唯一总索引
+- 文档按 lead 复用并追加版本
+
+不推荐的做法：
+
+- 为搜索结果单独新建一个 Base
+- 为线索整理结果再新建一个 Base
+- 单点跑客户背调或开发信时绕过主表
+
+当前推荐结构：
+
+- 主 Base：`Trade Lead Workflow Hub`
+- 子表：`Lead Workflow Master`、`Lead Discovery Results`、`Lead Screening Results`
+- 文档分区：`Customer Intel Docs`、`Outreach Email Docs`
+
+OpenClaw 第一次试跑前，建议先看：
+
+- `references/飞书留痕字段映射.md`
+- `references/OpenClaw执行规范.md`
+
 ## 当前定位
 
 - 服务课程演示，让学员看到“从搜客户到出开发信”的最小业务闭环
@@ -219,11 +245,16 @@
 - 自动发信
 - 自动回写 CRM
 
-`scripts/export_feishu_workflow_bundle.py` 的职责是：
+但当前会额外输出：
 
-- 读取已经生成好的阶段产物
-- 输出 `09-feishu-workflow-bundle.json`
-- 把主表 schema、阶段资产 payload、主表回写记录和重跑规则打包给 OpenClaw
+- `09-feishu-workflow-bundle.json`
+
+这个 bundle 的用途不是直接调用飞书 API，而是告诉 OpenClaw：
+
+- 当前应只复用 1 个主 Base
+- 当前要在这个 Base 下维护哪些子表
+- 当前如何把单点运行接入主表
+- 当前如何处理重跑、失败回写和文档复用
 
 ## 本地运行方式
 
@@ -245,46 +276,6 @@ python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py \
   --output-dir ./主动开发链路组合包/outputs/demo-20260325
 ```
-
-## 飞书 / OpenClaw 落地入口
-
-当前推荐入口不是让 OpenClaw 自己重新理解整条链路，而是：
-
-1. 先运行 `scripts/run_minimal_demo.py`
-2. 再读取 `outputs/.../09-feishu-workflow-bundle.json`
-3. 严格按 bundle 中的：
-   - `master_table_schema`
-   - `stage_assets`
-   - `master_records`
-   去创建飞书资产和回写状态
-
-当前载体约定：
-
-- 所有结构化“表”默认都用飞书多维表格
-- 所有长文本“文档”默认都用飞书云文档
-
-## 单点使用如何融合
-
-虽然这个组合包默认展示全链路，但飞书主表并不要求每条 lead 都必须从搜索阶段开始。
-
-下面这些入口都允许直接融合到同一张主表：
-
-- 外部导入客户名单
-- 人工录入一条 lead
-- 只单独跑客户背调
-- 只单独跑开发信
-
-融合原则：
-
-- 主表是总索引，不是只服务组合包
-- 同一 lead 优先复用已有主记录
-- 单点 Skill 也要回写 `current_stage`、`current_status` 和资产链接
-
-举例：
-
-- 如果只跑客户背调，就从 `customer_intel` 阶段切入主表
-- 如果只跑开发信，就从 `outreach_email` 阶段切入主表
-- 如果后续再补跑前序步骤，不是新建 lead，而是补齐同一条主记录
 
 如果希望替换邮件阶段的产品和发件信息：
 

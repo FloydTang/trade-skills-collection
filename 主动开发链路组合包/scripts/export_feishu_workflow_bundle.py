@@ -57,6 +57,36 @@ def build_bundle(output_dir: Path, combo_run_id: str, selected_lead_id: str) -> 
             "generated_at": utc_now_iso(),
             "bundle_scope": "trade-skill-collection-feishu-handoff",
         },
+        "workspace_container": {
+            "container_type": "single_base_workspace",
+            "base_name": "Trade Lead Workflow Hub",
+            "base_reuse_policy": "reuse_existing_base_before_create",
+            "create_new_base_when_missing": True,
+            "forbid_parallel_bases_for_each_stage": True,
+            "tables": [
+                {
+                    "table_name": "Lead Workflow Master",
+                    "role": "master_index",
+                    "bootstrap_mode": "create_if_missing_then_reuse",
+                },
+                {
+                    "table_name": "Lead Discovery Results",
+                    "role": "stage_table",
+                    "bootstrap_mode": "create_if_missing_then_reuse",
+                },
+                {
+                    "table_name": "Lead Screening Results",
+                    "role": "stage_table",
+                    "bootstrap_mode": "create_if_missing_then_reuse",
+                },
+            ],
+            "doc_spaces": [
+                "Customer Intel Docs",
+                "Outreach Email Docs",
+                "Run Logs",
+                "Failure Notes",
+            ],
+        },
         "master_table_schema": master_table_schema(),
         "stage_assets": {
             "lead_discovery": search_payload,
@@ -74,7 +104,10 @@ def build_bundle(output_dir: Path, combo_run_id: str, selected_lead_id: str) -> 
         ),
         "openclaw_handoff": {
             "execution_order": [
+                "create_or_open_workspace_base",
+                "create_or_open_required_tables",
                 "create_or_open_master_table",
+                "resolve_or_create_master_record",
                 "upsert_lead_discovery_records",
                 "upsert_lead_screening_records",
                 "create_or_update_customer_intel_doc_for_selected_lead",
@@ -92,11 +125,39 @@ def build_bundle(output_dir: Path, combo_run_id: str, selected_lead_id: str) -> 
                 "recommended_next_action=enter_customer_intel 但未被本轮选中时，current_status=waiting_selection。",
                 "recommended_next_action=enrich_then_customer_intel 时，不创建背调文档。",
                 "开发信草稿完成后，主表 current_stage=outreach_email, current_status=draft_ready。",
+                "URL 字段不是首次试跑硬前置，主表默认写文本 asset_ref。",
+                "失败时也要回写 current_stage/current_status/failure_reason/last_updated_at。",
             ],
+            "single_skill_attach_rules": [
+                "单独跑客户背调时，也必须先查 Lead Workflow Master。",
+                "单独跑开发信时，也必须先查 Lead Workflow Master。",
+                "同一 lead 后续补跑其他节点时，优先更新原主记录。",
+                "找不到原记录时，才允许创建最小主记录。",
+            ],
+            "lead_match_policy": {
+                "primary_key": "lead_id",
+                "secondary_keys": [
+                    "company_name",
+                    "company_website_or_domain",
+                    "email",
+                ],
+                "on_ambiguity": "write_failure_reason_and_hold_for_manual_review",
+            },
             "rerun_policy": {
                 "table_records": "按 combo_run_id + lead_id upsert，避免重复插入。",
                 "intel_doc": "优先复用已存在文档，再追加本次版本区块。",
                 "email_doc": "优先复用已存在文档，再追加新草稿版本。",
+                "master_record": "优先复用原 lead 主记录，不新建平行 lead。",
+            },
+            "failure_writeback_policy": {
+                "always_write_master_status": True,
+                "required_fields": [
+                    "current_stage",
+                    "current_status",
+                    "failure_reason",
+                    "last_updated_at",
+                ],
+                "keep_partial_assets": True,
             },
         },
     }
