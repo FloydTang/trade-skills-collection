@@ -62,6 +62,28 @@ python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 ```
 
+如果你准备让龙虾 / OpenClaw 在飞书里落表和落文档，跑完 demo 后再看：
+
+- `主动开发链路组合包/outputs/demo-run/09-feishu-workflow-bundle.json`
+- `主动开发链路组合包/references/飞书留痕字段映射.md`
+
+## 给 OpenClaw 的推荐阅读顺序
+
+如果你的目标是让 OpenClaw 直接从开源仓库学习，而不是靠聊天记录理解，推荐按下面顺序读：
+
+1. 先读 `OPENCLAW.md`
+2. 再读 `主动开发链路组合包/README.md`
+3. 再读 `主动开发链路组合包/references/飞书留痕字段映射.md`
+4. 再看 `主动开发链路组合包/scripts/run_minimal_demo.py`
+5. 最后按需看四个单点 Skill 的 README 和 `scripts/build_feishu_stage_payload.py`
+
+这套顺序的目的：
+
+- 先锁安装范围
+- 再锁组合包的主流程
+- 再锁飞书主表、阶段资产和回写规则
+- 最后才进入单点 Skill 的细节
+
 ## 当前可直接使用的 Skill / 组合包
 
 说明：
@@ -155,6 +177,38 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 后续会继续补齐：
 
 `客户搜索 / 线索发现 -> 线索整理 / 初筛 -> 客户背调 -> 开发信 -> 跟进优先级 / 客户管理`
+
+## 单点使用与主表融合
+
+`Lead Workflow Master` 的定位不是“只能记录全链路组合包运行”，而是“所有线索在当前外贸工作流中的总索引表”。
+
+这意味着：
+
+- 可以从全链路进入主表
+- 也可以从单点 Skill 直接进入主表
+- 外部导入、人工录入、展会名单、老客户表都可以接入同一张主表
+
+推荐 `source_stage` 取值：
+
+- `lead_discovery`
+- `lead_screening`
+- `customer_intel`
+- `outreach_email`
+- `external_import`
+- `manual_entry`
+
+典型情况：
+
+- 如果今天你只单独跑客户背调，那么先创建或更新主表记录，再挂客户背调文档，`current_stage=customer_intel`
+- 如果今天你只单独跑开发信，那么先创建或更新主表记录，再挂开发信文档，`current_stage=outreach_email`
+- 如果后续再补跑前序或后序节点，不是新建平行 lead，而是回到同一条主记录继续补字段和资产链接
+
+推荐的主记录合并顺序：
+
+1. `email` 完全一致
+2. `company_name + company_website` 基本一致
+3. `company_name + person_name` 高度一致
+4. 如果仍不确定，再人工确认是否合并
 
 ## 发布结构
 

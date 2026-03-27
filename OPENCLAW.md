@@ -45,6 +45,33 @@ python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 ```
 
+6. 如果要在飞书里真正落地，再继续读：
+   - `主动开发链路组合包/outputs/demo-run/09-feishu-workflow-bundle.json`
+   - `主动开发链路组合包/references/飞书留痕字段映射.md`
+
+## 给 OpenClaw 的推荐理解顺序
+
+推荐按这个顺序理解当前仓库：
+
+1. 先确认当前只安装 4 个节点 Skill + 1 个组合包
+2. 把 `主动开发链路组合包` 当成主入口
+3. 先跑 demo，再看 `09-feishu-workflow-bundle.json`
+4. 再根据 `飞书留痕字段映射.md` 去建主表、阶段表和阶段文档
+5. 最后才回看四个单点 Skill 的阶段导出脚本
+
+不要一上来就先扫所有子目录，也不要先自己设计飞书表结构。
+
+## 单点使用约束
+
+当前主表 `Lead Workflow Master` 不只接受全链路组合包结果，也接受单点 Skill 的结果。
+
+OpenClaw 在处理单点使用时应遵守：
+
+- 单独跑客户背调时，也要先创建或更新主表记录
+- 单独跑开发信时，也要先创建或更新主表记录
+- `source_stage` 可以是 `customer_intel`、`outreach_email`、`external_import` 或 `manual_entry`
+- 后续如果同一 lead 再跑其他节点，应优先更新原主记录，而不是新建平行记录
+
 ## 对 OpenClaw 的明确约束
 
 - 不要把仓库里所有 `*skill/` 目录都加入当前安装列表

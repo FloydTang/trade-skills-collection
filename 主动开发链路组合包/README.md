@@ -204,6 +204,7 @@
 当前提供：
 
 - `scripts/run_minimal_demo.py`
+- `scripts/export_feishu_workflow_bundle.py`
 
 这个脚本的职责是：
 
@@ -217,6 +218,12 @@
 - 做复杂多代理编排
 - 自动发信
 - 自动回写 CRM
+
+`scripts/export_feishu_workflow_bundle.py` 的职责是：
+
+- 读取已经生成好的阶段产物
+- 输出 `09-feishu-workflow-bundle.json`
+- 把主表 schema、阶段资产 payload、主表回写记录和重跑规则打包给 OpenClaw
 
 ## 本地运行方式
 
@@ -238,6 +245,41 @@ python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py \
   --output-dir ./主动开发链路组合包/outputs/demo-20260325
 ```
+
+## 飞书 / OpenClaw 落地入口
+
+当前推荐入口不是让 OpenClaw 自己重新理解整条链路，而是：
+
+1. 先运行 `scripts/run_minimal_demo.py`
+2. 再读取 `outputs/.../09-feishu-workflow-bundle.json`
+3. 严格按 bundle 中的：
+   - `master_table_schema`
+   - `stage_assets`
+   - `master_records`
+   去创建飞书资产和回写状态
+
+## 单点使用如何融合
+
+虽然这个组合包默认展示全链路，但飞书主表并不要求每条 lead 都必须从搜索阶段开始。
+
+下面这些入口都允许直接融合到同一张主表：
+
+- 外部导入客户名单
+- 人工录入一条 lead
+- 只单独跑客户背调
+- 只单独跑开发信
+
+融合原则：
+
+- 主表是总索引，不是只服务组合包
+- 同一 lead 优先复用已有主记录
+- 单点 Skill 也要回写 `current_stage`、`current_status` 和资产链接
+
+举例：
+
+- 如果只跑客户背调，就从 `customer_intel` 阶段切入主表
+- 如果只跑开发信，就从 `outreach_email` 阶段切入主表
+- 如果后续再补跑前序步骤，不是新建 lead，而是补齐同一条主记录
 
 如果希望替换邮件阶段的产品和发件信息：
 
