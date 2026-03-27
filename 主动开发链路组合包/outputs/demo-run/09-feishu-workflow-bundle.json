@@ -3,7 +3,7 @@
     "combo_run_id": "demo-run",
     "selected_lead_id": "lead-002",
     "workflow_id": "demo-run-lead-002-greenharvest-foods",
-    "generated_at": "2026-03-27T14:46:29+00:00",
+    "generated_at": "2026-03-27T13:52:22+00:00",
     "bundle_scope": "trade-skill-collection-feishu-handoff"
   },
   "workspace_container": {
@@ -137,7 +137,7 @@
     "lead_discovery": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
-        "generated_at": "2026-03-27T14:46:29+00:00",
+        "generated_at": "2026-03-27T13:52:22+00:00",
         "stage_scope": "lead_discovery_batch"
       },
       "lead_identity": null,
@@ -190,7 +190,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T14:46:29+00:00",
+            "generated_at": "2026-03-27T13:52:22+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -274,7 +274,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T14:46:29+00:00",
+            "generated_at": "2026-03-27T13:52:22+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -365,7 +365,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T14:46:29+00:00",
+            "generated_at": "2026-03-27T13:52:22+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -453,7 +453,7 @@
     "lead_screening": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
-        "generated_at": "2026-03-27T14:46:29+00:00",
+        "generated_at": "2026-03-27T13:52:22+00:00",
         "stage_scope": "lead_screening_batch"
       },
       "lead_identity": null,
@@ -499,7 +499,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T14:46:29+00:00",
+            "generated_at": "2026-03-27T13:52:22+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -588,7 +588,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T14:46:29+00:00",
+            "generated_at": "2026-03-27T13:52:22+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -679,7 +679,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-03-27T14:46:29+00:00",
+            "generated_at": "2026-03-27T13:52:22+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -938,7 +938,7 @@
       "workflow_meta": {
         "combo_run_id": "demo-run",
         "workflow_id": "demo-run-lead-002-greenharvest-foods",
-        "generated_at": "2026-03-27T14:46:29+00:00"
+        "generated_at": "2026-03-27T13:52:22+00:00"
       },
       "lead_identity": {
         "lead_id": "lead-002",
@@ -1053,7 +1053,7 @@
       "current_stage": "lead_screening",
       "current_status": "needs_enrichment",
       "recommended_next_action": "enrich_then_customer_intel",
-      "last_updated_at": "2026-03-27T14:46:29+00:00",
+      "last_updated_at": "2026-03-27T13:52:22+00:00",
       "search_asset_ref": "search-record:demo-run:lead-001",
       "screening_asset_ref": "screening-record:demo-run:lead-001",
       "combo_run_id": "demo-run",
@@ -1071,7 +1071,7 @@
       "recommended_next_action": "enter_customer_intel",
       "risk_rating": "Medium",
       "entity_confidence": "medium",
-      "last_updated_at": "2026-03-27T14:46:29+00:00",
+      "last_updated_at": "2026-03-27T13:52:22+00:00",
       "search_asset_ref": "search-record:demo-run:lead-002",
       "screening_asset_ref": "screening-record:demo-run:lead-002",
       "intel_asset_ref": "intel-doc:demo-run-lead-002-greenharvest-foods",
@@ -1089,7 +1089,7 @@
       "current_stage": "lead_screening",
       "current_status": "waiting_selection",
       "recommended_next_action": "enter_customer_intel",
-      "last_updated_at": "2026-03-27T14:46:29+00:00",
+      "last_updated_at": "2026-03-27T13:52:22+00:00",
       "search_asset_ref": "search-record:demo-run:lead-003",
       "screening_asset_ref": "screening-record:demo-run:lead-003",
       "combo_run_id": "demo-run",
