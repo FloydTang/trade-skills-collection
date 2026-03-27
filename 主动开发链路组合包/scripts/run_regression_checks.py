@@ -26,6 +26,7 @@ EXPECTED_OUTPUTS = [
     "07-email-input.json",
     "08-email-draft.json",
     "08-email-draft.md",
+    "09-feishu-workflow-bundle.json",
 ]
 
 
@@ -84,6 +85,55 @@ def assert_email_artifacts(output_dir: Path) -> None:
         raise SystemExit("Email draft markdown does not mention the expected company.")
 
 
+def assert_feishu_bundle(output_dir: Path) -> None:
+    bundle = load_json(output_dir / "09-feishu-workflow-bundle.json")
+    workspace_container = bundle.get("workspace_container") or {}
+    stage_assets = bundle.get("stage_assets") or {}
+    master_records = bundle.get("master_records") or []
+    handoff = bundle.get("openclaw_handoff") or {}
+
+    required_stages = {"lead_discovery", "lead_screening", "customer_intel", "outreach_email"}
+    if set(stage_assets) != required_stages:
+        raise SystemExit("Feishu bundle is missing one or more stage assets.")
+    if len(master_records) != 3:
+        raise SystemExit("Feishu master records should include all 3 demo leads.")
+    if workspace_container.get("container_type") != "single_base_workspace":
+        raise SystemExit("Feishu bundle should declare a single-base workspace container.")
+    if not workspace_container.get("forbid_parallel_bases_for_each_stage"):
+        raise SystemExit("Feishu bundle should explicitly forbid creating parallel bases for each stage.")
+
+    table_names = {item.get("table_name") for item in workspace_container.get("tables") or []}
+    if table_names != {"Lead Workflow Master", "Lead Discovery Results", "Lead Screening Results"}:
+        raise SystemExit("Workspace container is missing one or more required Feishu tables.")
+
+    selected = next((item for item in master_records if item.get("lead_id") == "lead-002"), None)
+    if not selected:
+        raise SystemExit("Selected lead is missing from Feishu master records.")
+    if selected.get("current_stage") != "outreach_email" or selected.get("current_status") != "draft_ready":
+        raise SystemExit("Selected lead did not progress to outreach_email/draft_ready in the master records.")
+    if "search_asset_ref" not in selected or "intel_asset_ref" not in selected or "email_asset_ref" not in selected:
+        raise SystemExit("Master records should use text asset_ref fields instead of URL-only fields.")
+
+    enrich_lead = next((item for item in master_records if item.get("lead_id") == "lead-001"), None)
+    if not enrich_lead:
+        raise SystemExit("Lead requiring enrichment is missing from Feishu master records.")
+    asset_keys = json.loads(enrich_lead.get("asset_keys", "{}"))
+    if "intel" in asset_keys or "email" in asset_keys:
+        raise SystemExit("Lead-001 should not receive intel/email assets before enrichment.")
+    if enrich_lead.get("search_asset_ref") != "search-record:demo-run:lead-001":
+        raise SystemExit("Lead-001 search_asset_ref should point to the stable search asset key.")
+
+    failure_policy = handoff.get("failure_writeback_policy") or {}
+    rerun_policy = handoff.get("rerun_policy") or {}
+    attach_rules = handoff.get("single_skill_attach_rules") or []
+    if not failure_policy.get("always_write_master_status"):
+        raise SystemExit("Feishu bundle should require master writeback even when stage execution fails.")
+    if "master_record" not in rerun_policy:
+        raise SystemExit("Feishu bundle rerun policy should describe master-record reuse.")
+    if len(attach_rules) < 3:
+        raise SystemExit("Feishu bundle should describe how single-skill runs attach back to the master table.")
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory(prefix="trade-skill-combo-check-") as temp_dir:
         output_dir = Path(temp_dir) / "demo"
@@ -91,6 +141,7 @@ def main() -> None:
         assert_outputs_exist(output_dir)
         assert_selected_lead_matches_fixture(output_dir)
         assert_email_artifacts(output_dir)
+        assert_feishu_bundle(output_dir)
 
     print("Combo package regression checks passed.")
 

@@ -20,26 +20,34 @@
 - `竞品监控skill`
 - `跟进优先级skill`
 - `展会线索筛选skill`
+- `GitHub开源发现自动化`
 - 其他后续新增的占位目录
 
 原因：
 
 - 这些目录当前主要用于需求占位、方向规划或后续开发
+- `GitHub开源发现自动化` 是内部发现与评审工作流，不是业务节点 Skill
 - 当前维护重点只放在前述 4 个已完成节点和 1 个组合包
 
 ## 当前推荐安装顺序
 
 1. 先读 `当前推荐安装清单.md`
 2. 再读 `主动开发链路组合包/README.md`
-3. 优先理解或安装这 4 个节点：
+3. 再读：
+   `主动开发链路组合包/references/飞书留痕字段映射.md`
+4. 再读：
+   `主动开发链路组合包/references/OpenClaw执行规范.md`
+5. 再读：
+   `主动开发链路组合包/references/OpenClaw首跑检查清单.md`
+6. 优先理解或安装这 4 个节点：
    `客户搜索skill`、`线索整理skill`、`客户背调skill`、`开发信skill`
-4. 运行：
+7. 运行：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 ```
 
-5. 如需自检，再运行：
+8. 如需自检，再运行：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_regression_checks.py
@@ -50,6 +58,8 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 - 不要把仓库里所有 `*skill/` 目录都加入当前安装列表
 - 不要把占位目录当作当前主产品
 - 当前优先目标是持续测试、验证和修补这条主动开发主链路
+- 当前飞书落地默认只允许使用一个主 Base，不要为各阶段分别创建新的多维表格
+- 单点运行也必须先接 `Lead Workflow Master`
 
 ## 当前最稳的理解方式
 

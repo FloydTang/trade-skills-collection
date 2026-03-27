@@ -20,6 +20,23 @@ OpenClaw 版的目标不同：
 - 优先保证失败可降级、输出可持续生成
 - 继续保留原版报告结构和保守风控原则
 
+## Feishu 接入约束
+
+如果这个节点接入飞书工作流，默认不是“直接生成一篇新文档就结束”。
+
+固定要求：
+
+- 先查主 Base
+- 再查 `Lead Workflow Master`
+- 先定位原 lead 主记录，再决定是否继续生成背调文档
+- 仅当 lead 已被选中进入背调时，才创建或更新客户背调文档
+- 已有客户背调文档时，优先复用原文档并追加版本，不新建平行文档
+
+推荐先读：
+
+- `../../主动开发链路组合包/references/OpenClaw执行规范.md`
+- `../../主动开发链路组合包/references/OpenClaw首跑检查清单.md`
+
 ## Runtime Model
 
 OpenClaw 版采用“两段式”流程：
@@ -101,6 +118,7 @@ The OpenClaw skill should search in this order:
 - Missing full-page text is acceptable; snippet-only analysis is allowed
 - LinkedIn failures should be recorded, not treated as overall fatal errors
 - Weak evidence must remain weak in the report
+- 如果飞书回写部分失败，也要继续回写主表 `failure_reason`
 
 ## Output Contract
 
