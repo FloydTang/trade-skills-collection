@@ -12,12 +12,17 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 PACKAGE_ROOT = SCRIPT_DIR.parent
 WORKSPACE_ROOT = PACKAGE_ROOT.parent
+if str(WORKSPACE_ROOT) not in sys.path:
+    sys.path.insert(0, str(WORKSPACE_ROOT))
 
 SEARCH_SKILL = WORKSPACE_ROOT / "客户搜索skill"
 SCREENING_SKILL = WORKSPACE_ROOT / "线索整理skill"
 EMAIL_SKILL = WORKSPACE_ROOT / "开发信skill"
 
 PACKAGE_EXAMPLES = PACKAGE_ROOT / "examples"
+
+from workflow_runtime.feishu_payloads import dump_json
+from export_feishu_workflow_bundle import build_bundle
 
 
 def run_python(args: list[str]) -> None:
@@ -94,6 +99,16 @@ def parse_args() -> argparse.Namespace:
         "--sender-company",
         default="Ningbo FreshGrow Foods",
         help="Sender company for the email stage.",
+    )
+    parser.add_argument(
+        "--combo-run-id",
+        default="demo-run",
+        help="Stable combo run identifier for Feishu/OpenClaw payload exports.",
+    )
+    parser.add_argument(
+        "--skip-feishu-export",
+        action="store_true",
+        help="Skip exporting the Feishu/OpenClaw workflow bundle.",
     )
     return parser.parse_args()
 
@@ -192,6 +207,10 @@ def main() -> None:
             str(email_json_path),
         ]
     )
+
+    if not args.skip_feishu_export:
+        feishu_bundle = build_bundle(output_dir, args.combo_run_id, args.selected_lead_id)
+        dump_json(feishu_bundle, output_dir / "09-feishu-workflow-bundle.json")
 
     print(f"Demo outputs generated in: {output_dir}")
     print("Current customer-intel stage uses the combo package fixture for stable demonstration.")

@@ -26,6 +26,7 @@ EXPECTED_OUTPUTS = [
     "07-email-input.json",
     "08-email-draft.json",
     "08-email-draft.md",
+    "09-feishu-workflow-bundle.json",
 ]
 
 
@@ -84,6 +85,31 @@ def assert_email_artifacts(output_dir: Path) -> None:
         raise SystemExit("Email draft markdown does not mention the expected company.")
 
 
+def assert_feishu_bundle(output_dir: Path) -> None:
+    bundle = load_json(output_dir / "09-feishu-workflow-bundle.json")
+    stage_assets = bundle.get("stage_assets") or {}
+    master_records = bundle.get("master_records") or []
+
+    required_stages = {"lead_discovery", "lead_screening", "customer_intel", "outreach_email"}
+    if set(stage_assets) != required_stages:
+        raise SystemExit("Feishu bundle is missing one or more stage assets.")
+    if len(master_records) != 3:
+        raise SystemExit("Feishu master records should include all 3 demo leads.")
+
+    selected = next((item for item in master_records if item.get("lead_id") == "lead-002"), None)
+    if not selected:
+        raise SystemExit("Selected lead is missing from Feishu master records.")
+    if selected.get("current_stage") != "outreach_email" or selected.get("current_status") != "draft_ready":
+        raise SystemExit("Selected lead did not progress to outreach_email/draft_ready in the master records.")
+
+    enrich_lead = next((item for item in master_records if item.get("lead_id") == "lead-001"), None)
+    if not enrich_lead:
+        raise SystemExit("Lead requiring enrichment is missing from Feishu master records.")
+    asset_keys = json.loads(enrich_lead.get("asset_keys", "{}"))
+    if "intel" in asset_keys or "email" in asset_keys:
+        raise SystemExit("Lead-001 should not receive intel/email assets before enrichment.")
+
+
 def main() -> None:
     with tempfile.TemporaryDirectory(prefix="trade-skill-combo-check-") as temp_dir:
         output_dir = Path(temp_dir) / "demo"
@@ -91,6 +117,7 @@ def main() -> None:
         assert_outputs_exist(output_dir)
         assert_selected_lead_matches_fixture(output_dir)
         assert_email_artifacts(output_dir)
+        assert_feishu_bundle(output_dir)
 
     print("Combo package regression checks passed.")
 
