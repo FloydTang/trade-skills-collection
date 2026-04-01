@@ -54,20 +54,22 @@
    `主动开发链路组合包/references/OpenClaw执行规范.md`
 5. 再读：
    `主动开发链路组合包/references/OpenClaw首跑检查清单.md`
-6. 如需让龙虾直接拿到更完整的增强安装词、多代理词和飞书留痕词，先打开飞书增强入口并复制主代理总增强执行词：
+6. 开源版本身就可以单独使用，能完成当前最小可用功能。
+7. 如果你想在龙虾 / OpenClaw 中获得更精致、更完整的使用体验，建议按下面流程直接复制增强执行词：
    `https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d`
-7. 如果链接打不开，请通过 `https://evenbetter.tech` 联系半斤九两科技。
-8. 如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，可跳转：
+8. 如果链接打不开，先确认你使用的是和半斤九两科技会员群绑定的飞书账号登录。
+9. 如果你有半斤九两科技沟通过的执行包用户链接，也可以优先使用。
+10. 如果暂时还没有绑定过，或者还没有账号，可跳转：
    [evenbetter.tech](https://evenbetter.tech)
-9. 再理解 4 个运行依赖节点：
+11. 再理解 4 个运行依赖节点：
    `客户搜索skill`、`线索整理skill`、`客户背调skill`、`开发信skill`
-10. 运行：
+12. 运行：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 ```
 
-11. 如需自检，再运行：
+13. 如需自检，再运行：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_regression_checks.py
