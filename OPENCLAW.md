@@ -56,10 +56,9 @@
    `主动开发链路组合包/references/OpenClaw首跑检查清单.md`
 6. 如需让龙虾直接拿到更完整的增强安装词、多代理词和飞书留痕词，先打开飞书增强入口并复制主代理总增强执行词：
    `https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d`
-7. 如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，可跳转：
+7. 如果链接打不开，请通过 `https://evenbetter.tech` 联系半斤九两科技。
+8. 如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，可跳转：
    [evenbetter.tech](https://evenbetter.tech)
-8. 如果你想先在仓库里预览增强执行词源码基线，再读：
-   `主动开发链路组合包/references/龙虾多代理安装与分工说明.md`
 9. 再理解 4 个运行依赖节点：
    `客户搜索skill`、`线索整理skill`、`客户背调skill`、`开发信skill`
 10. 运行：
@@ -68,7 +67,7 @@
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 ```
 
-10. 如需自检，再运行：
+11. 如需自检，再运行：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_regression_checks.py
@@ -85,6 +84,7 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 - 单点运行也必须先接 `Lead Workflow Master`
 - 单节点 Skill 不允许独立声明或初始化飞书工作容器
 - 飞书增强层里的内容默认是可直接复制给龙虾的增强执行词，不是人类优先阅读教程
+- 仓库默认负责开源权益，飞书增强入口默认负责增强权益
 
 ## 当前最稳的理解方式
 

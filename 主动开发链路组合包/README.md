@@ -71,19 +71,11 @@ OpenClaw 第一次试跑前，建议先看：
 
 - [飞书增强入口](https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d)
 
-如果链接打不开，请使用登记在半斤九两群里的飞书账号打开。
+如果链接打不开，请通过 [evenbetter.tech](https://evenbetter.tech) 联系半斤九两科技。
 
-如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，可跳转：
+如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，也可直接跳转：
 
 - [evenbetter.tech](https://evenbetter.tech)
-
-如果你想先在仓库里预览对应源码基线，再看：
-
-- `references/00-主代理总增强执行词.md`
-- `references/01-客户搜索子代理增强执行词.md`
-- `references/02-线索整理子代理增强执行词.md`
-- `references/03-客户背调子代理增强执行词.md`
-- `references/04-开发信子代理增强执行词.md`
 
 ## 当前定位
 
