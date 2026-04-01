@@ -139,8 +139,9 @@ python3 ./scripts/run_pre_release_gate.py
 
 如果你要在龙虾多代理模式里使用这个节点，优先看：
 
-- `../主动开发链路组合包/references/龙虾多代理安装与分工说明.md`
-- `../主动开发链路组合包/references/04-开发信子代理增强执行词.md`
+- 仓库内安装范围说明：`../OPENCLAW.md`
+- 当前推荐安装顺序：`../当前推荐安装清单.md`
+- 飞书增强入口：`https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d`
 
 ## 作者
 
