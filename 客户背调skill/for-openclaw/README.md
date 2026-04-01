@@ -31,6 +31,8 @@ OpenClaw 版的目标不同：
 - 先定位原 lead 主记录，再决定是否继续生成背调文档
 - 仅当 lead 已被选中进入背调时，才创建或更新客户背调文档
 - 已有客户背调文档时，优先复用原文档并追加版本，不新建平行文档
+- 当前角色固定为 `stage_worker`
+- `feishu_container_creation = forbidden`
 
 推荐先读：
 

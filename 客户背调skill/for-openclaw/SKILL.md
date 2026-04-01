@@ -1,6 +1,12 @@
 ---
 name: trade-customer-intel-for-openclaw
 description: OpenClaw-native version of Trade Customer Intel. Use coze-web-search for search, scrapling-official for primary page extraction, and coze-web-fetch as fallback. Generate a bilingual, evidence-backed customer intelligence report from a structured evidence bundle.
+openclaw_role: stage_worker
+workspace_owner_skill: trade-active-outreach-combo
+single_skill_policy: attach_only
+feishu_container_creation: forbidden
+requires_master_base: true
+requires_master_record: true
 ---
 
 # Trade Customer Intel for OpenClaw
@@ -110,3 +116,9 @@ python3 ./scripts/build_customer_intel_report_from_evidence.py \
 - This skill is parallel to the classic version; it does not replace it
 - The classic version remains the baseline for comparison
 - This version optimizes for cloud stability and controlled tool orchestration
+
+## Feishu Runtime Contract
+
+- 当前角色固定为 `stage_worker`
+- 默认只允许附着到 `Trade Lead Workflow Hub`
+- 不允许独立创建 Base、主表或平行工作容器

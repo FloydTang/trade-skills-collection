@@ -4,6 +4,21 @@
 
 - 当 OpenClaw 或其他 agent 扫描这个仓库时，明确当前应该优先安装什么
 
+## 当前推荐安装结构
+
+当前推荐不是“5 个并列入口”，而是“1 个安装归口 + 4 个运行依赖”。
+
+### 安装归口入口
+
+- `主动开发链路组合包`
+
+### 运行依赖节点
+
+- `客户搜索skill`
+- `线索整理skill`
+- `客户背调skill`
+- `开发信skill`
+
 ## 当前只建议安装这 5 项
 
 - `客户搜索skill`
@@ -39,15 +54,21 @@
    `主动开发链路组合包/references/OpenClaw执行规范.md`
 5. 再读：
    `主动开发链路组合包/references/OpenClaw首跑检查清单.md`
-6. 优先理解或安装这 4 个节点：
+6. 如需让龙虾直接拿到更完整的增强安装词、多代理词和飞书留痕词，先打开飞书增强入口并复制主代理总增强执行词：
+   `https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d`
+7. 如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，可跳转：
+   [evenbetter.tech](https://evenbetter.tech)
+8. 如果你想先在仓库里预览增强执行词源码基线，再读：
+   `主动开发链路组合包/references/龙虾多代理安装与分工说明.md`
+9. 再理解 4 个运行依赖节点：
    `客户搜索skill`、`线索整理skill`、`客户背调skill`、`开发信skill`
-7. 运行：
+10. 运行：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 ```
 
-8. 如需自检，再运行：
+10. 如需自检，再运行：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_regression_checks.py
@@ -58,8 +79,12 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 - 不要把仓库里所有 `*skill/` 目录都加入当前安装列表
 - 不要把占位目录当作当前主产品
 - 当前优先目标是持续测试、验证和修补这条主动开发主链路
+- 当前 OpenClaw 安装入口默认只有 `主动开发链路组合包`
+- 4 个单节点 Skill 是 stage worker，不是平级安装归口
 - 当前飞书落地默认只允许使用一个主 Base，不要为各阶段分别创建新的多维表格
 - 单点运行也必须先接 `Lead Workflow Master`
+- 单节点 Skill 不允许独立声明或初始化飞书工作容器
+- 飞书增强层里的内容默认是可直接复制给龙虾的增强执行词，不是人类优先阅读教程
 
 ## 当前最稳的理解方式
 

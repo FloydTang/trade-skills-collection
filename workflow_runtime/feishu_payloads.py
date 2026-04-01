@@ -39,6 +39,29 @@ def compact_dict(data: dict[str, Any]) -> dict[str, Any]:
     return {key: value for key, value in data.items() if value not in ("", None, [], {})}
 
 
+WORKSPACE_OWNER_SKILL = "trade-active-outreach-combo"
+
+STAGE_WORKER_SKILLS = {
+    "lead_discovery": "trade-lead-discovery-openclaw",
+    "lead_screening": "trade-lead-screening-openclaw",
+    "customer_intel": "trade-customer-intel-for-openclaw",
+    "outreach_email": "trade-outreach-email-for-openclaw",
+}
+
+
+def stage_runtime_contract(stage_name: str) -> dict[str, Any]:
+    return {
+        "workspace_owner_skill": WORKSPACE_OWNER_SKILL,
+        "stage_worker_skill": STAGE_WORKER_SKILLS[stage_name],
+        "role": "stage_worker",
+        "single_skill_attach_only": True,
+        "feishu_container_creation": "forbidden",
+        "requires_master_base": True,
+        "requires_master_record": True,
+        "forbid_stage_level_base_bootstrap": True,
+    }
+
+
 def heading_block(text: str, level: int = 1) -> dict[str, Any]:
     return {"type": "heading", "level": level, "text": text}
 
@@ -186,6 +209,7 @@ def search_stage_payload(report: dict[str, Any], combo_run_id: str) -> dict[str,
             "generated_at": utc_now_iso(),
             "stage_scope": "lead_discovery_batch",
         },
+        "feishu_runtime_contract": stage_runtime_contract("lead_discovery"),
         "lead_identity": None,
         "stage_name": "lead_discovery",
         "stage_status": "completed",
@@ -283,6 +307,7 @@ def screening_stage_payload(report: dict[str, Any], combo_run_id: str) -> dict[s
             "generated_at": utc_now_iso(),
             "stage_scope": "lead_screening_batch",
         },
+        "feishu_runtime_contract": stage_runtime_contract("lead_screening"),
         "lead_identity": None,
         "stage_name": "lead_screening",
         "stage_status": "completed",
@@ -314,6 +339,7 @@ def intel_stage_payload(
             "workflow_id": workflow_id,
             "generated_at": report.get("generated_at") or utc_now_iso(),
         },
+        "feishu_runtime_contract": stage_runtime_contract("customer_intel"),
         "lead_identity": compact_dict(
             {
                 "lead_id": lead_id,
@@ -400,6 +426,7 @@ def email_stage_payload(
             "workflow_id": workflow_id,
             "generated_at": utc_now_iso(),
         },
+        "feishu_runtime_contract": stage_runtime_contract("outreach_email"),
         "lead_identity": compact_dict(
             {
                 "lead_id": lead_id,

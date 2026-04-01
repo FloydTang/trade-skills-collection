@@ -9,6 +9,17 @@ description: Find the first batch of foreign-trade prospect companies from publi
 
 用这个 Skill 把“知道大概要找哪类客户，但不会系统搜客户”的问题，变成可复用的公开搜索流程。
 
+角色定位：
+
+- `客户搜索员`
+- 负责找出第一批候选客户线索
+- 不负责深度背调、客户价值判断或开发信生成
+
+上下游关系：
+
+- 上游：产品、市场、客户类型等搜索 brief
+- 下游：`线索整理skill/`
+
 首版重点：
 
 - 用通用网页搜索发现官网、目录页、展会页和 B2B 结果
@@ -60,6 +71,8 @@ description: Find the first batch of foreign-trade prospect companies from publi
 - 必须包含 `follow_up_suggestion`
 - 必须包含可桥接到 `线索整理skill/` 的输出
 - 不能把搜索结果写成客户价值判断
+- 不能越权替代 `线索整理skill/` 做标准化初筛
+- 不能越权替代 `客户背调skill/` 做证据驱动背调
 
 ## Main Scripts
 

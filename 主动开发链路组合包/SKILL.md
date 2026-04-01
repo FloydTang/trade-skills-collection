@@ -1,6 +1,10 @@
 ---
 name: trade-active-outreach-combo
 description: Run a minimal active-outreach workflow by reusing four existing foreign-trade skills: lead discovery, lead screening, customer intel, and outreach email. Use when an operator, student, or agent user wants a conservative, reproducible end-to-end demo with visible intermediate artifacts, clear review checkpoints, and a final editable email draft.
+openclaw_role: workflow_owner
+container_owner: active_outreach_combo
+container_mode: single_base_multi_table
+single_skill_policy: attach_only
 ---
 
 # 主动开发最小闭环链路组合包
@@ -10,6 +14,18 @@ description: Run a minimal active-outreach workflow by reusing four existing for
 用这个组合包把以下 4 个已可用节点串成一条最小主动开发闭环：
 
 `客户搜索skill -> 线索整理skill -> 客户背调skill -> 开发信skill`
+
+角色定位：
+
+- `主动开发编排员`
+- 负责串联 4 个已完成节点、保留中间产物并设置人工复核点
+- 不负责重写各节点内部逻辑，也不负责假装自己是新的总 Skill
+
+编排范围：
+
+- 上游：固定样例或人工给定的搜索 brief
+- 下游：人工复核后的实际业务动作
+- 当前只编排 `客户搜索skill`、`线索整理skill`、`客户背调skill`、`开发信skill`
 
 它的目标不是替代四个单节点，也不是直接做总编排器，而是：
 
@@ -22,6 +38,17 @@ description: Run a minimal active-outreach workflow by reusing four existing for
 - 当前只围绕这 4 个已完成节点运行
 - 不把母目录里其他占位目录默认视为当前可调用链路的一部分
 - 当前优先目标是把这 4 个节点持续测试、验证和修补稳定
+
+## OpenClaw Ownership
+
+这个组合包是当前唯一允许声明飞书工作容器的 OpenClaw 入口。
+
+固定角色：
+
+- `workflow_owner`
+- 负责声明 `Trade Lead Workflow Hub`
+- 负责声明 `Lead Workflow Master`、`Lead Discovery Results`、`Lead Screening Results`
+- 负责要求单节点只以 attach 模式回挂主 Base 和主记录
 
 ## Standard Input
 
@@ -56,6 +83,8 @@ description: Run a minimal active-outreach workflow by reusing four existing for
 - 必须输出最终邮件草稿和中间桥接 JSON
 - 不能把推断写成确定事实
 - 不能把邮件草稿写成“可直接自动发送”
+- 不能复制四个节点的内部实现
+- 不能把母目录其他占位 Skill 默认纳入当前编排范围
 
 ## Main Script
 

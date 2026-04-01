@@ -1,0 +1,44 @@
+{
+  "container_owner": "active_outreach_combo",
+  "container_mode": "single_base_multi_table",
+  "single_skill_policy": "attach_only",
+  "workflow_owner": {
+    "skill_name": "trade-active-outreach-combo",
+    "role": "workflow_owner",
+    "repo_path": "主动开发链路组合包"
+  },
+  "stage_workers": [
+    {
+      "skill_name": "trade-lead-discovery-openclaw",
+      "role": "stage_worker",
+      "stage_name": "lead_discovery",
+      "feishu_container_creation": "forbidden",
+      "requires_master_base": true,
+      "requires_master_record": true
+    },
+    {
+      "skill_name": "trade-lead-screening-openclaw",
+      "role": "stage_worker",
+      "stage_name": "lead_screening",
+      "feishu_container_creation": "forbidden",
+      "requires_master_base": true,
+      "requires_master_record": true
+    },
+    {
+      "skill_name": "trade-customer-intel-for-openclaw",
+      "role": "stage_worker",
+      "stage_name": "customer_intel",
+      "feishu_container_creation": "forbidden",
+      "requires_master_base": true,
+      "requires_master_record": true
+    },
+    {
+      "skill_name": "trade-outreach-email-for-openclaw",
+      "role": "stage_worker",
+      "stage_name": "outreach_email",
+      "feishu_container_creation": "forbidden",
+      "requires_master_base": true,
+      "requires_master_record": true
+    }
+  ]
+}

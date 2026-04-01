@@ -9,6 +9,17 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
 
 用这个 Skill 把搜索阶段拿到的零散线索整理成统一格式，降低后续进入客户背调前的判断成本。
 
+角色定位：
+
+- `线索初筛员`
+- 负责把零散线索整理成可继续处理的标准输入
+- 不负责公开网页深度背调，也不负责输出外发邮件
+
+上下游关系：
+
+- 上游：`客户搜索skill/` 或人工整理的候选线索
+- 下游：`客户背调skill/`
+
 首版重点不是“自动判断客户值不值得做”，而是：
 
 - 统一字段
@@ -63,6 +74,8 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
 - 必须包含下一步动作建议
 - 必须包含兼容客户背调 Skill 的桥接字段
 - 不能把推断写成事实
+- 不能越权替代 `客户背调skill/` 输出客户情报报告
+- 不能越权替代 `开发信skill/` 生成触达文案
 
 ## Main Scripts
 

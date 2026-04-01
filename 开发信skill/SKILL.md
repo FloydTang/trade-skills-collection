@@ -9,6 +9,17 @@ description: Generate conservative, editable English outreach drafts for foreign
 
 用这个 Skill 把结构化客户信息转换成可人工修改后发送的英文邮件草稿。
 
+角色定位：
+
+- `开发信策略员`
+- 负责把上游客户信息整理成可复核、可编辑的英文触达草稿
+- 不负责自动发送，也不负责替代上游做搜索、初筛和背调
+
+上下游关系：
+
+- 上游：人工整理输入，或 `客户背调skill/` 输出的桥接结果
+- 下游：人工复核与实际发送动作
+
 首版只覆盖两个场景：
 
 - `first_touch`：首轮开发信
@@ -55,6 +66,8 @@ description: Generate conservative, editable English outreach drafts for foreign
 - 必须包含中文复核提示
 - 必须回显关键输入依据
 - 不能把不确定信息写成确定事实
+- 不能越权替代人工执行发送
+- 不能越权替代 `客户背调skill/` 编造客户事实
 
 ## Main Script
 

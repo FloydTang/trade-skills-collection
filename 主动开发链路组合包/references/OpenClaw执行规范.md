@@ -20,6 +20,7 @@ OpenClaw 执行时必须遵守：
 2. 已存在则直接复用
 3. 不存在才创建一个新的主 Base
 4. 不允许因为缺少某张子表就再创建第二个 Base
+5. 只有 `主动开发链路组合包` 允许声明或初始化这个主 Base
 
 ## Base 内固定资产
 
@@ -41,6 +42,19 @@ OpenClaw 执行时必须遵守：
 - 子表缺失时补建子表
 - 文档分区缺失时补建分区
 - 不因为单个阶段缺资产而另起一个新 Base
+
+## 安装角色分工
+
+当前 OpenClaw 固定按两层角色理解：
+
+- `workflow_owner`：`主动开发链路组合包`
+- `stage_worker`：`客户搜索skill`、`线索整理skill`、`客户背调skill`、`开发信skill`
+
+固定规则：
+
+1. `workflow_owner` 才允许 bootstrap 飞书工作容器
+2. `stage_worker` 只允许 attach 到现有主 Base 和主记录
+3. 单节点 Skill 不允许单独声明 Base、主表或平行工作容器
 
 ## 执行顺序
 

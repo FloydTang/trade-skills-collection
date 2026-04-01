@@ -1,0 +1,133 @@
+{
+  "generated_at": "2026-03-29T06:27:07+08:00",
+  "company_scope": "Allbirds",
+  "changed_page_count": 3,
+  "items": [
+    {
+      "competitor_name": "Allbirds",
+      "page_name": "Men's Tree Runner product detail page",
+      "page_type": "product_detail_page",
+      "watch_url": "https://www.allbirds.com/products/mens-tree-runners",
+      "change_types": [
+        "价格变化",
+        "页面表达变化",
+        "CTA 变化"
+      ],
+      "change_summary": "价格：`$100` -> `$80`；规格关键词：`Our best-selling shoe, the original Tree Runner is light, airy, and comfy beyond compare.` -> `Thoughtfully designed with breathable tree fiber, sugarcane cushioning, and soft Merino-wool blend lining.`；CTA 文案：`Add to Cart` -> `Add to Cart - $80`",
+      "possible_business_meaning": "疑似在调整成交门槛或清仓节奏；页面目标可能更偏向直接转化；品牌卖点表达可能在微调。",
+      "needs_manual_review": true,
+      "manual_review_reason": "涉及价格、促销或上新等高价值字段。",
+      "suggested_next_action": "人工打开页面复核价格、折扣范围和适用 SKU，并判断是否需要调整当前报价口径。",
+      "observed_at": "2026-03-29T09:30:00+08:00",
+      "focus_fields": [
+        "product_title",
+        "price",
+        "spec_keywords",
+        "cta_text"
+      ],
+      "field_changes": [
+        {
+          "field": "price",
+          "label": "价格",
+          "before": "$100",
+          "after": "$80"
+        },
+        {
+          "field": "spec_keywords",
+          "label": "规格关键词",
+          "before": "Our best-selling shoe, the original Tree Runner is light, airy, and comfy beyond compare.",
+          "after": "Thoughtfully designed with breathable tree fiber, sugarcane cushioning, and soft Merino-wool blend lining."
+        },
+        {
+          "field": "cta_text",
+          "label": "CTA 文案",
+          "before": "Add to Cart",
+          "after": "Add to Cart - $80"
+        }
+      ]
+    },
+    {
+      "competitor_name": "Allbirds",
+      "page_name": "Men's New Arrivals collection page",
+      "page_type": "new_arrivals_collection_page",
+      "watch_url": "https://www.allbirds.com/collections/mens-new-arrivals",
+      "change_types": [
+        "页面表达变化",
+        "上新变化"
+      ],
+      "change_summary": "首屏主文案：`Start the season with comfort, style, and versatility.` -> `Fresh drops for spring movement and everyday wear.`；主推产品：`Men's Dasher NZ; Men's Tree Glider; Men's Runner NZ Slip On` -> `Men's Cruiser Terralux; Men's Runner NZ Terralux; Men's Varsity Terralux`；上新标识：`New Color` -> `NEW`",
+      "possible_business_meaning": "疑似在推动新品曝光或调整当前主推款；品牌卖点表达可能在微调。",
+      "needs_manual_review": true,
+      "manual_review_reason": "涉及价格、促销或上新等高价值字段。",
+      "suggested_next_action": "人工复核新增主推款或新品系列，并判断是否要补做竞品对比备注。",
+      "observed_at": "2026-03-29T09:35:00+08:00",
+      "focus_fields": [
+        "hero_copy",
+        "featured_products",
+        "new_badge",
+        "cta_text"
+      ],
+      "field_changes": [
+        {
+          "field": "hero_copy",
+          "label": "首屏主文案",
+          "before": "Start the season with comfort, style, and versatility.",
+          "after": "Fresh drops for spring movement and everyday wear."
+        },
+        {
+          "field": "featured_products",
+          "label": "主推产品",
+          "before": "Men's Dasher NZ; Men's Tree Glider; Men's Runner NZ Slip On",
+          "after": "Men's Cruiser Terralux; Men's Runner NZ Terralux; Men's Varsity Terralux"
+        },
+        {
+          "field": "new_badge",
+          "label": "上新标识",
+          "before": "New Color",
+          "after": "NEW"
+        }
+      ]
+    },
+    {
+      "competitor_name": "Allbirds",
+      "page_name": "Allbirds homepage promo section",
+      "page_type": "homepage_promo_page",
+      "watch_url": "https://www.allbirds.com/",
+      "change_types": [
+        "促销变化",
+        "CTA 变化"
+      ],
+      "change_summary": "促销文案：`Spring Sale` -> `Put Some Spring In Your Step`；折扣文案：`Final Few` -> `Shop Men's Sale`；CTA 文案：`Shop Now` -> `Shop Men / Shop Women`",
+      "possible_business_meaning": "疑似在强化短期促销或活动转化；页面目标可能更偏向直接转化。",
+      "needs_manual_review": true,
+      "manual_review_reason": "涉及价格、促销或上新等高价值字段。",
+      "suggested_next_action": "人工打开首页或活动页复核促销入口、活动力度和主推品类，并判断是否需要同步销售或选品侧提醒。",
+      "observed_at": "2026-03-29T09:40:00+08:00",
+      "focus_fields": [
+        "promotion_copy",
+        "discount_copy",
+        "cta_text"
+      ],
+      "field_changes": [
+        {
+          "field": "promotion_copy",
+          "label": "促销文案",
+          "before": "Spring Sale",
+          "after": "Put Some Spring In Your Step"
+        },
+        {
+          "field": "discount_copy",
+          "label": "折扣文案",
+          "before": "Final Few",
+          "after": "Shop Men's Sale"
+        },
+        {
+          "field": "cta_text",
+          "label": "CTA 文案",
+          "before": "Shop Now",
+          "after": "Shop Men / Shop Women"
+        }
+      ]
+    }
+  ]
+}

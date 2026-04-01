@@ -1,0 +1,81 @@
+{
+  "market": "US direct-to-consumer footwear",
+  "product_line": "casual sneakers and seasonal campaign pages",
+  "company_scope": "Allbirds",
+  "watch_targets": [
+    {
+      "company_name": "Allbirds",
+      "page_name": "Men's Tree Runner product detail page",
+      "watch_url": "https://www.allbirds.com/products/mens-tree-runners",
+      "page_type": "product_detail_page",
+      "watch_goal": "关注产品标题、价格、规格卖点与购买 CTA 是否变化",
+      "focus_fields": [
+        {
+          "field": "product_title",
+          "why_it_matters": "标题变化通常意味着主推款命名或定位调整。"
+        },
+        {
+          "field": "price",
+          "why_it_matters": "价格变化直接影响竞品报价判断。"
+        },
+        {
+          "field": "spec_keywords",
+          "why_it_matters": "规格关键词变化可反映主卖点调整。"
+        },
+        {
+          "field": "cta_text",
+          "why_it_matters": "CTA 变化可反映页面转化目标变化。"
+        }
+      ],
+      "check_frequency": "daily"
+    },
+    {
+      "company_name": "Allbirds",
+      "page_name": "Men's New Arrivals collection page",
+      "watch_url": "https://www.allbirds.com/collections/mens-new-arrivals",
+      "page_type": "new_arrivals_collection_page",
+      "watch_goal": "关注新品标识、主推系列和集合页主文案是否变化",
+      "focus_fields": [
+        {
+          "field": "hero_copy",
+          "why_it_matters": "集合页主文案变化可能反映季节主题或主推方向变化。"
+        },
+        {
+          "field": "featured_products",
+          "why_it_matters": "主推产品变化可反映新品节奏或陈列重心调整。"
+        },
+        {
+          "field": "new_badge",
+          "why_it_matters": "NEW / New Color 等标识是上新最直接信号。"
+        },
+        {
+          "field": "cta_text",
+          "why_it_matters": "集合页 CTA 变化可反映转化导向强弱。"
+        }
+      ],
+      "check_frequency": "daily"
+    },
+    {
+      "company_name": "Allbirds",
+      "page_name": "Allbirds homepage promo section",
+      "watch_url": "https://www.allbirds.com/",
+      "page_type": "homepage_promo_page",
+      "watch_goal": "关注首页促销区的活动主文案、折扣表达和 CTA 是否变化",
+      "focus_fields": [
+        {
+          "field": "promotion_copy",
+          "why_it_matters": "促销主文案变化通常对应活动更替。"
+        },
+        {
+          "field": "discount_copy",
+          "why_it_matters": "折扣表达变化直接影响活动力度判断。"
+        },
+        {
+          "field": "cta_text",
+          "why_it_matters": "首页 CTA 变化可反映引流重点。"
+        }
+      ],
+      "check_frequency": "daily"
+    }
+  ]
+}

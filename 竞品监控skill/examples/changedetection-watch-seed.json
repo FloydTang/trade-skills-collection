@@ -1,0 +1,132 @@
+{
+  "company_scope": "Allbirds",
+  "market": "US direct-to-consumer footwear",
+  "product_line": "casual sneakers and seasonal campaign pages",
+  "tag": "竞品监控-skill-demo",
+  "watches": [
+    {
+      "title": "Allbirds / Men's Tree Runner product detail page",
+      "url": "https://www.allbirds.com/products/mens-tree-runners",
+      "tag": "竞品监控-skill-demo",
+      "fetch_backend": "html_requests",
+      "processor": "text_json_diff",
+      "check_frequency": "daily",
+      "page_type": "product_detail_page",
+      "watch_goal": "关注产品标题、价格、规格卖点与购买 CTA 是否变化",
+      "focus_fields": [
+        "product_title",
+        "price",
+        "spec_keywords",
+        "cta_text"
+      ],
+      "field_notes": [
+        {
+          "field": "product_title",
+          "why_it_matters": "标题变化通常意味着主推款命名或定位调整。"
+        },
+        {
+          "field": "price",
+          "why_it_matters": "价格变化直接影响竞品报价判断。"
+        },
+        {
+          "field": "spec_keywords",
+          "why_it_matters": "规格关键词变化可反映主卖点调整。"
+        },
+        {
+          "field": "cta_text",
+          "why_it_matters": "CTA 变化可反映页面转化目标变化。"
+        }
+      ],
+      "changedetection_setup_notes": {
+        "preferred_method": "先在 changedetection.io GUI 中手动建 watch，再按页面主内容区补 include filters。",
+        "selector_status": "未在真实 watch 中确认，当前只提供字段级校验口径，不伪造稳定 CSS 选择器。",
+        "validation_notes": [
+          "优先确认产品标题、价格、尺码区上方 CTA 是否都在同一内容块内。",
+          "如果页面有推荐商品干扰，优先通过上半屏主要商品区域缩小监控范围。"
+        ],
+        "filter_failure_action": "如果过滤失败，先放宽到页面主内容块；仍不稳定时保留整页监控并用摘要层降噪。"
+      }
+    },
+    {
+      "title": "Allbirds / Men's New Arrivals collection page",
+      "url": "https://www.allbirds.com/collections/mens-new-arrivals",
+      "tag": "竞品监控-skill-demo",
+      "fetch_backend": "html_requests",
+      "processor": "text_json_diff",
+      "check_frequency": "daily",
+      "page_type": "new_arrivals_collection_page",
+      "watch_goal": "关注新品标识、主推系列和集合页主文案是否变化",
+      "focus_fields": [
+        "hero_copy",
+        "featured_products",
+        "new_badge",
+        "cta_text"
+      ],
+      "field_notes": [
+        {
+          "field": "hero_copy",
+          "why_it_matters": "集合页主文案变化可能反映季节主题或主推方向变化。"
+        },
+        {
+          "field": "featured_products",
+          "why_it_matters": "主推产品变化可反映新品节奏或陈列重心调整。"
+        },
+        {
+          "field": "new_badge",
+          "why_it_matters": "NEW / New Color 等标识是上新最直接信号。"
+        },
+        {
+          "field": "cta_text",
+          "why_it_matters": "集合页 CTA 变化可反映转化导向强弱。"
+        }
+      ],
+      "changedetection_setup_notes": {
+        "preferred_method": "先在 changedetection.io GUI 中手动建 watch，再按页面主内容区补 include filters。",
+        "selector_status": "未在真实 watch 中确认，当前只提供字段级校验口径，不伪造稳定 CSS 选择器。",
+        "validation_notes": [
+          "优先确认集合页主标题、首屏产品卡片和 NEW 标识是否被稳定抓到。",
+          "若集合页顺序噪音过大，先缩到首屏主文案与前 4 个产品卡片。"
+        ],
+        "filter_failure_action": "如果过滤失败，先放宽到页面主内容块；仍不稳定时保留整页监控并用摘要层降噪。"
+      }
+    },
+    {
+      "title": "Allbirds / Allbirds homepage promo section",
+      "url": "https://www.allbirds.com/",
+      "tag": "竞品监控-skill-demo",
+      "fetch_backend": "html_requests",
+      "processor": "text_json_diff",
+      "check_frequency": "daily",
+      "page_type": "homepage_promo_page",
+      "watch_goal": "关注首页促销区的活动主文案、折扣表达和 CTA 是否变化",
+      "focus_fields": [
+        "promotion_copy",
+        "discount_copy",
+        "cta_text"
+      ],
+      "field_notes": [
+        {
+          "field": "promotion_copy",
+          "why_it_matters": "促销主文案变化通常对应活动更替。"
+        },
+        {
+          "field": "discount_copy",
+          "why_it_matters": "折扣表达变化直接影响活动力度判断。"
+        },
+        {
+          "field": "cta_text",
+          "why_it_matters": "首页 CTA 变化可反映引流重点。"
+        }
+      ],
+      "changedetection_setup_notes": {
+        "preferred_method": "先在 changedetection.io GUI 中手动建 watch，再按页面主内容区补 include filters。",
+        "selector_status": "未在真实 watch 中确认，当前只提供字段级校验口径，不伪造稳定 CSS 选择器。",
+        "validation_notes": [
+          "优先确认首页促销横幅或首屏活动区，不要把整个首页导航一起纳入。",
+          "如果首页轮播频繁变化，先只截促销标题、折扣文案和主 CTA。"
+        ],
+        "filter_failure_action": "如果过滤失败，先放宽到页面主内容块；仍不稳定时保留整页监控并用摘要层降噪。"
+      }
+    }
+  ]
+}

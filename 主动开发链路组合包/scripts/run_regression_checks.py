@@ -87,6 +87,7 @@ def assert_email_artifacts(output_dir: Path) -> None:
 
 def assert_feishu_bundle(output_dir: Path) -> None:
     bundle = load_json(output_dir / "09-feishu-workflow-bundle.json")
+    install_contract = bundle.get("openclaw_install_contract") or {}
     workspace_container = bundle.get("workspace_container") or {}
     stage_assets = bundle.get("stage_assets") or {}
     master_records = bundle.get("master_records") or []
@@ -101,10 +102,48 @@ def assert_feishu_bundle(output_dir: Path) -> None:
         raise SystemExit("Feishu bundle should declare a single-base workspace container.")
     if not workspace_container.get("forbid_parallel_bases_for_each_stage"):
         raise SystemExit("Feishu bundle should explicitly forbid creating parallel bases for each stage.")
+    if workspace_container.get("workspace_owner_skill") != "trade-active-outreach-combo":
+        raise SystemExit("Feishu bundle should declare the combo package as the workspace owner skill.")
+    if not workspace_container.get("single_skill_attach_only"):
+        raise SystemExit("Feishu bundle should force single-skill runs into attach-only mode.")
+    if not workspace_container.get("forbid_stage_level_base_bootstrap"):
+        raise SystemExit("Feishu bundle should forbid stage-level base bootstrap.")
+
+    if install_contract.get("container_owner") != "active_outreach_combo":
+        raise SystemExit("Install contract should declare the combo package as the container owner.")
+    if install_contract.get("container_mode") != "single_base_multi_table":
+        raise SystemExit("Install contract should declare single_base_multi_table container mode.")
+    if install_contract.get("single_skill_policy") != "attach_only":
+        raise SystemExit("Install contract should require attach_only for single-skill runs.")
+    workflow_owner = install_contract.get("workflow_owner") or {}
+    if workflow_owner.get("skill_name") != "trade-active-outreach-combo":
+        raise SystemExit("Install contract should declare trade-active-outreach-combo as workflow owner.")
+    worker_names = {item.get("skill_name") for item in install_contract.get("stage_workers") or []}
+    if worker_names != {
+        "trade-lead-discovery-openclaw",
+        "trade-lead-screening-openclaw",
+        "trade-customer-intel-for-openclaw",
+        "trade-outreach-email-for-openclaw",
+    }:
+        raise SystemExit("Install contract should enumerate all four stage workers.")
+    for worker in install_contract.get("stage_workers") or []:
+        if worker.get("feishu_container_creation") != "forbidden":
+            raise SystemExit("Stage workers must explicitly forbid Feishu container creation.")
+        if not worker.get("requires_master_base") or not worker.get("requires_master_record"):
+            raise SystemExit("Stage workers must require the master base and master record.")
 
     table_names = {item.get("table_name") for item in workspace_container.get("tables") or []}
     if table_names != {"Lead Workflow Master", "Lead Discovery Results", "Lead Screening Results"}:
         raise SystemExit("Workspace container is missing one or more required Feishu tables.")
+
+    for stage_name, payload in stage_assets.items():
+        runtime_contract = payload.get("feishu_runtime_contract") or {}
+        if runtime_contract.get("workspace_owner_skill") != "trade-active-outreach-combo":
+            raise SystemExit(f"{stage_name} payload should point back to the combo workspace owner.")
+        if runtime_contract.get("feishu_container_creation") != "forbidden":
+            raise SystemExit(f"{stage_name} payload should not imply independent container creation.")
+        if not runtime_contract.get("requires_master_base") or not runtime_contract.get("requires_master_record"):
+            raise SystemExit(f"{stage_name} payload should require the master base and master record.")
 
     selected = next((item for item in master_records if item.get("lead_id") == "lead-002"), None)
     if not selected:

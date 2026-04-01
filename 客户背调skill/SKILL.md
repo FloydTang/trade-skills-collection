@@ -9,6 +9,17 @@ description: Build bilingual, evidence-backed customer intelligence reports for 
 
 Use this skill to turn sparse lead data into a structured public-web due-diligence report for sales development. The output is bilingual where it matters: the analysis stays mainly in Chinese, while sales-facing angles include English wording your team can reuse externally.
 
+角色定位：
+
+- `客户情报分析员`
+- 负责基于公开网页证据完成客户背调与风险判断
+- 不负责批量搜客户，也不负责替代人工直接外发邮件
+
+上下游关系：
+
+- 上游：`线索整理skill/` 输出的 `customer_intel_input`，或人工提供的稀疏 lead 信息
+- 下游：`开发信skill/`
+
 This skill now supports a second-stage outreach layer. When a lead is rated `Low` or `Medium`, it should continue from background verification into conservative outreach personalization using public content from LinkedIn, Instagram, X/Twitter, and the company website.
 
 ## Workflow
@@ -84,6 +95,8 @@ EOF
 - Use `Low`, `Medium`, or `High` risk ratings only.
 - If the person match is weak, say so explicitly instead of inventing a firm personal profile.
 - Keep outreach personalization conservative. Do not invent private preferences or present weak inferences as facts.
+- Do not replace `客户搜索skill/` or `线索整理skill/` as the lead-entry stage.
+- Do not imply the final outreach draft can skip human review.
 
 ## Openclaw Integration Notes
 

@@ -21,10 +21,22 @@
 
 其他目录当前主要是需求占位、方向保留或后续规划入口，不代表已经完成、已经验收或推荐优先安装。
 
+补充一条协作边界：
+
+- 当前仓库是 `外贸skill` 的真实源；Obsidian `工具工作间/外贸skill` 是对应的展现层，不是同一路径自动等同
+
 如果你希望给 OpenClaw、Codex 或其他 agent 一个最直接的安装范围说明，请先看：
 
 - `OPENCLAW.md`
 - `当前推荐安装清单.md`
+
+如果你要给龙虾 / OpenClaw 复制完整的飞书增强安装词，优先打开：
+
+- [飞书增强入口](https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d)
+
+如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，可跳转：
+
+- [evenbetter.tech](https://evenbetter.tech)
 
 ## 这个仓库适合谁
 

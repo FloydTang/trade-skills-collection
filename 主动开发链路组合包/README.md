@@ -6,6 +6,20 @@
 
 `客户搜索skill -> 线索整理skill -> 客户背调skill -> 开发信skill`
 
+角色定位：`主动开发编排员`
+
+职责边界：
+
+- 负责串联 4 个现有节点、保留中间产物、设置人工复核点
+- 不负责重写 4 个节点内部逻辑
+- 不负责把自己包装成新的总 Skill
+
+编排关系：
+
+- 上游：固定样例或人工给定搜索 brief
+- 下游：人工确认后的实际业务动作
+- 当前只编排 `客户搜索skill`、`线索整理skill`、`客户背调skill`、`开发信skill`
+
 它不是新的大而全 Skill，也不是总编排器，而是母目录第二层的链路组合包。
 
 ## 当前重点说明
@@ -28,6 +42,12 @@
 - 主表作为唯一总索引
 - 文档按 lead 复用并追加版本
 
+当前还新增一条固定安装约束：
+
+- 只有 `主动开发链路组合包` 是 OpenClaw 的 `workflow_owner`
+- 4 个单节点 Skill 只作为 `stage_worker`
+- 单节点默认 attach 到现有主 Base，不单独 bootstrap 飞书容器
+
 不推荐的做法：
 
 - 为搜索结果单独新建一个 Base
@@ -44,6 +64,26 @@ OpenClaw 第一次试跑前，建议先看：
 
 - `references/飞书留痕字段映射.md`
 - `references/OpenClaw执行规范.md`
+- `references/openclaw-install-contract.json`
+- `references/龙虾多代理安装与分工说明.md`
+
+如果你希望让龙虾直接拿到更完整的增强安装词、多代理词和飞书留痕词，优先打开飞书增强入口并直接复制主代理总增强执行词：
+
+- [飞书增强入口](https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d)
+
+如果链接打不开，请使用登记在半斤九两群里的飞书账号打开。
+
+如果你当前还没有半斤九两科技的账号、需要联系半斤九两科技，可跳转：
+
+- [evenbetter.tech](https://evenbetter.tech)
+
+如果你想先在仓库里预览对应源码基线，再看：
+
+- `references/00-主代理总增强执行词.md`
+- `references/01-客户搜索子代理增强执行词.md`
+- `references/02-线索整理子代理增强执行词.md`
+- `references/03-客户背调子代理增强执行词.md`
+- `references/04-开发信子代理增强执行词.md`
 
 ## 当前定位
 
@@ -255,6 +295,8 @@ OpenClaw 第一次试跑前，建议先看：
 - 当前要在这个 Base 下维护哪些子表
 - 当前如何把单点运行接入主表
 - 当前如何处理重跑、失败回写和文档复用
+- 当前谁拥有飞书容器创建权
+- 当前哪些单节点只能以 attach-only 模式运行
 
 ## 本地运行方式
 

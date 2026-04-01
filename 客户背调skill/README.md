@@ -4,6 +4,19 @@
 
 An open-source Codex skill that turns sparse public-web signals into bilingual, structured customer intelligence reports for sales research, lead verification, and conservative outreach preparation.
 
+角色定位：`客户情报分析员`
+
+职责边界：
+
+- 负责公开网页证据收集、实体匹配、风险判断和情报报告生成
+- 不负责批量搜客户入口
+- 不负责替代人工直接发送外部邮件
+
+上下游关系：
+
+- 上游：`线索整理skill` 或人工提供的稀疏线索
+- 下游：`开发信skill`
+
 ## Version Strategy
 
 这个仓库现在并行维护两套版本：
@@ -155,6 +168,11 @@ EOF
 - 假设主抓取由 `scrapling-official` 提供
 - 假设抓取降级由 `coze-web-fetch` 提供
 - 假设 Python 只负责“证据驱动汇总”，不直接联网搜索
+
+如果你要在龙虾多代理模式里使用这个节点，优先看：
+
+- `../主动开发链路组合包/references/龙虾多代理安装与分工说明.md`
+- `../主动开发链路组合包/references/03-客户背调子代理增强执行词.md`
 
 ## Suggested Use Cases
 

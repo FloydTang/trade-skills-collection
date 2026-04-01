@@ -20,6 +20,8 @@
 - 搜索结果默认写入同一个 Base 下的 `Lead Discovery Results`
 - 不因为搜索阶段单独运行就新建一个新的多维表格
 - 后续进入线索整理或其他节点时，继续复用原主记录和原工作容器
+- 当前角色固定为 `stage_worker`
+- `feishu_container_creation = forbidden`
 
 推荐先读：
 

@@ -15,6 +15,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from workflow_runtime.feishu_payloads import (
+    STAGE_WORKER_SKILLS,
+    WORKSPACE_OWNER_SKILL,
     dump_json,
     email_stage_payload,
     intel_stage_payload,
@@ -56,6 +58,51 @@ def build_bundle(output_dir: Path, combo_run_id: str, selected_lead_id: str) -> 
             "workflow_id": workflow_id,
             "generated_at": utc_now_iso(),
             "bundle_scope": "trade-skill-collection-feishu-handoff",
+            "workspace_owner_skill": WORKSPACE_OWNER_SKILL,
+        },
+        "openclaw_install_contract": {
+            "container_owner": "active_outreach_combo",
+            "container_mode": "single_base_multi_table",
+            "single_skill_policy": "attach_only",
+            "workflow_owner": {
+                "skill_name": WORKSPACE_OWNER_SKILL,
+                "role": "workflow_owner",
+                "repo_path": "主动开发链路组合包",
+            },
+            "stage_workers": [
+                {
+                    "skill_name": STAGE_WORKER_SKILLS["lead_discovery"],
+                    "role": "stage_worker",
+                    "stage_name": "lead_discovery",
+                    "feishu_container_creation": "forbidden",
+                    "requires_master_base": True,
+                    "requires_master_record": True,
+                },
+                {
+                    "skill_name": STAGE_WORKER_SKILLS["lead_screening"],
+                    "role": "stage_worker",
+                    "stage_name": "lead_screening",
+                    "feishu_container_creation": "forbidden",
+                    "requires_master_base": True,
+                    "requires_master_record": True,
+                },
+                {
+                    "skill_name": STAGE_WORKER_SKILLS["customer_intel"],
+                    "role": "stage_worker",
+                    "stage_name": "customer_intel",
+                    "feishu_container_creation": "forbidden",
+                    "requires_master_base": True,
+                    "requires_master_record": True,
+                },
+                {
+                    "skill_name": STAGE_WORKER_SKILLS["outreach_email"],
+                    "role": "stage_worker",
+                    "stage_name": "outreach_email",
+                    "feishu_container_creation": "forbidden",
+                    "requires_master_base": True,
+                    "requires_master_record": True,
+                },
+            ],
         },
         "workspace_container": {
             "container_type": "single_base_workspace",
@@ -63,6 +110,9 @@ def build_bundle(output_dir: Path, combo_run_id: str, selected_lead_id: str) -> 
             "base_reuse_policy": "reuse_existing_base_before_create",
             "create_new_base_when_missing": True,
             "forbid_parallel_bases_for_each_stage": True,
+            "workspace_owner_skill": WORKSPACE_OWNER_SKILL,
+            "single_skill_attach_only": True,
+            "forbid_stage_level_base_bootstrap": True,
             "tables": [
                 {
                     "table_name": "Lead Workflow Master",
@@ -133,6 +183,11 @@ def build_bundle(output_dir: Path, combo_run_id: str, selected_lead_id: str) -> 
                 "单独跑开发信时，也必须先查 Lead Workflow Master。",
                 "同一 lead 后续补跑其他节点时，优先更新原主记录。",
                 "找不到原记录时，才允许创建最小主记录。",
+            ],
+            "workflow_owner_rules": [
+                "只有主动开发链路组合包允许声明或初始化飞书工作容器。",
+                "单节点 Skill 只允许产出阶段 payload，不允许独立创建 Base 或主表。",
+                "OpenClaw 安装入口默认先识别 workflow_owner，再加载 stage_worker。",
             ],
             "lead_match_policy": {
                 "primary_key": "lead_id",

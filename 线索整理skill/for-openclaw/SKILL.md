@@ -1,6 +1,12 @@
 ---
 name: trade-lead-screening-openclaw
 description: Normalize an OpenClaw lead bundle into a conservative lead-screening package with missing-field warnings, manual-review reasons, and customer-intel-ready payloads.
+openclaw_role: stage_worker
+workspace_owner_skill: trade-active-outreach-combo
+single_skill_policy: attach_only
+feishu_container_creation: forbidden
+requires_master_base: true
+requires_master_record: true
 ---
 
 # 线索整理 / 初筛 Skill for OpenClaw
@@ -34,3 +40,9 @@ Python 层只负责：
   ]
 }
 ```
+
+## Feishu Runtime Contract
+
+- 当前角色固定为 `stage_worker`
+- 默认只允许附着到 `Trade Lead Workflow Hub`
+- 不允许独立创建 Base、主表或平行工作容器

@@ -1,0 +1,94 @@
+{
+  "company_scope": "Allbirds",
+  "events": [
+    {
+      "company_name": "Allbirds",
+      "page_name": "Men's Tree Runner product detail page",
+      "watch_url": "https://www.allbirds.com/products/mens-tree-runners",
+      "page_type": "product_detail_page",
+      "observed_at": "2026-03-29T09:30:00+08:00",
+      "focus_fields": [
+        "product_title",
+        "price",
+        "spec_keywords",
+        "cta_text"
+      ],
+      "changes": [
+        {
+          "field": "price",
+          "before": "$100",
+          "after": "$80"
+        },
+        {
+          "field": "spec_keywords",
+          "before": "Our best-selling shoe, the original Tree Runner is light, airy, and comfy beyond compare.",
+          "after": "Thoughtfully designed with breathable tree fiber, sugarcane cushioning, and soft Merino-wool blend lining."
+        },
+        {
+          "field": "cta_text",
+          "before": "Add to Cart",
+          "after": "Add to Cart - $80"
+        }
+      ]
+    },
+    {
+      "company_name": "Allbirds",
+      "page_name": "Men's New Arrivals collection page",
+      "watch_url": "https://www.allbirds.com/collections/mens-new-arrivals",
+      "page_type": "new_arrivals_collection_page",
+      "observed_at": "2026-03-29T09:35:00+08:00",
+      "focus_fields": [
+        "hero_copy",
+        "featured_products",
+        "new_badge",
+        "cta_text"
+      ],
+      "changes": [
+        {
+          "field": "hero_copy",
+          "before": "Start the season with comfort, style, and versatility.",
+          "after": "Fresh drops for spring movement and everyday wear."
+        },
+        {
+          "field": "featured_products",
+          "before": "Men's Dasher NZ; Men's Tree Glider; Men's Runner NZ Slip On",
+          "after": "Men's Cruiser Terralux; Men's Runner NZ Terralux; Men's Varsity Terralux"
+        },
+        {
+          "field": "new_badge",
+          "before": "New Color",
+          "after": "NEW"
+        }
+      ]
+    },
+    {
+      "company_name": "Allbirds",
+      "page_name": "Allbirds homepage promo section",
+      "watch_url": "https://www.allbirds.com/",
+      "page_type": "homepage_promo_page",
+      "observed_at": "2026-03-29T09:40:00+08:00",
+      "focus_fields": [
+        "promotion_copy",
+        "discount_copy",
+        "cta_text"
+      ],
+      "changes": [
+        {
+          "field": "promotion_copy",
+          "before": "Spring Sale",
+          "after": "Put Some Spring In Your Step"
+        },
+        {
+          "field": "discount_copy",
+          "before": "Final Few",
+          "after": "Shop Men's Sale"
+        },
+        {
+          "field": "cta_text",
+          "before": "Shop Now",
+          "after": "Shop Men / Shop Women"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,12 @@
 ---
 name: trade-outreach-email-for-openclaw
 description: OpenClaw-native version of the foreign-trade outreach email skill. Use structured operator input plus public-context summaries to generate conservative first-touch or follow-up email drafts without overstating inferred facts.
+openclaw_role: stage_worker
+workspace_owner_skill: trade-active-outreach-combo
+single_skill_policy: attach_only
+feishu_container_creation: forbidden
+requires_master_base: true
+requires_master_record: true
 ---
 
 # 开发信 Skill for OpenClaw
@@ -48,3 +54,9 @@ python3 ./for-openclaw/scripts/build_email_draft_from_openclaw.py \
 - 输出结构与根目录版本一致
 - 保留中文复核提示
 - 不自动发送邮件
+
+## Feishu Runtime Contract
+
+- 当前角色固定为 `stage_worker`
+- 默认只允许附着到 `Trade Lead Workflow Hub`
+- 不允许独立创建 Base、主表或平行工作容器

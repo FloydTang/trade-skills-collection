@@ -26,6 +26,8 @@
 - 结果写入同一个 Base 下的 `Lead Screening Results`
 - 同一 lead 优先更新原主记录，不新建平行 lead
 - 如果 `recommended_next_action` 不是 `enter_customer_intel`，不自动创建客户背调文档
+- 当前角色固定为 `stage_worker`
+- `feishu_container_creation = forbidden`
 
 推荐先读：
 
