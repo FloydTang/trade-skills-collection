@@ -34,6 +34,11 @@
 - `../../主动开发链路组合包/references/OpenClaw执行规范.md`
 - `../../主动开发链路组合包/references/OpenClaw首跑检查清单.md`
 
+补充一句固定口径：
+
+- 这个目录是当前单节点的 OpenClaw 运行时变体，不是新的安装归口
+- 飞书增强入口只认仓库根目录的 `README.md`、`OPENCLAW.md`、`当前推荐安装清单.md`
+
 ## 快速运行
 
 ```bash

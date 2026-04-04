@@ -111,5 +111,5 @@
 2. `主动开发链路组合包/README.md`
 3. `主动开发链路组合包/references/飞书留痕字段映射.md`
 4. `主动开发链路组合包/references/OpenClaw执行规范.md`
-5. `主动开发链路组合包/references/龙虾多代理安装与分工说明.md`
+5. `主动开发链路组合包/outputs/demo-run/09-feishu-workflow-bundle.json`
 6. `主动开发链路组合包/outputs/demo-run/09-feishu-workflow-bundle.json`

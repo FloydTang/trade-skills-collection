@@ -141,7 +141,13 @@ python3 ./scripts/run_pre_release_gate.py
 
 - 仓库内安装范围说明：`../OPENCLAW.md`
 - 当前推荐安装顺序：`../当前推荐安装清单.md`
-- 飞书增强入口：`https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d`
+
+这里再固定一条口径，避免误读：
+
+- 当前节点开源版可以独立使用
+- 但在 OpenClaw 安装语境下，当前节点不是平级安装归口，而是 `主动开发链路组合包` 下的 `stage_worker`
+- `for-openclaw/` 是运行时变体，不是新的主安装包
+- 飞书增强入口只认仓库根目录的 `README.md`、`OPENCLAW.md`、`当前推荐安装清单.md`
 
 ## 作者
 

@@ -65,21 +65,10 @@ OpenClaw 第一次试跑前，建议先看：
 - `references/飞书留痕字段映射.md`
 - `references/OpenClaw执行规范.md`
 - `references/openclaw-install-contract.json`
-- `references/龙虾多代理安装与分工说明.md`
 
 这个组合包的开源版本身就可以单独使用，能完成当前最小可用闭环。
 
-如果你想在龙虾 / OpenClaw 中获得更精致、更完整的使用体验，建议按下面流程直接复制增强执行词：
-
-- [飞书增强入口](https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d)
-
-如果链接打不开，先确认你使用的是和半斤九两科技会员群绑定的飞书账号登录。
-
-如果你有半斤九两科技沟通过的执行包用户链接，也可以优先使用。
-
-如果暂时还没有绑定过，或者还没有账号，也可直接跳转：
-
-- [evenbetter.tech](https://evenbetter.tech)
+如果你需要飞书增强入口，请回到仓库根目录的 `README.md`、`OPENCLAW.md`、`当前推荐安装清单.md`。
 
 ## 当前定位
 
