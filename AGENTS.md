@@ -107,7 +107,7 @@
 
 默认不需要直接展现到 Obsidian 的内容：
 
-- `GitHub开源发现自动化/reports/` 每日日报
+- `工作间/GitHub开源发现自动化/reports/` 每日日报
 - `scripts/`、`examples/`、schema、运行产物、临时中间文件
 - 只服务代码运行和调试的技术性文件
 

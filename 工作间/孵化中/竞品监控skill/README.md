@@ -120,10 +120,10 @@
 ## 最小脚本入口
 
 ```bash
-python3 '竞品监控skill/scripts/build_change_summary.py' \
-  --input-json '竞品监控skill/examples/sample-change-events.json' \
-  --markdown-out '竞品监控skill/examples/minimal-monitoring-output.md' \
-  --json-out '竞品监控skill/examples/minimal-monitoring-output.json'
+python3 '工作间/孵化中/竞品监控skill/scripts/build_change_summary.py' \
+  --input-json '工作间/孵化中/竞品监控skill/examples/sample-change-events.json' \
+  --markdown-out '工作间/孵化中/竞品监控skill/examples/minimal-monitoring-output.md' \
+  --json-out '工作间/孵化中/竞品监控skill/examples/minimal-monitoring-output.json'
 ```
 
 输入既可以是少量真实页面变化结果，也可以是当前仓库里的模拟变化样例。
@@ -131,9 +131,9 @@ python3 '竞品监控skill/scripts/build_change_summary.py' \
 ## Watch 种子生成
 
 ```bash
-python3 '竞品监控skill/scripts/build_watch_seed.py' \
-  --input-json '竞品监控skill/examples/minimal-monitoring-input.json' \
-  --json-out '竞品监控skill/examples/changedetection-watch-seed.json'
+python3 '工作间/孵化中/竞品监控skill/scripts/build_watch_seed.py' \
+  --input-json '工作间/孵化中/竞品监控skill/examples/minimal-monitoring-input.json' \
+  --json-out '工作间/孵化中/竞品监控skill/examples/changedetection-watch-seed.json'
 ```
 
 这个输出不是伪装成“已验证选择器”的 API 成品，而是首版建 watch 时的统一种子配置。

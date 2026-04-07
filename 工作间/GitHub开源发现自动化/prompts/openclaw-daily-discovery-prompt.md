@@ -35,10 +35,10 @@
 
 请使用并维护以下文件：
 
-- 当日日报：`GitHub开源发现自动化/reports/YYYY-MM-DD.md`
-- 观察池：`GitHub开源发现自动化/github-watchlist.md`
-- 落地候选清单：`GitHub开源发现自动化/tool-adoption-backlog.md`
-- 决策记录：`GitHub开源发现自动化/tool-adoption-decisions.md`
+- 当日日报：`工作间/GitHub开源发现自动化/reports/YYYY-MM-DD.md`
+- 观察池：`工作间/GitHub开源发现自动化/github-watchlist.md`
+- 落地候选清单：`工作间/GitHub开源发现自动化/tool-adoption-backlog.md`
+- 决策记录：`工作间/GitHub开源发现自动化/tool-adoption-decisions.md`
 
 如果当日日报文件不存在，请按目录中的模板结构创建。
 

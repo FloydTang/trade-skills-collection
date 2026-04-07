@@ -6,12 +6,12 @@
 
 ---
 
-Work inside `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/GitHub开源发现自动化`.
+Work inside `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化`.
 
 Before doing any search or writing, first read these local docs in order:
 
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/GitHub开源发现自动化/prompts/discovery-rules.md`
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/GitHub开源发现自动化/README.md`
+- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化/prompts/discovery-rules.md`
+- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化/README.md`
 - `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/README.md`
 - `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/开源工具总表.md`
 - `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/路线映射.md`
@@ -50,7 +50,7 @@ Top-level principle: `实事求是、简洁高效`.
    - `建议继续观察` (recommend continued observation)
    - `不建议处理` (not recommended for action)
 7. If `工作间/` or `skill需求池.md` changed, run:
-   - `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/GitHub开源发现自动化/scripts/sync_obsidian_workspace.sh`
+   - `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化/scripts/sync_obsidian_workspace.sh`
 8. Verify the Obsidian mirror reflects the same updates at:
    - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/外贸skill/开源工具总表.md`
    - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/外贸skill/路线映射.md`
