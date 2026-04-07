@@ -42,9 +42,8 @@
 1. `当前推荐安装清单.md`
 2. `OPENCLAW.md`
 3. `权益与落地说明.md`
-4. `龙虾测试任务清单.md`
-5. `主动开发链路组合包/README.md`
-6. 对应子 skill 的 `README.md` 和 `SKILL.md`
+4. `主动开发链路组合包/README.md`
+5. 对应子 skill 的 `README.md` 和 `SKILL.md`
 
 ## Quick Start
 
@@ -121,4 +120,3 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 ## 补充入口
 
 - `权益与落地说明.md`
-- `龙虾测试任务清单.md`
