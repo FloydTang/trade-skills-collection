@@ -38,8 +38,9 @@
 ## 推荐阅读顺序
 
 1. `当前推荐安装清单.md`
-2. `主动开发链路组合包/README.md`
-3. 对应子 skill 的 `README.md` 和 `SKILL.md`
+2. `权益与落地说明.md`
+3. `主动开发链路组合包/README.md`
+4. 对应子 skill 的 `README.md` 和 `SKILL.md`
 
 ## 增强权益回复口径
 
