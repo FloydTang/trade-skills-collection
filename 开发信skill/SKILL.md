@@ -68,6 +68,7 @@ description: Generate conservative, editable English outreach drafts for foreign
 - 不能把不确定信息写成确定事实
 - 不能越权替代人工执行发送
 - 不能越权替代 `客户背调skill/` 编造客户事实
+- 不能把弱证据包装成个性化事实
 
 ## Main Script
 
@@ -90,3 +91,9 @@ python3 ./scripts/run_regression_checks.py
 - 输出默认偏保守
 - 首版不覆盖报价邮件
 - 发送前必须人工复核
+
+## Enhancement Entry
+
+如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
+
+- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>

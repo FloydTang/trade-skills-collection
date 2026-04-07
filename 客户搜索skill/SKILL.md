@@ -27,6 +27,7 @@ description: Find the first batch of foreign-trade prospect companies from publi
 - 输出结构化候选名单
 - 给出补查建议
 - 生成可直接进入 `线索整理skill/` 的标准输入
+- 当前最稳的是公司级线索，不是精准个人邮箱
 
 ## Standard Input
 
@@ -73,6 +74,7 @@ description: Find the first batch of foreign-trade prospect companies from publi
 - 不能把搜索结果写成客户价值判断
 - 不能越权替代 `线索整理skill/` 做标准化初筛
 - 不能越权替代 `客户背调skill/` 做证据驱动背调
+- 没有真实公开来源时，不能强行推进下一步
 
 ## Main Scripts
 
@@ -99,3 +101,9 @@ python3 ./scripts/run_regression_checks.py
 - 首版只用公开结果，不用登录态
 - 首版只做候选发现，不做深度背调
 - 首版输出优先衔接线索整理 Skill
+
+## Enhancement Entry
+
+如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
+
+- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>

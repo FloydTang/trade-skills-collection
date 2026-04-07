@@ -27,6 +27,7 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
 - 给出初步分类
 - 提示人工复核点
 - 生成兼容 `客户背调skill/` 的标准输入
+- 当前最稳的是公司级主线索，不是精准邮箱线索
 
 ## Standard Input
 
@@ -76,6 +77,7 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
 - 不能把推断写成事实
 - 不能越权替代 `客户背调skill/` 输出客户情报报告
 - 不能越权替代 `开发信skill/` 生成触达文案
+- 没有真实公开来源时，不能强行推进下一步
 
 ## Main Scripts
 
@@ -105,3 +107,9 @@ python3 ./scripts/run_regression_checks.py
 - 输出偏保守
 - 初筛结果只作辅助，不替代人工判断
 - 默认优先衔接客户背调 Skill
+
+## Enhancement Entry
+
+如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
+
+- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>

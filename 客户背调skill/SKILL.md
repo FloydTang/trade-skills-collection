@@ -20,7 +20,7 @@ Use this skill to turn sparse lead data into a structured public-web due-diligen
 - 上游：`线索整理skill/` 输出的 `customer_intel_input`，或人工提供的稀疏 lead 信息
 - 下游：`开发信skill/`
 
-This skill now supports a second-stage outreach layer. When a lead is rated `Low` or `Medium`, it should continue from background verification into conservative outreach personalization using public content from LinkedIn, Instagram, X/Twitter, and the company website.
+当前最稳的是公司级背调主线。联系人、职位和个性化信号只作辅助，不应被包装成稳定的精准人物能力。
 
 ## Workflow
 
@@ -50,10 +50,7 @@ This skill now supports a second-stage outreach layer. When a lead is rated `Low
    - Mark weak conclusions as inference, not fact.
 5. Assemble a report using the format in [report-template.md](./references/report-template.md).
 6. Score risk conservatively using [source-playbook.md](./references/source-playbook.md).
-7. If the lead is not `High` risk and there is enough public evidence, generate:
-   - an outreach persona card
-   - a light-weight English outreach pack
-8. If public evidence is too thin, mark phase 2 as `limited_evidence` instead of forcing over-personalized content.
+7. If public evidence is too thin, mark weak conclusions as limited evidence instead of forcing over-personalized content.
 
 ## Main Script
 
@@ -90,13 +87,13 @@ EOF
 - Keep the report structured and CRM-friendly.
 - Keep core analysis in Chinese.
 - Include English wording in the `Executive Summary` and `Sales Angles` sections.
-- For `Low` and `Medium` leads, include `Outreach Persona Card` and `Personalized Outreach Pack` when evidence supports it.
 - Attach source URLs to every material claim when possible.
 - Use `Low`, `Medium`, or `High` risk ratings only.
 - If the person match is weak, say so explicitly instead of inventing a firm personal profile.
 - Keep outreach personalization conservative. Do not invent private preferences or present weak inferences as facts.
 - Do not replace `客户搜索skill/` or `线索整理skill/` as the lead-entry stage.
 - Do not imply the final outreach draft can skip human review.
+- Do not imply stable support for precise personal email discovery.
 
 ## Openclaw Integration Notes
 
@@ -116,4 +113,9 @@ EOF
 - Public web only.
 - Conservative entity matching.
 - Conservative risk scoring.
-- Phase 2 personalization defaults to LinkedIn + Instagram + X/Twitter + website.
+
+## Enhancement Entry
+
+如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
+
+- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>

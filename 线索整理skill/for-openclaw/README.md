@@ -16,28 +16,11 @@
 - 转换成本地版标准输入
 - 调用核心脚本生成初筛结果
 
-## Feishu 接入约束
-
-当前这个 OpenClaw 变体如果要接飞书，默认必须复用同一个主 Base 和主表。
-
-固定要求：
-
-- 先查主 Base，再查 `Lead Workflow Master`
-- 结果写入同一个 Base 下的 `Lead Screening Results`
-- 同一 lead 优先更新原主记录，不新建平行 lead
-- 如果 `recommended_next_action` 不是 `enter_customer_intel`，不自动创建客户背调文档
-- 当前角色固定为 `stage_worker`
-- `feishu_container_creation = forbidden`
-
-推荐先读：
-
-- `../../主动开发链路组合包/references/OpenClaw执行规范.md`
-- `../../主动开发链路组合包/references/OpenClaw首跑检查清单.md`
-
-补充一句固定口径：
+补充固定口径：
 
 - 这个目录是当前单节点的 OpenClaw 运行时变体，不是新的安装归口
-- 飞书增强入口只认仓库根目录的 `README.md`、`OPENCLAW.md`、`当前推荐安装清单.md`
+- 增强权益不在仓库中展开正文
+- 如需飞书落地、统一编排或多代理协作，请查看飞书文档入口
 
 ## 快速运行
 

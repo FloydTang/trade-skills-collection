@@ -55,8 +55,10 @@ python3 ./for-openclaw/scripts/build_email_draft_from_openclaw.py \
 - 保留中文复核提示
 - 不自动发送邮件
 
-## Feishu Runtime Contract
+## Enhancement Entry
 
-- 当前角色固定为 `stage_worker`
-- 默认只允许附着到 `Trade Lead Workflow Hub`
-- 不允许独立创建 Base、主表或平行工作容器
+增强权益不在仓库中展开正文。
+
+如需飞书落地、统一编排或多代理协作，请查看飞书文档：
+
+- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>

@@ -19,29 +19,11 @@ OpenClaw 版的目标是：
 - 避免在 OpenClaw 版里重复维护一套完整草稿逻辑
 - 继续坚持保守边界，不把上游推断直接写死到邮件中
 
-## Feishu 接入约束
-
-如果这个节点接入飞书工作流，默认必须继续挂在同一个主 Base 和同一个主记录下。
-
-固定要求：
-
-- 先查主 Base
-- 再查 `Lead Workflow Master`
-- 仅当客户背调已经完成或主表状态允许进入开发信时，才创建或更新开发信文档
-- 已有开发信文档时，优先复用原文档并追加草稿版本
-- 不因为开发信单独运行就新建新的多维表格或新的平行 lead
-- 当前角色固定为 `stage_worker`
-- `feishu_container_creation = forbidden`
-
-推荐先读：
-
-- `../../主动开发链路组合包/references/OpenClaw执行规范.md`
-- `../../主动开发链路组合包/references/OpenClaw首跑检查清单.md`
-
 补充一句固定口径：
 
 - 这个目录是当前单节点的 OpenClaw 运行时变体，不是新的安装归口
-- 飞书增强入口只认仓库根目录的 `README.md`、`OPENCLAW.md`、`当前推荐安装清单.md`
+- 增强权益不在仓库中展开正文
+- 如需飞书落地、统一编排或多代理协作，请查看飞书文档入口
 
 ## Input Contract
 
@@ -87,7 +69,6 @@ python3 ./for-openclaw/scripts/build_email_draft_from_openclaw.py \
 - `public_context` 只作为保守补充，不应覆盖明确的操作员输入
 - 如果 `risk_rating` 为 `High`，脚本会附加更强的人审约束
 - 任何 `previous_contact_context` 仍然需要人工复核
-- 如果飞书 URL 字段写入失败，优先改写文本 `asset_ref`，不要中断主表回写
 
 
 ## Relationship to the Classic Version

@@ -2,83 +2,60 @@
 
 当前状态：可交付
 
-这个目录用于把搜索阶段得到的零散客户名单、网址、联系人线索和备注，整理成可继续进入客户背调的标准输入。
+这个 Skill 用于把搜索阶段得到的零散候选线索整理成可继续进入客户背调的标准输入。
 
-角色定位：`线索初筛员`
+## 这个 Skill 解决什么问题
 
-职责边界：
+- 搜索结果零散，字段不统一
+- 线索看起来很多，但不知道哪些能继续
+- 需要先做保守的字段统一和下一步建议
 
-- 负责字段统一、缺失识别、初步分类和下一步建议
+## 职责边界
+
+- 负责字段统一
+- 负责缺失识别
+- 负责初步分类和下一步建议
+- 负责桥接到 `客户背调skill`
 - 不负责公开网页深度背调
-- 不负责最终邮件文案输出
+- 不负责开发信生成
 
-上下游关系：
+## 当前默认能力
 
-- 上游：`客户搜索skill` 或人工整理线索
-- 下游：`客户背调skill`
+- 标准化候选线索字段
+- 标记缺失项和人工复核原因
+- 给出保守的下一步动作建议
+- 生成兼容 `客户背调skill` 的桥接输入
 
-定位：
+## 当前不默认承诺
 
-- 把“搜到很多零散结果，但没法继续判断”的问题变成标准化整理动作
-- 先服务主动开发链路中的中间承接层
-- 首版优先解决字段统一、缺失识别和初步分类，不直接做复杂评分系统
+- 自动判断客户一定值不值得做
+- 替代人工完成最终筛选
+- 跳过背调直接生成外发内容
 
-当前立项范围：
+## 输入输出
 
-- 首版先聚焦“线索整理 + 初筛提示”
-- 先不做复杂 CRM、提醒系统或长期数据库
-- 先保证输出能稳定进入 `客户背调skill/`
+输入：
 
-当前计划最小能力：
+- 候选客户名单
+- 来源链接
+- 联系人或公司基础字段
 
-- 输入候选客户名单或单条线索 JSON
-- 输出统一字段后的线索池
-- 标注关键缺失项
-- 给出初步分类和补查建议
-- 产出可直接桥接到客户背调 Skill 的标准输入字段
+输出：
 
-与现有链路的关系：
+- 结构化线索池
+- 缺失字段
+- 人工复核原因
+- 下一步动作建议
+- 客户背调桥接输入
 
-- 上游：`客户搜索 / 线索发现`
-- 下游：`客户背调skill/`
-- 后续可继续承接：`开发信skill/`、`跟进优先级skill/`
+## 固定提醒
 
-当前目录结构：
+- 没有真实公开来源，不应强行推进下游
+- 当前最稳的是公司级主线索
+- 人名职位级是辅助补全
+- 精准邮箱级仍不足
 
-```text
-.
-├── README.md
-├── SKILL.md
-├── 立项方案.md
-├── 验收记录.md
-├── scripts/
-│   ├── build_lead_screening_report.py
-│   ├── build_customer_intel_batch_input.py
-│   ├── run_regression_checks.py
-│   └── run_pre_release_gate.py
-├── examples/
-├── references/
-├── schemas/
-└── for-openclaw/
-```
-
-当前最小能力：
-
-- 输入一批零散候选线索 JSON
-- 输出统一字段后的结构化线索池
-- 标注缺失字段、人工复核原因和下一步动作
-- 生成兼容 `客户背调skill/` 的 `customer_intel_input`
-- 提供固定样例输出、回归检查和发布前 gate
-- 提供最小 `for-openclaw/` 变体
-
-当前结论：
-
-- 已达到“可演示”
-- 已达到“可交付”
-- 采用“双轨逻辑”维护：可作为独立仓库发布，也可作为合集仓库中的稳定节点副本分发
-- 独立仓库：`https://github.com/FloydTang/trade-lead-screening`
-
-## 快速运行
+## Quick Start
 
 ```bash
 python3 ./scripts/build_lead_screening_report.py \
@@ -93,42 +70,8 @@ python3 ./scripts/build_customer_intel_batch_input.py \
   --json-out /tmp/customer-intel-batch.json
 ```
 
-```bash
-python3 ./scripts/run_regression_checks.py
-```
+## 增强权益入口
 
-```bash
-python3 ./scripts/run_pre_release_gate.py
-```
+如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
 
-## 发布前流程
-
-发布前固定执行：
-
-1. `python3 ./scripts/run_pre_release_gate.py`
-2. 如有规则或模板改动，重新生成受影响的 `examples/*-output.md` 和 `examples/*-output.json`
-3. 确认 `README.md`、`验收记录.md` 和 `for-openclaw/README.md` 没有状态漂移
-
-## OpenClaw 变体
-
-`for-openclaw/` 是这个 Skill 的 OpenClaw-native 包装版本：
-
-- 保留当前本地版的保守整理原则
-- 假设上游搜索结果已经由 OpenClaw 工作流整理成线索包
-- Python 包装脚本只负责字段规范化、初筛提示和下游背调桥接字段生成
-
-如果你要在龙虾多代理模式里使用这个节点，优先看：
-
-- 仓库内安装范围说明：`../OPENCLAW.md`
-- 当前推荐安装顺序：`../当前推荐安装清单.md`
-
-这里再固定一条口径，避免误读：
-
-- 当前节点开源版可以独立使用
-- 但在 OpenClaw 安装语境下，当前节点不是平级安装归口，而是 `主动开发链路组合包` 下的 `stage_worker`
-- `for-openclaw/` 是运行时变体，不是新的主安装包
-- 飞书增强入口只认仓库根目录的 `README.md`、`OPENCLAW.md`、`当前推荐安装清单.md`
-
-## 作者
-
-半斤九两科技
+- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>

@@ -21,8 +21,10 @@ Python 层只负责：
 - 发现候选客户
 - 输出可桥接到线索整理 Skill 的结果
 
-## Feishu Runtime Contract
+## Enhancement Entry
 
-- 当前角色固定为 `stage_worker`
-- 默认只允许附着到 `Trade Lead Workflow Hub`
-- 不允许独立创建 Base、主表或平行工作容器
+增强权益不在仓库中展开正文。
+
+如需飞书落地、统一编排或多代理协作，请查看飞书文档：
+
+- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
