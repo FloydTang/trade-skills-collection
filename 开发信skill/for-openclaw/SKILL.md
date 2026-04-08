@@ -61,4 +61,4 @@ python3 ./for-openclaw/scripts/build_email_draft_from_openclaw.py \
 
 如需飞书落地、统一编排或多代理协作，请查看飞书文档：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>

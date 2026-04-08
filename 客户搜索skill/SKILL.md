@@ -9,25 +9,11 @@ description: Find the first batch of foreign-trade prospect companies from publi
 
 用这个 Skill 把“知道大概要找哪类客户，但不会系统搜客户”的问题，变成可复用的公开搜索流程。
 
-角色定位：
+角色：`客户搜索员`
 
-- `客户搜索员`
 - 负责找出第一批候选客户线索
+- 下游对接 `线索整理skill/`
 - 不负责深度背调、客户价值判断或开发信生成
-
-上下游关系：
-
-- 上游：产品、市场、客户类型等搜索 brief
-- 下游：`线索整理skill/`
-
-首版重点：
-
-- 用通用网页搜索发现官网、目录页、展会页和 B2B 结果
-- 用 LinkedIn 结果线索补公司页与可见联系人线索
-- 输出结构化候选名单
-- 给出补查建议
-- 生成可直接进入 `线索整理skill/` 的标准输入
-- 当前最稳的是公司级线索，不是精准个人邮箱
 
 ## Standard Input
 
@@ -97,13 +83,12 @@ python3 ./scripts/run_regression_checks.py
 
 ## Defaults
 
-- 首版允许联网
-- 首版只用公开结果，不用登录态
-- 首版只做候选发现，不做深度背调
-- 首版输出优先衔接线索整理 Skill
+- 允许联网
+- 只用公开结果，不用登录态
+- 只做候选发现，不做深度背调
 
 ## Enhancement Entry
 
 如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>

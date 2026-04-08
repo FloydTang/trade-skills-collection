@@ -9,25 +9,11 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
 
 用这个 Skill 把搜索阶段拿到的零散线索整理成统一格式，降低后续进入客户背调前的判断成本。
 
-角色定位：
-
-- `线索初筛员`
-- 负责把零散线索整理成可继续处理的标准输入
-- 不负责公开网页深度背调，也不负责输出外发邮件
-
-上下游关系：
+角色：`线索初筛员`
 
 - 上游：`客户搜索skill/` 或人工整理的候选线索
 - 下游：`客户背调skill/`
-
-首版重点不是“自动判断客户值不值得做”，而是：
-
-- 统一字段
-- 标记缺失项
-- 给出初步分类
-- 提示人工复核点
-- 生成兼容 `客户背调skill/` 的标准输入
-- 当前最稳的是公司级主线索，不是精准邮箱线索
+- 只做字段统一、缺失识别和下一步建议
 
 ## Standard Input
 
@@ -102,14 +88,13 @@ python3 ./scripts/run_regression_checks.py
 
 ## Defaults
 
-- 首版优先本地运行
-- 首版不强依赖联网
+- 优先本地运行
+- 不强依赖联网
 - 输出偏保守
 - 初筛结果只作辅助，不替代人工判断
-- 默认优先衔接客户背调 Skill
 
 ## Enhancement Entry
 
 如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>

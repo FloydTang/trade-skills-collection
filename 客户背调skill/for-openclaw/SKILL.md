@@ -123,4 +123,4 @@ python3 ./scripts/build_customer_intel_report_from_evidence.py \
 
 如需飞书落地、统一编排或多代理协作，请查看飞书文档：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>

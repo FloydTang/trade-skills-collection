@@ -15,17 +15,11 @@ single_skill_policy: attach_only
 
 `客户搜索skill -> 线索整理skill -> 客户背调skill -> 开发信skill`
 
-当前职责：
+只做三件事：
 
 - 串联 4 个现有节点
 - 保留中间产物
 - 明确人工复核点
-
-当前不负责：
-
-- 重写各节点内部逻辑
-- 承诺实时联网稳定结果
-- 在仓库中展开增强权益正文
 
 ## Workflow
 
@@ -60,6 +54,6 @@ python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 
 如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>
 
 仓库内不展开增强权益正文。

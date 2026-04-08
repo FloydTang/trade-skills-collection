@@ -20,7 +20,7 @@ Use this skill to turn sparse lead data into a structured public-web due-diligen
 - 上游：`线索整理skill/` 输出的 `customer_intel_input`，或人工提供的稀疏 lead 信息
 - 下游：`开发信skill/`
 
-当前最稳的是公司级背调主线。联系人、职位和个性化信号只作辅助，不应被包装成稳定的精准人物能力。
+当前最稳的是公司级背调主线。联系人、职位和个性化信号只作辅助。
 
 ## Workflow
 
@@ -79,7 +79,6 @@ EOF
 
 - If `tvly` is installed, the script uses it first for web search.
 - If `tvly` is not installed, the script falls back to DuckDuckGo HTML search.
-- Page text fetching uses `r.jina.ai` snapshots where possible.
 - If evidence is sparse, the script still produces a report and explicitly flags low confidence.
 
 ## Output Requirements
@@ -97,10 +96,8 @@ EOF
 
 ## Openclaw Integration Notes
 
-- Manual trigger: accept direct lead fields from an operator and generate the report.
-- Automated trigger: map inquiry/order data into the standard JSON shape above, then call the script.
 - Missing fields are allowed; the report header must list what was missing.
-- The first version only uses public internet sources. Do not imply private-data access.
+- Only use public internet sources. Do not imply private-data access.
 
 ## References
 
@@ -118,4 +115,4 @@ EOF
 
 如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>

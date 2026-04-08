@@ -4,7 +4,7 @@
 
 如需查看最新可用版本，请直接查看飞书文档入口：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>
 
 固定说明：
 

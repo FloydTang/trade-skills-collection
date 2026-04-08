@@ -12,20 +12,16 @@ description: Generate conservative, editable English outreach drafts for foreign
 角色定位：
 
 - `开发信策略员`
-- 负责把上游客户信息整理成可复核、可编辑的英文触达草稿
-- 不负责自动发送，也不负责替代上游做搜索、初筛和背调
-
-上下游关系：
-
 - 上游：人工整理输入，或 `客户背调skill/` 输出的桥接结果
 - 下游：人工复核与实际发送动作
+- 不负责自动发送，也不负责替代上游做搜索、初筛和背调
 
-首版只覆盖两个场景：
+当前只覆盖两个场景：
 
 - `first_touch`：首轮开发信
 - `follow_up`：跟进邮件
 
-它不是自动发送工具，也不是“万能写信器”。它的目标是把零散输入整理成更稳定、更易复核的英文草稿，同时明确提示哪些内容不能直接写死。
+它不是自动发送工具。目标是把零散输入整理成更稳定、更易复核的英文草稿。
 
 ## Standard Input
 
@@ -89,11 +85,11 @@ python3 ./scripts/run_regression_checks.py
 - 本地模板生成优先
 - 不强依赖联网
 - 输出默认偏保守
-- 首版不覆盖报价邮件
+- 不覆盖报价邮件
 - 发送前必须人工复核
 
 ## Enhancement Entry
 
 如需数据留存、统一编排、多代理协作或飞书落地，请查看飞书文档：
 
-- <https://evenbetter.feishu.cn/wiki/ADmiwiultihx6Yk1p2UcjfmVn6d>
+- <https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf>
