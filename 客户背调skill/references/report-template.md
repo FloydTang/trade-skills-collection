@@ -23,6 +23,12 @@ Use this fixed structure when generating the final Markdown report.
 - Entity confidence
 - Ambiguity notes
 
+## Intel Decision
+
+- Evidence sufficiency
+- Recommended next action
+- Manual review required
+
 ## Company Profile
 
 - What the company appears to do

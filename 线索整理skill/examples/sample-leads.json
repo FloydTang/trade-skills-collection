@@ -11,6 +11,11 @@
       "source_url": "https://www.linkedin.com/company/nordic-home-textile-ab",
       "linkedin_url": "",
       "notes": "Found via home textile search results",
+      "evidence_grade": "B",
+      "match_reason": "证据等级 B：有官网主体线索；命中当前搜索策略中的目标关键词组合。",
+      "evidence_summary": "当前候选主要基于官网和公开网页来源形成。建议动作：ready_for_screening。",
+      "discovery_missing_fields": ["linkedin_url", "visible_contact_clues"],
+      "discovery_next_action": "ready_for_screening",
       "product_keywords": "linen table textile",
       "source_type": "linkedin"
     },
@@ -23,6 +28,11 @@
       "source_url": "https://example.com/acme",
       "linkedin_url": "",
       "notes": "Email collected from directory page",
+      "evidence_grade": "D",
+      "match_reason": "证据等级 D：当前只有弱目录片段，尚不能稳定证明主体。",
+      "evidence_summary": "当前候选主要基于弱网页片段形成。建议动作：reject_low_evidence。",
+      "discovery_missing_fields": ["company_name", "company_website", "linkedin_url", "visible_contact_clues"],
+      "discovery_next_action": "reject_low_evidence",
       "product_keywords": "industrial fasteners",
       "source_type": "directory"
     },
@@ -35,6 +45,11 @@
       "source_url": "https://greenharvestfoods.com/contact",
       "linkedin_url": "https://www.linkedin.com/company/greenharvestfoods",
       "notes": "Looks ready for background research.",
+      "evidence_grade": "A",
+      "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索。",
+      "evidence_summary": "当前候选主要基于官网、LinkedIn、1 条可见联系人线索形成。建议动作：ready_for_screening。",
+      "discovery_missing_fields": [],
+      "discovery_next_action": "ready_for_screening",
       "product_keywords": "frozen vegetables",
       "source_type": "website"
     }

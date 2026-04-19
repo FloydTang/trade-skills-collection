@@ -15,8 +15,26 @@
     "建议人工复核后发送，不要把未确认信息直接写成既定事实。",
     "邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。",
     "若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。",
-    "已应用输入约束：Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent."
+    "已应用输入约束：Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent.",
+    "背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。"
   ],
+  "evidence_signals_used": [
+    "sales_angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+    "risk_rating: Medium",
+    "entity_confidence: medium",
+    "evidence_sufficiency: limited",
+    "evidence_title: GreenHarvest Foods contact page",
+    "evidence_title: GreenHarvest Foods LinkedIn company page"
+  ],
+  "unconfirmed_fact_checklist": [
+    "当前仍需人工确认采购角色与实际产品匹配度。",
+    "公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。"
+  ],
+  "send_policy": "manual_review_only",
+  "workflow_guidance": {
+    "recommended_next_action": "ready_for_manual_send",
+    "send_policy": "manual_review_only"
+  },
   "input_signals_used": [
     "email_type: first_touch",
     "customer_name: Anna",

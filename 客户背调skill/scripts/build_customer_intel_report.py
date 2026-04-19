@@ -492,6 +492,39 @@ def entity_confidence(data: dict[str, str], website: str, results: list[SearchRe
     return "low"
 
 
+def evidence_sufficiency(
+    website: str,
+    results: list[SearchResult],
+    signals: list[dict[str, str]],
+    ambiguity_notes: list[str],
+) -> str:
+    if website and len(results) >= 5 and len(signals) >= 2 and not ambiguity_notes:
+        return "sufficient"
+    if (website and len(results) >= 3) or signals:
+        return "limited"
+    return "thin"
+
+
+def build_intel_decision(
+    entity_level: str,
+    sufficiency: str,
+    risk_rating_value: str,
+    ambiguity_notes: list[str],
+) -> dict[str, Any]:
+    if entity_level == "high" and sufficiency == "sufficient" and risk_rating_value != "High":
+        next_action = "ready_for_email_draft"
+    else:
+        next_action = "hold_for_manual_review"
+    return {
+        "entity_confidence": entity_level,
+        "evidence_sufficiency": sufficiency,
+        "risk_rating": risk_rating_value,
+        "recommended_next_action": next_action,
+        "manual_review_required": next_action == "hold_for_manual_review",
+        "review_focus": ambiguity_notes[:3],
+    }
+
+
 def build_report(data: dict[str, str], results: list[SearchResult], snapshots: dict[str, str]) -> dict[str, Any]:
     domain = extract_domain(data["email"]) or website_to_domain(data["company_website"])
     website = choose_website(data, results, domain)
@@ -528,6 +561,8 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
 
     signals = extract_topic_signals(results, snapshots)
     rating, risk_reasons = risk_rating(data, website, results, snapshots)
+    entity_level = entity_confidence(data, website, results)
+    sufficiency = evidence_sufficiency(website, results, signals, ambiguity_notes)
     sales_angles = build_sales_angles(signals, company_summary)
     platform_map = collect_platform_evidence(results, snapshots)
     phase_2_status, outreach_persona_card = build_outreach_persona_card(
@@ -544,16 +579,30 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         data["person_name"],
     )
     missing_fields = [key for key in ("company_name", "person_name", "email") if not data[key]]
+    unconfirmed_fact_list = list(ambiguity_notes)
+    if sufficiency != "sufficient":
+        unconfirmed_fact_list.append("公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。")
+    if rating == "High":
+        unconfirmed_fact_list.append("当前风险评级为 High，不建议直接进入开发信。")
+    intel_decision = build_intel_decision(entity_level, sufficiency, rating, ambiguity_notes)
 
     summary_cn_parts = [
         f"当前线索更像是{data['company_name'] or '一个待确认的公司主体'}",
         f"公开网络足迹主要集中在{', '.join(sorted({f['platform'] for f in footprints})) or '官网/通用网页'}。",
-        "建议优先围绕其公开业务方向和近期内容主题切入，再决定是否进入深度报价或样品沟通。",
+        (
+            "建议优先围绕其公开业务方向和近期内容主题切入，再决定是否进入深度报价或样品沟通。"
+            if intel_decision["recommended_next_action"] == "ready_for_email_draft"
+            else "当前应先做人工复核或补证据，再决定是否进入开发信。"
+        ),
     ]
     summary_en_parts = [
         f"The lead most likely maps to {data['company_name'] or 'a still-unconfirmed company entity'}.",
         f"The strongest public footprint appears on {', '.join(sorted({f['platform'] for f in footprints})) or 'the website and general web results'}.",
-        "Lead with a relevant business angle grounded in public evidence before moving to pricing or sample discussions.",
+        (
+            "Lead with a relevant business angle grounded in public evidence before moving to pricing or sample discussions."
+            if intel_decision["recommended_next_action"] == "ready_for_email_draft"
+            else "Pause before outreach and manually verify the entity match and evidence gaps."
+        ),
     ]
 
     return {
@@ -567,7 +616,7 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
             "email_domain": domain or None,
             "website": website or None,
             "country_or_market": data["country_or_market"] or None,
-            "entity_confidence": entity_confidence(data, website, results),
+            "entity_confidence": entity_level,
             "ambiguity_notes": ambiguity_notes,
         },
         "company_profile": {
@@ -581,6 +630,8 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         "sales_angles": sales_angles,
         "risk_rating": rating,
         "risk_reasons": risk_reasons,
+        "intel_decision": intel_decision,
+        "unconfirmed_fact_list": unconfirmed_fact_list,
         "phase_2_status": phase_2_status,
         "outreach_persona_card": outreach_persona_card,
         "personalized_outreach_pack": personalized_outreach_pack,
@@ -599,6 +650,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Generated at: {report['generated_at']}",
         f"- Missing input fields: {', '.join(report['missing_input_fields']) or 'none'}",
         f"- Phase 2 status: {report.get('phase_2_status', 'skipped')}",
+        f"- Evidence sufficiency: {(report.get('intel_decision') or {}).get('evidence_sufficiency', 'unknown')}",
+        f"- Recommended next action: {(report.get('intel_decision') or {}).get('recommended_next_action', 'unknown')}",
     ]
     if len(report["evidence"]) < 4:
         lines.append("- Confidence note: 证据较少，建议人工补充验证。")
@@ -627,6 +680,12 @@ def render_markdown(report: dict[str, Any]) -> str:
 
     lines.extend(
         [
+            "",
+            "## Intel Decision",
+            "",
+            f"- Evidence sufficiency: {report['intel_decision']['evidence_sufficiency']}",
+            f"- Recommended next action: {report['intel_decision']['recommended_next_action']}",
+            f"- Manual review required: {report['intel_decision']['manual_review_required']}",
             "",
             "## Company Profile",
             "",
@@ -669,6 +728,10 @@ def render_markdown(report: dict[str, Any]) -> str:
                 f"  Avoid: {angle['avoid']}",
             ]
         )
+
+    lines.extend(["", "## Unconfirmed Facts", ""])
+    for item in report.get("unconfirmed_fact_list") or []:
+        lines.append(f"- {item}")
 
     lines.extend(["", "## Outreach Persona Card", ""])
     persona = report.get("outreach_persona_card")

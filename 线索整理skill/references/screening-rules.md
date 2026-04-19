@@ -21,9 +21,9 @@
 
 ## 三、推荐动作
 
-- `enter_customer_intel`
+- `ready_for_customer_intel`
   线索信息足够进入客户背调。
-- `enrich_then_customer_intel`
+- `needs_enrichment`
   有继续查的价值，但应先补 1-2 个关键字段。
 - `hold_for_manual_review`
   当前信息太弱或冲突明显，不建议直接进入背调。

@@ -18,6 +18,15 @@
     "若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。",
     "已应用输入约束：Avoid sounding pushy and keep the follow-up short."
   ],
+  "evidence_signals_used": [],
+  "unconfirmed_fact_checklist": [
+    "确认客户画像摘要、销售切入点和任何具体需求判断都来自公开且已核实的信息。"
+  ],
+  "send_policy": "manual_review_only",
+  "workflow_guidance": {
+    "recommended_next_action": "ready_for_manual_send",
+    "send_policy": "manual_review_only"
+  },
   "input_signals_used": [
     "email_type: follow_up",
     "customer_name: Michael",

@@ -53,10 +53,10 @@ python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 
 先看关键输出：
 
-- `主动开发链路组合包/outputs/demo-run/03-lead-screening-output.md`
-- `主动开发链路组合包/outputs/demo-run/05-selected-customer-intel-input.json`
-- `主动开发链路组合包/outputs/demo-run/06-customer-intel-report.json`
-- `主动开发链路组合包/outputs/demo-run/08-email-draft.md`
+- `主动开发链路组合包/outputs/demo-run/09-container-bundle.json`
+- `主动开发链路组合包/outputs/demo-run/10-container-bundle.md`
+- `主动开发链路组合包/outputs/demo-run/11-lead-workflow.csv`
+- `主动开发链路组合包/outputs/demo-run/12-feishu-sandbox-bundle.json`
 
 如需自检：
 
@@ -79,6 +79,22 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 - 工具依赖要区分已安装、已配置、已登录、已跑通
 - LinkedIn 类能力不是默认开箱即用
 - 云端和本地环境可能存在差异
+
+## 当前主语义
+
+当前主线不再把“飞书搭建成功”当作课堂成就感前置条件。
+
+当前仓库默认表达为：
+
+- 主线是标准数据契约 + 可复核主动开发闭环
+- 飞书是课堂标准沙盘，不是企业唯一容器
+- 公开容器默认支持 `JSON / Markdown / CSV`
+- Feishu 作为容器适配器保留
+- CRM / ERP / 邮箱草稿箱当前只留扩展位
+
+统一契约文档见：
+
+- `标准数据契约.md`
 
 ## OpenClaw 默认理解
 

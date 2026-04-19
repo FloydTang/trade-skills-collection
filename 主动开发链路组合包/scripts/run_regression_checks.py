@@ -26,7 +26,11 @@ EXPECTED_OUTPUTS = [
     "07-email-input.json",
     "08-email-draft.json",
     "08-email-draft.md",
+    "09-container-bundle.json",
     "09-feishu-workflow-bundle.json",
+    "10-container-bundle.md",
+    "11-lead-workflow.csv",
+    "12-feishu-sandbox-bundle.json",
 ]
 
 
@@ -81,12 +85,31 @@ def assert_email_artifacts(output_dir: Path) -> None:
         raise SystemExit("Email bridge payload company_name does not match the stable combo demo.")
     if "subject_options" not in email_output:
         raise SystemExit("Email draft JSON is missing subject_options.")
+    if email_output.get("send_policy") != "manual_review_only":
+        raise SystemExit("Email draft JSON should declare manual_review_only send policy.")
     if "GreenHarvest Foods" not in email_markdown:
         raise SystemExit("Email draft markdown does not mention the expected company.")
+    if "Recommended Next Action: ready_for_manual_send" not in email_markdown:
+        raise SystemExit("Email draft markdown should expose the workflow guidance section.")
+
+
+def assert_container_bundle(output_dir: Path) -> None:
+    bundle = load_json(output_dir / "09-container-bundle.json")
+    markdown = (output_dir / "10-container-bundle.md").read_text(encoding="utf-8")
+    csv_text = (output_dir / "11-lead-workflow.csv").read_text(encoding="utf-8")
+
+    if bundle.get("data_containers", {}).get("classroom_sandbox") != "feishu":
+        raise SystemExit("Container bundle should declare Feishu as the classroom sandbox adapter.")
+    if "LeadRecord" not in (bundle.get("handoff_contract") or {}).get("core_entities", []):
+        raise SystemExit("Container bundle should expose the shared core entities.")
+    if "## Data Containers" not in markdown:
+        raise SystemExit("Container bundle markdown is missing the data container summary.")
+    if "recommended_next_action" not in csv_text or "legacy_recommended_next_action" not in csv_text:
+        raise SystemExit("Lead workflow CSV is missing the expected contract columns.")
 
 
 def assert_feishu_bundle(output_dir: Path) -> None:
-    bundle = load_json(output_dir / "09-feishu-workflow-bundle.json")
+    bundle = load_json(output_dir / "12-feishu-sandbox-bundle.json")
     install_contract = bundle.get("openclaw_install_contract") or {}
     workspace_container = bundle.get("workspace_container") or {}
     stage_assets = bundle.get("stage_assets") or {}
@@ -150,17 +173,21 @@ def assert_feishu_bundle(output_dir: Path) -> None:
         raise SystemExit("Selected lead is missing from Feishu master records.")
     if selected.get("current_stage") != "outreach_email" or selected.get("current_status") != "draft_ready":
         raise SystemExit("Selected lead did not progress to outreach_email/draft_ready in the master records.")
+    if selected.get("recommended_next_action") != "ready_for_customer_intel":
+        raise SystemExit("Selected lead should keep the screening next action in the master records.")
     if "search_asset_ref" not in selected or "intel_asset_ref" not in selected or "email_asset_ref" not in selected:
         raise SystemExit("Master records should use text asset_ref fields instead of URL-only fields.")
 
-    enrich_lead = next((item for item in master_records if item.get("lead_id") == "lead-001"), None)
-    if not enrich_lead:
-        raise SystemExit("Lead requiring enrichment is missing from Feishu master records.")
-    asset_keys = json.loads(enrich_lead.get("asset_keys", "{}"))
+    waiting_lead = next((item for item in master_records if item.get("lead_id") == "lead-001"), None)
+    if not waiting_lead:
+        raise SystemExit("A non-selected waiting lead is missing from Feishu master records.")
+    asset_keys = json.loads(waiting_lead.get("asset_keys", "{}"))
     if "intel" in asset_keys or "email" in asset_keys:
-        raise SystemExit("Lead-001 should not receive intel/email assets before enrichment.")
-    if enrich_lead.get("search_asset_ref") != "search-record:demo-run:lead-001":
+        raise SystemExit("Non-selected leads should not receive intel/email assets in the stable demo.")
+    if waiting_lead.get("search_asset_ref") != "search-record:demo-run:lead-001":
         raise SystemExit("Lead-001 search_asset_ref should point to the stable search asset key.")
+    if waiting_lead.get("current_status") != "waiting_selection":
+        raise SystemExit("Lead-001 should remain in waiting_selection state.")
 
     failure_policy = handoff.get("failure_writeback_policy") or {}
     rerun_policy = handoff.get("rerun_policy") or {}
@@ -180,6 +207,7 @@ def main() -> None:
         assert_outputs_exist(output_dir)
         assert_selected_lead_matches_fixture(output_dir)
         assert_email_artifacts(output_dir)
+        assert_container_bundle(output_dir)
         assert_feishu_bundle(output_dir)
 
     print("Combo package regression checks passed.")

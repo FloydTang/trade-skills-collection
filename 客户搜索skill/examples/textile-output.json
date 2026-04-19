@@ -12,6 +12,23 @@
     "raw_result_count": 7,
     "candidate_count": 4
   },
+  "search_strategy": {
+    "strategy_summary": "先用产品 + 市场 + 客户类型构造主查询，再补角色词、LinkedIn 公司页线索和 must_include 限定词。",
+    "query_plan": [
+      "washed linen table textile Germany brand",
+      "table linen brand Germany importer distributor brand buyer",
+      "site:linkedin.com/company washed linen table textile Germany brand",
+      "washed linen table textile Germany brand \"design\""
+    ],
+    "exclude_terms": [
+      "job",
+      "salary"
+    ],
+    "must_include": [
+      "design"
+    ],
+    "notes": "Prefer companies with brand positioning and visible product presentation."
+  },
   "candidates": [
     {
       "candidate_id": "candidate-001",
@@ -31,6 +48,11 @@
         "washed linen table textile Germany brand \"design\"",
         "site:linkedin.com/company washed linen table textile Germany brand"
       ],
+      "evidence_grade": "A",
+      "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
+      "missing_fields": [],
+      "evidence_summary": "当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。",
+      "next_action": "ready_for_screening",
       "follow_up_suggestion": "先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。",
       "source_type": "web"
     },
@@ -46,6 +68,14 @@
       "search_query_used": [
         "table linen brand Germany importer distributor brand buyer"
       ],
+      "evidence_grade": "B",
+      "match_reason": "证据等级 B：有官网主体线索；命中当前搜索策略中的目标关键词组合。",
+      "missing_fields": [
+        "linkedin_url",
+        "visible_contact_clues"
+      ],
+      "evidence_summary": "当前候选主要基于官网形成。 建议动作：ready_for_screening。",
+      "next_action": "ready_for_screening",
       "follow_up_suggestion": "先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
       "source_type": "web"
     },
@@ -61,6 +91,14 @@
       "search_query_used": [
         "washed linen table textile Germany brand"
       ],
+      "evidence_grade": "B",
+      "match_reason": "证据等级 B：有官网主体线索；命中当前搜索策略中的目标关键词组合。",
+      "missing_fields": [
+        "linkedin_url",
+        "visible_contact_clues"
+      ],
+      "evidence_summary": "当前候选主要基于官网形成。 建议动作：ready_for_screening。",
+      "next_action": "ready_for_screening",
       "follow_up_suggestion": "先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
       "source_type": "web"
     },
@@ -76,6 +114,14 @@
       "search_query_used": [
         "site:linkedin.com/company washed linen table textile Germany brand"
       ],
+      "evidence_grade": "B",
+      "match_reason": "证据等级 B：有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。",
+      "missing_fields": [
+        "company_website",
+        "visible_contact_clues"
+      ],
+      "evidence_summary": "当前候选主要基于LinkedIn形成。 建议动作：ready_for_screening。",
+      "next_action": "ready_for_screening",
       "follow_up_suggestion": "先补官网或公司域名，再进入线索整理。",
       "source_type": "linkedin"
     }
@@ -93,6 +139,11 @@
         "source_url": "https://atelier-loom.de",
         "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
         "notes": "Prefer companies with brand positioning and visible product presentation. | Design-led table linen brand for premium home textile collections in Germany. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。",
+        "evidence_grade": "A",
+        "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
+        "evidence_summary": "当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。",
+        "discovery_missing_fields": [],
+        "discovery_next_action": "ready_for_screening",
         "product_keywords": "",
         "source_type": "web"
       },
@@ -105,6 +156,14 @@
         "source_url": "https://marketplace.example/nordhaus",
         "linkedin_url": "",
         "notes": "Prefer companies with brand positioning and visible product presentation. | NordHaus Tableware sells premium table linen collections for retail buyers. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
+        "evidence_grade": "B",
+        "match_reason": "证据等级 B：有官网主体线索；命中当前搜索策略中的目标关键词组合。",
+        "evidence_summary": "当前候选主要基于官网形成。 建议动作：ready_for_screening。",
+        "discovery_missing_fields": [
+          "linkedin_url",
+          "visible_contact_clues"
+        ],
+        "discovery_next_action": "ready_for_screening",
         "product_keywords": "",
         "source_type": "web"
       },
@@ -117,6 +176,14 @@
         "source_url": "https://nordhaus-tableware.de",
         "linkedin_url": "",
         "notes": "Prefer companies with brand positioning and visible product presentation. | NordHaus presents natural table linen ranges for boutique home stores. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
+        "evidence_grade": "B",
+        "match_reason": "证据等级 B：有官网主体线索；命中当前搜索策略中的目标关键词组合。",
+        "evidence_summary": "当前候选主要基于官网形成。 建议动作：ready_for_screening。",
+        "discovery_missing_fields": [
+          "linkedin_url",
+          "visible_contact_clues"
+        ],
+        "discovery_next_action": "ready_for_screening",
         "product_keywords": "",
         "source_type": "web"
       },
@@ -129,6 +196,14 @@
         "source_url": "https://www.linkedin.com/company/nordhaus-tableware",
         "linkedin_url": "https://www.linkedin.com/company/nordhaus-tableware",
         "notes": "Prefer companies with brand positioning and visible product presentation. | NordHaus Tableware focuses on home tabletop collections and design buyers. | 先补官网或公司域名，再进入线索整理。",
+        "evidence_grade": "B",
+        "match_reason": "证据等级 B：有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。",
+        "evidence_summary": "当前候选主要基于LinkedIn形成。 建议动作：ready_for_screening。",
+        "discovery_missing_fields": [
+          "company_website",
+          "visible_contact_clues"
+        ],
+        "discovery_next_action": "ready_for_screening",
         "product_keywords": "",
         "source_type": "linkedin"
       }

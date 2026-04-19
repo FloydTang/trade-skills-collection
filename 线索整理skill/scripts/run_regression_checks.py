@@ -18,16 +18,17 @@ CASES = [
             "lead-002",
             "当前只有邮箱线索，建议先补公司名或官网再进入客户背调。",
             "\"company_name\": \"GreenHarvest Foods\"",
+            "Legacy Recommended Next Action: enter_customer_intel",
         ],
     },
     {
         "label": "textile-leads",
         "input_path": SKILL_ROOT / "examples" / "textile-leads.json",
         "must_include": [
-            "Need Enrichment: 1",
+            "Needs Enrichment: 1",
             "邮箱使用公共域名，不能直接当作企业身份强证据。",
             "atelier-loom.de",
-            "enrich_then_customer_intel",
+            "needs_enrichment",
         ],
     },
 ]
@@ -49,7 +50,7 @@ def run_case(case: dict) -> tuple[bool, str]:
     if proc.returncode != 0:
         return False, f"{case['label']}: failed with {proc.stderr.strip() or proc.stdout.strip()}"
     output = proc.stdout
-    checks = ["# Lead Screening Package", "## Summary", "## lead-001", "Customer Intel Input"]
+    checks = ["# Lead Screening Package", "## Summary", "## lead-001", "Customer Intel Input", "Evidence Grade:"]
     missing = [item for item in checks if item not in output]
     if missing:
         return False, f"{case['label']}: missing expected sections: {', '.join(missing)}"

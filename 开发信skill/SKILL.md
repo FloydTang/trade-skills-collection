@@ -9,6 +9,8 @@ description: Generate conservative, editable English outreach drafts for foreign
 
 用这个 Skill 把结构化客户信息转换成可人工修改后发送的英文邮件草稿。
 
+当前定位：`复核型开发信工作台`
+
 角色定位：
 
 - `开发信策略员`
@@ -60,6 +62,10 @@ description: Generate conservative, editable English outreach drafts for foreign
 - 必须包含 2 个标题候选
 - 必须包含至少 1 个英文正文草稿
 - 必须包含中文复核提示
+- 必须包含 `evidence_signals_used`
+- 必须包含 `unconfirmed_fact_checklist`
+- 必须包含 `send_policy = manual_review_only`
+- 必须包含 `workflow_guidance`
 - 必须回显关键输入依据
 - 不能把不确定信息写成确定事实
 - 不能越权替代人工执行发送
@@ -87,6 +93,7 @@ python3 ./scripts/run_regression_checks.py
 - 输出默认偏保守
 - 不覆盖报价邮件
 - 发送前必须人工复核
+- 默认下游动作：`ready_for_manual_send | hold_for_manual_review`
 
 ## Enhancement Entry
 

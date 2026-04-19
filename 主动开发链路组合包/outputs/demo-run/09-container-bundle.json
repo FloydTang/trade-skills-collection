@@ -4,87 +4,34 @@
     "selected_lead_id": "lead-002",
     "workflow_id": "demo-run-lead-002-greenharvest-foods",
     "generated_at": "2026-04-19T01:48:52+00:00",
-    "bundle_scope": "trade-skill-collection-feishu-sandbox-handoff",
+    "bundle_scope": "trade-skill-collection-container-bundle",
     "workspace_owner_skill": "trade-active-outreach-combo"
   },
-  "openclaw_install_contract": {
-    "container_owner": "active_outreach_combo",
-    "container_mode": "single_base_multi_table",
-    "single_skill_policy": "attach_only",
-    "workflow_owner": {
-      "skill_name": "trade-active-outreach-combo",
-      "role": "workflow_owner",
-      "repo_path": "主动开发链路组合包"
+  "public_modes": {
+    "classroom_stable_mode": {
+      "enabled": true,
+      "description": "固定样例、固定桥接、稳定演示。"
     },
-    "stage_workers": [
-      {
-        "skill_name": "trade-lead-discovery-openclaw",
-        "role": "stage_worker",
-        "stage_name": "lead_discovery",
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "requires_master_record": true
-      },
-      {
-        "skill_name": "trade-lead-screening-openclaw",
-        "role": "stage_worker",
-        "stage_name": "lead_screening",
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "requires_master_record": true
-      },
-      {
-        "skill_name": "trade-customer-intel-for-openclaw",
-        "role": "stage_worker",
-        "stage_name": "customer_intel",
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "requires_master_record": true
-      },
-      {
-        "skill_name": "trade-outreach-email-for-openclaw",
-        "role": "stage_worker",
-        "stage_name": "outreach_email",
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "requires_master_record": true
-      }
-    ]
+    "real_business_mode": {
+      "enabled": true,
+      "description": "真实输入，结果受公开数据质量、关键词和权限影响。"
+    }
   },
-  "workspace_container": {
-    "container_type": "single_base_workspace",
-    "base_name": "Trade Lead Workflow Hub",
-    "base_reuse_policy": "reuse_existing_base_before_create",
-    "create_new_base_when_missing": true,
-    "forbid_parallel_bases_for_each_stage": true,
-    "workspace_owner_skill": "trade-active-outreach-combo",
-    "single_skill_attach_only": true,
-    "forbid_stage_level_base_bootstrap": true,
-    "tables": [
-      {
-        "table_name": "Lead Workflow Master",
-        "role": "master_index",
-        "bootstrap_mode": "create_if_missing_then_reuse"
-      },
-      {
-        "table_name": "Lead Discovery Results",
-        "role": "stage_table",
-        "bootstrap_mode": "create_if_missing_then_reuse"
-      },
-      {
-        "table_name": "Lead Screening Results",
-        "role": "stage_table",
-        "bootstrap_mode": "create_if_missing_then_reuse"
-      }
+  "data_containers": {
+    "fallback_containers": [
+      "json",
+      "markdown",
+      "csv"
     ],
-    "doc_spaces": [
-      "Customer Intel Docs",
-      "Outreach Email Docs",
-      "Run Logs",
-      "Failure Notes"
+    "classroom_sandbox": "feishu",
+    "future_enterprise_adapters": [
+      "crm",
+      "erp",
+      "mail_draftbox"
     ]
   },
-  "master_table_schema": {
+  "master_index_schema": {
+    "schema_name": "Lead Workflow Master",
     "description": "全链路主索引。每行代表一条线索在主动开发流程中的当前状态、关键判断与容器资产引用。",
     "fields": [
       {
@@ -186,8 +133,7 @@
         "name": "failure_reason",
         "type": "multiline_text"
       }
-    ],
-    "table_name": "Lead Workflow Master"
+    ]
   },
   "stage_assets": {
     "lead_discovery": {
@@ -195,6 +141,16 @@
         "combo_run_id": "demo-run",
         "generated_at": "2026-04-19T01:48:52+00:00",
         "stage_scope": "lead_discovery_batch"
+      },
+      "runtime_contract": {
+        "workspace_owner_skill": "trade-active-outreach-combo",
+        "stage_worker_skill": "trade-lead-discovery-openclaw",
+        "role": "stage_worker",
+        "single_skill_attach_only": true,
+        "container_creation": "forbidden",
+        "requires_master_container": true,
+        "requires_master_record": true,
+        "forbid_stage_level_container_bootstrap": true
       },
       "lead_identity": null,
       "stage_name": "lead_discovery",
@@ -552,23 +508,23 @@
             "reuse_strategy": "upsert_by_combo_run_and_lead_id"
           }
         }
-      ],
-      "feishu_runtime_contract": {
-        "workspace_owner_skill": "trade-active-outreach-combo",
-        "stage_worker_skill": "trade-lead-discovery-openclaw",
-        "role": "stage_worker",
-        "single_skill_attach_only": true,
-        "requires_master_record": true,
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "forbid_stage_level_base_bootstrap": true
-      }
+      ]
     },
     "lead_screening": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
         "generated_at": "2026-04-19T01:48:52+00:00",
         "stage_scope": "lead_screening_batch"
+      },
+      "runtime_contract": {
+        "workspace_owner_skill": "trade-active-outreach-combo",
+        "stage_worker_skill": "trade-lead-screening-openclaw",
+        "role": "stage_worker",
+        "single_skill_attach_only": true,
+        "container_creation": "forbidden",
+        "requires_master_container": true,
+        "requires_master_record": true,
+        "forbid_stage_level_container_bootstrap": true
       },
       "lead_identity": null,
       "stage_name": "lead_screening",
@@ -900,23 +856,23 @@
             "reuse_strategy": "upsert_by_combo_run_and_lead_id"
           }
         }
-      ],
-      "feishu_runtime_contract": {
-        "workspace_owner_skill": "trade-active-outreach-combo",
-        "stage_worker_skill": "trade-lead-screening-openclaw",
-        "role": "stage_worker",
-        "single_skill_attach_only": true,
-        "requires_master_record": true,
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "forbid_stage_level_base_bootstrap": true
-      }
+      ]
     },
     "customer_intel": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
         "workflow_id": "demo-run-lead-002-greenharvest-foods",
         "generated_at": "2026-03-25T00:00:00+08:00"
+      },
+      "runtime_contract": {
+        "workspace_owner_skill": "trade-active-outreach-combo",
+        "stage_worker_skill": "trade-customer-intel-for-openclaw",
+        "role": "stage_worker",
+        "single_skill_attach_only": true,
+        "container_creation": "forbidden",
+        "requires_master_container": true,
+        "requires_master_record": true,
+        "forbid_stage_level_container_bootstrap": true
       },
       "lead_identity": {
         "lead_id": "lead-002",
@@ -1085,16 +1041,6 @@
         "target_doc_folder": "Customer Intel Docs",
         "asset_key": "intel-doc:demo-run-lead-002-greenharvest-foods",
         "reuse_strategy": "reuse_existing_doc_then_append_version_section"
-      },
-      "feishu_runtime_contract": {
-        "workspace_owner_skill": "trade-active-outreach-combo",
-        "stage_worker_skill": "trade-customer-intel-for-openclaw",
-        "role": "stage_worker",
-        "single_skill_attach_only": true,
-        "requires_master_record": true,
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "forbid_stage_level_base_bootstrap": true
       }
     },
     "outreach_email": {
@@ -1102,6 +1048,16 @@
         "combo_run_id": "demo-run",
         "workflow_id": "demo-run-lead-002-greenharvest-foods",
         "generated_at": "2026-04-19T01:48:52+00:00"
+      },
+      "runtime_contract": {
+        "workspace_owner_skill": "trade-active-outreach-combo",
+        "stage_worker_skill": "trade-outreach-email-for-openclaw",
+        "role": "stage_worker",
+        "single_skill_attach_only": true,
+        "container_creation": "forbidden",
+        "requires_master_container": true,
+        "requires_master_record": true,
+        "forbid_stage_level_container_bootstrap": true
       },
       "lead_identity": {
         "lead_id": "lead-002",
@@ -1212,16 +1168,6 @@
         "target_doc_folder": "Outreach Email Docs",
         "asset_key": "email-doc:demo-run-lead-002-greenharvest-foods",
         "reuse_strategy": "reuse_existing_doc_then_append_new_draft_version"
-      },
-      "feishu_runtime_contract": {
-        "workspace_owner_skill": "trade-active-outreach-combo",
-        "stage_worker_skill": "trade-outreach-email-for-openclaw",
-        "role": "stage_worker",
-        "single_skill_attach_only": true,
-        "requires_master_record": true,
-        "feishu_container_creation": "forbidden",
-        "requires_master_base": true,
-        "forbid_stage_level_base_bootstrap": true
       }
     }
   },
@@ -1286,67 +1232,19 @@
       "asset_keys": "{\"search\": \"search-record:demo-run:lead-003\", \"screening\": \"screening-record:demo-run:lead-003\"}"
     }
   ],
-  "openclaw_handoff": {
-    "execution_order": [
-      "create_or_open_workspace_base",
-      "create_or_open_required_tables",
-      "create_or_open_master_table",
-      "resolve_or_create_master_record",
-      "upsert_lead_discovery_records",
-      "upsert_lead_screening_records",
-      "create_or_update_customer_intel_doc_for_selected_lead",
-      "create_or_update_outreach_email_doc_for_selected_lead",
-      "write_back_master_records"
+  "handoff_contract": {
+    "core_entities": [
+      "LeadRecord",
+      "EvidenceItem",
+      "ScreeningDecision",
+      "IntelDecision",
+      "OutreachDraftPackage",
+      "ContainerBundle"
     ],
-    "stage_asset_types": {
-      "lead_discovery": "table_record_batch",
-      "lead_screening": "table_record_batch",
-      "customer_intel": "doc",
-      "outreach_email": "doc"
-    },
-    "master_writeback_rules": [
-      "搜索阶段写回 evidence_grade、next_action 和主表 current_status。",
-      "recommended_next_action=ready_for_customer_intel 但未被本轮选中时，current_status=waiting_selection。",
-      "recommended_next_action=needs_enrichment 时，不创建背调文档。",
-      "开发信草稿完成后，主表 current_stage=outreach_email, current_status=draft_ready。",
-      "URL 字段不是首次试跑硬前置，主表默认写文本 asset_ref。",
-      "失败时也要回写 current_stage/current_status/failure_reason/last_updated_at。"
-    ],
-    "single_skill_attach_rules": [
-      "单独跑客户背调时，也必须先查 Lead Workflow Master。",
-      "单独跑开发信时，也必须先查 Lead Workflow Master。",
-      "同一 lead 后续补跑其他节点时，优先更新原主记录。",
-      "找不到原记录时，才允许创建最小主记录。"
-    ],
-    "workflow_owner_rules": [
-      "只有主动开发链路组合包允许声明或初始化飞书课堂沙盘容器。",
-      "单节点 Skill 只允许产出阶段 payload，不允许独立创建 Base 或主表。",
-      "OpenClaw 安装入口默认先识别 workflow_owner，再加载 stage_worker。"
-    ],
-    "lead_match_policy": {
-      "primary_key": "lead_id",
-      "secondary_keys": [
-        "company_name",
-        "company_website_or_domain",
-        "email"
-      ],
-      "on_ambiguity": "write_failure_reason_and_hold_for_manual_review"
-    },
-    "rerun_policy": {
-      "table_records": "按 combo_run_id + lead_id upsert，避免重复插入。",
-      "intel_doc": "优先复用已存在文档，再追加本次版本区块。",
-      "email_doc": "优先复用已存在文档，再追加新草稿版本。",
-      "master_record": "优先复用原 lead 主记录，不新建平行 lead。"
-    },
-    "failure_writeback_policy": {
-      "always_write_master_status": true,
-      "required_fields": [
-        "current_stage",
-        "current_status",
-        "failure_reason",
-        "last_updated_at"
-      ],
-      "keep_partial_assets": true
-    }
+    "default_send_policy": "manual_review_only",
+    "notes": [
+      "飞书只作为课堂标准沙盘，不是企业唯一数据容器。",
+      "企业真实容器适配留在课后接入层，本轮只公开字段与容器抽象。"
+    ]
   }
 }

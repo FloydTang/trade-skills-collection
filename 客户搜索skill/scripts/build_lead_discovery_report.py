@@ -14,6 +14,13 @@ from html import unescape
 from pathlib import Path
 from typing import Any
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from workflow_runtime.contracts import SEARCH_GRADE_TO_ACTION
+
 
 USER_AGENT = "trade-lead-discovery/0.1"
 DEFAULT_MAX_RESULTS = 6
@@ -237,6 +244,18 @@ def build_queries(data: dict[str, Any]) -> list[str]:
     return list(dict.fromkeys(normalize_text(query) for query in queries if normalize_text(query)))
 
 
+def build_search_strategy(data: dict[str, Any], queries: list[str]) -> dict[str, Any]:
+    return {
+        "strategy_summary": (
+            "先用产品 + 市场 + 客户类型构造主查询，再补角色词、LinkedIn 公司页线索和 must_include 限定词。"
+        ),
+        "query_plan": queries,
+        "exclude_terms": data["exclude_terms"],
+        "must_include": data["must_include"],
+        "notes": data["notes"],
+    }
+
+
 def website_domain(url: str) -> str:
     if not url:
         return ""
@@ -367,6 +386,75 @@ def merge_candidate(base: Candidate, incoming: Candidate) -> Candidate:
     return base
 
 
+def candidate_missing_fields(candidate: Candidate) -> list[str]:
+    missing = []
+    if not candidate.company_name:
+        missing.append("company_name")
+    if not candidate.company_website:
+        missing.append("company_website")
+    if not candidate.linkedin_url:
+        missing.append("linkedin_url")
+    if not candidate.visible_contact_clues:
+        missing.append("visible_contact_clues")
+    return missing
+
+
+def candidate_evidence_grade(candidate: Candidate) -> str:
+    has_name = bool(candidate.company_name)
+    has_website = bool(candidate.company_website)
+    has_linkedin = bool(candidate.linkedin_url)
+    has_contacts = bool(candidate.visible_contact_clues)
+
+    if has_name and has_website and has_linkedin:
+        return "A"
+    if has_name and (has_website or has_linkedin):
+        return "B"
+    if has_name or has_website or has_linkedin or has_contacts:
+        return "C"
+    return "D"
+
+
+def candidate_next_action(candidate: Candidate, grade: str) -> str:
+    if grade in {"A", "B", "C"}:
+        return SEARCH_GRADE_TO_ACTION[grade]
+    if candidate.company_name or candidate.visible_contact_clues:
+        return "hold_for_manual_review"
+    return "reject_low_evidence"
+
+
+def candidate_match_reason(candidate: Candidate, grade: str) -> str:
+    reasons = []
+    if candidate.company_website:
+        reasons.append("有官网主体线索")
+    if candidate.linkedin_url:
+        reasons.append("有 LinkedIn 公司页线索")
+    if candidate.visible_contact_clues:
+        reasons.append("搜索结果出现可见联系人或角色线索")
+    if candidate.search_query_used:
+        reasons.append("命中当前搜索策略中的目标关键词组合")
+    if not reasons:
+        reasons.append("当前只有弱网页片段，尚不能稳定证明主体")
+    return f"证据等级 {grade}：{'；'.join(reasons)}。"
+
+
+def candidate_evidence_summary(candidate: Candidate, grade: str, next_action: str) -> str:
+    source_parts = []
+    if candidate.company_website:
+        source_parts.append("官网")
+    if candidate.linkedin_url:
+        source_parts.append("LinkedIn")
+    if candidate.source_url and candidate.source_url not in {candidate.company_website, candidate.linkedin_url}:
+        source_parts.append("公开网页来源")
+    if candidate.visible_contact_clues:
+        source_parts.append(f"{len(candidate.visible_contact_clues)} 条可见联系人线索")
+    if not source_parts:
+        source_parts.append("弱网页片段")
+    return (
+        f"当前候选主要基于{'、'.join(source_parts)}形成。"
+        f" 建议动作：{next_action}。"
+    )
+
+
 def normalized_name_key(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", name.lower())
 
@@ -398,6 +486,8 @@ def build_candidates(results: list[SearchResult], data: dict[str, Any]) -> list[
     ordered = sorted(consolidated, key=lambda item: (not item.company_website, not item.linkedin_url, item.company_name.lower()))
     output = []
     for index, candidate in enumerate(ordered[: data["max_results"]], start=1):
+        evidence_grade = candidate_evidence_grade(candidate)
+        next_action = candidate_next_action(candidate, evidence_grade)
         output.append(
             {
                 "candidate_id": f"candidate-{index:03d}",
@@ -409,6 +499,11 @@ def build_candidates(results: list[SearchResult], data: dict[str, Any]) -> list[
                 "visible_contact_clues": candidate.visible_contact_clues,
                 "search_snippet": candidate.search_snippet,
                 "search_query_used": candidate.search_query_used,
+                "evidence_grade": evidence_grade,
+                "match_reason": candidate_match_reason(candidate, evidence_grade),
+                "missing_fields": candidate_missing_fields(candidate),
+                "evidence_summary": candidate_evidence_summary(candidate, evidence_grade, next_action),
+                "next_action": next_action,
                 "follow_up_suggestion": follow_up_suggestion(candidate),
                 "source_type": candidate.source_type,
             }
@@ -444,6 +539,11 @@ def build_lead_screening_input(candidates: list[dict[str, Any]], notes: str) -> 
                 "notes": " | ".join(
                     part for part in [notes, item["search_snippet"], item["follow_up_suggestion"]] if part
                 ),
+                "evidence_grade": item["evidence_grade"],
+                "match_reason": item["match_reason"],
+                "evidence_summary": item["evidence_summary"],
+                "discovery_missing_fields": item["missing_fields"],
+                "discovery_next_action": item["next_action"],
                 "product_keywords": "",
                 "source_type": item["source_type"],
             }
@@ -462,10 +562,16 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Raw Result Count: {report['summary']['raw_result_count']}",
         f"- Candidate Count: {report['summary']['candidate_count']}",
         "",
-        "## Queries",
+        "## Search Strategy",
+        f"- Strategy Summary: {report['search_strategy']['strategy_summary']}",
+        "- Query Plan:",
     ]
-    for query in report["summary"]["queries"]:
+    for query in report["search_strategy"]["query_plan"]:
         lines.append(f"- {query}")
+    if report["search_strategy"]["must_include"]:
+        lines.append("- Must Include: " + ", ".join(report["search_strategy"]["must_include"]))
+    if report["search_strategy"]["exclude_terms"]:
+        lines.append("- Exclude Terms: " + ", ".join(report["search_strategy"]["exclude_terms"]))
     for candidate in report["candidates"]:
         lines.extend(
             [
@@ -477,10 +583,15 @@ def render_markdown(report: dict[str, Any]) -> str:
                 f"- Source URL: {candidate['source_url'] or '(missing)'}",
                 f"- Country/Market: {candidate['country_or_market'] or '(missing)'}",
                 f"- Source Type: {candidate['source_type']}",
+                f"- Evidence Grade: {candidate['evidence_grade']}",
+                f"- Next Action: {candidate['next_action']}",
                 "- Visible Contact Clues: "
                 + (", ".join(candidate["visible_contact_clues"]) if candidate["visible_contact_clues"] else "(none)"),
                 f"- Search Snippet: {candidate['search_snippet'] or '(missing)'}",
                 "- Search Query Used: " + (", ".join(candidate["search_query_used"]) if candidate["search_query_used"] else "(none)"),
+                f"- Evidence Summary: {candidate['evidence_summary']}",
+                f"- Match Reason: {candidate['match_reason']}",
+                "- Missing Fields: " + (", ".join(candidate["missing_fields"]) if candidate["missing_fields"] else "(none)"),
                 f"- Follow-up Suggestion: {candidate['follow_up_suggestion']}",
             ]
         )
@@ -510,6 +621,7 @@ def main() -> None:
     data = normalize_input(load_json(args.input_json))
     fixture_results = load_fixture_results(args.fixtures_json)
     queries = build_queries(data)
+    search_strategy = build_search_strategy(data, queries)
     gathered: list[SearchResult] = []
     for query in queries:
         if query in fixture_results:
@@ -527,6 +639,7 @@ def main() -> None:
             "raw_result_count": len(filtered),
             "candidate_count": len(candidates),
         },
+        "search_strategy": search_strategy,
         "candidates": candidates,
         "lead_screening_input": build_lead_screening_input(candidates, data["notes"]),
     }

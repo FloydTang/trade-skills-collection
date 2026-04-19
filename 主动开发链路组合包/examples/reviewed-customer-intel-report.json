@@ -54,6 +54,20 @@
     "官网和 LinkedIn 线索基本一致，但公开细节仍有限。",
     "当前仍需人工确认采购角色与实际产品匹配度。"
   ],
+  "intel_decision": {
+    "entity_confidence": "medium",
+    "evidence_sufficiency": "limited",
+    "risk_rating": "Medium",
+    "recommended_next_action": "ready_for_email_draft",
+    "manual_review_required": false,
+    "review_focus": [
+      "当前仍需人工确认采购角色与实际产品匹配度。"
+    ]
+  },
+  "unconfirmed_fact_list": [
+    "当前仍需人工确认采购角色与实际产品匹配度。",
+    "公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。"
+  ],
   "phase_2_status": "generated",
   "outreach_persona_card": {
     "themes": [

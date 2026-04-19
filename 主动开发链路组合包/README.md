@@ -6,6 +6,11 @@
 
 `客户搜索skill -> 线索整理skill -> 客户背调skill -> 开发信skill`
 
+当前默认按两种模式理解：
+
+- `课堂稳定模式`：固定样例、固定桥接、稳定演示
+- `真实业务模式`：真实输入，结果受公开数据质量和关键词配置影响
+
 ## 当前开源范围
 
 开源版当前提供：
@@ -35,6 +40,12 @@
 - 没有真实公开来源，不应推进下一步
 - 中间产物必须人工复核，不默认自动外发
 
+## 数据容器方案
+
+- 保底容器：`JSON / Markdown / CSV`
+- 课堂标准沙盘：`Feishu Sandbox Adapter`
+- 企业真实容器：`CRM / ERP / 邮箱草稿箱`，当前只留扩展位
+
 ## Quick Start
 
 运行最小 demo：
@@ -51,13 +62,14 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 
 ## 推荐查看的输出
 
-- `outputs/demo-run/03-lead-screening-output.md`
-- `outputs/demo-run/05-selected-customer-intel-input.json`
-- `outputs/demo-run/06-customer-intel-report.json`
-- `outputs/demo-run/08-email-draft.md`
+- `outputs/demo-run/09-container-bundle.json`
+- `outputs/demo-run/10-container-bundle.md`
+- `outputs/demo-run/11-lead-workflow.csv`
+- `outputs/demo-run/12-feishu-sandbox-bundle.json`
 
 ## 组合包职责边界
 
 - 负责串联，不负责重写
 - 负责最小闭环，不负责自动发信
 - 负责开源演示，不负责在仓库里展开增强正文
+- 负责输出中立容器 bundle，不把飞书写死成唯一容器

@@ -8,6 +8,14 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from workflow_runtime.contracts import screening_action_legacy
+
+
 PUBLIC_EMAIL_DOMAINS = {
     "gmail.com",
     "outlook.com",
@@ -109,6 +117,15 @@ def validate_payload(payload: object) -> dict:
             "source_url": normalize_url(lead.get("source_url")),
             "linkedin_url": normalize_url(lead.get("linkedin_url")),
             "notes": normalize_text(lead.get("notes")),
+            "evidence_grade": normalize_text(lead.get("evidence_grade")).upper(),
+            "match_reason": normalize_text(lead.get("match_reason")),
+            "evidence_summary": normalize_text(lead.get("evidence_summary")),
+            "discovery_missing_fields": [
+                normalize_text(item)
+                for item in (lead.get("discovery_missing_fields") or [])
+                if normalize_text(item)
+            ],
+            "discovery_next_action": normalize_text(lead.get("discovery_next_action")),
             "product_keywords": normalize_text(lead.get("product_keywords")),
             "source_type": normalize_text(lead.get("source_type")),
         }
@@ -158,6 +175,8 @@ def review_reasons(lead: dict) -> list[str]:
         compact_domain = domain_from_website.replace("-", "").replace(".", "")
         if compact_name[:6] and compact_name[:6] not in compact_domain:
             reasons.append("公司名与官网域名对应关系较弱，建议人工确认主体匹配。")
+    if lead.get("discovery_next_action") == "reject_low_evidence":
+        reasons.append("搜索阶段已判定为低证据候选，不建议直接推进。")
     return reasons
 
 
@@ -173,6 +192,8 @@ def follow_up_suggestions(lead: dict, reasons: list[str]) -> list[str]:
         suggestions.append("补国家市场，方便背调和后续触达语言判断。")
     if reasons:
         suggestions.append("先处理人工复核项，再决定是否进入客户背调。")
+    if lead.get("evidence_grade") in {"C", "D"}:
+        suggestions.append("优先补官网、LinkedIn 或主体可验证字段，再进入客户背调。")
     if not suggestions:
         suggestions.append("可直接进入客户背调，并在背调阶段继续核对实体匹配。")
     return suggestions
@@ -189,10 +210,15 @@ def recommended_action(lead: dict, reasons: list[str]) -> str:
     if lead["person_name"]:
         strong_clues += 1
 
-    if strong_clues >= 3 and len(reasons) <= 1:
-        return "enter_customer_intel"
+    evidence_grade = lead.get("evidence_grade") or ""
+    discovery_next_action = lead.get("discovery_next_action") or ""
+
+    if discovery_next_action == "reject_low_evidence":
+        return "hold_for_manual_review"
+    if evidence_grade in {"A", "B"} and strong_clues >= 2 and len(reasons) <= 1:
+        return "ready_for_customer_intel"
     if strong_clues >= 1:
-        return "enrich_then_customer_intel"
+        return "needs_enrichment"
     return "hold_for_manual_review"
 
 
@@ -200,6 +226,10 @@ def build_notes(lead: dict, reasons: list[str]) -> str:
     parts = []
     if lead["notes"]:
         parts.append(lead["notes"])
+    if lead.get("evidence_summary"):
+        parts.append(f"Evidence Summary: {lead['evidence_summary']}")
+    if lead.get("match_reason"):
+        parts.append(f"Match Reason: {lead['match_reason']}")
     if lead["source_url"]:
         parts.append(f"Source URL: {lead['source_url']}")
     if lead["linkedin_url"]:
@@ -234,10 +264,16 @@ def normalize_lead(lead: dict, default_country_or_market: str, index: int) -> di
         "linkedin_url": normalized["linkedin_url"],
         "product_keywords": normalized["product_keywords"],
         "source_type": normalized["source_type"],
+        "evidence_grade": normalized["evidence_grade"] or "C",
+        "match_reason": normalized["match_reason"],
+        "evidence_summary": normalized["evidence_summary"],
+        "discovery_missing_fields": normalized["discovery_missing_fields"],
+        "discovery_next_action": normalized["discovery_next_action"],
         "lead_bucket": classify_lead(normalized),
         "missing_fields": missing,
         "manual_review_reasons": reasons,
         "recommended_next_action": action,
+        "legacy_recommended_next_action": screening_action_legacy(action),
         "follow_up_suggestions": follow_up_suggestions(normalized, reasons),
         "customer_intel_input": {
             "company_name": normalized["company_name"],
@@ -259,10 +295,10 @@ def build_report(payload: dict) -> dict:
     summary = {
         "total_leads": len(normalized_leads),
         "ready_for_customer_intel": sum(
-            1 for lead in normalized_leads if lead["recommended_next_action"] == "enter_customer_intel"
+            1 for lead in normalized_leads if lead["recommended_next_action"] == "ready_for_customer_intel"
         ),
-        "need_enrichment": sum(
-            1 for lead in normalized_leads if lead["recommended_next_action"] == "enrich_then_customer_intel"
+        "needs_enrichment": sum(
+            1 for lead in normalized_leads if lead["recommended_next_action"] == "needs_enrichment"
         ),
         "manual_review": sum(
             1 for lead in normalized_leads if lead["recommended_next_action"] == "hold_for_manual_review"
@@ -279,7 +315,7 @@ def render_markdown(report: dict) -> str:
         "## Summary",
         f"- Total Leads: {report['summary']['total_leads']}",
         f"- Ready for Customer Intel: {report['summary']['ready_for_customer_intel']}",
-        f"- Need Enrichment: {report['summary']['need_enrichment']}",
+        f"- Needs Enrichment: {report['summary']['needs_enrichment']}",
         f"- Manual Review: {report['summary']['manual_review']}",
     ]
     if report["summary"]["operator_notes"]:
@@ -295,10 +331,19 @@ def render_markdown(report: dict) -> str:
                 f"- Website: {lead['company_website'] or '(missing)'}",
                 f"- Country/Market: {lead['country_or_market'] or '(missing)'}",
                 f"- Lead Bucket: {lead['lead_bucket']}",
+                f"- Evidence Grade: {lead['evidence_grade']}",
+                f"- Discovery Next Action: {lead['discovery_next_action'] or '(missing)'}",
                 f"- Recommended Next Action: {lead['recommended_next_action']}",
+                f"- Legacy Recommended Next Action: {lead['legacy_recommended_next_action']}",
                 "- Missing Fields: " + (", ".join(lead["missing_fields"]) if lead["missing_fields"] else "(none)"),
+                "- Discovery Missing Fields: "
+                + (", ".join(lead["discovery_missing_fields"]) if lead["discovery_missing_fields"] else "(none)"),
             ]
         )
+        if lead["evidence_summary"]:
+            lines.append(f"- Evidence Summary: {lead['evidence_summary']}")
+        if lead["match_reason"]:
+            lines.append(f"- Match Reason: {lead['match_reason']}")
         if lead["manual_review_reasons"]:
             lines.append("- Manual Review Reasons:")
             for reason in lead["manual_review_reasons"]:

@@ -10,6 +10,7 @@
 
 - 让新用户不用先运行脚本，也能先看到完整阶段产物长什么样
 - 作为公开仓库里的稳定示例结果
+- 展示 `ContainerBundle -> JSON / Markdown / CSV / Feishu Sandbox Adapter` 的导出形态
 
 注意：
 

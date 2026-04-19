@@ -37,7 +37,8 @@
 
 组合包当前直接复用以下现有样例：
 
-- `客户搜索skill/examples/frozen-food-output.json`
+- `客户搜索skill/examples/frozen-food-search.json`
+- `客户搜索skill/examples/frozen-food-fixtures.json`
 - `线索整理skill/examples/sample-output.json` 的结构约定
 - `开发信skill/examples/customer-intel-bridged-email-input.json` 的桥接形状
 
@@ -45,3 +46,4 @@
 
 - 组合包以“复用”为优先，不维护一套重复样例库
 - 只有当组合包需要自己的稳定入口或稳定下游 fixture 时，才在这里单独保留文件
+- 搜索阶段当前通过固定 search brief + fixtures 现场生成稳定输出，而不是直接复制旧结果文件

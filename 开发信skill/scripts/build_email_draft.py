@@ -39,8 +39,13 @@ def normalize(raw: dict) -> dict:
         "sender_company": "",
         "signature": "",
         "constraints": "",
+        "source_context": {},
     }
     for key in fields:
+        if key == "source_context":
+            value = raw.get(key, {})
+            fields[key] = value if isinstance(value, dict) else {}
+            continue
         value = raw.get(key, "")
         fields[key] = value.strip() if isinstance(value, str) else value
     return fields
@@ -237,6 +242,11 @@ def build_review_notes(data: dict) -> list[str]:
         notes.append("若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。")
     if data["constraints"]:
         notes.append(f"已应用输入约束：{data['constraints']}")
+    source_context = data.get("source_context") or {}
+    if source_context.get("evidence_sufficiency") in {"limited", "thin"}:
+        notes.append("背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。")
+    if source_context.get("intel_recommended_next_action") == "hold_for_manual_review":
+        notes.append("上游背调尚未建议进入开发信，请先完成人工复核。")
     return notes
 
 
@@ -262,13 +272,63 @@ def build_input_signals(data: dict) -> list[str]:
     return signals
 
 
-def render_markdown(data: dict, subjects: list[str], drafts: dict, notes: list[str], signals: list[str]) -> str:
+def build_evidence_signals(data: dict) -> list[str]:
+    source_context = data.get("source_context") or {}
+    signals = []
+    if source_context.get("recommended_sales_angle_en"):
+        signals.append(f"sales_angle: {source_context['recommended_sales_angle_en']}")
+    if source_context.get("risk_rating"):
+        signals.append(f"risk_rating: {source_context['risk_rating']}")
+    if source_context.get("entity_confidence"):
+        signals.append(f"entity_confidence: {source_context['entity_confidence']}")
+    if source_context.get("evidence_sufficiency"):
+        signals.append(f"evidence_sufficiency: {source_context['evidence_sufficiency']}")
+    for title in source_context.get("evidence_titles") or []:
+        signals.append(f"evidence_title: {title}")
+    return signals
+
+
+def build_unconfirmed_fact_checklist(data: dict) -> list[str]:
+    source_context = data.get("source_context") or {}
+    checklist = list(source_context.get("unconfirmed_fact_list") or [])
+    checklist.extend(source_context.get("ambiguity_notes") or [])
+    if not checklist:
+        checklist.append("确认客户画像摘要、销售切入点和任何具体需求判断都来自公开且已核实的信息。")
+    return list(dict.fromkeys(checklist))
+
+
+def build_workflow_guidance(data: dict) -> dict:
+    source_context = data.get("source_context") or {}
+    intel_action = source_context.get("intel_recommended_next_action")
+    next_action = (
+        "ready_for_manual_send"
+        if intel_action in {None, "", "ready_for_email_draft"}
+        else "hold_for_manual_review"
+    )
+    return {
+        "recommended_next_action": next_action,
+        "send_policy": "manual_review_only",
+    }
+
+
+def render_markdown(
+    data: dict,
+    subjects: list[str],
+    drafts: dict,
+    notes: list[str],
+    signals: list[str],
+    evidence_signals: list[str],
+    unconfirmed_fact_checklist: list[str],
+    workflow_guidance: dict,
+) -> str:
     lines = [
-        "# Email Draft Package",
+        "# Review-First Outreach Draft Package",
         "",
         "## Scenario",
         f"- Email Type: {scenario_label(data['email_type'])}",
         f"- Goal: {data['goal']}",
+        f"- Send Policy: {workflow_guidance['send_policy']}",
+        f"- Recommended Next Action: {workflow_guidance['recommended_next_action']}",
         "",
         "## Subject Options",
         f"1. {subjects[0]}",
@@ -283,6 +343,10 @@ def render_markdown(data: dict, subjects: list[str], drafts: dict, notes: list[s
         "## Review Notes",
     ]
     lines.extend([f"- {note}" for note in notes])
+    lines.extend(["", "## Evidence Signals Used"])
+    lines.extend([f"- {signal}" for signal in evidence_signals])
+    lines.extend(["", "## Unconfirmed Facts"])
+    lines.extend([f"- {item}" for item in unconfirmed_fact_checklist])
     lines.extend(["", "## Input Signals Used"])
     lines.extend([f"- {signal}" for signal in signals])
     return "\n".join(lines) + "\n"
@@ -314,8 +378,20 @@ def main() -> None:
     drafts = build_drafts(data)
     notes = build_review_notes(data)
     signals = build_input_signals(data)
+    evidence_signals = build_evidence_signals(data)
+    unconfirmed_fact_checklist = build_unconfirmed_fact_checklist(data)
+    workflow_guidance = build_workflow_guidance(data)
 
-    markdown = render_markdown(data, subjects, drafts, notes, signals)
+    markdown = render_markdown(
+        data,
+        subjects,
+        drafts,
+        notes,
+        signals,
+        evidence_signals,
+        unconfirmed_fact_checklist,
+        workflow_guidance,
+    )
     payload = {
         "scenario": {
             "email_type": data["email_type"],
@@ -324,6 +400,10 @@ def main() -> None:
         "subject_options": subjects,
         "drafts": drafts,
         "review_notes": notes,
+        "evidence_signals_used": evidence_signals,
+        "unconfirmed_fact_checklist": unconfirmed_fact_checklist,
+        "send_policy": workflow_guidance["send_policy"],
+        "workflow_guidance": workflow_guidance,
         "input_signals_used": signals,
     }
 

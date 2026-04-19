@@ -1,8 +1,10 @@
-# Email Draft Package
+# Review-First Outreach Draft Package
 
 ## Scenario
 - Email Type: First Touch
 - Goal: introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.
+- Send Policy: manual_review_only
+- Recommended Next Action: ready_for_manual_send
 
 ## Subject Options
 1. Frozen Mixed Vegetables Supply for GreenHarvest Foods
@@ -45,6 +47,19 @@ Ningbo FreshGrow Foods
 - 邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。
 - 若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。
 - 已应用输入约束：Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent.
+- 背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。
+
+## Evidence Signals Used
+- sales_angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.
+- risk_rating: Medium
+- entity_confidence: medium
+- evidence_sufficiency: limited
+- evidence_title: GreenHarvest Foods contact page
+- evidence_title: GreenHarvest Foods LinkedIn company page
+
+## Unconfirmed Facts
+- 当前仍需人工确认采购角色与实际产品匹配度。
+- 公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。
 
 ## Input Signals Used
 - email_type: first_touch

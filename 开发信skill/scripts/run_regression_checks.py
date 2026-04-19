@@ -16,6 +16,7 @@ CASES = [
         "input_path": SKILL_ROOT / "examples" / "first-touch.json",
         "must_include": [
             "Email Type: First Touch",
+            "Send Policy: manual_review_only",
             "Our purpose is simple:",
             "Please let me know if you would be open to a short exchange on this.",
             "邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。",
@@ -28,6 +29,7 @@ CASES = [
             "Email Type: Follow Up",
             "I wanted to check in specifically about our earlier introduction",
             "跟进内容引用了历史沟通背景，请确认时间点、附件和表达与实际一致。",
+            "## Unconfirmed Facts",
             "Please let me know whether it would be helpful for me to send the next details or samples.",
         ],
     },
@@ -74,10 +76,12 @@ def run_case(case: dict) -> tuple[bool, str]:
 
     output = proc.stdout
     checks = [
-        "# Email Draft Package",
+        "# Review-First Outreach Draft Package",
         "## Subject Options",
         "## Draft Version A",
         "## Review Notes",
+        "## Evidence Signals Used",
+        "## Unconfirmed Facts",
         "## Input Signals Used",
     ]
     missing = [item for item in checks if item not in output]

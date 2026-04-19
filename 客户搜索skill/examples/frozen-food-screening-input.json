@@ -5,12 +5,19 @@
     {
       "company_name": "Baltic Frozen Trade",
       "company_website": "https://balticfrozentrade.pl",
-      "person_name": "Central Europe",
+      "person_name": "",
       "email": "",
       "country_or_market": "Poland",
       "source_url": "https://balticfrozentrade.pl",
       "linkedin_url": "https://www.linkedin.com/company/baltic-frozen-trade",
       "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Supplier and importer of frozen vegetables and fruit for private label retail in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。",
+      "evidence_grade": "A",
+      "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。",
+      "evidence_summary": "当前候选主要基于官网、LinkedIn形成。 建议动作：ready_for_screening。",
+      "discovery_missing_fields": [
+        "visible_contact_clues"
+      ],
+      "discovery_next_action": "ready_for_screening",
       "product_keywords": "",
       "source_type": "web"
     },
@@ -23,18 +30,30 @@
       "source_url": "https://greenharvestfoods.com",
       "linkedin_url": "https://www.linkedin.com/company/greenharvestfoods",
       "notes": "Prefer companies that look ready for private-label frozen food sourcing. | GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。",
+      "evidence_grade": "A",
+      "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
+      "evidence_summary": "当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。",
+      "discovery_missing_fields": [],
+      "discovery_next_action": "ready_for_screening",
       "product_keywords": "",
       "source_type": "web"
     },
     {
       "company_name": "PolFood Sourcing directory profile",
       "company_website": "https://directory.example/polfood-sourcing",
-      "person_name": "",
+      "person_name": "Anna Kowalska",
       "email": "",
       "country_or_market": "Poland",
       "source_url": "https://directory.example/polfood-sourcing",
       "linkedin_url": "",
       "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。",
+      "evidence_grade": "B",
+      "match_reason": "证据等级 B：有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
+      "evidence_summary": "当前候选主要基于官网、2 条可见联系人线索形成。 建议动作：ready_for_screening。",
+      "discovery_missing_fields": [
+        "linkedin_url"
+      ],
+      "discovery_next_action": "ready_for_screening",
       "product_keywords": "",
       "source_type": "web"
     }

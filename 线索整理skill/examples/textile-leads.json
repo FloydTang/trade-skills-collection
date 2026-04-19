@@ -11,6 +11,11 @@
       "source_url": "https://atelier-loom.de/about",
       "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
       "notes": "Premium table textile positioning.",
+      "evidence_grade": "A",
+      "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。",
+      "evidence_summary": "当前候选主要基于官网、LinkedIn 和公开网页来源形成。建议动作：ready_for_screening。",
+      "discovery_missing_fields": [],
+      "discovery_next_action": "ready_for_screening",
       "product_keywords": "washed linen table textile",
       "source_type": "website"
     },
@@ -23,6 +28,11 @@
       "source_url": "https://marketplace.example/nordhaus",
       "linkedin_url": "",
       "notes": "Marketplace listing only, no confirmed buyer contact yet.",
+      "evidence_grade": "C",
+      "match_reason": "证据等级 C：有官网主体线索，但缺少 LinkedIn 和稳定联系人补强。",
+      "evidence_summary": "当前候选主要基于官网和市场目录来源形成。建议动作：needs_enrichment。",
+      "discovery_missing_fields": ["person_name", "linkedin_url", "visible_contact_clues"],
+      "discovery_next_action": "needs_enrichment",
       "product_keywords": "table linen",
       "source_type": "marketplace"
     }

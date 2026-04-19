@@ -2,8 +2,8 @@
 
 ## Summary
 - Total Leads: 3
-- Ready for Customer Intel: 2
-- Need Enrichment: 1
+- Ready for Customer Intel: 3
+- Needs Enrichment: 0
 - Manual Review: 0
 - Operator Notes: Prefer companies that look ready for private-label frozen food sourcing.
 
@@ -14,8 +14,14 @@
 - Website: https://balticfrozentrade.pl
 - Country/Market: Poland
 - Lead Bucket: website_company_basic
-- Recommended Next Action: enrich_then_customer_intel
+- Evidence Grade: A
+- Discovery Next Action: ready_for_screening
+- Recommended Next Action: ready_for_customer_intel
+- Legacy Recommended Next Action: enter_customer_intel
 - Missing Fields: person_name, email
+- Discovery Missing Fields: visible_contact_clues
+- Evidence Summary: 当前候选主要基于官网、LinkedIn形成。 建议动作：ready_for_screening。
+- Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。
 - Manual Review Reasons: (none)
 - Follow-up Suggestions:
   - 如后续要开发信，可优先补公司邮箱或联系人邮箱。
@@ -27,7 +33,7 @@
   "email": "",
   "company_website": "https://balticfrozentrade.pl",
   "country_or_market": "Poland",
-  "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Supplier and importer of frozen vegetables and fruit for private label retail in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Source URL: https://balticfrozentrade.pl | LinkedIn URL: https://www.linkedin.com/company/baltic-frozen-trade"
+  "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Supplier and importer of frozen vegetables and fruit for private label retail in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Evidence Summary: 当前候选主要基于官网、LinkedIn形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://balticfrozentrade.pl | LinkedIn URL: https://www.linkedin.com/company/baltic-frozen-trade"
 }
 ```
 
@@ -38,8 +44,14 @@
 - Website: https://greenharvestfoods.com
 - Country/Market: Poland
 - Lead Bucket: website_company_partial_contact
-- Recommended Next Action: enter_customer_intel
+- Evidence Grade: A
+- Discovery Next Action: ready_for_screening
+- Recommended Next Action: ready_for_customer_intel
+- Legacy Recommended Next Action: enter_customer_intel
 - Missing Fields: person_name
+- Discovery Missing Fields: (none)
+- Evidence Summary: 当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。
+- Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。
 - Manual Review Reasons: (none)
 - Follow-up Suggestions:
   - 可直接进入客户背调，并在背调阶段继续核对实体匹配。
@@ -51,7 +63,7 @@
   "email": "anna@greenharvestfoods.com",
   "company_website": "https://greenharvestfoods.com",
   "country_or_market": "Poland",
-  "notes": "Prefer companies that look ready for private-label frozen food sourcing. | GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Source URL: https://greenharvestfoods.com | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods"
+  "notes": "Prefer companies that look ready for private-label frozen food sourcing. | GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Evidence Summary: 当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://greenharvestfoods.com | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods"
 }
 ```
 
@@ -62,8 +74,14 @@
 - Website: https://directory.example/polfood-sourcing
 - Country/Market: Poland
 - Lead Bucket: website_company_partial_contact
-- Recommended Next Action: enter_customer_intel
+- Evidence Grade: B
+- Discovery Next Action: ready_for_screening
+- Recommended Next Action: ready_for_customer_intel
+- Legacy Recommended Next Action: enter_customer_intel
 - Missing Fields: email
+- Discovery Missing Fields: linkedin_url
+- Evidence Summary: 当前候选主要基于官网、2 条可见联系人线索形成。 建议动作：ready_for_screening。
+- Match Reason: 证据等级 B：有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。
 - Manual Review Reasons:
   - 公司名与官网域名对应关系较弱，建议人工确认主体匹配。
 - Follow-up Suggestions:
@@ -77,6 +95,6 @@
   "email": "",
   "company_website": "https://directory.example/polfood-sourcing",
   "country_or_market": "Poland",
-  "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。 | Source URL: https://directory.example/polfood-sourcing | Review: 公司名与官网域名对应关系较弱，建议人工确认主体匹配。"
+  "notes": "Prefer companies that look ready for private-label frozen food sourcing. | Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。 | Evidence Summary: 当前候选主要基于官网、2 条可见联系人线索形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 B：有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://directory.example/polfood-sourcing | Review: 公司名与官网域名对应关系较弱，建议人工确认主体匹配。"
 }
 ```

@@ -21,8 +21,7 @@ EMAIL_SKILL = WORKSPACE_ROOT / "开发信skill"
 
 PACKAGE_EXAMPLES = PACKAGE_ROOT / "examples"
 
-from workflow_runtime.feishu_payloads import dump_json
-from export_feishu_workflow_bundle import build_bundle
+from export_feishu_workflow_bundle import export_default_artifacts
 
 
 def run_python(args: list[str]) -> None:
@@ -49,7 +48,7 @@ def build_selected_customer_intel_input(screening_output_path: Path, selected_le
     for lead in leads:
         if lead.get("lead_id") != selected_lead_id:
             continue
-        if lead.get("recommended_next_action") != "enter_customer_intel":
+        if lead.get("recommended_next_action") != "ready_for_customer_intel":
             raise SystemExit(
                 f"Lead '{selected_lead_id}' is not ready for customer intel. "
                 "Review the screening output before continuing."
@@ -103,12 +102,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--combo-run-id",
         default="demo-run",
-        help="Stable combo run identifier for Feishu/OpenClaw payload exports.",
+        help="Stable combo run identifier for neutral container exports.",
     )
     parser.add_argument(
         "--skip-feishu-export",
         action="store_true",
-        help="Skip exporting the Feishu/OpenClaw workflow bundle.",
+        help="Skip exporting the Feishu sandbox adapter bundle.",
     )
     return parser.parse_args()
 
@@ -118,7 +117,9 @@ def main() -> None:
     output_dir = Path(args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    discovery_output_path = SEARCH_SKILL / "examples" / "frozen-food-output.json"
+    discovery_input_path = SEARCH_SKILL / "examples" / "frozen-food-search.json"
+    discovery_fixture_path = SEARCH_SKILL / "examples" / "frozen-food-fixtures.json"
+    discovery_output_path = output_dir / "01-lead-discovery-output.json"
     screening_input_path = output_dir / "02-lead-screening-input.json"
     screening_json_path = output_dir / "03-lead-screening-output.json"
     screening_md_path = output_dir / "03-lead-screening-output.md"
@@ -129,8 +130,18 @@ def main() -> None:
     email_json_path = output_dir / "08-email-draft.json"
     email_md_path = output_dir / "08-email-draft.md"
 
-    # Stage 1 output is fixed for stable demo playback.
-    shutil.copyfile(discovery_output_path, output_dir / "01-lead-discovery-output.json")
+    run_python(
+        [
+            sys.executable,
+            str(SEARCH_SKILL / "scripts" / "build_lead_discovery_report.py"),
+            "--input-json",
+            str(discovery_input_path),
+            "--fixtures-json",
+            str(discovery_fixture_path),
+            "--json-out",
+            str(discovery_output_path),
+        ]
+    )
 
     run_python(
         [
@@ -208,9 +219,12 @@ def main() -> None:
         ]
     )
 
-    if not args.skip_feishu_export:
-        feishu_bundle = build_bundle(output_dir, args.combo_run_id, args.selected_lead_id)
-        dump_json(feishu_bundle, output_dir / "09-feishu-workflow-bundle.json")
+    export_default_artifacts(
+        output_dir,
+        args.combo_run_id,
+        args.selected_lead_id,
+        include_feishu=not args.skip_feishu_export,
+    )
 
     print(f"Demo outputs generated in: {output_dir}")
     print("Current customer-intel stage uses the combo package fixture for stable demonstration.")

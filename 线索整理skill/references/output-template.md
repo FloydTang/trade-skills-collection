@@ -24,10 +24,13 @@
 - `email_domain_clue`
 - `company_website`
 - `country_or_market`
+- `evidence_grade`
+- `discovery_next_action`
 - `lead_bucket`
 - `missing_fields`
 - `manual_review_reasons`
 - `recommended_next_action`
+- `legacy_recommended_next_action`
 - `follow_up_suggestions`
 - `customer_intel_input`
 

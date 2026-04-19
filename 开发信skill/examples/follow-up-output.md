@@ -1,8 +1,10 @@
-# Email Draft Package
+# Review-First Outreach Draft Package
 
 ## Scenario
 - Email Type: Follow Up
 - Goal: follow up on our earlier introduction and ask whether samples would be useful
+- Send Policy: manual_review_only
+- Recommended Next Action: ready_for_manual_send
 
 ## Subject Options
 1. Following Up on Stainless Steel Kitchenware for Blue Harbor Imports
@@ -46,6 +48,11 @@ Taizhou HomePro Manufacturing
 - 跟进内容引用了历史沟通背景，请确认时间点、附件和表达与实际一致。
 - 若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。
 - 已应用输入约束：Avoid sounding pushy and keep the follow-up short.
+
+## Evidence Signals Used
+
+## Unconfirmed Facts
+- 确认客户画像摘要、销售切入点和任何具体需求判断都来自公开且已核实的信息。
 
 ## Input Signals Used
 - email_type: follow_up

@@ -16,6 +16,15 @@
     "邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。",
     "已应用输入约束：Keep the wording practical and avoid sounding too technical."
   ],
+  "evidence_signals_used": [],
+  "unconfirmed_fact_checklist": [
+    "确认客户画像摘要、销售切入点和任何具体需求判断都来自公开且已核实的信息。"
+  ],
+  "send_policy": "manual_review_only",
+  "workflow_guidance": {
+    "recommended_next_action": "ready_for_manual_send",
+    "send_policy": "manual_review_only"
+  },
   "input_signals_used": [
     "email_type: first_touch",
     "customer_name: Carlos",

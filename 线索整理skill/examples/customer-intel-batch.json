@@ -1,5 +1,5 @@
 {
-  "total_exported": 3,
+  "total_exported": 2,
   "customer_intel_inputs": [
     {
       "company_name": "Nordic Home Textile AB",
@@ -7,15 +7,7 @@
       "email": "",
       "company_website": "https://www.nordichometextile.example",
       "country_or_market": "Sweden",
-      "notes": "Found via home textile search results | Source URL: https://www.linkedin.com/company/nordic-home-textile-ab"
-    },
-    {
-      "company_name": "",
-      "person_name": "",
-      "email": "purchasing@acme-industrial.com",
-      "company_website": "",
-      "country_or_market": "United States",
-      "notes": "Email collected from directory page | Source URL: https://example.com/acme | Review: 当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
+      "notes": "Found via home textile search results | Evidence Summary: 当前候选主要基于官网和公开网页来源形成。建议动作：ready_for_screening。 | Match Reason: 证据等级 B：有官网主体线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://www.linkedin.com/company/nordic-home-textile-ab"
     },
     {
       "company_name": "GreenHarvest Foods",
@@ -23,7 +15,7 @@
       "email": "anna@greenharvestfoods.com",
       "company_website": "https://greenharvestfoods.com",
       "country_or_market": "Poland",
-      "notes": "Looks ready for background research. | Source URL: https://greenharvestfoods.com/contact | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods"
+      "notes": "Looks ready for background research. | Evidence Summary: 当前候选主要基于官网、LinkedIn、1 条可见联系人线索形成。建议动作：ready_for_screening。 | Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索。 | Source URL: https://greenharvestfoods.com/contact | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods"
     }
   ]
 }

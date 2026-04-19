@@ -1,8 +1,10 @@
-# Email Draft Package
+# Review-First Outreach Draft Package
 
 ## Scenario
 - Email Type: First Touch
 - Goal: introduce our factory and ask whether they are open to new suppliers
+- Send Policy: manual_review_only
+- Recommended Next Action: ready_for_manual_send
 
 ## Subject Options
 1. Frozen Mixed Vegetables Supply for Acme Foods
@@ -44,6 +46,11 @@ Ningbo FreshGrow Foods
 - 建议人工复核后发送，不要把未确认信息直接写成既定事实。
 - 邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。
 - 已应用输入约束：Keep the email concise and avoid hard selling.
+
+## Evidence Signals Used
+
+## Unconfirmed Facts
+- 确认客户画像摘要、销售切入点和任何具体需求判断都来自公开且已核实的信息。
 
 ## Input Signals Used
 - email_type: first_touch

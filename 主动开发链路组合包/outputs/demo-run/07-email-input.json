@@ -15,7 +15,17 @@
   "source_context": {
     "risk_rating": "Medium",
     "entity_confidence": "medium",
+    "evidence_sufficiency": "limited",
+    "intel_recommended_next_action": "ready_for_email_draft",
     "ambiguity_notes": [],
+    "unconfirmed_fact_list": [
+      "当前仍需人工确认采购角色与实际产品匹配度。",
+      "公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。"
+    ],
+    "evidence_titles": [
+      "GreenHarvest Foods contact page",
+      "GreenHarvest Foods LinkedIn company page"
+    ],
     "recommended_sales_angle_en": "Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs."
   }
 }

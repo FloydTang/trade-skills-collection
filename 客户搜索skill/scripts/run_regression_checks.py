@@ -17,6 +17,8 @@ CASES = [
         "must_include": [
             "GreenHarvest Foods",
             "https://www.linkedin.com/company/greenharvestfoods",
+            "Evidence Grade:",
+            "Next Action:",
             "Follow-up Suggestion:",
             "Lead Screening Bridge",
         ],
@@ -29,6 +31,7 @@ CASES = [
             "Atelier Loom GmbH",
             "NordHaus Tableware",
             "Source Type: web",
+            "Evidence Summary:",
             "table linen",
         ],
     },
@@ -53,7 +56,7 @@ def run_case(case: dict) -> tuple[bool, str]:
     if proc.returncode != 0:
         return False, f"{case['label']}: failed with {proc.stderr.strip() or proc.stdout.strip()}"
     output = proc.stdout
-    required_sections = ["# Lead Discovery Package", "## Summary", "## Queries", "## candidate-001"]
+    required_sections = ["# Lead Discovery Package", "## Summary", "## Search Strategy", "## candidate-001"]
     missing = [item for item in required_sections if item not in output]
     if missing:
         return False, f"{case['label']}: missing expected sections: {', '.join(missing)}"

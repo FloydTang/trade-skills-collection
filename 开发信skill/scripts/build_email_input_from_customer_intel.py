@@ -40,6 +40,9 @@ def infer_constraints(report: dict) -> str:
     parts = ["Use only public, confirmed information.", "Avoid hard claims about demand, pricing, or purchasing intent."]
     if str(report.get("risk_rating", "")).strip().lower() == "high":
         parts.append("High-risk lead: review manually before any outreach.")
+    intel_decision = report.get("intel_decision") or {}
+    if intel_decision.get("recommended_next_action") == "hold_for_manual_review":
+        parts.append("Pause at manual review if the intel stage has not cleared the lead for outreach drafting.")
     return " ".join(parts)
 
 
@@ -52,6 +55,8 @@ def build_bridge_payload(
 ) -> dict:
     identity = report.get("identity_snapshot") or {}
     company_profile = report.get("company_profile") or {}
+    intel_decision = report.get("intel_decision") or {}
+    evidence = report.get("evidence") or []
     payload = {
         "email_type": email_type,
         "customer_name": first_non_empty(identity.get("person_name"), "there"),
@@ -69,7 +74,11 @@ def build_bridge_payload(
         "source_context": {
             "risk_rating": report.get("risk_rating"),
             "entity_confidence": identity.get("entity_confidence"),
+            "evidence_sufficiency": intel_decision.get("evidence_sufficiency"),
+            "intel_recommended_next_action": intel_decision.get("recommended_next_action"),
             "ambiguity_notes": identity.get("ambiguity_notes") or [],
+            "unconfirmed_fact_list": report.get("unconfirmed_fact_list") or [],
+            "evidence_titles": [item.get("title") for item in evidence[:5] if isinstance(item, dict) and item.get("title")],
             "recommended_sales_angle_en": first_non_empty(
                 (report.get("sales_angles") or [{}])[0].get("en") if report.get("sales_angles") else "",
                 report.get("summary_en"),

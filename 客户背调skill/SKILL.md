@@ -14,6 +14,7 @@ Use this skill to turn sparse lead data into a structured public-web due-diligen
 - `客户情报分析员`
 - 负责基于公开网页证据完成客户背调与风险判断
 - 不负责批量搜客户，也不负责替代人工直接外发邮件
+- 必须明确是否允许进入开发信阶段
 
 上下游关系：
 
@@ -88,6 +89,7 @@ EOF
 - Include English wording in the `Executive Summary` and `Sales Angles` sections.
 - Attach source URLs to every material claim when possible.
 - Use `Low`, `Medium`, or `High` risk ratings only.
+- Include `IntelDecision` with evidence sufficiency and next action.
 - If the person match is weak, say so explicitly instead of inventing a firm personal profile.
 - Keep outreach personalization conservative. Do not invent private preferences or present weak inferences as facts.
 - Do not replace `客户搜索skill/` or `线索整理skill/` as the lead-entry stage.
@@ -110,6 +112,7 @@ EOF
 - Public web only.
 - Conservative entity matching.
 - Conservative risk scoring.
+- Default intel-stage action: `ready_for_email_draft | hold_for_manual_review`
 
 ## Enhancement Entry
 

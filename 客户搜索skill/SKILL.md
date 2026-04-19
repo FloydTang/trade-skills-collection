@@ -14,6 +14,7 @@ description: Find the first batch of foreign-trade prospect companies from publi
 - 负责找出第一批候选客户线索
 - 下游对接 `线索整理skill/`
 - 不负责深度背调、客户价值判断或开发信生成
+- 当前定位是候选客户发现，不是精准客户承诺
 
 ## Standard Input
 
@@ -46,8 +47,9 @@ description: Find the first batch of foreign-trade prospect companies from publi
 2. Search public-web results and LinkedIn company-result clues.
 3. Dedupe raw search results by URL.
 4. Group results into candidate companies using website, LinkedIn URL, or normalized company name.
-5. Build a structured candidate list with source links, visible contact clues, and follow-up suggestions.
-6. Generate a lead-screening bridge payload for downstream use.
+5. Grade each candidate conservatively with `evidence_grade` and `next_action`.
+6. Build a structured candidate list with source links, visible contact clues, evidence summary, and follow-up suggestions.
+7. Generate a lead-screening bridge payload for downstream use.
 
 ## Output Requirements
 
@@ -55,6 +57,11 @@ description: Find the first batch of foreign-trade prospect companies from publi
 - 必须包含结构化候选名单
 - 必须包含来源链接
 - 必须包含至少官网或 LinkedIn 线索字段
+- 必须包含 `evidence_grade`
+- 必须包含 `match_reason`
+- 必须包含 `missing_fields`
+- 必须包含 `evidence_summary`
+- 必须包含 `next_action`
 - 必须包含 `follow_up_suggestion`
 - 必须包含可桥接到 `线索整理skill/` 的输出
 - 不能把搜索结果写成客户价值判断
@@ -86,6 +93,7 @@ python3 ./scripts/run_regression_checks.py
 - 允许联网
 - 只用公开结果，不用登录态
 - 只做候选发现，不做深度背调
+- 默认输出搜索阶段状态：`ready_for_screening | needs_enrichment | hold_for_manual_review | reject_low_evidence`
 
 ## Enhancement Entry
 

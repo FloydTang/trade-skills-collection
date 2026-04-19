@@ -2,7 +2,7 @@
   "summary": {
     "total_leads": 2,
     "ready_for_customer_intel": 1,
-    "need_enrichment": 1,
+    "needs_enrichment": 1,
     "manual_review": 0,
     "operator_notes": "Use conservative review flags before passing to outreach."
   },
@@ -19,10 +19,16 @@
       "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
       "product_keywords": "washed linen table textile",
       "source_type": "website",
+      "evidence_grade": "A",
+      "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。",
+      "evidence_summary": "当前候选主要基于官网、LinkedIn 和公开网页来源形成。建议动作：ready_for_screening。",
+      "discovery_missing_fields": [],
+      "discovery_next_action": "ready_for_screening",
       "lead_bucket": "website_company_full_contact",
       "missing_fields": [],
       "manual_review_reasons": [],
-      "recommended_next_action": "enter_customer_intel",
+      "recommended_next_action": "ready_for_customer_intel",
+      "legacy_recommended_next_action": "enter_customer_intel",
       "follow_up_suggestions": [
         "可直接进入客户背调，并在背调阶段继续核对实体匹配。"
       ],
@@ -32,7 +38,7 @@
         "email": "mira@atelier-loom.de",
         "company_website": "https://atelier-loom.de",
         "country_or_market": "Germany",
-        "notes": "Premium table textile positioning. | Source URL: https://atelier-loom.de/about | LinkedIn URL: https://www.linkedin.com/company/atelier-loom"
+        "notes": "Premium table textile positioning. | Evidence Summary: 当前候选主要基于官网、LinkedIn 和公开网页来源形成。建议动作：ready_for_screening。 | Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://atelier-loom.de/about | LinkedIn URL: https://www.linkedin.com/company/atelier-loom"
       }
     },
     {
@@ -47,6 +53,15 @@
       "linkedin_url": "",
       "product_keywords": "table linen",
       "source_type": "marketplace",
+      "evidence_grade": "C",
+      "match_reason": "证据等级 C：有官网主体线索，但缺少 LinkedIn 和稳定联系人补强。",
+      "evidence_summary": "当前候选主要基于官网和市场目录来源形成。建议动作：needs_enrichment。",
+      "discovery_missing_fields": [
+        "person_name",
+        "linkedin_url",
+        "visible_contact_clues"
+      ],
+      "discovery_next_action": "needs_enrichment",
       "lead_bucket": "website_company_partial_contact",
       "missing_fields": [
         "person_name"
@@ -55,9 +70,11 @@
         "邮箱使用公共域名，不能直接当作企业身份强证据。",
         "邮箱域名与官网域名不一致，需确认是否同一主体。"
       ],
-      "recommended_next_action": "enrich_then_customer_intel",
+      "recommended_next_action": "needs_enrichment",
+      "legacy_recommended_next_action": "enrich_then_customer_intel",
       "follow_up_suggestions": [
-        "先处理人工复核项，再决定是否进入客户背调。"
+        "先处理人工复核项，再决定是否进入客户背调。",
+        "优先补官网、LinkedIn 或主体可验证字段，再进入客户背调。"
       ],
       "customer_intel_input": {
         "company_name": "NordHaus Tableware",
@@ -65,7 +82,7 @@
         "email": "hello@gmail.com",
         "company_website": "https://nordhaus-tableware.de",
         "country_or_market": "Germany",
-        "notes": "Marketplace listing only, no confirmed buyer contact yet. | Source URL: https://marketplace.example/nordhaus | Review: 邮箱使用公共域名，不能直接当作企业身份强证据。；邮箱域名与官网域名不一致，需确认是否同一主体。"
+        "notes": "Marketplace listing only, no confirmed buyer contact yet. | Evidence Summary: 当前候选主要基于官网和市场目录来源形成。建议动作：needs_enrichment。 | Match Reason: 证据等级 C：有官网主体线索，但缺少 LinkedIn 和稳定联系人补强。 | Source URL: https://marketplace.example/nordhaus | Review: 邮箱使用公共域名，不能直接当作企业身份强证据。；邮箱域名与官网域名不一致，需确认是否同一主体。"
       }
     }
   ]

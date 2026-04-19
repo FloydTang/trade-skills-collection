@@ -16,9 +16,9 @@ def load_json(path: str | None) -> object:
 def extract_leads(payload: object, include_enrichment: bool) -> dict:
     if not isinstance(payload, dict) or not isinstance(payload.get("leads"), list):
         raise ValueError("Input must be a screening output JSON object with a leads array.")
-    allowed = {"enter_customer_intel"}
+    allowed = {"ready_for_customer_intel"}
     if include_enrichment:
-        allowed.add("enrich_then_customer_intel")
+        allowed.add("needs_enrichment")
 
     batch = []
     for lead in payload["leads"]:
