@@ -28,6 +28,41 @@
 - Prefer official brand accounts over reseller, fan, or employee reposts.
 - Prefer recent evidence when two sources say similar things.
 
+## Search Layer Failure Handling
+
+### 已知问题
+
+1. `ddg_search()` 依赖 DuckDuckGo HTML 接口（`html.duckduckgo.com/html/`），**在中国境内网络环境下大概率超时**。
+2. `fetch_snapshot()` 依赖 `r.jina.ai` 第三方转码服务，**在中国境内大概率不可达**。
+3. 脚本没有网络超时后自动降级机制，搜索层崩溃会直接导致整个流程失败。
+
+### 应急方案
+
+当脚本搜索层不可用时：
+
+**方案 A — 用 OpenClaw 内置 web_search 替代搜索层：**
+
+```
+# 不运行脚本，直接用 web_search 收集证据
+web_search('"Kanoo Machinery" official website')
+web_search('site:linkedin.com/company "Kanoo Machinery"')
+# 收集完后手动构建报告
+```
+
+**方案 B — 分步执行：**
+
+1. 用 `web_search` 收集所有搜索证据
+2. 用 `web_fetch` 获取关键页面快照
+3. 把这些证据整理后作为输入传递给报告生成逻辑
+4. 跳过脚本的搜索层直接生成 Markdown 报告
+
+### 固定规则
+
+- 搜索层必须返回至少 3 条有效证据才能推进到报告生成
+- 如果搜索全部失败（零结果），标记为 `intel_insufficient_evidence` 并输出失败原因
+- 如果部分搜索成功但证据不足 4 条，风险评级至少为 Medium
+- 不要用脚本内的 `ddg_search` 作为唯一搜索入口
+
 ## Risk Heuristics
 
 ### Low

@@ -88,3 +88,23 @@ For every key claim, include:
 - URL
 - Source type
 - Short note
+
+## 背调文档标题规范
+
+文档创建路径：`首页/` 下创建独立页面
+
+命名格式：`{lead_id}_{公司简称}_背调报告`（如 `lead_20260421_007_Kanoo_Machinery_背调报告`）
+
+### 文档中必须包含的章节
+
+1. 背调摘要（中英文）
+2. 身份快照
+3. Intel Decision（evidence_sufficiency / next action / manual_review_required）
+4. 公司画像（主营业务 / 代理品牌 / 服务行业 / 规模线索）
+5. 数字足迹（平台 + 链接 + 置信度）
+6. 主题信号分析
+7. 销售切入点（至少 3 个，每个包括中英文 + why + avoid）
+8. 风险评级 + 理由
+9. 证据清单（至少列出主要公开来源，每个带 URL）
+10. 需人工确认事项
+11. 推荐下一步

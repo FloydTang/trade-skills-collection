@@ -117,6 +117,70 @@ python3 ./scripts/build_customer_intel_report_from_evidence.py \
 - The classic version remains the baseline for comparison
 - This version optimizes for cloud stability and controlled tool orchestration
 
+## Feishu 回写规则（经验教训沉淀）
+
+### 主表回写（Lead Workflow Master）
+
+回挂主表时，至少更新以下 7 个字段：
+
+| 字段 | 说明 |
+|---|---|
+| `intel_doc_ref` | 背调文档链接（URL 类型） |
+| `risk_rating` | SingleSelect: low / medium / high / critical |
+| `entity_confidence` | Number: 0-100 |
+| `current_stage` | Text: intel_completed / hold / failed |
+| `current_status` | SingleSelect: intel_completed 等 |
+| `recommended_next_action` | Text: ready_for_email_draft / hold_for_manual_review |
+| `last_updated_at` | DateTime: 当前时间戳（毫秒） |
+
+### 背调结果表回写（Customer Intel Results）
+
+回写字段：
+
+| 字段 | 说明 |
+|---|---|
+| `线索编号 lead_id` | Text |
+| `风险等级 risk_rating` | SingleSelect: low / medium / high / critical |
+| `主体置信度 entity_confidence` | Number: 0-100 |
+| `公司匹配状态 company_match_status` | SingleSelect: verified / partial / unverified / mismatch |
+| `联系人匹配状态 person_match_status` | SingleSelect: verified / partial / unverified / not_applicable |
+| `背调阶段结果 intel_result` | SingleSelect: intel_completed / intel_insufficient_evidence / intel_failed |
+| `背调文档引用 intel_doc_ref` | URL: `{link, text}` 对象 |
+| `中文摘要 summary_cn` | Text |
+| `英文摘要 summary_en` | Text |
+| `销售切入点 key_sales_angles` | Text |
+| `关键风险 key_risks` | Text |
+| `证据清单 evidence_list` | Text |
+
+### Feishu API 注意点（踩坑记录）
+
+1. **字段名必须完全匹配** — 飞书 API 字段名是「中文 英文」混合格式（如 `线索编号 lead_id`），带空格，必须精确一致。少一个空格或顺序颠倒都会报 `FieldNameNotFound`。
+2. **URL 类型字段需要对象格式** — 不能用纯字符串 `"https://"`，必须用 `{"link": "https://...", "text": "显示文本"}`
+3. **SingleSelect 字段用选项名** — 传 `"low"` 不是 `"optXXXX"` ID
+4. **Number 字段传数字** — `95` 不是 `"95"`
+5. **DateTime 字段传毫秒时间戳** — `1745570700000`
+6. **分两步写入** — URL/SingleSelect 类字段和 Text/Number/DateTime 字段最好分两批写入。第一次 `create_record` 只写 Text/Number/SingleSelect，第二次 `update_record` 补 URL 字段。一次性大批量写入容易触发字段类型转换错误。
+7. **文本内容不要过长** — 长文本（如 evidence_list）控制在 300 字以内，完整内容写入背调文档而非 table 字段。
+8. **创建文档后回写 wikidoc_token** — 用 `feishu_wiki(action="create")` 创建文档后，记录 `obj_token`（doc_token），再用 `feishu_doc(action="write")` 写入内容。URL 拼接格式：`https://evenbetter.feishu.cn/wiki/{node_token}`。
+
+### 背调文档标题规范
+
+文档创建路径：`首页/` 下创建独立页面
+
+命名格式：`{lead_id}_{公司简称}_背调报告`
+
+文档内必须包含的章节（详见 report-template.md）：背调摘要（中英文）、身份快照、Intel Decision、公司画像、数字足迹、主题信号、销售切入点（≥3个）、风险评级、证据清单、需人工确认事项、推荐下一步。
+
+### 搜索层注意事项（OpenClaw 环境）
+
+**本地脚本（classic 版本）在 OpenClaw 环境的已知问题：**
+
+- `ddg_search()` 依赖 DuckDuckGo HTML 接口，中国境内大概率超时
+- `fetch_snapshot()` 依赖 `r.jina.ai` 外部服务，不可靠
+- 脚本没有网络超时后自动降级机制
+
+**正确做法：** OpenClaw 环境下搜索层用内置 `web_search`（Tavily API）+ `web_fetch` 替代，完成搜索后再自行组装报告。
+
 ## Enhancement Entry
 
 增强权益不在仓库中展开正文。
