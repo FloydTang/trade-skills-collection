@@ -1,13 +1,13 @@
 ---
 name: trade-outreach-email
-description: Generate conservative, editable English outreach drafts for foreign-trade sales from structured lead inputs. Use when an operator needs a first-touch or follow-up email draft with subject options, review notes, and explicit reminders not to present unconfirmed facts as facts.
+description: Generate conservative, editable English outreach drafts for foreign-trade sales from structured lead inputs and customer-intel signals. Use when an operator needs a first-touch or follow-up email draft that calls confirmed recent/customer-market signals from the customer-intel Skill, with subject options, review notes, and explicit reminders not to present unconfirmed facts as facts.
 ---
 
 # 开发信 Skill
 
 ## Overview
 
-用这个 Skill 把结构化客户信息转换成可人工修改后发送的英文邮件草稿。
+用这个 Skill 把结构化客户信息和客户背调信号转换成可人工修改后发送的英文邮件草稿。
 
 当前定位：`复核型开发信工作台`
 
@@ -17,6 +17,7 @@ description: Generate conservative, editable English outreach drafts for foreign
 - 上游：人工整理输入，或 `客户背调skill/` 输出的桥接结果
 - 下游：人工复核与实际发送动作
 - 不负责自动发送，也不负责替代上游做搜索、初筛和背调
+- 不负责重新查“客户最近发生了什么”；近期动态、市场变化和销售切入点必须来自 `客户背调skill/`
 
 当前只覆盖两个场景：
 
@@ -54,7 +55,8 @@ description: Generate conservative, editable English outreach drafts for foreign
 3. Build subject options based on scenario, product, and company name.
 4. Generate one main draft and one lighter alternative draft.
 5. Attach review notes for any claim that depends on summary, historical context, pricing, capability, or other unconfirmed details.
-6. Output in the structure defined in [output-template.md](./references/output-template.md).
+6. If `source_context` includes recent customer signals or market signals, use them only as cautious opening context and preserve review notes.
+7. Output in the structure defined in [output-template.md](./references/output-template.md).
 
 ## Output Requirements
 
@@ -67,9 +69,11 @@ description: Generate conservative, editable English outreach drafts for foreign
 - 必须包含 `send_policy = manual_review_only`
 - 必须包含 `workflow_guidance`
 - 必须回显关键输入依据
+- 如引用近期动态、市场变化或合规信号，必须来自上游 `source_context`
 - 不能把不确定信息写成确定事实
 - 不能越权替代人工执行发送
 - 不能越权替代 `客户背调skill/` 编造客户事实
+- 不能自行生成“客户最近发生了什么”
 - 不能把弱证据包装成个性化事实
 
 ## Main Script
@@ -90,10 +94,18 @@ python3 ./scripts/run_regression_checks.py
 
 - 本地模板生成优先
 - 不强依赖联网
+- 不联网背调；只消费输入和 `source_context`
 - 输出默认偏保守
 - 不覆盖报价邮件
 - 发送前必须人工复核
 - 默认下游动作：`ready_for_manual_send | hold_for_manual_review`
+
+## Table and Rule Capture
+
+- 本 Skill 输出开发信草稿和复核清单能力，不要求企业使用固定邮件结果表。
+- 写入企业表格、知识库或邮箱草稿箱时，先沿用已有表头和归口，再映射标题候选、草稿引用、近期信号、市场信号、证据依据、待确认项、发送策略等标准字段。
+- 用户没有可用表格时，龙虾可以按企业产品、市场和跟进流程新建够用表。
+- 当用户确认新的开发信风格、禁用表达、行业话术、跟进节奏或表头映射后，必须追问：`是否更新到对应 Skill 以便下次自动复用`。真实写入必须得到用户授权。
 
 ## Enhancement Entry
 

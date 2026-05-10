@@ -17,6 +17,17 @@
     "constraints": "Keep the follow-up soft and design-oriented.",
     "risk_rating": "Medium",
     "entity_confidence": "medium",
-    "recommended_sales_angle_en": "Lead with a clean and design-oriented offer rather than a hard sell."
+    "recommended_sales_angle_en": "Lead with a clean and design-oriented offer rather than a hard sell.",
+    "recommended_opening_signal_en": "Nordic Home Textile AB's recent natural materials collection update",
+    "recent_signals": [
+      "Nordic Home Textile AB's recent natural materials collection update | product_launch | recent_or_needs_date_check | medium"
+    ],
+    "market_signals": [
+      "EU textile sustainability compliance update | compliance | recent_or_needs_date_check | low"
+    ],
+    "evidence_titles": [
+      "Nordic Home Textile AB LinkedIn update",
+      "EU textile sustainability compliance update"
+    ]
   }
 }

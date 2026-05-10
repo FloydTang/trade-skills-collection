@@ -7,6 +7,8 @@ single_skill_policy: attach_only
 feishu_container_creation: forbidden
 requires_master_base: true
 requires_master_record: true
+table_policy: adapt_existing_or_create_minimal
+rule_capture: ask_before_skill_update
 ---
 
 # 线索整理 / 初筛 Skill for OpenClaw
@@ -21,6 +23,12 @@ Python 层只负责：
 - 统一字段
 - 给出初筛提示
 - 桥接客户背调输入
+
+## Table Policy
+
+- 优先适配企业已有表头，不强制使用课堂标准表。
+- 没有可用表格时，龙虾按企业产品、市场和筛选流程新建够用表。
+- 用户确认新的字段、客户分级、放行规则、暂停规则或表头映射后，先追问：`是否更新到对应 Skill 以便下次自动复用`。真实写入必须得到用户授权。
 
 ## Expected Input
 

@@ -34,7 +34,12 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
       "linkedin_url": "",
       "notes": "Found via home textile search results",
       "product_keywords": "linen table textile",
-      "source_type": "linkedin"
+      "source_type": "linkedin",
+      "source_name": "public search",
+      "source_url_or_note": "LinkedIn company result",
+      "freshness": "unknown",
+      "confidence": "medium",
+      "match_basis": "Matched upstream discovery query."
     }
   ]
 }
@@ -96,6 +101,13 @@ python3 ./scripts/run_regression_checks.py
 - 输出偏保守
 - 初筛结果只作辅助，不替代人工判断
 - 默认阶段动作：`ready_for_customer_intel | needs_enrichment | hold_for_manual_review`
+
+## Table and Rule Capture
+
+- 本 Skill 输出线索标准化和初筛能力，不要求企业迁移到固定表格形态。
+- 写入企业表格时，先沿用用户已有表头，再映射公司名、域名、来源、来源名称、匹配依据、新鲜度、可信度、缺失字段、证据等级、推荐下一步等标准字段。
+- 用户没有可用表格时，龙虾可以按企业产品、市场和筛选流程新建够用表。
+- 当用户确认新的字段、客户分级、放行规则、暂停规则或表头映射后，必须追问：`是否更新到对应 Skill 以便下次自动复用`。真实写入必须得到用户授权。
 
 ## Enhancement Entry
 

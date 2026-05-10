@@ -107,6 +107,21 @@ def build_container_bundle(output_dir: Path, combo_run_id: str, selected_lead_id
                 "OutreachDraftPackage",
                 "ContainerBundle",
             ],
+            "enterprise_table_policy": {
+                "mode": "adapt_existing_or_create_minimal",
+                "summary": "企业表格属于企业个性化资产。优先沿用用户已有表头；没有可用表格时，由龙虾按企业产品、市场和流程新建够用表；仓库内标准字段只作为映射参考。",
+                "rules": [
+                    "不得把课堂 Feishu Sandbox 或标准 Base 当作企业落地强制前置。",
+                    "写入前先识别现有表头，并把 Skill 标准字段映射到企业已有字段。",
+                    "缺少关键字段时，先提出最小新增字段建议，再等待用户确认。",
+                ],
+            },
+            "skill_rule_capture_policy": {
+                "mode": "ask_before_skill_update",
+                "summary": "当用户确认新字段、客户分级、背调规则、开发信风格、禁用表达或行业习惯后，龙虾必须追问是否更新到对应 Skill 以便下次自动复用；真实写入必须得到用户授权。",
+                "required_question": "是否更新到对应 Skill 以便下次自动复用",
+                "authorization_required": True,
+            },
             "default_send_policy": "manual_review_only",
             "notes": [
                 "飞书只作为课堂标准沙盘，不是企业唯一数据容器。",

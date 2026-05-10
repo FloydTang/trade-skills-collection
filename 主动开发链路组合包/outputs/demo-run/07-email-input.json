@@ -3,7 +3,7 @@
   "customer_name": "Anna",
   "company_name": "GreenHarvest Foods",
   "product_or_offer": "frozen mixed vegetables",
-  "goal": "introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+  "goal": "introduce our offer with a relevant angle: Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
   "country_or_market": "Poland",
   "customer_profile_summary": "Company appears focused on imported frozen vegetables and private-label frozen food programs for the Poland market.",
   "previous_contact_context": "",
@@ -26,6 +26,13 @@
       "GreenHarvest Foods contact page",
       "GreenHarvest Foods LinkedIn company page"
     ],
-    "recommended_sales_angle_en": "Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs."
+    "recent_signals": [
+      "GreenHarvest Foods LinkedIn company page | expansion | unknown | low"
+    ],
+    "market_signals": [
+      "Poland / EU frozen food compliance context | compliance | unknown | low"
+    ],
+    "recommended_opening_signal_en": "GreenHarvest Foods LinkedIn company page",
+    "recommended_sales_angle_en": "Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support."
   }
 }

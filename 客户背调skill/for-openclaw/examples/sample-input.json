@@ -5,6 +5,7 @@
     "email": "jane@acme-industrial.com",
     "company_website": "",
     "country_or_market": "United States",
+    "product_or_offer": "industrial components supply",
     "notes": "Sample OpenClaw payload with snippet-only and page-text evidence."
   },
   "evidence_bundle": {
@@ -21,9 +22,17 @@
         "query": "site:linkedin.com/company \"Acme Industrial\"",
         "title": "Acme Industrial | LinkedIn",
         "url": "https://www.linkedin.com/company/acme-industrial/",
-        "snippet": "Acme Industrial is a manufacturing and export-focused company serving global industrial buyers.",
+        "snippet": "Acme Industrial announced a new warehouse expansion in Texas in 2026 Q1 and is hiring export operations staff.",
         "source": "coze-web-search",
         "platform": "linkedin"
+      },
+      {
+        "query": "\"United States\" industrial components tariff regulation 2026",
+        "title": "United States Industrial Components Import Tariff Update 2026",
+        "url": "https://trade.example/us-industrial-components-tariff-2026",
+        "snippet": "A 2026 tariff and compliance update may affect import planning for industrial components buyers in the United States.",
+        "source": "coze-web-search",
+        "platform": "web"
       },
       {
         "query": "site:instagram.com \"Acme Industrial\"",
@@ -45,7 +54,7 @@
       {
         "url": "https://www.linkedin.com/company/acme-industrial/",
         "title": "Acme Industrial | LinkedIn",
-        "text": "",
+        "text": "Acme Industrial announced a new warehouse expansion in Texas in 2026 Q1 and is hiring export operations staff.",
         "source": "coze-web-fetch",
         "status": "fallback_snippet_only"
       }

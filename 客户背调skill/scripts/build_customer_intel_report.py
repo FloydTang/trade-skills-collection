@@ -35,6 +35,18 @@ PLATFORMS = {
     "x": ("x.com", "twitter.com"),
     "youtube": ("youtube.com",),
 }
+RECENT_SIGNAL_KEYWORDS = {
+    "expansion": ("expansion", "expand", "new warehouse", "new facility", "capacity", "扩产", "新仓", "新工厂"),
+    "hiring": ("hiring", "recruit", "career", "job opening", "招聘"),
+    "funding": ("funding", "investment", "raised", "融资", "投资"),
+    "product_launch": ("launch", "new product", "collection", "发布", "新品"),
+    "channel_change": ("distributor", "retail", "market entry", "partnership", "渠道", "合作"),
+}
+MARKET_SIGNAL_KEYWORDS = {
+    "compliance": ("regulation", "directive", "compliance", "standard", "certification", "合规", "指令", "认证"),
+    "tariff": ("tariff", "duty", "anti-dumping", "customs duty", "关税", "反倾销"),
+    "trade_policy": ("trade agreement", "free trade", "import rule", "export rule", "贸易协定", "进口规则"),
+}
 
 
 @dataclass
@@ -62,6 +74,7 @@ def normalize_input(data: dict[str, Any]) -> dict[str, str]:
         "email": str(data.get("email", "")).strip(),
         "company_website": str(data.get("company_website", "")).strip(),
         "country_or_market": str(data.get("country_or_market", "")).strip(),
+        "product_or_offer": str(data.get("product_or_offer", "")).strip(),
         "notes": str(data.get("notes", "")).strip(),
     }
     if not any(normalized[key] for key in ("company_name", "person_name", "email")):
@@ -197,6 +210,10 @@ def build_queries(data: dict[str, str], domain: str) -> list[str]:
         queries.append(f'"{person}" linkedin')
     if data["country_or_market"] and company:
         queries.append(f'"{company}" "{data["country_or_market"]}"')
+        queries.append(f'"{company}" "{data["country_or_market"]}" news expansion hiring')
+    if data["country_or_market"] and (data.get("product_or_offer") or data.get("notes")):
+        product_hint = data.get("product_or_offer") or data.get("notes", "")[:80]
+        queries.append(f'"{data["country_or_market"]}" {product_hint} regulation tariff trade agreement')
     return list(dict.fromkeys(query for query in queries if query.strip()))
 
 
@@ -262,6 +279,115 @@ def extract_topic_signals(results: list[SearchResult], snapshots: dict[str, str]
                 "title": token,
                 "why_it_matters": f"该主题在公开内容中重复出现 {count} 次，可作为业务沟通切入角度。",
                 "confidence": "medium" if count < 4 else "high",
+            }
+        )
+    return signals[:5]
+
+
+def detect_signal_type(text: str, keyword_map: dict[str, tuple[str, ...]]) -> str:
+    lower = text.lower()
+    for signal_type, keywords in keyword_map.items():
+        if any(keyword.lower() in lower for keyword in keywords):
+            return signal_type
+    return ""
+
+
+def extract_observed_period(text: str) -> str:
+    patterns = [
+        r"\b20\d{2}\s*Q[1-4]\b",
+        r"\b20\d{2}[-/](?:0?[1-9]|1[0-2])(?:[-/]\d{1,2})?\b",
+        r"\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\s+20\d{2}\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.I)
+        if match:
+            return match.group(0)
+    return "unknown"
+
+
+def signal_confidence(platform: str, text: str) -> str:
+    if platform in {"linkedin", "web"} and len(text) > 80:
+        return "medium"
+    if len(text) > 180:
+        return "medium"
+    return "low"
+
+
+def extract_recent_signals(
+    results: list[SearchResult],
+    snapshots: dict[str, str],
+    product_or_offer: str,
+) -> list[dict[str, str]]:
+    signals: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for item in results:
+        platform = classify_platform(item.url)
+        snapshot = snapshots.get(item.url, "")
+        text = " ".join(part for part in [item.title, item.snippet, snapshot[:500]] if part)
+        signal_type = detect_signal_type(text, RECENT_SIGNAL_KEYWORDS)
+        if not signal_type:
+            continue
+        key = f"{signal_type}:{item.url}"
+        if key in seen:
+            continue
+        seen.add(key)
+        title = item.title or f"{signal_type} signal"
+        signals.append(
+            {
+                "signal_type": signal_type,
+                "title": title,
+                "source_title": item.title,
+                "source_url": item.url,
+                "source_type": platform,
+                "observed_at_or_period": extract_observed_period(text),
+                "freshness": "recent_or_needs_date_check" if extract_observed_period(text) != "unknown" else "unknown",
+                "confidence": signal_confidence(platform, text),
+                "why_it_matters": "这是客户近期动态，可作为开发信切入点，但需要人工确认是否仍然有效。",
+                "product_relevance": (
+                    f"需要结合 {product_or_offer} 判断是否能承接对方近期变化。"
+                    if product_or_offer
+                    else "需要结合我方产品判断是否能承接对方近期变化。"
+                ),
+            }
+        )
+    return signals[:5]
+
+
+def extract_market_signals(
+    results: list[SearchResult],
+    snapshots: dict[str, str],
+    country_or_market: str,
+    product_or_offer: str,
+) -> list[dict[str, str]]:
+    signals: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for item in results:
+        text = " ".join(part for part in [item.title, item.snippet, snapshots.get(item.url, "")[:500]] if part)
+        signal_type = detect_signal_type(text, MARKET_SIGNAL_KEYWORDS)
+        if not signal_type:
+            continue
+        if country_or_market and country_or_market.lower() not in text.lower() and signal_type != "tariff":
+            continue
+        key = f"{signal_type}:{item.url}"
+        if key in seen:
+            continue
+        seen.add(key)
+        signals.append(
+            {
+                "signal_type": signal_type,
+                "title": item.title or f"{signal_type} market signal",
+                "source_title": item.title,
+                "source_url": item.url,
+                "source_type": classify_platform(item.url),
+                "observed_at_or_period": extract_observed_period(text),
+                "freshness": "recent_or_needs_date_check" if extract_observed_period(text) != "unknown" else "unknown",
+                "confidence": signal_confidence(classify_platform(item.url), text),
+                "why_it_matters": "这是目标市场或行业环境信号，可能影响采购关注点、合规要求或供应商选择。",
+                "product_relevance": (
+                    f"需要判断该变化是否影响 {product_or_offer} 的采购、认证、报价或交付。"
+                    if product_or_offer
+                    else "需要判断该变化是否影响客户采购、认证、报价或交付。"
+                ),
             }
         )
     return signals[:5]
@@ -435,8 +561,31 @@ def build_personalized_outreach_pack(
     }
 
 
-def build_sales_angles(signals: list[dict[str, str]], company_summary: str) -> list[dict[str, str]]:
+def build_sales_angles(
+    signals: list[dict[str, str]],
+    company_summary: str,
+    recent_signals: list[dict[str, str]] | None = None,
+    market_signals: list[dict[str, str]] | None = None,
+) -> list[dict[str, str]]:
     angles: list[dict[str, str]] = []
+    for signal in (recent_signals or [])[:2]:
+        angles.append(
+            {
+                "cn": f"优先围绕近期信号“{signal['title']}”切入，先引用来源和时间，再承接我方产品/服务能解决的问题。",
+                "en": f"Open with the recent signal '{signal['title']}' and connect it cautiously to a specific operational or sourcing need.",
+                "why": signal["why_it_matters"],
+                "avoid": "不要把近期信号写成确定需求，发送前确认来源、时间和语境。",
+            }
+        )
+    for signal in (market_signals or [])[:1]:
+        angles.append(
+            {
+                "cn": f"可从目标市场变化“{signal['title']}”切入，讨论合规、关税、交付或供应稳定性。",
+                "en": f"Use the market signal '{signal['title']}' as context, then ask whether it affects their sourcing or compliance priorities.",
+                "why": signal["why_it_matters"],
+                "avoid": "不要给法律、关税或合规结论，只能作为业务沟通背景。",
+            }
+        )
     if company_summary:
         angles.append(
             {
@@ -560,10 +709,17 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         ambiguity_notes.append("未能稳定识别官网，企业主体可能需要人工二次确认。")
 
     signals = extract_topic_signals(results, snapshots)
+    recent_signals = extract_recent_signals(results, snapshots, data.get("product_or_offer", ""))
+    market_signals = extract_market_signals(
+        results,
+        snapshots,
+        data["country_or_market"],
+        data.get("product_or_offer", ""),
+    )
     rating, risk_reasons = risk_rating(data, website, results, snapshots)
     entity_level = entity_confidence(data, website, results)
     sufficiency = evidence_sufficiency(website, results, signals, ambiguity_notes)
-    sales_angles = build_sales_angles(signals, company_summary)
+    sales_angles = build_sales_angles(signals, company_summary, recent_signals, market_signals)
     platform_map = collect_platform_evidence(results, snapshots)
     phase_2_status, outreach_persona_card = build_outreach_persona_card(
         rating,
@@ -627,6 +783,8 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         },
         "digital_footprint": footprints,
         "interest_signals": signals,
+        "recent_signals": recent_signals,
+        "market_signals": market_signals,
         "sales_angles": sales_angles,
         "risk_rating": rating,
         "risk_reasons": risk_reasons,
@@ -717,6 +875,30 @@ def render_markdown(report: dict[str, Any]) -> str:
             )
     else:
         lines.append("- No durable topic signal identified yet.")
+
+    lines.extend(["", "## Recent Customer Signals", ""])
+    if report.get("recent_signals"):
+        for signal in report["recent_signals"]:
+            lines.append(
+                f"- {signal['title']} ({signal['signal_type']}, freshness: {signal['freshness']}, confidence: {signal['confidence']})"
+            )
+            lines.append(f"  Source: {signal['source_title']} - {signal['source_url']}")
+            lines.append(f"  Why it matters: {signal['why_it_matters']}")
+            lines.append(f"  Product relevance: {signal['product_relevance']}")
+    else:
+        lines.append("- No recent customer signal confirmed in this pass.")
+
+    lines.extend(["", "## Market & Compliance Signals", ""])
+    if report.get("market_signals"):
+        for signal in report["market_signals"]:
+            lines.append(
+                f"- {signal['title']} ({signal['signal_type']}, freshness: {signal['freshness']}, confidence: {signal['confidence']})"
+            )
+            lines.append(f"  Source: {signal['source_title']} - {signal['source_url']}")
+            lines.append(f"  Why it matters: {signal['why_it_matters']}")
+            lines.append(f"  Product relevance: {signal['product_relevance']}")
+    else:
+        lines.append("- No market or compliance signal confirmed in this pass.")
 
     lines.extend(["", "## Sales Angles", ""])
     for angle in report["sales_angles"]:

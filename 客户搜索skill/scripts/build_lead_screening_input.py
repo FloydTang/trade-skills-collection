@@ -33,6 +33,11 @@ def build(payload: Any) -> dict[str, Any]:
                 "notes": item.get("search_snippet", ""),
                 "product_keywords": "",
                 "source_type": item.get("source_type", ""),
+                "source_name": item.get("source_name", ""),
+                "source_url_or_note": item.get("source_url_or_note", ""),
+                "freshness": item.get("freshness", ""),
+                "confidence": item.get("confidence", ""),
+                "match_basis": item.get("match_basis", ""),
             }
         )
     return {"default_country_or_market": "", "operator_notes": "", "leads": leads}

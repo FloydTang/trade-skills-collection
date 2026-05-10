@@ -35,6 +35,19 @@ CASES = [
             "table linen",
         ],
     },
+    {
+        "label": "customs-source",
+        "input_path": SKILL_ROOT / "examples" / "customs-source-search.json",
+        "fixture_path": SKILL_ROOT / "examples" / "customs-source-fixtures.json",
+        "must_include": [
+            "GreenHarvest Foods",
+            "Source Type: customs",
+            "Source Name: Poland frozen vegetable customs export",
+            "HS Code: 0710",
+            "Freshness: 2025 Q4",
+            "Match Basis:",
+        ],
+    },
 ]
 
 

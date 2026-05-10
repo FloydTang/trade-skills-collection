@@ -3,7 +3,7 @@
     "combo_run_id": "demo-run",
     "selected_lead_id": "lead-002",
     "workflow_id": "demo-run-lead-002-greenharvest-foods",
-    "generated_at": "2026-04-19T01:48:52+00:00",
+    "generated_at": "2026-05-10T21:17:00+00:00",
     "bundle_scope": "trade-skill-collection-container-bundle",
     "workspace_owner_skill": "trade-active-outreach-combo"
   },
@@ -139,7 +139,7 @@
     "lead_discovery": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
-        "generated_at": "2026-04-19T01:48:52+00:00",
+        "generated_at": "2026-05-10T21:17:00+00:00",
         "stage_scope": "lead_discovery_batch"
       },
       "runtime_contract": {
@@ -202,7 +202,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-04-19T01:48:52+00:00",
+            "generated_at": "2026-05-10T21:17:00+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -224,14 +224,20 @@
             "company_name": "Baltic Frozen Trade",
             "company_website": "https://balticfrozentrade.pl",
             "source_url": "https://balticfrozentrade.pl",
+            "source_type": "web",
+            "source_name": "fixture",
+            "source_url_or_note": "https://balticfrozentrade.pl",
+            "freshness": "unknown",
+            "confidence": "medium",
+            "match_basis": "命中搜索查询：frozen food importer Poland importer distributor brand buyer",
             "linkedin_url": "https://www.linkedin.com/company/baltic-frozen-trade",
             "country_or_market": "Poland",
             "search_query_used": "frozen food importer Poland importer distributor brand buyer\nsite:linkedin.com/company frozen mixed vegetables Poland importer",
             "search_snippet": "Supplier and importer of frozen vegetables and fruit for private label retail in Poland.",
             "evidence_grade": "A",
-            "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。",
+            "match_reason": "证据等级 A：来源：fixture；命中搜索查询：frozen food importer Poland importer distributor brand buyer；有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。",
             "missing_fields": "visible_contact_clues",
-            "evidence_summary": "当前候选主要基于官网、LinkedIn形成。 建议动作：ready_for_screening。",
+            "evidence_summary": "当前候选主要基于官网、LinkedIn、数据源 fixture形成。 建议动作：ready_for_screening。",
             "next_action": "ready_for_screening",
             "follow_up_suggestion": "先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。"
           },
@@ -250,17 +256,21 @@
                 "LinkedIn": "https://www.linkedin.com/company/baltic-frozen-trade",
                 "Country / Market": "Poland",
                 "Source Type": "web",
+                "Source Name": "fixture",
+                "Freshness": "unknown",
+                "Confidence": "medium",
+                "Match Basis": "命中搜索查询：frozen food importer Poland importer distributor brand buyer",
                 "Evidence Grade": "A",
                 "Next Action": "ready_for_screening"
               }
             },
             {
               "type": "paragraph",
-              "text": "当前候选主要基于官网、LinkedIn形成。 建议动作：ready_for_screening。"
+              "text": "当前候选主要基于官网、LinkedIn、数据源 fixture形成。 建议动作：ready_for_screening。"
             },
             {
               "type": "paragraph",
-              "text": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。"
+              "text": "证据等级 A：来源：fixture；命中搜索查询：frozen food importer Poland importer distributor brand buyer；有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。"
             },
             {
               "type": "bullets",
@@ -303,7 +313,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-04-19T01:48:52+00:00",
+            "generated_at": "2026-05-10T21:17:00+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -326,14 +336,20 @@
             "company_name": "GreenHarvest Foods",
             "company_website": "https://greenharvestfoods.com",
             "source_url": "https://greenharvestfoods.com",
+            "source_type": "web",
+            "source_name": "fixture",
+            "source_url_or_note": "https://greenharvestfoods.com",
+            "freshness": "unknown",
+            "confidence": "medium",
+            "match_basis": "命中搜索查询：frozen mixed vegetables Poland importer",
             "linkedin_url": "https://www.linkedin.com/company/greenharvestfoods",
             "country_or_market": "Poland",
             "visible_contact_clues": "anna@greenharvestfoods.com\nRetail",
             "search_query_used": "frozen mixed vegetables Poland importer\nfrozen food importer Poland importer distributor brand buyer\nfrozen mixed vegetables Poland importer \"retail\"\nsite:linkedin.com/company frozen mixed vegetables Poland importer",
             "search_snippet": "GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland.",
             "evidence_grade": "A",
-            "match_reason": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
-            "evidence_summary": "当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。",
+            "match_reason": "证据等级 A：来源：fixture；命中搜索查询：frozen mixed vegetables Poland importer；有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
+            "evidence_summary": "当前候选主要基于官网、LinkedIn、2 条可见联系人线索、数据源 fixture形成。 建议动作：ready_for_screening。",
             "next_action": "ready_for_screening",
             "follow_up_suggestion": "先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。"
           },
@@ -352,17 +368,21 @@
                 "LinkedIn": "https://www.linkedin.com/company/greenharvestfoods",
                 "Country / Market": "Poland",
                 "Source Type": "web",
+                "Source Name": "fixture",
+                "Freshness": "unknown",
+                "Confidence": "medium",
+                "Match Basis": "命中搜索查询：frozen mixed vegetables Poland importer",
                 "Evidence Grade": "A",
                 "Next Action": "ready_for_screening"
               }
             },
             {
               "type": "paragraph",
-              "text": "当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。"
+              "text": "当前候选主要基于官网、LinkedIn、2 条可见联系人线索、数据源 fixture形成。 建议动作：ready_for_screening。"
             },
             {
               "type": "paragraph",
-              "text": "证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。"
+              "text": "证据等级 A：来源：fixture；命中搜索查询：frozen mixed vegetables Poland importer；有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。"
             },
             {
               "type": "bullets",
@@ -408,7 +428,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-04-19T01:48:52+00:00",
+            "generated_at": "2026-05-10T21:17:00+00:00",
             "source_stage": "lead_discovery"
           },
           "lead_identity": {
@@ -431,14 +451,20 @@
             "company_name": "PolFood Sourcing directory profile",
             "company_website": "https://directory.example/polfood-sourcing",
             "source_url": "https://directory.example/polfood-sourcing",
+            "source_type": "web",
+            "source_name": "fixture",
+            "source_url_or_note": "https://directory.example/polfood-sourcing",
+            "freshness": "unknown",
+            "confidence": "medium",
+            "match_basis": "命中搜索查询：frozen mixed vegetables Poland importer",
             "country_or_market": "Poland",
             "visible_contact_clues": "Anna Kowalska\nImporter",
             "search_query_used": "frozen mixed vegetables Poland importer",
             "search_snippet": "Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries.",
             "evidence_grade": "B",
-            "match_reason": "证据等级 B：有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
+            "match_reason": "证据等级 B：来源：fixture；命中搜索查询：frozen mixed vegetables Poland importer；有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。",
             "missing_fields": "linkedin_url",
-            "evidence_summary": "当前候选主要基于官网、2 条可见联系人线索形成。 建议动作：ready_for_screening。",
+            "evidence_summary": "当前候选主要基于官网、2 条可见联系人线索、数据源 fixture形成。 建议动作：ready_for_screening。",
             "next_action": "ready_for_screening",
             "follow_up_suggestion": "先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。"
           },
@@ -456,17 +482,21 @@
                 "Website": "https://directory.example/polfood-sourcing",
                 "Country / Market": "Poland",
                 "Source Type": "web",
+                "Source Name": "fixture",
+                "Freshness": "unknown",
+                "Confidence": "medium",
+                "Match Basis": "命中搜索查询：frozen mixed vegetables Poland importer",
                 "Evidence Grade": "B",
                 "Next Action": "ready_for_screening"
               }
             },
             {
               "type": "paragraph",
-              "text": "当前候选主要基于官网、2 条可见联系人线索形成。 建议动作：ready_for_screening。"
+              "text": "当前候选主要基于官网、2 条可见联系人线索、数据源 fixture形成。 建议动作：ready_for_screening。"
             },
             {
               "type": "paragraph",
-              "text": "证据等级 B：有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。"
+              "text": "证据等级 B：来源：fixture；命中搜索查询：frozen mixed vegetables Poland importer；有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。"
             },
             {
               "type": "bullets",
@@ -513,7 +543,7 @@
     "lead_screening": {
       "workflow_meta": {
         "combo_run_id": "demo-run",
-        "generated_at": "2026-04-19T01:48:52+00:00",
+        "generated_at": "2026-05-10T21:17:00+00:00",
         "stage_scope": "lead_screening_batch"
       },
       "runtime_contract": {
@@ -569,7 +599,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-04-19T01:48:52+00:00",
+            "generated_at": "2026-05-10T21:17:00+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -638,7 +668,7 @@
             {
               "type": "code",
               "language": "json",
-              "content": "{\n  \"company_name\": \"Baltic Frozen Trade\",\n  \"person_name\": \"\",\n  \"email\": \"\",\n  \"company_website\": \"https://balticfrozentrade.pl\",\n  \"country_or_market\": \"Poland\",\n  \"notes\": \"Prefer companies that look ready for private-label frozen food sourcing. | Supplier and importer of frozen vegetables and fruit for private label retail in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Evidence Summary: 当前候选主要基于官网、LinkedIn形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://balticfrozentrade.pl | LinkedIn URL: https://www.linkedin.com/company/baltic-frozen-trade\"\n}",
+              "content": "{\n  \"company_name\": \"Baltic Frozen Trade\",\n  \"person_name\": \"\",\n  \"email\": \"\",\n  \"company_website\": \"https://balticfrozentrade.pl\",\n  \"country_or_market\": \"Poland\",\n  \"notes\": \"Prefer companies that look ready for private-label frozen food sourcing. | Supplier and importer of frozen vegetables and fruit for private label retail in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Evidence Summary: 当前候选主要基于官网、LinkedIn、数据源 fixture形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 A：来源：fixture；命中搜索查询：frozen food importer Poland importer distributor brand buyer；有官网主体线索；有 LinkedIn 公司页线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://balticfrozentrade.pl | Source Type: web | Source Name: fixture | Source Note: https://balticfrozentrade.pl | Freshness: unknown | Confidence: medium | Match Basis: 命中搜索查询：frozen food importer Poland importer distributor brand buyer | LinkedIn URL: https://www.linkedin.com/company/baltic-frozen-trade\"\n}",
               "title": "客户背调桥接输入"
             }
           ],
@@ -663,7 +693,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-04-19T01:48:52+00:00",
+            "generated_at": "2026-05-10T21:17:00+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -734,7 +764,7 @@
             {
               "type": "code",
               "language": "json",
-              "content": "{\n  \"company_name\": \"GreenHarvest Foods\",\n  \"person_name\": \"\",\n  \"email\": \"anna@greenharvestfoods.com\",\n  \"company_website\": \"https://greenharvestfoods.com\",\n  \"country_or_market\": \"Poland\",\n  \"notes\": \"Prefer companies that look ready for private-label frozen food sourcing. | GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Evidence Summary: 当前候选主要基于官网、LinkedIn、2 条可见联系人线索形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 A：有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://greenharvestfoods.com | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods\"\n}",
+              "content": "{\n  \"company_name\": \"GreenHarvest Foods\",\n  \"person_name\": \"\",\n  \"email\": \"anna@greenharvestfoods.com\",\n  \"company_website\": \"https://greenharvestfoods.com\",\n  \"country_or_market\": \"Poland\",\n  \"notes\": \"Prefer companies that look ready for private-label frozen food sourcing. | GreenHarvest Foods imports frozen vegetables for retail and private label programs in Poland. | 先进入线索整理，再优先核对官网、LinkedIn 与联系人线索的一致性。 | Evidence Summary: 当前候选主要基于官网、LinkedIn、2 条可见联系人线索、数据源 fixture形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 A：来源：fixture；命中搜索查询：frozen mixed vegetables Poland importer；有官网主体线索；有 LinkedIn 公司页线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://greenharvestfoods.com | Source Type: web | Source Name: fixture | Source Note: https://greenharvestfoods.com | Freshness: unknown | Confidence: medium | Match Basis: 命中搜索查询：frozen mixed vegetables Poland importer | LinkedIn URL: https://www.linkedin.com/company/greenharvestfoods\"\n}",
               "title": "客户背调桥接输入"
             }
           ],
@@ -759,7 +789,7 @@
         {
           "workflow_meta": {
             "combo_run_id": "demo-run",
-            "generated_at": "2026-04-19T01:48:52+00:00",
+            "generated_at": "2026-05-10T21:17:00+00:00",
             "source_stage": "lead_screening"
           },
           "lead_identity": {
@@ -834,7 +864,7 @@
             {
               "type": "code",
               "language": "json",
-              "content": "{\n  \"company_name\": \"PolFood Sourcing directory profile\",\n  \"person_name\": \"Anna Kowalska\",\n  \"email\": \"\",\n  \"company_website\": \"https://directory.example/polfood-sourcing\",\n  \"country_or_market\": \"Poland\",\n  \"notes\": \"Prefer companies that look ready for private-label frozen food sourcing. | Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。 | Evidence Summary: 当前候选主要基于官网、2 条可见联系人线索形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 B：有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://directory.example/polfood-sourcing | Review: 公司名与官网域名对应关系较弱，建议人工确认主体匹配。\"\n}",
+              "content": "{\n  \"company_name\": \"PolFood Sourcing directory profile\",\n  \"person_name\": \"Anna Kowalska\",\n  \"email\": \"\",\n  \"company_website\": \"https://directory.example/polfood-sourcing\",\n  \"country_or_market\": \"Poland\",\n  \"notes\": \"Prefer companies that look ready for private-label frozen food sourcing. | Importer and distributor of frozen food products in Warsaw. Contact Anna Kowalska for sourcing inquiries. | 先补 LinkedIn 公司页或可见联系人线索，再进入线索整理。 | Evidence Summary: 当前候选主要基于官网、2 条可见联系人线索、数据源 fixture形成。 建议动作：ready_for_screening。 | Match Reason: 证据等级 B：来源：fixture；命中搜索查询：frozen mixed vegetables Poland importer；有官网主体线索；搜索结果出现可见联系人或角色线索；命中当前搜索策略中的目标关键词组合。 | Source URL: https://directory.example/polfood-sourcing | Source Type: web | Source Name: fixture | Source Note: https://directory.example/polfood-sourcing | Freshness: unknown | Confidence: medium | Match Basis: 命中搜索查询：frozen mixed vegetables Poland importer | Review: 公司名与官网域名对应关系较弱，建议人工确认主体匹配。\"\n}",
               "title": "客户背调桥接输入"
             }
           ],
@@ -900,7 +930,11 @@
         "evidence_sufficiency": "limited",
         "recommended_next_action": "ready_for_email_draft",
         "summary_cn": "当前线索更像是 GreenHarvest Foods。公开线索主要集中在官网联系页与 LinkedIn 公司页，现阶段更适合先用保守的一封首轮开发信验证对方是否有进一步沟通意愿。",
-        "summary_en": "The lead most likely maps to GreenHarvest Foods. The strongest public footprint appears on the company website and LinkedIn company page. Use a conservative first-touch email before moving to pricing, MOQ, or sample discussions."
+        "summary_en": "The lead most likely maps to GreenHarvest Foods. The strongest public footprint appears on the company website and LinkedIn company page. Use a conservative first-touch email before moving to pricing, MOQ, or sample discussions.",
+        "top_recent_signal": "GreenHarvest Foods LinkedIn company page",
+        "top_market_signal": "Poland / EU frozen food compliance context",
+        "recent_signal_count": 1,
+        "market_signal_count": 1
       },
       "document_blocks": [
         {
@@ -988,8 +1022,49 @@
         },
         {
           "type": "table",
+          "title": "Recent Customer Signals",
+          "rows": [
+            {
+              "signal_type": "expansion",
+              "title": "GreenHarvest Foods LinkedIn company page",
+              "source_title": "GreenHarvest Foods LinkedIn company page",
+              "source_url": "https://www.linkedin.com/company/greenharvestfoods",
+              "source_type": "linkedin",
+              "observed_at_or_period": "unknown",
+              "freshness": "unknown",
+              "confidence": "low",
+              "why_it_matters": "LinkedIn presence gives a possible public context for a careful first-touch opening, but the specific activity must be manually checked before sending.",
+              "product_relevance": "If the company is actively updating its distribution or private-label programs, frozen mixed vegetables may be relevant as a supply conversation starter."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Market & Compliance Signals",
+          "rows": [
+            {
+              "signal_type": "compliance",
+              "title": "Poland / EU frozen food compliance context",
+              "source_title": "Course demo market context",
+              "source_type": "manual_review_context",
+              "observed_at_or_period": "unknown",
+              "freshness": "unknown",
+              "confidence": "low",
+              "why_it_matters": "EU food buyers may care about stable specifications, documentation, and compliance-ready communication.",
+              "product_relevance": "Use only as a cautious business context; do not present it as a confirmed requirement from this customer."
+            }
+          ]
+        },
+        {
+          "type": "table",
           "title": "Sales Angles",
           "rows": [
+            {
+              "cn": "优先从其 LinkedIn / 官网公开线索切入，说明这不是模板群发，而是围绕其冷冻食品与 private label 方向做的保守沟通。",
+              "en": "Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
+              "why": "This gives the email Skill a concrete, reviewable opening signal without inventing a recent event.",
+              "avoid": "Do not claim a verified new warehouse, expansion, or current sourcing need unless manually confirmed before sending."
+            },
             {
               "cn": "可从其 private label 冷冻食品方向切入，强调稳定规格、包装配合与基础供货能力。",
               "en": "Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
@@ -1047,7 +1122,7 @@
       "workflow_meta": {
         "combo_run_id": "demo-run",
         "workflow_id": "demo-run-lead-002-greenharvest-foods",
-        "generated_at": "2026-04-19T01:48:52+00:00"
+        "generated_at": "2026-05-10T21:17:00+00:00"
       },
       "runtime_contract": {
         "workspace_owner_skill": "trade-active-outreach-combo",
@@ -1069,7 +1144,7 @@
       "stage_status": "draft_ready",
       "summary_fields": {
         "email_type": "first_touch",
-        "goal": "introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+        "goal": "introduce our offer with a relevant angle: Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
         "draft_status": "draft_ready",
         "send_policy": "manual_review_only",
         "recommended_next_action": "ready_for_manual_send"
@@ -1079,12 +1154,15 @@
         "company_name": "GreenHarvest Foods",
         "email_type": "first_touch",
         "product_or_offer": "frozen mixed vegetables",
-        "goal": "introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+        "goal": "introduce our offer with a relevant angle: Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
         "sender_name": "Leo",
         "sender_company": "Ningbo FreshGrow Foods",
         "send_policy": "manual_review_only",
         "recommended_next_action": "ready_for_manual_send",
-        "review_notes": "建议人工复核后发送，不要把未确认信息直接写成既定事实。\n邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。\n若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。\n已应用输入约束：Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent.\n背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。"
+        "review_notes": "建议人工复核后发送，不要把未确认信息直接写成既定事实。\n邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。\n若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。\n已应用输入约束：Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent.\n背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。\n本邮件引用了背调阶段的近期或市场信号，请确认来源、时间、新鲜度和语境后再发送。\n开头切入点来自客户背调输出，开发信 Skill 不负责重新验证该事实。",
+        "opening_signal": "GreenHarvest Foods LinkedIn company page",
+        "recent_signals": "GreenHarvest Foods LinkedIn company page | expansion | unknown | low",
+        "market_signals": "Poland / EU frozen food compliance context | compliance | unknown | low"
       },
       "document_blocks": [
         {
@@ -1097,7 +1175,7 @@
           "title": "Scenario",
           "fields": {
             "Email Type": "first_touch",
-            "Goal": "introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+            "Goal": "introduce our offer with a relevant angle: Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
             "Product / Offer": "frozen mixed vegetables",
             "Sender": "Leo",
             "Sender Company": "Ningbo FreshGrow Foods",
@@ -1114,11 +1192,11 @@
         },
         {
           "type": "paragraph",
-          "text": "Dear Anna,\n\nI hope you are doing well.\n\nI am reaching out from Ningbo FreshGrow Foods regarding our frozen mixed vegetables and the possibility of supporting GreenHarvest Foods. We understand your team is active in the Poland market. Based on the profile information provided, your business appears relevant to this offer.\n\nOur purpose is simple: introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.\n\nIf appropriate, I can share a brief product overview, standard specifications, and a starting point for discussion.\n\nPlease let me know if you would be open to a short exchange on this.\n\nBest regards,\nLeo\nNingbo FreshGrow Foods"
+          "text": "Dear Anna,\n\nI hope you are doing well.\n\nI am reaching out from Ningbo FreshGrow Foods regarding our frozen mixed vegetables and the possibility of supporting GreenHarvest Foods. We understand your team is active in the Poland market. Based on the profile information provided, your business appears relevant to this offer. I also noticed a public signal around GreenHarvest Foods LinkedIn company page, so I wanted to keep this note specific rather than send a generic introduction.\n\nOur purpose is simple: introduce our offer with a relevant angle: Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.\n\nIf appropriate, I can share a brief product overview, standard specifications, and a starting point for discussion.\n\nPlease let me know if you would be open to a short exchange on this.\n\nBest regards,\nLeo\nNingbo FreshGrow Foods"
         },
         {
           "type": "paragraph",
-          "text": "Dear Anna,\n\nI hope you are doing well.\n\nI am contacting you about frozen mixed vegetables and would like to introduce our offer with a relevant angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.\n\nIf this is relevant for your team, I would be glad to share the next details.\n\nPlease let me know if you would be open to a short exchange on this.\n\nBest regards,\nLeo\nNingbo FreshGrow Foods"
+          "text": "Dear Anna,\n\nI hope you are doing well.\n\nI am contacting you about frozen mixed vegetables and would like to introduce our offer with a relevant angle: Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.\n\nIf this is relevant for your team, I would be glad to share the next details.\n\nPlease let me know if you would be open to a short exchange on this.\n\nBest regards,\nLeo\nNingbo FreshGrow Foods"
         },
         {
           "type": "bullets",
@@ -1127,19 +1205,24 @@
             "邮件中涉及客户画像摘要的信息时，应核对其是否来自已确认的公开资料。",
             "若涉及价格、样品、MOQ 或交期，请仅填写已内部确认的信息。",
             "已应用输入约束：Use only public, confirmed information. Avoid hard claims about demand, pricing, or purchasing intent.",
-            "背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。"
+            "背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。",
+            "本邮件引用了背调阶段的近期或市场信号，请确认来源、时间、新鲜度和语境后再发送。",
+            "开头切入点来自客户背调输出，开发信 Skill 不负责重新验证该事实。"
           ],
           "title": "Review Notes"
         },
         {
           "type": "bullets",
           "items": [
-            "sales_angle: Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
+            "sales_angle: Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
+            "opening_signal: GreenHarvest Foods LinkedIn company page",
             "risk_rating: Medium",
             "entity_confidence: medium",
             "evidence_sufficiency: limited",
             "evidence_title: GreenHarvest Foods contact page",
-            "evidence_title: GreenHarvest Foods LinkedIn company page"
+            "evidence_title: GreenHarvest Foods LinkedIn company page",
+            "recent_signal: GreenHarvest Foods LinkedIn company page | expansion | unknown | low",
+            "market_signal: Poland / EU frozen food compliance context | compliance | unknown | low"
           ],
           "title": "Evidence Signals Used"
         },
@@ -1147,7 +1230,9 @@
           "type": "bullets",
           "items": [
             "当前仍需人工确认采购角色与实际产品匹配度。",
-            "公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。"
+            "公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。",
+            "确认近期客户信号仍然有效，没有过时或被断章取义。",
+            "确认市场、合规、关税或贸易政策信号只作为业务背景，不写成法律或确定采购结论。"
           ],
           "title": "未确认事实清单"
         }
@@ -1183,7 +1268,7 @@
       "recommended_next_action": "ready_for_customer_intel",
       "legacy_recommended_next_action": "enter_customer_intel",
       "evidence_grade": "A",
-      "last_updated_at": "2026-04-19T01:48:52+00:00",
+      "last_updated_at": "2026-05-10T21:17:00+00:00",
       "search_asset_ref": "search-record:demo-run:lead-001",
       "screening_asset_ref": "screening-record:demo-run:lead-001",
       "combo_run_id": "demo-run",
@@ -1205,7 +1290,7 @@
       "entity_confidence": "medium",
       "evidence_sufficiency": "limited",
       "send_policy": "manual_review_only",
-      "last_updated_at": "2026-04-19T01:48:52+00:00",
+      "last_updated_at": "2026-05-10T21:17:00+00:00",
       "search_asset_ref": "search-record:demo-run:lead-002",
       "screening_asset_ref": "screening-record:demo-run:lead-002",
       "intel_asset_ref": "intel-doc:demo-run-lead-002-greenharvest-foods",
@@ -1225,7 +1310,7 @@
       "recommended_next_action": "ready_for_customer_intel",
       "legacy_recommended_next_action": "enter_customer_intel",
       "evidence_grade": "B",
-      "last_updated_at": "2026-04-19T01:48:52+00:00",
+      "last_updated_at": "2026-05-10T21:17:00+00:00",
       "search_asset_ref": "search-record:demo-run:lead-003",
       "screening_asset_ref": "screening-record:demo-run:lead-003",
       "combo_run_id": "demo-run",
@@ -1241,6 +1326,21 @@
       "OutreachDraftPackage",
       "ContainerBundle"
     ],
+    "enterprise_table_policy": {
+      "mode": "adapt_existing_or_create_minimal",
+      "summary": "企业表格属于企业个性化资产。优先沿用用户已有表头；没有可用表格时，由龙虾按企业产品、市场和流程新建够用表；仓库内标准字段只作为映射参考。",
+      "rules": [
+        "不得把课堂 Feishu Sandbox 或标准 Base 当作企业落地强制前置。",
+        "写入前先识别现有表头，并把 Skill 标准字段映射到企业已有字段。",
+        "缺少关键字段时，先提出最小新增字段建议，再等待用户确认。"
+      ]
+    },
+    "skill_rule_capture_policy": {
+      "mode": "ask_before_skill_update",
+      "summary": "当用户确认新字段、客户分级、背调规则、开发信风格、禁用表达或行业习惯后，龙虾必须追问是否更新到对应 Skill 以便下次自动复用；真实写入必须得到用户授权。",
+      "required_question": "是否更新到对应 Skill 以便下次自动复用",
+      "authorization_required": true
+    },
     "default_send_policy": "manual_review_only",
     "notes": [
       "飞书只作为课堂标准沙盘，不是企业唯一数据容器。",

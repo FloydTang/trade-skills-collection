@@ -128,6 +128,11 @@ def validate_payload(payload: object) -> dict:
             "discovery_next_action": normalize_text(lead.get("discovery_next_action")),
             "product_keywords": normalize_text(lead.get("product_keywords")),
             "source_type": normalize_text(lead.get("source_type")),
+            "source_name": normalize_text(lead.get("source_name")),
+            "source_url_or_note": normalize_text(lead.get("source_url_or_note")),
+            "freshness": normalize_text(lead.get("freshness")),
+            "confidence": normalize_text(lead.get("confidence")),
+            "match_basis": normalize_text(lead.get("match_basis")),
         }
         if clue_count(normalized) == 0:
             raise ValueError(f"Lead #{index} must include at least one clue field.")
@@ -232,6 +237,18 @@ def build_notes(lead: dict, reasons: list[str]) -> str:
         parts.append(f"Match Reason: {lead['match_reason']}")
     if lead["source_url"]:
         parts.append(f"Source URL: {lead['source_url']}")
+    if lead.get("source_type"):
+        parts.append(f"Source Type: {lead['source_type']}")
+    if lead.get("source_name"):
+        parts.append(f"Source Name: {lead['source_name']}")
+    if lead.get("source_url_or_note"):
+        parts.append(f"Source Note: {lead['source_url_or_note']}")
+    if lead.get("freshness"):
+        parts.append(f"Freshness: {lead['freshness']}")
+    if lead.get("confidence"):
+        parts.append(f"Confidence: {lead['confidence']}")
+    if lead.get("match_basis"):
+        parts.append(f"Match Basis: {lead['match_basis']}")
     if lead["linkedin_url"]:
         parts.append(f"LinkedIn URL: {lead['linkedin_url']}")
     if reasons:
@@ -264,6 +281,11 @@ def normalize_lead(lead: dict, default_country_or_market: str, index: int) -> di
         "linkedin_url": normalized["linkedin_url"],
         "product_keywords": normalized["product_keywords"],
         "source_type": normalized["source_type"],
+        "source_name": normalized["source_name"],
+        "source_url_or_note": normalized["source_url_or_note"],
+        "freshness": normalized["freshness"],
+        "confidence": normalized["confidence"],
+        "match_basis": normalized["match_basis"],
         "evidence_grade": normalized["evidence_grade"] or "C",
         "match_reason": normalized["match_reason"],
         "evidence_summary": normalized["evidence_summary"],
@@ -344,6 +366,16 @@ def render_markdown(report: dict) -> str:
             lines.append(f"- Evidence Summary: {lead['evidence_summary']}")
         if lead["match_reason"]:
             lines.append(f"- Match Reason: {lead['match_reason']}")
+        if lead["source_type"]:
+            lines.append(f"- Source Type: {lead['source_type']}")
+        if lead["source_name"]:
+            lines.append(f"- Source Name: {lead['source_name']}")
+        if lead["freshness"]:
+            lines.append(f"- Freshness: {lead['freshness']}")
+        if lead["confidence"]:
+            lines.append(f"- Confidence: {lead['confidence']}")
+        if lead["match_basis"]:
+            lines.append(f"- Match Basis: {lead['match_basis']}")
         if lead["manual_review_reasons"]:
             lines.append("- Manual Review Reasons:")
             for reason in lead["manual_review_reasons"]:

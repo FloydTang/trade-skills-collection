@@ -36,6 +36,27 @@ def infer_goal(report: dict, email_type: str) -> str:
     return "introduce our offer conservatively and check whether there is potential fit"
 
 
+def summarize_signal(signal: dict) -> str:
+    if not isinstance(signal, dict):
+        return ""
+    title = str(signal.get("title", "")).strip()
+    signal_type = str(signal.get("signal_type", "")).strip()
+    freshness = str(signal.get("freshness", "")).strip()
+    confidence = str(signal.get("confidence", "")).strip()
+    parts = [part for part in [title, signal_type, freshness, confidence] if part]
+    return " | ".join(parts)
+
+
+def recommended_opening_signal(report: dict) -> str:
+    for key in ("recent_signals", "market_signals"):
+        signals = report.get(key) or []
+        if signals and isinstance(signals[0], dict):
+            title = str(signals[0].get("title", "")).strip()
+            if title:
+                return title
+    return ""
+
+
 def infer_constraints(report: dict) -> str:
     parts = ["Use only public, confirmed information.", "Avoid hard claims about demand, pricing, or purchasing intent."]
     if str(report.get("risk_rating", "")).strip().lower() == "high":
@@ -57,6 +78,8 @@ def build_bridge_payload(
     company_profile = report.get("company_profile") or {}
     intel_decision = report.get("intel_decision") or {}
     evidence = report.get("evidence") or []
+    recent_signals = report.get("recent_signals") or []
+    market_signals = report.get("market_signals") or []
     payload = {
         "email_type": email_type,
         "customer_name": first_non_empty(identity.get("person_name"), "there"),
@@ -79,6 +102,9 @@ def build_bridge_payload(
             "ambiguity_notes": identity.get("ambiguity_notes") or [],
             "unconfirmed_fact_list": report.get("unconfirmed_fact_list") or [],
             "evidence_titles": [item.get("title") for item in evidence[:5] if isinstance(item, dict) and item.get("title")],
+            "recent_signals": [summarize_signal(item) for item in recent_signals[:3] if summarize_signal(item)],
+            "market_signals": [summarize_signal(item) for item in market_signals[:3] if summarize_signal(item)],
+            "recommended_opening_signal_en": recommended_opening_signal(report),
             "recommended_sales_angle_en": first_non_empty(
                 (report.get("sales_angles") or [{}])[0].get("en") if report.get("sales_angles") else "",
                 report.get("summary_en"),

@@ -1,0 +1,46 @@
+{
+  "product_or_offer": "frozen mixed vegetables",
+  "target_market": "Poland",
+  "customer_type": "importer",
+  "search_keywords": [
+    "frozen vegetable importer"
+  ],
+  "must_include": [
+    "HoReCa"
+  ],
+  "exclude_terms": [
+    "job",
+    "recruitment"
+  ],
+  "max_results": 4,
+  "notes": "User wants to prioritize customs-data clues before public enrichment.",
+  "data_sources": [
+    {
+      "source_type": "customs",
+      "source_name": "Poland frozen vegetable customs export",
+      "authorization_status": "user_provided",
+      "input_format": "records",
+      "source_url_or_note": "User-provided customs export, 2025 Q4",
+      "records": [
+        {
+          "importer_name": "GreenHarvest Foods",
+          "country": "Poland",
+          "hs_code": "0710",
+          "product_keywords": "frozen vegetables",
+          "trade_partner": "China",
+          "trade_period": "2025 Q4",
+          "confidence": "medium"
+        },
+        {
+          "importer_name": "Vistula Cold Chain Supply",
+          "country": "Poland",
+          "hs_code": "0710",
+          "product_keywords": "mixed frozen vegetables",
+          "trade_partner": "Vietnam",
+          "trade_period": "2025 Q3",
+          "confidence": "medium"
+        }
+      ]
+    }
+  ]
+}

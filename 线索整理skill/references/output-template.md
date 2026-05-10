@@ -25,6 +25,12 @@
 - `company_website`
 - `country_or_market`
 - `evidence_grade`
+- `source_type`
+- `source_name`
+- `source_url_or_note`
+- `freshness`
+- `confidence`
+- `match_basis`
 - `discovery_next_action`
 - `lead_bucket`
 - `missing_fields`
@@ -42,3 +48,5 @@
 - `company_website`
 - `country_or_market`
 - `notes`
+
+`notes` 中应保留来源摘要、匹配依据、新鲜度和可信度，方便客户背调阶段继续判断证据强弱。

@@ -41,7 +41,41 @@
       "confidence": "medium"
     }
   ],
+  "recent_signals": [
+    {
+      "signal_type": "expansion",
+      "title": "GreenHarvest Foods LinkedIn company page",
+      "source_title": "GreenHarvest Foods LinkedIn company page",
+      "source_url": "https://www.linkedin.com/company/greenharvestfoods",
+      "source_type": "linkedin",
+      "observed_at_or_period": "unknown",
+      "freshness": "unknown",
+      "confidence": "low",
+      "why_it_matters": "LinkedIn presence gives a possible public context for a careful first-touch opening, but the specific activity must be manually checked before sending.",
+      "product_relevance": "If the company is actively updating its distribution or private-label programs, frozen mixed vegetables may be relevant as a supply conversation starter."
+    }
+  ],
+  "market_signals": [
+    {
+      "signal_type": "compliance",
+      "title": "Poland / EU frozen food compliance context",
+      "source_title": "Course demo market context",
+      "source_url": "",
+      "source_type": "manual_review_context",
+      "observed_at_or_period": "unknown",
+      "freshness": "unknown",
+      "confidence": "low",
+      "why_it_matters": "EU food buyers may care about stable specifications, documentation, and compliance-ready communication.",
+      "product_relevance": "Use only as a cautious business context; do not present it as a confirmed requirement from this customer."
+    }
+  ],
   "sales_angles": [
+    {
+      "cn": "优先从其 LinkedIn / 官网公开线索切入，说明这不是模板群发，而是围绕其冷冻食品与 private label 方向做的保守沟通。",
+      "en": "Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
+      "why": "This gives the email Skill a concrete, reviewable opening signal without inventing a recent event.",
+      "avoid": "Do not claim a verified new warehouse, expansion, or current sourcing need unless manually confirmed before sending."
+    },
     {
       "cn": "可从其 private label 冷冻食品方向切入，强调稳定规格、包装配合与基础供货能力。",
       "en": "Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",

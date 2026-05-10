@@ -51,6 +51,36 @@ List 3-8 signals:
 - Evidence sources
 - Confidence label
 
+## Recent Customer Signals
+
+List customer-side recent signals when evidence supports them:
+
+- Signal type
+- Signal title
+- Source title and URL
+- Observed date or period when visible
+- Freshness
+- Confidence label
+- Why it matters commercially
+- Product relevance
+
+If no recent signal is confirmed, say so. Do not invent recency.
+
+## Market & Compliance Signals
+
+List target-market or industry environment signals when evidence supports them:
+
+- Signal type
+- Signal title
+- Source title and URL
+- Observed date or period when visible
+- Freshness
+- Confidence label
+- Why it matters commercially
+- Product relevance
+
+These signals can support outreach context, but must not be presented as legal, customs, or compliance advice.
+
 ## Sales Angles
 
 Each angle should include:

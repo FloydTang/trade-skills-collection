@@ -63,6 +63,19 @@ def merge_payload(payload: dict) -> dict:
         "sender_company": operator_input.get("sender_company", ""),
         "signature": operator_input.get("signature", ""),
         "constraints": operator_input.get("constraints") or public_context.get("constraints", ""),
+        "source_context": {
+            "risk_rating": public_context.get("risk_rating", ""),
+            "entity_confidence": public_context.get("entity_confidence", ""),
+            "evidence_sufficiency": public_context.get("evidence_sufficiency", ""),
+            "intel_recommended_next_action": public_context.get("intel_recommended_next_action", ""),
+            "recommended_sales_angle_en": public_context.get("recommended_sales_angle_en", ""),
+            "recommended_opening_signal_en": public_context.get("recommended_opening_signal_en", ""),
+            "recent_signals": public_context.get("recent_signals", []),
+            "market_signals": public_context.get("market_signals", []),
+            "evidence_titles": public_context.get("evidence_titles", []),
+            "unconfirmed_fact_list": public_context.get("unconfirmed_fact_list", []),
+            "ambiguity_notes": public_context.get("ambiguity_notes", []),
+        },
     }
 
     if str(public_context.get("risk_rating", "")).strip().lower() == "high":
@@ -98,12 +111,27 @@ def main() -> None:
     drafts = core.build_drafts(normalized)
     notes = core.build_review_notes(normalized)
     signals = core.build_input_signals(normalized)
-    markdown = core.render_markdown(normalized, subjects, drafts, notes, signals)
+    evidence_signals = core.build_evidence_signals(normalized)
+    unconfirmed_fact_checklist = core.build_unconfirmed_fact_checklist(normalized)
+    workflow_guidance = core.build_workflow_guidance(normalized)
+    markdown = core.render_markdown(
+        normalized,
+        subjects,
+        drafts,
+        notes,
+        signals,
+        evidence_signals,
+        unconfirmed_fact_checklist,
+        workflow_guidance,
+    )
     result = {
         "merged_input": merged,
         "subject_options": subjects,
         "drafts": drafts,
         "review_notes": notes,
+        "evidence_signals_used": evidence_signals,
+        "unconfirmed_fact_checklist": unconfirmed_fact_checklist,
+        "workflow_guidance": workflow_guidance,
         "input_signals_used": signals,
     }
 

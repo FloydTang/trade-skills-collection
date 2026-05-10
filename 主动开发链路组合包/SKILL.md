@@ -3,8 +3,10 @@ name: trade-active-outreach-combo
 description: Run a minimal active-outreach workflow by reusing four existing foreign-trade skills: lead discovery, lead screening, customer intel, and outreach email. Use when an operator wants a conservative end-to-end demo with visible intermediate artifacts and a final editable email draft.
 openclaw_role: workflow_owner
 container_owner: active_outreach_combo
-container_mode: single_base_multi_table
+container_mode: container_neutral_with_feishu_sandbox_adapter
 single_skill_policy: attach_only
+table_policy: adapt_existing_or_create_minimal
+rule_capture: ask_before_skill_update
 ---
 
 # 主动开发最小闭环链路组合包
@@ -21,6 +23,9 @@ single_skill_policy: attach_only
 - 保留中间产物
 - 明确人工复核点
 - 输出中立容器 bundle，再按需派生到课堂沙盘
+- 适配企业已有表头，或在没有可用表格时创建够用表
+- 让客户背调作为核心判断层，把近期客户信号、市场/合规信号和销售角度传给开发信
+- 在用户确认字段、分级、背调规则或开发信风格后，先追问是否沉淀到对应 Skill
 
 ## Workflow
 
@@ -28,10 +33,17 @@ single_skill_policy: attach_only
 2. Convert discovery output into the lead-screening input shape.
 3. Run lead screening and export the customer-intel batch payload.
 4. Select one lead for the reviewed customer-intel stage.
-5. Reuse the reviewed customer-intel fixture for stable downstream demonstration.
+5. Reuse the reviewed customer-intel fixture for stable downstream demonstration, including recent/market signals.
 6. Bridge the intel report into outreach-email input.
-7. Generate editable English outreach drafts and review notes.
+7. Generate editable English outreach drafts and review notes without inventing new customer facts.
 8. Export `ContainerBundle` to JSON / Markdown / CSV and Feishu Sandbox Adapter.
+
+## Table and Rule Policy
+
+- Skill 是标准化能力，不是固定表格模板。
+- 企业表格是企业个性化资产：优先沿用用户已有表头；没有可用表格时，龙虾按企业产品、市场和流程新建够用表。
+- 标准字段和 Feishu Sandbox 只作为参考映射，不作为企业落地的强制前置。
+- 当用户确认了新字段、客户分级、背调规则、开发信风格、禁用表达或行业习惯，必须追问：`是否更新到对应 Skill 以便下次自动复用`。真实写入必须得到用户授权。
 
 ## Output Requirements
 
@@ -40,8 +52,10 @@ single_skill_policy: attach_only
 - 必须明确这是固定样例链路，不是实时联网结果承诺
 - 必须输出最终邮件草稿和中间桥接 JSON
 - 必须输出容器中立的 `ContainerBundle`
+- 背调节点必须给开发信提供可复核的近期信号、市场信号或保守销售角度
 - 不能把推断写成确定事实
 - 不能把邮件草稿写成可直接自动发送
+- 不能让开发信节点自行编造“客户最近发生了什么”
 - 不能把飞书写成唯一数据容器
 
 ## Main Script

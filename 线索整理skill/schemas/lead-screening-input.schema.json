@@ -27,7 +27,12 @@
           "linkedin_url": { "type": "string" },
           "notes": { "type": "string" },
           "product_keywords": { "type": "string" },
-          "source_type": { "type": "string" }
+          "source_type": { "type": "string" },
+          "source_name": { "type": "string" },
+          "source_url_or_note": { "type": "string" },
+          "freshness": { "type": "string" },
+          "confidence": { "type": "string" },
+          "match_basis": { "type": "string" }
         }
       }
     }

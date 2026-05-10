@@ -58,6 +58,11 @@ class Candidate:
     search_query_used: list[str] = field(default_factory=list)
     follow_up_suggestion: str = ""
     source_type: str = ""
+    source_name: str = ""
+    source_url_or_note: str = ""
+    freshness: str = ""
+    confidence: str = ""
+    match_basis: str = ""
 
 
 def load_json(path: str | None) -> Any:
@@ -91,6 +96,32 @@ def normalize_terms(value: Any) -> list[str]:
     return [item.strip() for item in text.split(",") if item.strip()]
 
 
+def normalize_data_sources(value: Any) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    sources: list[dict[str, Any]] = []
+    for index, item in enumerate(value, start=1):
+        if not isinstance(item, dict):
+            continue
+        source_type = normalize_text(item.get("source_type")) or "manual_import"
+        source_name = normalize_text(item.get("source_name")) or f"data_source_{index}"
+        authorization_status = normalize_text(item.get("authorization_status")) or "user_provided"
+        input_format = normalize_text(item.get("input_format")) or "records"
+        records = item.get("records") if isinstance(item.get("records"), list) else []
+        sources.append(
+            {
+                "source_type": source_type,
+                "source_name": source_name,
+                "authorization_status": authorization_status,
+                "input_format": input_format,
+                "source_url_or_note": normalize_text(item.get("source_url_or_note") or item.get("notes")),
+                "field_mapping": item.get("field_mapping") if isinstance(item.get("field_mapping"), dict) else {},
+                "records": [record for record in records if isinstance(record, dict)],
+            }
+        )
+    return sources
+
+
 def normalize_input(data: Any) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError("Input must be a JSON object.")
@@ -103,6 +134,7 @@ def normalize_input(data: Any) -> dict[str, Any]:
         "exclude_terms": normalize_terms(data.get("exclude_terms")),
         "max_results": data.get("max_results") or DEFAULT_MAX_RESULTS,
         "notes": normalize_text(data.get("notes")),
+        "data_sources": normalize_data_sources(data.get("data_sources")),
     }
     if not all(normalized[key] for key in ("product_or_offer", "target_market", "customer_type")):
         raise ValueError("product_or_offer, target_market, and customer_type are required.")
@@ -110,6 +142,19 @@ def normalize_input(data: Any) -> dict[str, Any]:
         raise ValueError("search_keywords must contain at least one keyword.")
     normalized["max_results"] = max(1, min(int(normalized["max_results"]), 20))
     return normalized
+
+
+def source_summaries(data_sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        {
+            "source_type": source["source_type"],
+            "source_name": source["source_name"],
+            "authorization_status": source["authorization_status"],
+            "input_format": source["input_format"],
+            "record_count": len(source["records"]),
+        }
+        for source in data_sources
+    ]
 
 
 def run_command(args: list[str]) -> tuple[int, str]:
@@ -248,10 +293,12 @@ def build_search_strategy(data: dict[str, Any], queries: list[str]) -> dict[str,
     return {
         "strategy_summary": (
             "先用产品 + 市场 + 客户类型构造主查询，再补角色词、LinkedIn 公司页线索和 must_include 限定词。"
+            "如用户提供海关数据、展会名单、行业协会名单或企业自有表格，则作为授权数据源同步归并。"
         ),
         "query_plan": queries,
         "exclude_terms": data["exclude_terms"],
         "must_include": data["must_include"],
+        "data_sources": source_summaries(data["data_sources"]),
         "notes": data["notes"],
     }
 
@@ -357,7 +404,95 @@ def result_to_candidate(result: SearchResult, target_market: str) -> Candidate:
         search_snippet=result.snippet[:240],
         search_query_used=[result.query],
         source_type=source_type,
+        source_name=result.source,
+        source_url_or_note=url,
+        freshness="unknown",
+        confidence="medium",
+        match_basis=f"命中搜索查询：{result.query}",
     )
+
+
+def first_record_value(record: dict[str, Any], *keys: str) -> str:
+    for key in keys:
+        value = record.get(key)
+        if isinstance(value, str) and value.strip():
+            return normalize_text(value)
+        if value is not None and not isinstance(value, (dict, list)):
+            text = normalize_text(value)
+            if text:
+                return text
+    return ""
+
+
+def mapped_value(record: dict[str, Any], field_mapping: dict[str, Any], standard_key: str, *fallback_keys: str) -> str:
+    mapped_key = field_mapping.get(standard_key)
+    if isinstance(mapped_key, str) and mapped_key:
+        value = first_record_value(record, mapped_key)
+        if value:
+            return value
+    return first_record_value(record, standard_key, *fallback_keys)
+
+
+def customs_match_basis(record: dict[str, Any]) -> str:
+    parts = []
+    for label, keys in (
+        ("进口商", ("importer_name", "importer", "buyer")),
+        ("出口商", ("exporter_name", "exporter", "supplier")),
+        ("HS Code", ("hs_code", "hscode")),
+        ("产品关键词", ("product_keywords", "product", "goods_description")),
+        ("贸易伙伴", ("trade_partner", "partner_country")),
+        ("时间区间", ("trade_period", "shipment_date", "date_range")),
+    ):
+        value = first_record_value(record, *keys)
+        if value:
+            parts.append(f"{label}: {value}")
+    return "；".join(parts)
+
+
+def build_data_source_candidates(data_sources: list[dict[str, Any]], data: dict[str, Any]) -> list[Candidate]:
+    candidates: list[Candidate] = []
+    for source in data_sources:
+        field_mapping = source["field_mapping"]
+        for record in source["records"]:
+            company_name = mapped_value(
+                record,
+                field_mapping,
+                "company_name",
+                "importer_name",
+                "buyer",
+                "customer_name",
+                "account_name",
+            )
+            website = mapped_value(record, field_mapping, "company_website", "website", "url", "domain")
+            source_url = mapped_value(record, field_mapping, "source_url", "url", "record_url")
+            linkedin_url = mapped_value(record, field_mapping, "linkedin_url", "linkedin")
+            country_or_market = mapped_value(record, field_mapping, "country_or_market", "country", "market")
+            contact = mapped_value(record, field_mapping, "contact", "person_name", "email", "phone")
+            note = mapped_value(record, field_mapping, "notes", "note", "summary", "description")
+            record_match_basis = mapped_value(record, field_mapping, "match_basis", "reason")
+            if source["source_type"] == "customs":
+                record_match_basis = record_match_basis or customs_match_basis(record)
+            if not record_match_basis:
+                record_match_basis = f"来自用户授权数据源：{source['source_name']}"
+            candidates.append(
+                Candidate(
+                    company_name=company_name,
+                    company_website=website,
+                    source_url=source_url or website or linkedin_url,
+                    linkedin_url=linkedin_url,
+                    country_or_market=country_or_market or data["target_market"],
+                    visible_contact_clues=[contact] if contact else [],
+                    search_snippet=note[:240],
+                    search_query_used=[],
+                    source_type=source["source_type"],
+                    source_name=source["source_name"],
+                    source_url_or_note=source_url or source["source_url_or_note"] or note,
+                    freshness=mapped_value(record, field_mapping, "freshness", "trade_period", "shipment_date", "updated_at") or "unknown",
+                    confidence=mapped_value(record, field_mapping, "confidence", "confidence_label") or "medium",
+                    match_basis=record_match_basis,
+                )
+            )
+    return candidates
 
 
 def merge_candidate(base: Candidate, incoming: Candidate) -> Candidate:
@@ -379,10 +514,29 @@ def merge_candidate(base: Candidate, incoming: Candidate) -> Candidate:
             base.search_query_used.append(query)
     if not base.search_snippet and incoming.search_snippet:
         base.search_snippet = incoming.search_snippet
-    if incoming.source_type == "linkedin" and base.source_type != "web":
-        base.source_type = "linkedin"
-    elif incoming.source_type == "web":
-        base.source_type = "web"
+    source_priority = {
+        "crm": 5,
+        "customs": 5,
+        "historical_customer": 5,
+        "trade_show": 4,
+        "association": 4,
+        "referral": 4,
+        "manual_import": 3,
+        "web": 3,
+        "linkedin": 2,
+    }
+    if source_priority.get(incoming.source_type, 1) > source_priority.get(base.source_type, 0):
+        base.source_type = incoming.source_type
+    if not base.source_name and incoming.source_name:
+        base.source_name = incoming.source_name
+    if not base.source_url_or_note and incoming.source_url_or_note:
+        base.source_url_or_note = incoming.source_url_or_note
+    if not base.freshness and incoming.freshness:
+        base.freshness = incoming.freshness
+    if not base.confidence and incoming.confidence:
+        base.confidence = incoming.confidence
+    if not base.match_basis and incoming.match_basis:
+        base.match_basis = incoming.match_basis
     return base
 
 
@@ -424,6 +578,10 @@ def candidate_next_action(candidate: Candidate, grade: str) -> str:
 
 def candidate_match_reason(candidate: Candidate, grade: str) -> str:
     reasons = []
+    if candidate.source_name:
+        reasons.append(f"来源：{candidate.source_name}")
+    if candidate.match_basis:
+        reasons.append(candidate.match_basis)
     if candidate.company_website:
         reasons.append("有官网主体线索")
     if candidate.linkedin_url:
@@ -447,6 +605,8 @@ def candidate_evidence_summary(candidate: Candidate, grade: str, next_action: st
         source_parts.append("公开网页来源")
     if candidate.visible_contact_clues:
         source_parts.append(f"{len(candidate.visible_contact_clues)} 条可见联系人线索")
+    if candidate.source_name:
+        source_parts.append(f"数据源 {candidate.source_name}")
     if not source_parts:
         source_parts.append("弱网页片段")
     return (
@@ -474,8 +634,17 @@ def consolidate_candidates(candidates: list[Candidate]) -> list[Candidate]:
     return list(merged_by_name.values()) + passthrough
 
 
-def build_candidates(results: list[SearchResult], data: dict[str, Any]) -> list[dict[str, Any]]:
+def build_candidates(
+    results: list[SearchResult],
+    data: dict[str, Any],
+    imported_candidates: list[Candidate] | None = None,
+) -> list[dict[str, Any]]:
     grouped: dict[str, Candidate] = {}
+    for candidate in imported_candidates or []:
+        key = candidate_key(candidate.company_name, candidate.company_website, candidate.linkedin_url)
+        if key in {"name:"}:
+            continue
+        grouped[key] = merge_candidate(grouped.get(key, Candidate(country_or_market=data["target_market"])), candidate)
     for result in results:
         candidate = result_to_candidate(result, data["target_market"])
         key = candidate_key(candidate.company_name, candidate.company_website, candidate.linkedin_url)
@@ -506,6 +675,11 @@ def build_candidates(results: list[SearchResult], data: dict[str, Any]) -> list[
                 "next_action": next_action,
                 "follow_up_suggestion": follow_up_suggestion(candidate),
                 "source_type": candidate.source_type,
+                "source_name": candidate.source_name,
+                "source_url_or_note": candidate.source_url_or_note,
+                "freshness": candidate.freshness or "unknown",
+                "confidence": candidate.confidence or ("high" if evidence_grade in {"A", "B"} else "medium"),
+                "match_basis": candidate.match_basis,
             }
         )
     return output
@@ -546,6 +720,11 @@ def build_lead_screening_input(candidates: list[dict[str, Any]], notes: str) -> 
                 "discovery_next_action": item["next_action"],
                 "product_keywords": "",
                 "source_type": item["source_type"],
+                "source_name": item.get("source_name", ""),
+                "source_url_or_note": item.get("source_url_or_note", ""),
+                "freshness": item.get("freshness", ""),
+                "confidence": item.get("confidence", ""),
+                "match_basis": item.get("match_basis", ""),
             }
         )
     return {"default_country_or_market": "", "operator_notes": notes, "leads": leads}
@@ -561,6 +740,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Customer Type: {report['summary']['customer_type']}",
         f"- Raw Result Count: {report['summary']['raw_result_count']}",
         f"- Candidate Count: {report['summary']['candidate_count']}",
+        f"- Data Sources: {len(report['summary'].get('data_sources', []))}",
         "",
         "## Search Strategy",
         f"- Strategy Summary: {report['search_strategy']['strategy_summary']}",
@@ -572,6 +752,13 @@ def render_markdown(report: dict[str, Any]) -> str:
         lines.append("- Must Include: " + ", ".join(report["search_strategy"]["must_include"]))
     if report["search_strategy"]["exclude_terms"]:
         lines.append("- Exclude Terms: " + ", ".join(report["search_strategy"]["exclude_terms"]))
+    if report["search_strategy"].get("data_sources"):
+        lines.append("- Data Sources:")
+        for source in report["search_strategy"]["data_sources"]:
+            lines.append(
+                f"  - {source['source_type']} / {source['source_name']} "
+                f"({source['authorization_status']}, {source['record_count']} records)"
+            )
     for candidate in report["candidates"]:
         lines.extend(
             [
@@ -583,6 +770,11 @@ def render_markdown(report: dict[str, Any]) -> str:
                 f"- Source URL: {candidate['source_url'] or '(missing)'}",
                 f"- Country/Market: {candidate['country_or_market'] or '(missing)'}",
                 f"- Source Type: {candidate['source_type']}",
+                f"- Source Name: {candidate.get('source_name') or '(missing)'}",
+                f"- Source URL/Note: {candidate.get('source_url_or_note') or '(missing)'}",
+                f"- Freshness: {candidate.get('freshness') or 'unknown'}",
+                f"- Confidence: {candidate.get('confidence') or 'unknown'}",
+                f"- Match Basis: {candidate.get('match_basis') or '(missing)'}",
                 f"- Evidence Grade: {candidate['evidence_grade']}",
                 f"- Next Action: {candidate['next_action']}",
                 "- Visible Contact Clues: "
@@ -622,6 +814,7 @@ def main() -> None:
     fixture_results = load_fixture_results(args.fixtures_json)
     queries = build_queries(data)
     search_strategy = build_search_strategy(data, queries)
+    imported_candidates = build_data_source_candidates(data["data_sources"], data)
     gathered: list[SearchResult] = []
     for query in queries:
         if query in fixture_results:
@@ -629,7 +822,7 @@ def main() -> None:
         else:
             gathered.extend(search(query, limit=data["max_results"]))
     filtered = [item for item in dedupe_results(gathered) if filter_result(item, data)]
-    candidates = build_candidates(filtered, data)
+    candidates = build_candidates(filtered, data, imported_candidates)
     report = {
         "summary": {
             "product_or_offer": data["product_or_offer"],
@@ -638,6 +831,7 @@ def main() -> None:
             "queries": queries,
             "raw_result_count": len(filtered),
             "candidate_count": len(candidates),
+            "data_sources": source_summaries(data["data_sources"]),
         },
         "search_strategy": search_strategy,
         "candidates": candidates,

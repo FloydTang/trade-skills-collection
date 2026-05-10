@@ -19,6 +19,9 @@
     "country_or_market": {
       "type": "string"
     },
+    "product_or_offer": {
+      "type": "string"
+    },
     "notes": {
       "type": "string"
     }

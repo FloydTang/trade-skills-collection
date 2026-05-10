@@ -33,6 +33,27 @@
 - `sender_company`
 - `signature`
 - `constraints`
+- `source_context`
+
+## `source_context` 字段
+
+`source_context` 通常由 `客户背调skill/` 桥接生成，用于告诉开发信 Skill 哪些事实、近期信号和销售角度可以谨慎引用。
+
+推荐字段：
+
+- `risk_rating`
+- `entity_confidence`
+- `evidence_sufficiency`
+- `intel_recommended_next_action`
+- `recommended_sales_angle_en`
+- `recommended_opening_signal_en`
+- `recent_signals`
+- `market_signals`
+- `evidence_titles`
+- `unconfirmed_fact_list`
+- `ambiguity_notes`
+
+开发信 Skill 只消费这些字段，不负责重新查客户近期动态、新闻、招聘、合规变化或关税信息。
 
 ## 保守规则
 
@@ -40,3 +61,4 @@
 - 输入如果属于推断，只能保守使用
 - `customer_profile_summary` 可以帮助定位角度，但不等于已确认事实
 - `previous_contact_context` 不完整时，应提醒人工复核
+- 近期客户信号和市场信号必须来自上游背调结果，发送前确认来源、时间、新鲜度和语境

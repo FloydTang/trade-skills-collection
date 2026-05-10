@@ -32,6 +32,32 @@
       "items": { "type": "string" }
     },
     "max_results": { "type": "integer", "minimum": 1, "maximum": 20 },
-    "notes": { "type": "string" }
+    "notes": { "type": "string" },
+    "data_sources": {
+      "type": "array",
+      "description": "用户授权提供的数据源，如海关数据导出、展会名单、行业协会名单、企业 CRM/Excel 或历史成交数据。",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "source_type": {
+            "type": "string",
+            "description": "web/linkedin/customs/trade_show/association/crm/referral/manual_import 等。"
+          },
+          "source_name": { "type": "string" },
+          "authorization_status": {
+            "type": "string",
+            "description": "user_provided/authorized/public 等；私有或付费数据必须由用户授权。"
+          },
+          "input_format": { "type": "string" },
+          "source_url_or_note": { "type": "string" },
+          "field_mapping": { "type": "object" },
+          "records": {
+            "type": "array",
+            "items": { "type": "object" }
+          }
+        }
+      }
+    }
   }
 }

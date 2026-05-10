@@ -39,6 +39,13 @@
 - `next_action`
 - `follow_up_suggestion`
 - `source_type`
+- `source_name`
+- `source_url_or_note`
+- `freshness`
+- `confidence`
+- `match_basis`
+
+`source_type` 可取 `web`、`linkedin`、`customs`、`trade_show`、`association`、`crm`、`referral`、`manual_import` 等。海关数据结果必须说明匹配的是进口商、出口商、HS Code、产品关键词、贸易伙伴还是时间区间。
 
 ## lead_screening_input
 
@@ -58,3 +65,8 @@
 - `discovery_missing_fields`
 - `discovery_next_action`
 - `source_type`
+- `source_name`
+- `source_url_or_note`
+- `freshness`
+- `confidence`
+- `match_basis`

@@ -132,6 +132,12 @@ def search_stage_asset(report: dict[str, Any], combo_run_id: str) -> dict[str, A
                         "company_name": candidate.get("company_name"),
                         "company_website": candidate.get("company_website"),
                         "source_url": candidate.get("source_url"),
+                        "source_type": candidate.get("source_type"),
+                        "source_name": candidate.get("source_name"),
+                        "source_url_or_note": candidate.get("source_url_or_note"),
+                        "freshness": candidate.get("freshness"),
+                        "confidence": candidate.get("confidence"),
+                        "match_basis": candidate.get("match_basis"),
                         "linkedin_url": candidate.get("linkedin_url"),
                         "country_or_market": candidate.get("country_or_market"),
                         "visible_contact_clues": "\n".join(candidate.get("visible_contact_clues") or []),
@@ -155,6 +161,10 @@ def search_stage_asset(report: dict[str, Any], combo_run_id: str) -> dict[str, A
                             "LinkedIn": candidate.get("linkedin_url"),
                             "Country / Market": candidate.get("country_or_market"),
                             "Source Type": candidate.get("source_type"),
+                            "Source Name": candidate.get("source_name"),
+                            "Freshness": candidate.get("freshness"),
+                            "Confidence": candidate.get("confidence"),
+                            "Match Basis": candidate.get("match_basis"),
                             "Evidence Grade": candidate.get("evidence_grade"),
                             "Next Action": candidate.get("next_action"),
                         },
@@ -316,6 +326,8 @@ def intel_stage_asset(
     company = report.get("company_profile") or {}
     evidence_rows = report.get("evidence") or []
     decision = report.get("intel_decision") or {}
+    recent_signals = report.get("recent_signals") or []
+    market_signals = report.get("market_signals") or []
     return {
         "workflow_meta": {
             "combo_run_id": combo_run_id,
@@ -355,6 +367,10 @@ def intel_stage_asset(
                 "recommended_next_action": decision.get("recommended_next_action"),
                 "summary_cn": report.get("summary_cn"),
                 "summary_en": report.get("summary_en"),
+                "top_recent_signal": (recent_signals[0] or {}).get("title") if recent_signals else "",
+                "top_market_signal": (market_signals[0] or {}).get("title") if market_signals else "",
+                "recent_signal_count": len(recent_signals),
+                "market_signal_count": len(market_signals),
             }
         ),
         "document_blocks": [
@@ -381,6 +397,8 @@ def intel_stage_asset(
             bullet_block(report.get("unconfirmed_fact_list") or [], title="未确认事实清单"),
             table_block("Digital Footprint", report.get("digital_footprint") or []),
             table_block("Interest Signals", report.get("interest_signals") or []),
+            table_block("Recent Customer Signals", recent_signals),
+            table_block("Market & Compliance Signals", market_signals),
             table_block("Sales Angles", report.get("sales_angles") or []),
             bullet_block(report.get("risk_reasons") or [], title="Risk Reasons"),
             table_block("Evidence", evidence_rows),
@@ -411,6 +429,7 @@ def email_stage_asset(
 ) -> dict[str, Any]:
     scenario = email_output.get("scenario") or {}
     workflow_guidance = email_output.get("workflow_guidance") or {}
+    source_context = email_input.get("source_context") or {}
     return {
         "workflow_meta": {
             "combo_run_id": combo_run_id,
@@ -449,6 +468,9 @@ def email_stage_asset(
                 "send_policy": email_output.get("send_policy"),
                 "recommended_next_action": workflow_guidance.get("recommended_next_action"),
                 "review_notes": "\n".join(email_output.get("review_notes") or []),
+                "opening_signal": source_context.get("recommended_opening_signal_en"),
+                "recent_signals": "\n".join(source_context.get("recent_signals") or []),
+                "market_signals": "\n".join(source_context.get("market_signals") or []),
             }
         ),
         "document_blocks": [
@@ -654,4 +676,3 @@ def render_master_records_csv(rows: list[dict[str, Any]]) -> str:
 
 def dump_text(text: str, path: str | Path) -> None:
     Path(path).write_text(text, encoding="utf-8")
-

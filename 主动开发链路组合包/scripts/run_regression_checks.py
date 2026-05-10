@@ -87,8 +87,15 @@ def assert_email_artifacts(output_dir: Path) -> None:
         raise SystemExit("Email draft JSON is missing subject_options.")
     if email_output.get("send_policy") != "manual_review_only":
         raise SystemExit("Email draft JSON should declare manual_review_only send policy.")
+    source_context = email_input.get("source_context") or {}
+    if not source_context.get("recommended_opening_signal_en"):
+        raise SystemExit("Email bridge payload should carry the customer-intel opening signal.")
+    if not source_context.get("recent_signals") or not source_context.get("market_signals"):
+        raise SystemExit("Email bridge payload should carry recent and market signals from customer intel.")
     if "GreenHarvest Foods" not in email_markdown:
         raise SystemExit("Email draft markdown does not mention the expected company.")
+    if "recent_signal:" not in email_markdown or "market_signal:" not in email_markdown:
+        raise SystemExit("Email draft markdown should expose recent and market signals used.")
     if "Recommended Next Action: ready_for_manual_send" not in email_markdown:
         raise SystemExit("Email draft markdown should expose the workflow guidance section.")
 
@@ -97,11 +104,16 @@ def assert_container_bundle(output_dir: Path) -> None:
     bundle = load_json(output_dir / "09-container-bundle.json")
     markdown = (output_dir / "10-container-bundle.md").read_text(encoding="utf-8")
     csv_text = (output_dir / "11-lead-workflow.csv").read_text(encoding="utf-8")
+    handoff = bundle.get("handoff_contract") or {}
 
     if bundle.get("data_containers", {}).get("classroom_sandbox") != "feishu":
         raise SystemExit("Container bundle should declare Feishu as the classroom sandbox adapter.")
-    if "LeadRecord" not in (bundle.get("handoff_contract") or {}).get("core_entities", []):
+    if "LeadRecord" not in handoff.get("core_entities", []):
         raise SystemExit("Container bundle should expose the shared core entities.")
+    if handoff.get("enterprise_table_policy", {}).get("mode") != "adapt_existing_or_create_minimal":
+        raise SystemExit("Container bundle should expose the enterprise table adaptation policy.")
+    if handoff.get("skill_rule_capture_policy", {}).get("mode") != "ask_before_skill_update":
+        raise SystemExit("Container bundle should expose the ask-before-skill-update capture policy.")
     if "## Data Containers" not in markdown:
         raise SystemExit("Container bundle markdown is missing the data container summary.")
     if "recommended_next_action" not in csv_text or "legacy_recommended_next_action" not in csv_text:
@@ -135,7 +147,7 @@ def assert_feishu_bundle(output_dir: Path) -> None:
     if install_contract.get("container_owner") != "active_outreach_combo":
         raise SystemExit("Install contract should declare the combo package as the container owner.")
     if install_contract.get("container_mode") != "single_base_multi_table":
-        raise SystemExit("Install contract should declare single_base_multi_table container mode.")
+        raise SystemExit("Feishu sandbox compatibility install contract should declare single_base_multi_table mode.")
     if install_contract.get("single_skill_policy") != "attach_only":
         raise SystemExit("Install contract should require attach_only for single-skill runs.")
     workflow_owner = install_contract.get("workflow_owner") or {}
@@ -177,6 +189,10 @@ def assert_feishu_bundle(output_dir: Path) -> None:
         raise SystemExit("Selected lead should keep the screening next action in the master records.")
     if "search_asset_ref" not in selected or "intel_asset_ref" not in selected or "email_asset_ref" not in selected:
         raise SystemExit("Master records should use text asset_ref fields instead of URL-only fields.")
+    intel_payload = stage_assets.get("customer_intel") or {}
+    intel_fields = intel_payload.get("table_fields") or {}
+    if not intel_fields.get("top_recent_signal") or not intel_fields.get("top_market_signal"):
+        raise SystemExit("Customer-intel payload should expose top recent and market signals.")
 
     waiting_lead = next((item for item in master_records if item.get("lead_id") == "lead-001"), None)
     if not waiting_lead:
