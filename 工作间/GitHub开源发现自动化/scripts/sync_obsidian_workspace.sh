@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 VAULT_ROOT="/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/外贸skill"
 
 mkdir -p "$VAULT_ROOT"
