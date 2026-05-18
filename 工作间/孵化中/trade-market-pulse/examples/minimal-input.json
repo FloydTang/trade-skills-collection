@@ -1,0 +1,78 @@
+{
+  "sample_type": "course_simulation",
+  "industry": "home textile and bedding export",
+  "product_scope": [
+    "duvet covers",
+    "bed sheets",
+    "pillowcases",
+    "kids bedding"
+  ],
+  "target_markets": [
+    "United States",
+    "Germany"
+  ],
+  "target_customer_profile": "Mid-size home goods retailers, ecommerce bedding brands, boutique wholesalers, and buyers who care about sustainable materials, stable supply, and private-label cooperation.",
+  "business_goal": "Find daily market, competitor, channel, social, and policy signals that can support product selection, outreach angles, competitor watch, and customer research.",
+  "competitors": [
+    {
+      "name": "Brooklinen",
+      "website": "https://www.brooklinen.com",
+      "watch_focus": [
+        "new product launches",
+        "promotion messaging",
+        "material claims"
+      ]
+    },
+    {
+      "name": "Parachute",
+      "website": "https://www.parachutehome.com",
+      "watch_focus": [
+        "category changes",
+        "brand messaging",
+        "retail partnerships"
+      ]
+    }
+  ],
+  "keywords": [
+    "organic cotton bedding",
+    "OEKO-TEX bedding",
+    "kids bedding retail",
+    "sustainable home textile",
+    "private label bedding",
+    "home textile import trend"
+  ],
+  "source_preferences": {
+    "official_primary": [
+      "competitor official websites",
+      "industry associations",
+      "government trade and tariff updates",
+      "platform official reports"
+    ],
+    "aggregator_discovery": [
+      "Google News",
+      "trade media",
+      "B2B platform search",
+      "ecommerce category pages",
+      "resource sites and forums"
+    ],
+    "social_signal": [
+      "LinkedIn",
+      "TikTok",
+      "X",
+      "YouTube",
+      "Reddit and niche forums"
+    ],
+    "optional_data_sources": [
+      "customs data if legally available",
+      "retail marketplace trend pages"
+    ]
+  },
+  "cadence": "daily",
+  "output_language": "Chinese with English source titles",
+  "required_boundaries": [
+    "do not treat social engagement as confirmed demand",
+    "do not claim customs data proves purchase intent",
+    "separate facts, signals, inferences, and recommended actions",
+    "prefer original sources over aggregator summaries"
+  ]
+}

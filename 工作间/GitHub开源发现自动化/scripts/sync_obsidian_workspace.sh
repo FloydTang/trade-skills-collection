@@ -49,6 +49,7 @@ fi
 sync_incubating_skill_docs "trade-mail-group"
 sync_incubating_skill_docs "trade-social-account-scan"
 sync_incubating_skill_docs "trade-feishu-kb"
+sync_incubating_skill_docs "trade-market-pulse"
 
 rm -f "$VAULT_ROOT/总说明.md"
 rm -rf "$VAULT_ROOT/外贸主动开发链路4合一"
