@@ -17,6 +17,8 @@ rule_capture: ask_before_skill_update
 
 `客户搜索skill -> 线索整理skill -> 客户背调skill -> 开发信skill`
 
+组合包不是为了让系统迷信“一次性跑满”。主代理负责声明工作区、安排子代理、维护状态和失败收口；真实落地时可以也应该按节点推进，先把单点能力跑稳，再扩大到链路。
+
 只做三件事：
 
 - 串联 4 个现有节点
@@ -37,6 +39,17 @@ rule_capture: ask_before_skill_update
 6. Bridge the intel report into outreach-email input.
 7. Generate editable English outreach drafts and review notes without inventing new customer facts.
 8. Export `ContainerBundle` to JSON / Markdown / CSV and Feishu Sandbox Adapter.
+
+## Recommended Rollout Pace
+
+真实业务首跑推荐按这个节奏：
+
+1. 先跑 1 个已知客户的客户背调，确认信号、风险和销售角度能被人工认可。
+2. 再跑 3-5 条候选客户的搜索和线索整理，确认来源、证据等级和下一步动作。
+3. 只把通过质量门槛的客户交给客户背调和开发信节点。
+4. 任一阶段证据不足时，主代理应标记 hold、补证据或人工复核，不应强行推进到开发信。
+
+这个节奏和课程最新版一致：先跑判断能力，再跑候选发现，最后再讲全链路收口。
 
 ## Table and Rule Policy
 

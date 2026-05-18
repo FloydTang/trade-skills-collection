@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -15,9 +16,20 @@ WORKSPACE_ROOT = PACKAGE_ROOT.parent
 if str(WORKSPACE_ROOT) not in sys.path:
     sys.path.insert(0, str(WORKSPACE_ROOT))
 
-SEARCH_SKILL = WORKSPACE_ROOT / "客户搜索skill"
-SCREENING_SKILL = WORKSPACE_ROOT / "线索整理skill"
-EMAIL_SKILL = WORKSPACE_ROOT / "开发信skill"
+LOCAL_SUBSKILL_ROOT = PACKAGE_ROOT / "子Skill与工具本体"
+REQUIRED_SKILL_DIRS = ["客户搜索skill", "线索整理skill", "客户背调skill", "开发信skill"]
+
+
+def resolve_skill_root() -> Path:
+    if all((LOCAL_SUBSKILL_ROOT / name).is_dir() for name in REQUIRED_SKILL_DIRS):
+        return LOCAL_SUBSKILL_ROOT
+    return WORKSPACE_ROOT
+
+
+SKILL_ROOT = resolve_skill_root()
+SEARCH_SKILL = SKILL_ROOT / "客户搜索skill"
+SCREENING_SKILL = SKILL_ROOT / "线索整理skill"
+EMAIL_SKILL = SKILL_ROOT / "开发信skill"
 
 PACKAGE_EXAMPLES = PACKAGE_ROOT / "examples"
 
@@ -25,7 +37,12 @@ from export_feishu_workflow_bundle import export_default_artifacts
 
 
 def run_python(args: list[str]) -> None:
-    completed = subprocess.run(args, cwd=WORKSPACE_ROOT, capture_output=True, text=True)
+    env = os.environ.copy()
+    python_path_parts = [str(WORKSPACE_ROOT), str(SKILL_ROOT)]
+    if env.get("PYTHONPATH"):
+        python_path_parts.append(env["PYTHONPATH"])
+    env["PYTHONPATH"] = os.pathsep.join(python_path_parts)
+    completed = subprocess.run(args, cwd=WORKSPACE_ROOT, env=env, capture_output=True, text=True)
     if completed.returncode != 0:
         if completed.stdout:
             sys.stdout.write(completed.stdout)
