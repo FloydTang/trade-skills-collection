@@ -1,0 +1,53 @@
+{
+  "sample_type": "course_simulation",
+  "our_product": "recycled PET tote bags for retail and corporate gifting",
+  "target_market": "Germany",
+  "tone": "professional, concise, not pushy",
+  "constraints": [
+    "do not invent customer demand",
+    "do not mention price unless provided",
+    "do not send emails automatically"
+  ],
+  "customers": [
+    {
+      "company_name": "Sample Retailer A",
+      "country": "Germany",
+      "industry": "eco lifestyle retail",
+      "source": "manual course sample",
+      "intel_summary": "Sells reusable home and lifestyle products. No confirmed bag supplier information.",
+      "known_signal": "sustainability positioning"
+    },
+    {
+      "company_name": "Sample Gift Agency B",
+      "country": "Germany",
+      "industry": "corporate gifts",
+      "source": "manual course sample",
+      "intel_summary": "Provides custom gifts for company events. Product catalog includes textile accessories.",
+      "known_signal": "custom branding service"
+    },
+    {
+      "company_name": "Sample Supermarket C",
+      "country": "Germany",
+      "industry": "regional supermarket",
+      "source": "manual course sample",
+      "intel_summary": "Operates offline stores and promotes reusable shopping habits.",
+      "known_signal": "retail carry bag usage"
+    },
+    {
+      "company_name": "Sample Brand Studio D",
+      "country": "Germany",
+      "industry": "brand merchandise",
+      "source": "manual course sample",
+      "intel_summary": "Produces event merchandise for consumer brands. No confirmed eco bag demand.",
+      "known_signal": "event merchandise"
+    },
+    {
+      "company_name": "Sample Outdoor Shop E",
+      "country": "Germany",
+      "industry": "outdoor retail",
+      "source": "manual course sample",
+      "intel_summary": "Sells casual outdoor accessories and seasonal products.",
+      "known_signal": "retail accessory category"
+    }
+  ]
+}

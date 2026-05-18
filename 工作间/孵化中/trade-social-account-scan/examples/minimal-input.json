@@ -1,0 +1,34 @@
+{
+  "sample_type": "public_validation_plan",
+  "targets": [
+    {
+      "target_type": "customer_company",
+      "company_name": "Example Customer Company",
+      "website": "https://example.com",
+      "country_or_market": "United States",
+      "product_keywords": ["home textiles", "retail bedding"],
+      "known_social_links": []
+    },
+    {
+      "target_type": "competitor_company",
+      "company_name": "Allbirds",
+      "website": "https://www.allbirds.com",
+      "country_or_market": "United States",
+      "product_keywords": ["shoes", "apparel", "sustainability"],
+      "known_social_links": []
+    },
+    {
+      "target_type": "weak_social_presence_case",
+      "company_name": "Example Industrial Supplier",
+      "website": "https://example.org",
+      "country_or_market": "Germany",
+      "product_keywords": ["industrial components"],
+      "known_social_links": []
+    }
+  ],
+  "required_boundaries": [
+    "do not claim an account is official without evidence",
+    "separate candidate accounts from confirmed accounts",
+    "do not download or reuse social media content"
+  ]
+}

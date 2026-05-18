@@ -15,6 +15,16 @@ copy_file() {
   echo "synced: $dst"
 }
 
+sync_incubating_skill_docs() {
+  local skill="$1"
+  local doc
+  for doc in README.md 立项方案.md 验收清单.md; do
+    if [ -f "$REPO_ROOT/工作间/孵化中/$skill/$doc" ]; then
+      copy_file "$REPO_ROOT/工作间/孵化中/$skill/$doc" "$VAULT_ROOT/孵化中/$skill/$doc"
+    fi
+  done
+}
+
 copy_file "$REPO_ROOT/工作间/开源工具总表.md" "$VAULT_ROOT/开源工具总表.md"
 copy_file "$REPO_ROOT/工作间/路线映射.md" "$VAULT_ROOT/路线映射.md"
 copy_file "$REPO_ROOT/skill需求池.md" "$VAULT_ROOT/skill需求池.md"
@@ -31,6 +41,10 @@ fi
 if [ -f "$REPO_ROOT/工作间/竞品监控-推进说明.md" ]; then
   copy_file "$REPO_ROOT/工作间/竞品监控-推进说明.md" "$VAULT_ROOT/竞品监控skill/推进说明.md"
 fi
+
+sync_incubating_skill_docs "trade-mail-group"
+sync_incubating_skill_docs "trade-social-account-scan"
+sync_incubating_skill_docs "trade-feishu-kb"
 
 rm -f "$VAULT_ROOT/总说明.md"
 rm -rf "$VAULT_ROOT/外贸主动开发链路4合一"
