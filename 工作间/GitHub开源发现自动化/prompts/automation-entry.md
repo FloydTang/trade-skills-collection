@@ -6,23 +6,23 @@
 
 ---
 
-Work inside `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化`.
+Work inside `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/GitHub开源发现自动化`.
 
 Before doing any search or writing, first read these local docs in order:
 
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化/prompts/discovery-rules.md`
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化/README.md`
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/README.md`
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/开源工具总表.md`
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/路线映射.md`
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/skill需求池.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/GitHub开源发现自动化/prompts/discovery-rules.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/GitHub开源发现自动化/README.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/README.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/开源工具总表.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/路线映射.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/skill需求池.md`
 
 Treat `discovery-rules.md` as the rule master. Follow it unless this execution prompt adds a narrower automation-only instruction.
 
 Perform one full GitHub discovery cycle for the external-trade skill roadmap. Do not rely on OpenClaw or any external private discovery repository. Search GitHub directly, generate today's discovery report under `reports/`, then sync only the reusable conclusions into:
 
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/开源工具总表.md`
-- `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/路线映射.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/开源工具总表.md`
+- `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/路线映射.md`
 
 Top-level principle: `实事求是、简洁高效`.
 
@@ -32,29 +32,29 @@ Top-level principle: `实事求是、简洁高效`.
 - Do not restate or duplicate large chunks of the daily-discovery master into new files.
 - Prefer updating existing `工作间/` records over creating any new long-term document.
 - Keep the output aligned with the current lightweight strategy, especially for competitor monitoring.
-- When a record is clearly long-term and human-facing, keep it compatible with later Obsidian presentation under `工具工作间/外贸skill`.
+- When a record is clearly long-term and human-facing, keep it compatible with later Obsidian presentation under `工具工作间/02_场景拆解/外贸skill`.
 
 ### Daily Review Actions
 
 1. Search GitHub across the three business lines and two tracks
-2. Deduplicate against `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/开源工具总表.md`
+2. Deduplicate against `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/开源工具总表.md`
 3. Generate today's report under `reports/YYYY-MM-DD.md`
 4. For each retained candidate, record only the fields required by the master prompt and the existing `工作间/` docs.
-5. Update `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/开源工具总表.md` using a single-row-per-project model with statuses like:
+5. Update `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/开源工具总表.md` using a single-row-per-project model with statuses like:
    - `观察中`
    - `待判断`
    - `已结论`
-6. Update `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/路线映射.md` with Codex's judgment on what should be:
+6. Update `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/路线映射.md` with Codex's judgment on what should be:
    - `建议纳入工具库` (recommend adding to tool library)
    - `建议进入需求池` (recommend adding to skill demand pool)
    - `建议继续观察` (recommend continued observation)
    - `不建议处理` (not recommended for action)
 7. If `工作间/` or `skill需求池.md` changed, run:
-   - `/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/GitHub开源发现自动化/scripts/sync_obsidian_workspace.sh`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/GitHub开源发现自动化/scripts/sync_obsidian_workspace.sh`
 8. Verify the Obsidian mirror reflects the same updates at:
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/外贸skill/开源工具总表.md`
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/外贸skill/路线映射.md`
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/外贸skill/skill需求池.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/开源工具总表.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/路线映射.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/skill需求池.md`
 9. Do not maintain separate long-term watchlist/backlog/decision documents. Those older files are migration stubs only.
 10. Only recommend upgrading into `skill需求池.md` when the project already has:
    - a clear business direction

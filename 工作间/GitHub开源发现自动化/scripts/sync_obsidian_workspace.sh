@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-VAULT_ROOT="/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/外贸skill"
+VAULT_ROOT="/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill"
 
 mkdir -p "$VAULT_ROOT"
 
@@ -19,6 +19,14 @@ copy_file "$REPO_ROOT/工作间/开源工具总表.md" "$VAULT_ROOT/开源工具
 copy_file "$REPO_ROOT/工作间/路线映射.md" "$VAULT_ROOT/路线映射.md"
 copy_file "$REPO_ROOT/skill需求池.md" "$VAULT_ROOT/skill需求池.md"
 copy_file "$REPO_ROOT/工作间/开始这里.md" "$VAULT_ROOT/开始这里.md"
+
+if [ -f "$REPO_ROOT/工作间/作战台开源Skill拆分升级规划_2026-05-18.md" ]; then
+  copy_file "$REPO_ROOT/工作间/作战台开源Skill拆分升级规划_2026-05-18.md" "$VAULT_ROOT/作战台开源Skill拆分升级规划_2026-05-18.md"
+fi
+
+if [ -f "$REPO_ROOT/工作间/作战台开源Skill验证台账_2026-05-18.md" ]; then
+  copy_file "$REPO_ROOT/工作间/作战台开源Skill验证台账_2026-05-18.md" "$VAULT_ROOT/作战台开源Skill验证台账_2026-05-18.md"
+fi
 
 if [ -f "$REPO_ROOT/工作间/竞品监控-推进说明.md" ]; then
   copy_file "$REPO_ROOT/工作间/竞品监控-推进说明.md" "$VAULT_ROOT/竞品监控skill/推进说明.md"

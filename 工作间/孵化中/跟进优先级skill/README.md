@@ -11,6 +11,6 @@
 
 开始开发前请先完成：
 
-1. 更新 `/Users/evenbetter/Downloads/C&CStudio/外贸skill/skill需求池.md`
-2. 填写 `/Users/evenbetter/Downloads/C&CStudio/外贸skill/模板/skill立项模板.md`
+1. 更新 `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/skill需求池.md`
+2. 填写 `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/模板/skill立项模板.md`
 3. 先定义评分维度，并与客户管理 Skill 字段保持兼容

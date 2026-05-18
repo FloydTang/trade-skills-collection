@@ -4,13 +4,13 @@
 
 自 2026-03-29 起，明确结论统一迁移到当前 `外贸skill` 分类的记录层：
 
-- [`工作间/开源工具总表.md`](/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/开源工具总表.md)
+- [`工作间/开源工具总表.md`](/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/开源工具总表.md)
 
 其中：
 
 - `状态` 负责表达当前处于观察、待判断还是已结论
 - `建议归属` 负责表达进入需求池、优化现有 Skill、仅参考等方向
-- 详细落地方式统一写在 [`工作间/路线映射.md`](/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/路线映射.md)
+- 详细落地方式统一写在 [`工作间/路线映射.md`](/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/路线映射.md)
 
 这样做是为了减少重复记录，让你和 Codex 都只维护最少的有效页面。
 

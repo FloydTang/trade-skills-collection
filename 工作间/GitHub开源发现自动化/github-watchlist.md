@@ -4,7 +4,7 @@
 
 自 2026-03-29 起，长期观察状态统一迁移到当前 `外贸skill` 分类的记录层：
 
-- [`工作间/开源工具总表.md`](/Users/evenbetter/Downloads/C&CStudio/工具库/外贸skill/工作间/开源工具总表.md)
+- [`工作间/开源工具总表.md`](/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/开源工具总表.md)
 
 迁移原因：
 

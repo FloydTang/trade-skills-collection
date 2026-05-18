@@ -28,7 +28,7 @@
 
 新增一条执行闭环要求：
 
-- 更新 `工作间/` 或 `skill需求池.md` 后，必须同步到 Obsidian `工具工作间/外贸skill` 并做一次结果核对
+- 更新 `工作间/` 或 `skill需求池.md` 后，必须同步到 Obsidian `工具工作间/02_场景拆解/外贸skill` 并做一次结果核对
 
 ## 当前目标（v3.0 - 2026-03-29 更新）
 
@@ -99,7 +99,7 @@
 - 相关性评分与落地方式初判
 - 生成每日日报（v2.0 双轨格式）
 - 把真正值得长期保留的结论同步到 `../工作间/`
-- 把需要长期可见的记录同步到 Obsidian `工具工作间/外贸skill`
+- 把需要长期可见的记录同步到 Obsidian `工具工作间/02_场景拆解/外贸skill`
 
 ### 人工复核（Floyd）
 
@@ -111,16 +111,16 @@
 ## 文档分工
 
 - `reports/`：只保留执行层日报与周汇总
-- `../工作间/开源工具总表.md`：当前 `外贸skill` 分类的唯一长期主表，合并观察、候选、决策状态；对应 Obsidian `工具工作间/外贸skill`
+- `../工作间/开源工具总表.md`：当前 `外贸skill` 分类的唯一长期主表，合并观察、候选、决策状态；对应 Obsidian `工具工作间/02_场景拆解/外贸skill`
 - `../工作间/路线映射.md`：当前 `外贸skill` 分类的唯一长期判断页，负责和 `../skill需求池.md` 衔接
-- `scripts/sync_obsidian_workspace.sh`：把需要长期可见的文档镜像到 Obsidian `工具工作间/外贸skill`
+- `scripts/sync_obsidian_workspace.sh`：把需要长期可见的文档镜像到 Obsidian `工具工作间/02_场景拆解/外贸skill`
 - 本目录下旧的 `github-watchlist.md`、`tool-adoption-backlog.md`、`tool-adoption-decisions.md` 仅保留迁移说明，不再作为主维护阵地
 
 补充规则：
 
 - `reports/` 属于执行层，不要求直接进入 Obsidian
 - 只有从日报中沉淀出来、会被长期复用的判断，才进入 `../工作间/`
-- 进入 `../工作间/` 后，如未来会被课程、品牌、产品表达引用，应在 Obsidian `工具工作间/外贸skill` 有对应展现
+- 进入 `../工作间/` 后，如未来会被课程、品牌、产品表达引用，应在 Obsidian `工具工作间/02_场景拆解/外贸skill` 有对应展现
 - 这一步默认通过 `scripts/sync_obsidian_workspace.sh` 执行，不再只停留在口头要求
 
 ## 结论标签
@@ -143,7 +143,7 @@ Codex 定时任务应以 `prompts/discovery-rules.md` 作为规则母版，并�
 - 更新 `../工作间/开源工具总表.md`
 - 更新 `../工作间/路线映射.md`
 - 如有变动，运行 `scripts/sync_obsidian_workspace.sh`
-- 验证 Obsidian `工具工作间/外贸skill` 对应文件已刷新
+- 验证 Obsidian `工具工作间/02_场景拆解/外贸skill` 对应文件已刷新
 
 ### 手动触发
 

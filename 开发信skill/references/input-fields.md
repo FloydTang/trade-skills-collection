@@ -1,6 +1,6 @@
 # 输入字段说明
 
-这份说明和 `/Users/evenbetter/Downloads/C&CStudio/外贸skill/开发信skill/schemas/email-draft-input.schema.json` 配套使用。
+这份说明和 `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/开发信skill/schemas/email-draft-input.schema.json` 配套使用。
 
 ## 必填字段
 
