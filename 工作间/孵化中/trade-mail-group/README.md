@@ -1,6 +1,6 @@
 # trade-mail-group / 客群分组开发信 Skill
 
-当前状态：设计中
+当前状态：可演示前验证中
 
 这个目录用于把作战台里的 `Mail Group 专用执行词` 升级成可验证的单节点 Skill。
 
