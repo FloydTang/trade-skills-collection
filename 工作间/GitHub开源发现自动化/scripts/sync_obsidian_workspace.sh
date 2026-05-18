@@ -38,6 +38,10 @@ if [ -f "$REPO_ROOT/工作间/作战台开源Skill验证台账_2026-05-18.md" ];
   copy_file "$REPO_ROOT/工作间/作战台开源Skill验证台账_2026-05-18.md" "$VAULT_ROOT/作战台开源Skill验证台账_2026-05-18.md"
 fi
 
+if [ -f "$REPO_ROOT/工作间/作战台与课程中心Skill同步方向_2026-05-19.md" ]; then
+  copy_file "$REPO_ROOT/工作间/作战台与课程中心Skill同步方向_2026-05-19.md" "$VAULT_ROOT/作战台与课程中心Skill同步方向_2026-05-19.md"
+fi
+
 if [ -f "$REPO_ROOT/工作间/竞品监控-推进说明.md" ]; then
   copy_file "$REPO_ROOT/工作间/竞品监控-推进说明.md" "$VAULT_ROOT/竞品监控skill/推进说明.md"
 fi
