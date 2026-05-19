@@ -1,3 +1,26 @@
+---
+title: trade-mail-group / 客群分组开发信 Skill
+aliases: []
+type: tool
+status: draft
+area: tool
+updated: '2026-05-19'
+tags:
+- 主题/AI外贸
+- 主题/客户开发
+- 主题/工具系统
+- 资产/Skill
+- 工作流/Skill开发
+- 主题/知识库
+- 主题/课程交付
+related:
+- "[[路线映射]]"
+business_scenes:
+- 外贸主动开发
+- 知识库与资料承接
+- 工具评估与Agent治理
+- 课程与交付
+---
 # trade-mail-group / 客群分组开发信 Skill
 
 当前状态：可演示前验证中

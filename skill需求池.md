@@ -1,3 +1,30 @@
+---
+title: 外贸 Skill 需求池
+aliases: []
+type: tool
+status: draft
+area: tool
+updated: '2026-05-19'
+tags:
+- 主题/AI外贸
+- 主题/B2B营销
+- 主题/内容营销
+- 主题/跨境电商
+- 主题/知识库
+- 主题/工具系统
+- 主题/课程交付
+- 资产/Skill
+related:
+- "[[路线映射]]"
+business_scenes:
+- 外贸主动开发
+- 竞品监控与市场情报
+- 内容营销
+- 跨境电商
+- 知识库与资料承接
+- 工具评估与Agent治理
+- 课程与交付
+---
 # 外贸 Skill 需求池
 
 这份文档用于统一维护外贸业务节点 Skill 的候选方向、状态和下一步动作。

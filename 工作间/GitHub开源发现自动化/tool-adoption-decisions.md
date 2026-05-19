@@ -1,3 +1,27 @@
+---
+title: 工具落地决策记录（已迁移）
+aliases: []
+type: tool
+status: draft
+area: tool
+updated: '2026-05-19'
+tags:
+- 主题/AI外贸
+- 主题/工具系统
+- 资产/Skill
+- 工作流/工具评估
+- 工作流/Skill开发
+- 渠道/GitHub
+- 主题/知识库
+- 主题/课程交付
+related:
+- "[[开源工具总表]]"
+- "[[路线映射]]"
+business_scenes:
+- 知识库与资料承接
+- 工具评估与Agent治理
+- 课程与交付
+---
 # 工具落地决策记录（已迁移）
 
 这份文档不再作为主维护阵地。

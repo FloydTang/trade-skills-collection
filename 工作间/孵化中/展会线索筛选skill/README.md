@@ -1,3 +1,22 @@
+---
+title: 展会线索筛选 Skill
+aliases: []
+type: tool
+status: draft
+area: tool
+updated: '2026-05-19'
+tags:
+- 主题/AI外贸
+- 主题/客户开发
+- 主题/工具系统
+- 资产/Skill
+- 工作流/Skill开发
+related:
+- "[[路线映射]]"
+business_scenes:
+- 外贸主动开发
+- 工具评估与Agent治理
+---
 # 展会线索筛选 Skill
 
 当前状态：储备

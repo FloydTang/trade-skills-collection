@@ -1,3 +1,24 @@
+---
+title: changedetection Watch 落地口径
+aliases: []
+type: tool
+status: draft
+area: tool
+updated: '2026-05-19'
+tags:
+- 主题/AI外贸
+- 主题/工具系统
+- 资产/Skill
+- 工作流/Skill开发
+- 主题/B2B营销
+- 主题/课程交付
+related:
+- "[[路线映射]]"
+business_scenes:
+- 竞品监控与市场情报
+- 工具评估与Agent治理
+- 课程与交付
+---
 # changedetection Watch 落地口径
 
 这份说明只解决一件事：

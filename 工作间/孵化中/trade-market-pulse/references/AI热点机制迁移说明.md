@@ -1,3 +1,29 @@
+---
+title: AI热点机制迁移说明
+aliases: []
+type: tool
+status: draft
+area: tool
+updated: '2026-05-19'
+tags:
+- 主题/AI外贸
+- 主题/工具系统
+- 资产/Skill
+- 工作流/Skill开发
+- 主题/B2B营销
+- 主题/内容营销
+- 主题/知识库
+- 主题/课程交付
+related:
+- "[[路线映射]]"
+business_scenes:
+- 外贸主动开发
+- 竞品监控与市场情报
+- 内容营销
+- 知识库与资料承接
+- 工具评估与Agent治理
+- 课程与交付
+---
 # AI热点机制迁移说明
 
 `trade-market-pulse` 借鉴半斤九两工作台里 `AI热点 / 每日内容同步` 的四个稳定部件：

@@ -52,9 +52,9 @@ Top-level principle: `实事求是、简洁高效`.
 7. If `工作间/` or `skill需求池.md` changed, run:
    - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/GitHub开源发现自动化/scripts/sync_obsidian_workspace.sh`
 8. Verify the Obsidian mirror reflects the same updates at:
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/开源工具总表.md`
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/路线映射.md`
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/skill需求池.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/内部维护/精选外挂开源/开源工具总表.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/内部维护/精选外挂开源/路线映射.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/内部维护/外贸业务主干/skill需求池.md`
 9. Do not maintain separate long-term watchlist/backlog/decision documents. Those older files are migration stubs only.
 10. Only recommend upgrading into `skill需求池.md` when the project already has:
    - a clear business direction

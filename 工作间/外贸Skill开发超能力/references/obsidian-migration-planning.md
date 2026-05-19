@@ -1,3 +1,25 @@
+---
+title: Obsidian 内容库与工作台整合迁移规划参考
+aliases: []
+type: prd
+status: draft
+area: tool
+updated: '2026-05-19'
+tags:
+- 主题/AI外贸
+- 主题/AI编程
+- 主题/工具系统
+- 主题/知识库
+- 资产/PRD
+- 工作流/Skill开发
+- 主题/课程交付
+related:
+- "[[路线映射]]"
+business_scenes:
+- 知识库与资料承接
+- 工具评估与Agent治理
+- 课程与交付
+---
 # Obsidian 内容库与工作台整合迁移规划参考
 
 这个参考文件只服务一类任务：
