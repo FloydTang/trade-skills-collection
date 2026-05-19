@@ -88,6 +88,10 @@ if [ -f "$REPO_ROOT/工作间/外挂工具后续推进路线图_2026-05-19.md" ]
   copy_file "$REPO_ROOT/工作间/外挂工具后续推进路线图_2026-05-19.md" "$ADDON_MAINT_ROOT/外挂工具后续推进路线图_2026-05-19.md"
 fi
 
+if [ -f "$REPO_ROOT/工作间/外挂Skill晋升通道与论坛同步流程_2026-05-19.md" ]; then
+  copy_file "$REPO_ROOT/工作间/外挂Skill晋升通道与论坛同步流程_2026-05-19.md" "$ADDON_MAINT_ROOT/外挂Skill晋升通道与论坛同步流程_2026-05-19.md"
+fi
+
 sync_incubating_skill_docs "trade-mail-group"
 sync_incubating_skill_docs "trade-social-account-scan"
 sync_incubating_skill_docs "trade-feishu-kb"
