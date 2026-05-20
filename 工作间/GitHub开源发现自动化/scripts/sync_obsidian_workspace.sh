@@ -40,10 +40,12 @@ rm -f "$VAULT_ROOT/优质外挂工具与Skill候选清单_2026-05-19.md"
 rm -f "$VAULT_ROOT/外挂工具POC推进清单_2026-05-19.md"
 rm -f "$VAULT_ROOT/外挂工具后续推进路线图_2026-05-19.md"
 rm -f "$VAULT_ROOT/开始这里.md"
+rm -f "$VAULT_ROOT/工具工作间与工具库到课程工作间联动说明_2026-05-20.md"
 rm -rf "$VAULT_ROOT/孵化中"
 rm -rf "$VAULT_ROOT/竞品监控skill"
 
 copy_file "$REPO_ROOT/工作间/开始这里.md" "$VAULT_ROOT/00_开始这里.md"
+copy_file "$REPO_ROOT/工作间/工具工作间与工具库到课程工作间联动说明_2026-05-20.md" "$VAULT_ROOT/工具工作间与工具库到课程工作间联动说明_2026-05-20.md"
 copy_file "$REPO_ROOT/工作间/外贸业务主干Skill云端同步清单.md" "$VAULT_ROOT/外贸业务主干Skill云端同步清单.md"
 copy_file "$REPO_ROOT/工作间/精选外挂开源Skill云端同步清单.md" "$VAULT_ROOT/精选外挂开源Skill云端同步清单.md"
 
