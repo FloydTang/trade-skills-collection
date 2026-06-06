@@ -3,12 +3,15 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-VAULT_ROOT="/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill"
-MAIN_MAINT_ROOT="$VAULT_ROOT/内部维护/外贸业务主干"
-ADDON_MAINT_ROOT="$VAULT_ROOT/内部维护/精选外挂开源"
-WIP_ROOT="$VAULT_ROOT/制作中/外贸业务主干"
+SCENE_ROOT="/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解"
+MAIN_ROOT="$SCENE_ROOT/外贸业务主干Skill"
+ADDON_ROOT="$SCENE_ROOT/精选外挂开源Skill"
+COMMON_MAINT_ROOT="$SCENE_ROOT/内部维护"
+MAIN_MAINT_ROOT="$MAIN_ROOT/内部维护"
+ADDON_MAINT_ROOT="$ADDON_ROOT/内部维护"
+WIP_ROOT="$MAIN_ROOT/制作中"
 
-mkdir -p "$VAULT_ROOT"
+mkdir -p "$MAIN_ROOT" "$ADDON_ROOT" "$COMMON_MAINT_ROOT"
 
 copy_file() {
   local src="$1"
@@ -28,26 +31,22 @@ sync_incubating_skill_docs() {
   done
 }
 
-# Rebuild the human-facing Obsidian layer into three buckets:
-# root = only cloud sync entrances; 内部维护 = tracking docs; 制作中 = incubating skills.
-rm -f "$VAULT_ROOT/开源工具总表.md"
-rm -f "$VAULT_ROOT/路线映射.md"
-rm -f "$VAULT_ROOT/skill需求池.md"
-rm -f "$VAULT_ROOT/作战台开源Skill拆分升级规划_2026-05-18.md"
-rm -f "$VAULT_ROOT/作战台开源Skill验证台账_2026-05-18.md"
-rm -f "$VAULT_ROOT/作战台与课程中心Skill同步方向_2026-05-19.md"
-rm -f "$VAULT_ROOT/优质外挂工具与Skill候选清单_2026-05-19.md"
-rm -f "$VAULT_ROOT/外挂工具POC推进清单_2026-05-19.md"
-rm -f "$VAULT_ROOT/外挂工具后续推进路线图_2026-05-19.md"
-rm -f "$VAULT_ROOT/开始这里.md"
-rm -f "$VAULT_ROOT/工具工作间与工具库到课程工作间联动说明_2026-05-20.md"
-rm -rf "$VAULT_ROOT/孵化中"
-rm -rf "$VAULT_ROOT/竞品监控skill"
+# Rebuild the human-facing Obsidian layer into two tool-library-matched lines:
+# 外贸业务主干Skill and 精选外挂开源Skill. Shared linkage docs stay in 02_场景拆解/内部维护.
+rm -rf "$SCENE_ROOT/外贸skill"
+rm -rf "$SCENE_ROOT/内容营销skill"
+rm -f "$MAIN_ROOT/开源工具总表.md"
+rm -f "$MAIN_ROOT/路线映射.md"
+rm -f "$MAIN_ROOT/skill需求池.md"
+rm -f "$MAIN_ROOT/开始这里.md"
+rm -rf "$MAIN_ROOT/孵化中"
+rm -rf "$MAIN_ROOT/竞品监控skill"
+rm -f "$ADDON_ROOT/开源工具总表.md"
+rm -f "$ADDON_ROOT/路线映射.md"
 
-copy_file "$REPO_ROOT/工作间/开始这里.md" "$VAULT_ROOT/00_开始这里.md"
-copy_file "$REPO_ROOT/工作间/工具工作间与工具库到课程工作间联动说明_2026-05-20.md" "$VAULT_ROOT/工具工作间与工具库到课程工作间联动说明_2026-05-20.md"
-copy_file "$REPO_ROOT/工作间/外贸业务主干Skill云端同步清单.md" "$VAULT_ROOT/外贸业务主干Skill云端同步清单.md"
-copy_file "$REPO_ROOT/工作间/精选外挂开源Skill云端同步清单.md" "$VAULT_ROOT/精选外挂开源Skill云端同步清单.md"
+copy_file "$REPO_ROOT/工作间/工具工作间与工具库到课程工作间联动说明_2026-05-20.md" "$COMMON_MAINT_ROOT/工具工作间与工具库到课程工作间联动说明_2026-05-20.md"
+copy_file "$REPO_ROOT/工作间/外贸业务主干Skill云端同步清单.md" "$MAIN_ROOT/外贸业务主干Skill云端同步清单.md"
+copy_file "$REPO_ROOT/工作间/精选外挂开源Skill云端同步清单.md" "$ADDON_ROOT/精选外挂开源Skill云端同步清单.md"
 
 copy_file "$REPO_ROOT/skill需求池.md" "$MAIN_MAINT_ROOT/skill需求池.md"
 
@@ -103,7 +102,7 @@ sync_incubating_skill_docs "客户管理skill"
 sync_incubating_skill_docs "展会线索筛选skill"
 sync_incubating_skill_docs "跟进优先级skill"
 
-rm -f "$VAULT_ROOT/总说明.md"
-rm -rf "$VAULT_ROOT/外贸主动开发链路4合一"
+rm -f "$MAIN_ROOT/总说明.md"
+rm -rf "$MAIN_ROOT/外贸主动开发链路4合一"
 
-echo "Obsidian workspace sync complete: $VAULT_ROOT"
+echo "Obsidian workspace sync complete: $SCENE_ROOT"

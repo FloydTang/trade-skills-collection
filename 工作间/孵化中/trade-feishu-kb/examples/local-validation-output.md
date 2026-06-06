@@ -18,7 +18,7 @@
 | --- | --- | --- |
 | 课程源 | `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/半斤九两课程库/线上课程/年度会员课/课程/外贸主动开发课/课程正文` | 存在，含 11 个 Markdown |
 | 作战台源 | `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/产品工作间/tang92.com/02_外贸作战台` | 存在，含 100 个 Markdown |
-| 公开工具库 | `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/半斤九两工具库/外贸skill` | 存在，含 88 个 Markdown |
+| 公开工具库 | `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/半斤九两工具库/外贸业务主干Skill` | 存在，含 88 个 Markdown |
 | 飞书增强入口 | `https://evenbetter.feishu.cn/wiki/W6GnwTZGFiUdJ0kXZv6cV4PSnpf` | 待授权回读 |
 
 ## 核心路由判断

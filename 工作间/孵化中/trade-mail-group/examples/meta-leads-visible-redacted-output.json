@@ -1,0 +1,90 @@
+{
+  "sample_type": "real_business_private_meta_visible_redacted",
+  "one_line_conclusion": "The visible Meta Lead Center table is a valid real-business source, but it is too thin for safe customer grouping; the correct result is to request the full lead form export before drafting segmented outreach.",
+  "input_quality": {
+    "customer_count": 8,
+    "market": "unknown / mixed Meta paid lead audience",
+    "source_type": "private Meta Business Suite Lead Center table, visible fields only",
+    "evidence_quality": "real source but insufficient customer intelligence",
+    "usable_facts": [
+      "the leads came from paid acquisition",
+      "the leads completed a Meta lead form",
+      "the visible channel is email",
+      "all visible rows are unassigned and still in the under-consideration stage"
+    ],
+    "main_gaps": [
+      "country",
+      "company",
+      "role or buyer identity",
+      "project type",
+      "building area",
+      "budget range",
+      "delivery timeline",
+      "requested service",
+      "special requirements"
+    ],
+    "safe_to_use_for": [
+      "counting fresh inbound lead volume",
+      "confirming that the ad funnel is producing form completions",
+      "building a to-be-exported validation queue"
+    ],
+    "not_safe_to_use_for": [
+      "customer grouping",
+      "personalized first email drafts",
+      "project priority ranking",
+      "budget or demand inference"
+    ]
+  },
+  "blocking_recommendation": {
+    "reason": "The current table view only proves that each person completed a paid Meta lead form. It does not show enough business facts to separate warehouse, factory, hangar, distributor, contractor, or low-quality inquiry segments.",
+    "missing_fields": [
+      "country",
+      "company or organization",
+      "project type",
+      "building area",
+      "budget",
+      "timeline",
+      "service needed",
+      "role in project",
+      "message or special requirement"
+    ],
+    "recommended_next_action": [
+      "download the complete Meta lead export from Lead Center",
+      "remove email, phone, WhatsApp, and raw personal names from the test artifact",
+      "keep project fields such as country, project type, area, budget, timeline, role, and requirement notes",
+      "rerun trade-mail-group on 5-10 redacted leads with those fields"
+    ],
+    "safe_use_of_current_data": [
+      "record this as a weak-input guardrail test",
+      "handoff to customer-intel collection before grouping",
+      "do not discard the leads; enrich them first"
+    ],
+    "do_not_do": [
+      "do not group by personal name or guessed nationality",
+      "do not write personalized emails from this table alone",
+      "do not infer project readiness from completed-form status",
+      "do not store contact details in the Skill example"
+    ]
+  },
+  "handoff": {
+    "to_customer_intel_skill": [
+      "complete Meta lead export",
+      "redacted project fields",
+      "country",
+      "company or role",
+      "project type",
+      "budget and timeline if provided",
+      "message or requirement notes"
+    ],
+    "to_outreach_email_skill": [
+      "none yet; wait for safe grouping after form-field export"
+    ],
+    "non_goals": [
+      "no automatic sending",
+      "no sending infrastructure setup",
+      "no reply-rate promise",
+      "no contact data stored in examples",
+      "no guessing from names"
+    ]
+  }
+}

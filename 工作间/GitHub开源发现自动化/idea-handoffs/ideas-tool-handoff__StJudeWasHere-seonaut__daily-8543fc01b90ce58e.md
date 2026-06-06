@@ -13,7 +13,7 @@ tags:
 related:
 - "[[开源工具总表]]"
 candidateId: daily-8543fc01b90ce58e
-sourcePath: 工具工作间/02_场景拆解/外贸skill/GitHub自动更新库/开源工具总表.md
+sourcePath: 工具工作间/02_场景拆解/外贸业务主干Skill/GitHub自动更新库/开源工具总表.md
 sourceKind: github_discovery
 createdAt: '2026-04-01T00:00:00Z'
 updatedAt: '2026-04-01T00:00:00Z'
@@ -39,7 +39,7 @@ GitHub 自动搜索精选当前还停留在观察语义，先继续观察，不�
 业务方向：B线 / SEO 工具 / 独立站诊断；建议归属：独立新 Skill / 建议继续观察；状态：待判断
 
 ## 来源证据
-- source:工具工作间/02_场景拆解/外贸skill/GitHub自动更新库/开源工具总表.md
+- source:工具工作间/02_场景拆解/外贸业务主干Skill/GitHub自动更新库/开源工具总表.md
 - lane:github_discovery_main_table
 - status:待判断
 - row:10

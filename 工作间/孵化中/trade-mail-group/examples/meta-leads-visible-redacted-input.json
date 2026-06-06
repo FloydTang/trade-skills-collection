@@ -1,0 +1,89 @@
+{
+  "sample_type": "real_business_private_meta_visible_redacted",
+  "business_context": "JIT Steel Buildings paid Meta Lead Ads are collecting inquiries for prefabricated steel structure buildings, including warehouses, factories, workshops, hangars, logistics facilities, and large-span steel buildings.",
+  "privacy_note": "Original lead names and all contact fields are redacted. This sample keeps only visible non-contact table fields from Meta Business Suite Lead Center on 2026-05-28.",
+  "our_product": "prefabricated steel structure building solutions covering design, steel fabrication, shipment, and project support for warehouses, workshops, factories, logistics facilities, hangars, and large-span buildings",
+  "target_market": "unknown / mixed Meta paid lead audience",
+  "tone": "professional, cautious, inbound-follow-up aware, not pushy",
+  "constraints": [
+    "use visible Meta table fields only",
+    "do not infer country, company, project type, budget, timeline, or decision role from name",
+    "do not expose personal contact information",
+    "do not send emails automatically",
+    "require full lead form export before outreach grouping"
+  ],
+  "customers": [
+    {
+      "company_name": "Meta Lead 2026-05-28-01",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-28 10:58",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    },
+    {
+      "company_name": "Meta Lead 2026-05-28-02",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-28 10:34",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    },
+    {
+      "company_name": "Meta Lead 2026-05-28-03",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-28 08:40",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    },
+    {
+      "company_name": "Meta Lead 2026-05-28-04",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-28 02:18",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    },
+    {
+      "company_name": "Meta Lead 2026-05-28-05",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-28 00:06",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    },
+    {
+      "company_name": "Meta Lead 2026-05-27-01",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-27",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    },
+    {
+      "company_name": "Meta Lead 2026-05-27-02",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-27",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    },
+    {
+      "company_name": "Meta Lead 2026-05-27-03",
+      "country": "unknown from table view",
+      "industry": "unknown from table view",
+      "source": "Meta Business Suite Lead Center visible table, paid acquisition",
+      "added_at": "2026-05-27",
+      "intel_summary": "Visible row shows a paid-acquisition lead in stage under consideration, unassigned, channel email, status completed form. Full form answers are not available in the current snapshot.",
+      "known_signal": "completed Meta lead form; no project details visible"
+    }
+  ]
+}

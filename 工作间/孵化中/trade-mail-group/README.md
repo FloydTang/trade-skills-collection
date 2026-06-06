@@ -2,9 +2,9 @@
 title: trade-mail-group / 客群分组开发信 Skill
 aliases: []
 type: tool
-status: draft
+status: active
 area: tool
-updated: '2026-05-19'
+updated: '2026-05-28'
 tags:
 - 主题/AI外贸
 - 主题/客户开发
@@ -23,7 +23,7 @@ business_scenes:
 ---
 # trade-mail-group / 客群分组开发信 Skill
 
-当前状态：可演示前验证中
+当前状态：可交付扩展节点，已通过 HomeMac OpenClaw `skill_tester` 复核，并迁入正式工具库。
 
 这个目录用于把作战台里的 `Mail Group 专用执行词` 升级成可验证的单节点 Skill。
 
@@ -35,18 +35,31 @@ business_scenes:
 
 ## 当前落地边界
 
-- 仓库真实源：当前目录
-- Obsidian 展现层：`工具工作间/02_场景拆解/外贸skill/孵化中/trade-mail-group`
-- 最终工具库：暂不进入，等最小样例验证通过后再判断
+- Skill 本体源：当前目录
+- Obsidian 展现层：`工具工作间/02_场景拆解/外贸业务主干Skill/制作中/trade-mail-group`
+- 最终工具库：`半斤九两工具库/外贸业务主干Skill/主动开发链路组合包/子Skill与工具本体/客群分组开发信skill`
 
 ## 当前已有材料
 
 - `立项方案.md`
 - `验收清单.md`
+- `SKILL.md`
 - `examples/minimal-input.json`
+- `examples/minimal-output.md`
+- `examples/minimal-output.json`
+- `examples/public-germany-input.json`
+- `examples/public-germany-output.md`
+- `examples/public-germany-output.json`
+- `examples/jitsteel-real-business-public-input.json`
+- `examples/jitsteel-real-business-public-output.md`
+- `examples/jitsteel-real-business-public-output.json`
+- `examples/meta-leads-visible-redacted-input.json`
+- `examples/meta-leads-visible-redacted-output.md`
+- `examples/meta-leads-visible-redacted-output.json`
+- `agents/openai.yaml`
+- `scripts/validate_examples.py`
 
 ## 下一步
 
-1. 用 `examples/minimal-input.json` 跑课程模拟样例。
-2. 再准备一组真实公开行业样例。
-3. 两组输出都能解释分组依据、事实来源、推断和人工复核项后，再补 `SKILL.md` 与输出样例。
+1. 工具库正式读取。
+2. 如果后续继续用 Meta 线索做真实业务分组，先导出完整表单字段并脱敏。

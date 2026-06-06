@@ -1,0 +1,60 @@
+{
+  "sample_type": "real_public_industry_sample",
+  "our_product": "recycled PET tote bags for retail and corporate gifting",
+  "target_market": "Germany / DACH",
+  "tone": "professional, concise, exploratory, not pushy",
+  "constraints": [
+    "use public source notes only",
+    "do not infer active demand",
+    "do not mention price unless provided",
+    "do not send emails automatically",
+    "mark direct category overlap as a risk"
+  ],
+  "customers": [
+    {
+      "company_name": "BRANDCRAFT",
+      "country": "Germany",
+      "industry": "custom accessories, bags and corporate gifts",
+      "source": "official website",
+      "source_url": "https://www.brandcraft.eu/",
+      "intel_summary": "Public website positions the company around custom-made accessories, bags, packaging and corporate gifts for premium brands, with support from idea to delivery and optional logistics / fulfillment.",
+      "known_signal": "custom bags and premium corporate gift projects"
+    },
+    {
+      "company_name": "Verticas GmbH",
+      "country": "Germany",
+      "industry": "full-service promotional products and merchandising",
+      "source": "official website",
+      "source_url": "https://www.verticas.de/en",
+      "intel_summary": "Public website describes Verticas as a full-service German promotional products and merchandising provider, including corporate wear, B2B/B2C shop systems, distribution, sustainable merchandise products, and product types such as T-shirts, bags and accessories.",
+      "known_signal": "full-service merchandising with bags/accessories category and sustainability language"
+    },
+    {
+      "company_name": "gbc",
+      "country": "Germany",
+      "industry": "promotional products and corporate fashion full service",
+      "source": "official website",
+      "source_url": "https://www.g-b-c.de/",
+      "intel_summary": "Public website presents gbc as a full-service provider for promotional products and corporate fashion, covering assortment concept, online shops, warehousing/logistics, in-house finishing and sustainability-oriented supply chain.",
+      "known_signal": "promotional product management and branded assortment sourcing"
+    },
+    {
+      "company_name": "WERKHAUS",
+      "country": "Germany",
+      "industry": "sustainable customized promotional products and gifts",
+      "source": "official website",
+      "source_url": "https://www.werkhaus.de/en/customized-products/",
+      "intel_summary": "Public website describes customized promotional products and gifts, high-quality environmentally friendly materials, production in Germany, design-to-finished-product support, and custom projects from 100 pieces.",
+      "known_signal": "sustainable promotional gift positioning, but not bag-specific in the checked source"
+    },
+    {
+      "company_name": "goodbag",
+      "country": "Austria / DACH",
+      "industry": "branded sustainable tote bags",
+      "source": "official website",
+      "source_url": "https://www.goodbag.io/for-businesses/custom-branded-bags/",
+      "intel_summary": "Public website offers individually printed branded bags for corporate gifting, employer branding and merchandise, with custom printing from 100 bags; checked source emphasizes cotton goodbags and smart reuse impact.",
+      "known_signal": "direct bag category overlap; treat as benchmark or possible collaboration target, not ordinary prospect"
+    }
+  ]
+}

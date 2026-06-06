@@ -1,0 +1,117 @@
+{
+  "sample_type": "real_business_public_sample",
+  "one_line_conclusion": "The six JIT Steel public business targets should be split into contractor/partner-route accounts and industrial-logistics real-estate operators; neither group proves active sourcing demand, so outreach must stay exploratory and evidence-led.",
+  "input_quality": {
+    "customer_count": 6,
+    "market": "Middle East and Africa",
+    "source_type": "official websites and JIT Steel internal project context",
+    "usable_facts": [
+      "public company positioning",
+      "project sector coverage",
+      "industrial / logistics / warehouse relevance",
+      "possible contractor versus owner/operator route"
+    ],
+    "main_gaps": [
+      "current steel-structure procurement need",
+      "named project pipeline",
+      "right procurement or business development contact",
+      "whether JIT should approach as supplier, subcontractor, or project partner"
+    ],
+    "forbidden_claims": [
+      "active demand",
+      "budget",
+      "supplier gap",
+      "approved vendor status",
+      "specific decision maker",
+      "reply probability"
+    ]
+  },
+  "groups": [
+    {
+      "group_id": "G1",
+      "group_name": "Large EPC / turnkey contractor partner route",
+      "companies": [
+        "Orascom Construction",
+        "Hassan Allam Holding",
+        "ASGC"
+      ],
+      "facts": [
+        "Orascom Construction publicly positions as a global engineering and construction contractor focused on infrastructure, industrial and high-end commercial projects across the Middle East, Africa and the United States.",
+        "Hassan Allam publicly describes large-scale engineering and construction work across Egypt and MENA, with sectors including industrial plants and buildings, and notes structural steelwork capability.",
+        "ASGC publicly positions as a vertically integrated construction group in the UAE delivering turnkey special projects across commercial, industrial, oil and gas, infrastructure and transport sectors."
+      ],
+      "inferences": [
+        "These accounts may be more suitable for a subcontractor, fabrication partner, or project support conversation than a simple supplier pitch.",
+        "Hassan Allam and ASGC have in-house or integrated capabilities, so direct category overlap and vendor approval barriers should be expected.",
+        "No current steel-structure sourcing demand is proven."
+      ],
+      "outreach_angle": "Position JIT Steel as a steel-structure fabrication and project support option for selected industrial, warehouse, or large-span building scopes, while asking whether partnership or subcontractor registration is the right route.",
+      "subject_candidates": [
+        "Steel structure fabrication support for selected industrial scopes",
+        "Exploring a project-support route for steel building packages",
+        "Prefab steel structure support for EPC project teams"
+      ],
+      "first_email_draft": "Hi {{first_name}},\n\nI saw that {{company_name}} works on large engineering and construction projects across industrial, infrastructure, or commercial sectors.\n\nJIT Steel Buildings supports prefabricated steel structure projects, including warehouses, workshops, factories, hangars, and large-span buildings, covering design coordination, fabrication, shipment, and project support.\n\nI do not want to assume you are sourcing this scope now. If your team ever reviews external steel-structure fabrication or project support partners for selected packages, I can share a short capability overview and project-fit checklist.\n\nBest,\n{{sender_name}}",
+      "follow_up_cadence": "Follow up once after 5-7 working days with a concise capability sheet and ask whether vendor registration, subcontractor qualification, or project BD is the right route.",
+      "human_review_points": [
+        "Confirm whether the right entry point is procurement, subcontractor registration, project controls, or business development.",
+        "Check whether the company has internal structural steel fabrication that would make JIT a competitor rather than partner.",
+        "Do not send standard buyer-style pricing language before route confirmation."
+      ]
+    },
+    {
+      "group_id": "G2",
+      "group_name": "Industrial / logistics real-estate operator and project owner route",
+      "companies": [
+        "Agility Logistics Parks",
+        "KEZAD Group",
+        "Tatu City"
+      ],
+      "facts": [
+        "Agility Logistics Parks publicly describes developing and operating Grade A warehousing and light-industrial parks across the Middle East, Africa and South Asia.",
+        "KEZAD Group publicly describes operating integrated economic cities, free zones, industrial real estate solutions, industrial zones, and logistics supply chains in Abu Dhabi.",
+        "Tatu City publicly describes Tatu Industrial Park as a logistics park and private Special Economic Zone in East Africa, with development-ready land, operating industrial firms, and flexible warehouses for lease."
+      ],
+      "inferences": [
+        "These accounts may be relevant when they plan new warehouses, industrial units, built-to-suit facilities, or expansion phases.",
+        "The better route is project owner / real-estate development discovery, not a generic construction supplier email.",
+        "No current project tender or steel-building requirement is proven."
+      ],
+      "outreach_angle": "Use a development-support angle: prefabricated steel structures for warehouse, workshop, and light-industrial expansion projects, with the first ask focused on whether upcoming phases or built-to-suit projects exist.",
+      "subject_candidates": [
+        "Prefab steel structures for warehouse and light-industrial phases",
+        "A steel-building option for selected logistics park projects",
+        "Industrial warehouse structures for future expansion phases"
+      ],
+      "first_email_draft": "Hi {{first_name}},\n\nI noticed that {{company_name}} is connected with industrial parks, logistics facilities, or warehouse development.\n\nJIT Steel Buildings provides prefabricated steel structure solutions for warehouses, workshops, factories, hangars, and large-span industrial buildings. This may be relevant only if your team is planning new phases, built-to-suit facilities, or light-industrial expansion projects.\n\nI do not want to assume there is an active project. If this area is relevant, I can send a short overview of our structure types, delivery scope, and project-fit questions for your team to review.\n\nBest,\n{{sender_name}}",
+      "follow_up_cadence": "Follow up once after 5-7 working days with two or three project-fit questions, not a price push.",
+      "human_review_points": [
+        "Check whether the account is a developer/operator, tenant, or free-zone authority before choosing the contact route.",
+        "Look for current expansion, built-to-suit, warehouse, or industrial unit project pages.",
+        "Decide whether a local EPC partner route is needed before any direct proposal."
+      ]
+    }
+  ],
+  "handoff": {
+    "to_customer_intel_skill": [
+      "current project pages",
+      "vendor registration path",
+      "procurement or project contact route",
+      "recent warehouse / industrial expansion signals",
+      "internal structural steel or contractor capability overlap"
+    ],
+    "to_outreach_email_skill": [
+      "human-approved G1 partner-route angle",
+      "human-approved G2 development-support angle",
+      "selected subject line",
+      "confirmed contact route"
+    ],
+    "non_goals": [
+      "no automatic sending",
+      "no sending infrastructure setup",
+      "no reply-rate promise",
+      "do not claim active sourcing or tender need",
+      "do not send price language before project route is confirmed"
+    ]
+  }
+}

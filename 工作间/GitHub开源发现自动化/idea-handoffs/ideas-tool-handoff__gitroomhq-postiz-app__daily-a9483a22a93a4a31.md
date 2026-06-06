@@ -13,7 +13,7 @@ tags:
 related:
 - "[[开源工具总表]]"
 candidateId: daily-a9483a22a93a4a31
-sourcePath: 工具工作间/02_场景拆解/外贸skill/GitHub自动更新库/开源工具总表.md
+sourcePath: 工具工作间/02_场景拆解/外贸业务主干Skill/GitHub自动更新库/开源工具总表.md
 sourceKind: github_discovery
 createdAt: '2026-03-29T00:00:00Z'
 updatedAt: '2026-03-29T00:00:00Z'
@@ -38,7 +38,7 @@ GitHub 自动搜索精选默认先服务工具开发；如果后续出现真实�
 业务方向：B线 / 社媒运营 / 被动营销；建议归属：独立新 Skill / 进入需求池；状态：待判断
 
 ## 来源证据
-- source:工具工作间/02_场景拆解/外贸skill/GitHub自动更新库/开源工具总表.md
+- source:工具工作间/02_场景拆解/外贸业务主干Skill/GitHub自动更新库/开源工具总表.md
 - lane:github_discovery_main_table
 - status:待判断
 - row:1

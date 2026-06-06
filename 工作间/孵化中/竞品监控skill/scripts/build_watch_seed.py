@@ -62,6 +62,11 @@ def build_seed_watch(target: dict, tag: str) -> dict:
             "优先确认首页促销横幅或首屏活动区，不要把整个首页导航一起纳入。",
             "如果首页轮播频繁变化，先只截促销标题、折扣文案和主 CTA。",
         ]
+    elif page_type == "technical_product_page":
+        validation_notes = [
+            "优先确认产品系统标题、适用场景、关键技术参数和下载资料入口是否在主内容区内。",
+            "如果页面导航、多语言菜单或 cookie 文案噪音过大，先缩到产品主内容块和技术资料区。",
+        ]
 
     return {
         "title": f"{target.get('company_name')} / {target.get('page_name')}",

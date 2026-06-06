@@ -1,0 +1,93 @@
+{
+  "sample_type": "course_simulation",
+  "one_line_conclusion": "The five simulated German prospects should be split into retail reusable bag use cases and corporate gift/event merchandise use cases before drafting outreach.",
+  "input_quality": {
+    "customer_count": 5,
+    "market": "Germany",
+    "evidence_quality": "course simulation only",
+    "main_gaps": [
+      "official websites",
+      "contacts",
+      "procurement evidence",
+      "current supplier or material requirements"
+    ]
+  },
+  "groups": [
+    {
+      "group_id": "G1",
+      "group_name": "Retail carry bag and reusable shopping context",
+      "companies": [
+        "Sample Retailer A",
+        "Sample Supermarket C",
+        "Sample Outdoor Shop E"
+      ],
+      "facts": [
+        "The input marks Sample Retailer A as eco lifestyle retail with sustainability positioning.",
+        "The input marks Sample Supermarket C as a regional supermarket with reusable shopping habits.",
+        "The input marks Sample Outdoor Shop E as outdoor retail with a retail accessory signal."
+      ],
+      "inferences": [
+        "Reusable retail bag programs may be a relevant conversation angle.",
+        "No current demand for recycled PET tote bags is proven."
+      ],
+      "outreach_angle": "Reusable retail bags with a clear recycled-material story.",
+      "subject_candidates": [
+        "Recycled PET tote option for reusable retail bag programs",
+        "A concise idea for your reusable shopping bag line",
+        "Retail tote bags with a clearer sustainability story"
+      ],
+      "first_email_draft": "Hi {{first_name}},\n\nI noticed that {{company_name}} is connected with retail and reusable shopping use cases.\n\nWe make recycled PET tote bags for retail and corporate gifting projects. This may be relevant if your team is reviewing reusable carry bags, seasonal store campaigns, or branded shopping accessories.\n\nI do not want to assume you are sourcing this category now. If it is relevant, I can send a short material and customization overview for your review.\n\nBest,\n{{sender_name}}",
+      "follow_up_cadence": "Follow up once after 3-5 working days with one concrete material, size, or customization note.",
+      "human_review_points": [
+        "Check whether the company has public store bag, member bag, event bag, or shopping bag pages.",
+        "Check whether buyer, marketing, or brand department is the right contact route."
+      ]
+    },
+    {
+      "group_id": "G2",
+      "group_name": "Corporate gift and event merchandise context",
+      "companies": [
+        "Sample Gift Agency B",
+        "Sample Brand Studio D"
+      ],
+      "facts": [
+        "The input marks Sample Gift Agency B as corporate gifts with custom branding service.",
+        "The input marks Sample Brand Studio D as event merchandise."
+      ],
+      "inferences": [
+        "Custom branded tote bags may fit some gift or event merchandise briefs.",
+        "No active eco bag project is proven."
+      ],
+      "outreach_angle": "Custom branded recycled PET tote bags as a practical gift or event merchandise option.",
+      "subject_candidates": [
+        "Recycled PET tote bags for branded gift projects",
+        "Custom tote option for event merchandise briefs",
+        "A practical bag idea for corporate gifting programs"
+      ],
+      "first_email_draft": "Hi {{first_name}},\n\nI saw that {{company_name}} works around corporate gifts or branded event merchandise.\n\nWe produce recycled PET tote bags that can be used for employee gifts, event merchandise, retail campaigns, or client giveaway programs. The main value is a practical branded item with a clear recycled-material story.\n\nIf this category fits any upcoming brief, I can share a short overview with material options, common sizes, and customization notes.\n\nBest,\n{{sender_name}}",
+      "follow_up_cadence": "Follow up once after 4-6 working days with two or three specification options for gift or event use.",
+      "human_review_points": [
+        "Check whether the company has public bag or textile accessory cases.",
+        "Check whether the contact should be a product, purchasing, or project manager."
+      ]
+    }
+  ],
+  "handoff": {
+    "to_customer_intel_skill": [
+      "official websites",
+      "contacts",
+      "current product lines",
+      "sustainability evidence"
+    ],
+    "to_outreach_email_skill": [
+      "human-approved group",
+      "selected angle",
+      "selected subject line"
+    ],
+    "non_goals": [
+      "no automatic sending",
+      "no sending infrastructure setup",
+      "no reply-rate promise"
+    ]
+  }
+}

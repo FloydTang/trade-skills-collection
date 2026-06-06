@@ -1,0 +1,71 @@
+{
+  "sample_type": "real_business_public_sample",
+  "business_context": "JIT Steel Buildings project material: prefabricated steel structure and steel building solutions for warehouses, workshops, industrial factories, hangars, commercial buildings, and global project delivery.",
+  "our_product": "prefabricated steel structure building solutions covering design, steel fabrication, shipment, and project support for warehouses, workshops, factories, logistics facilities, hangars, and large-span buildings",
+  "target_market": "Middle East and Africa",
+  "tone": "professional, concise, exploratory, engineering-aware, not pushy",
+  "constraints": [
+    "use public source notes only",
+    "do not infer active procurement demand",
+    "do not claim current project need unless source explicitly proves it",
+    "do not mention price unless provided",
+    "do not send emails automatically",
+    "mark EPC/general contractor overlap as partnership or subcontractor route, not ordinary buyer"
+  ],
+  "customers": [
+    {
+      "company_name": "Orascom Construction",
+      "country": "Egypt / MENA",
+      "industry": "global engineering and construction contractor",
+      "source": "official website",
+      "source_url": "https://orascom.com/",
+      "intel_summary": "Official website presents Orascom Construction as a leading global engineering and construction contractor focused on infrastructure, industrial and high-end commercial projects in the Middle East, Africa and the United States.",
+      "known_signal": "large EPC / contractor profile with industrial and commercial project footprint"
+    },
+    {
+      "company_name": "Hassan Allam Holding",
+      "country": "Egypt / MENA",
+      "industry": "engineering, construction and EPC services",
+      "source": "official website",
+      "source_url": "https://www.hassanallam.com/services/engineering-construction",
+      "intel_summary": "Official website says Hassan Allam has delivered large-scale strategic projects in Egypt and MENA across sectors including airports, power generation, industrial plants, wastewater treatment and buildings; it also notes products ranging from ready-mix concrete to structural steelwork.",
+      "known_signal": "large EPC profile with industrial projects and structural steelwork capability; possible overlap risk"
+    },
+    {
+      "company_name": "ASGC",
+      "country": "United Arab Emirates",
+      "industry": "turnkey construction and integrated construction services",
+      "source": "official website",
+      "source_url": "https://www.asgcgroup.com/overview",
+      "intel_summary": "Official overview describes ASGC as a vertically integrated construction group headquartered in Dubai, delivering turnkey special projects across sectors including commercial, industrial, oil and gas, infrastructure and transport.",
+      "known_signal": "turnkey contractor with industrial and infrastructure project scope; likely partner/subcontractor route rather than simple buyer"
+    },
+    {
+      "company_name": "Agility Logistics Parks",
+      "country": "Middle East / Africa / South Asia",
+      "industry": "warehouse and light industrial park developer/operator",
+      "source": "official website",
+      "source_url": "https://agilitylogisticsparks.com/",
+      "intel_summary": "Official website describes Agility Logistics Parks as a major private owner and developer of Grade A warehousing and light industrial parks across the Middle East, Africa and South Asia, funding, building, leasing and managing logistics complexes.",
+      "known_signal": "warehouse and light industrial facility developer/operator"
+    },
+    {
+      "company_name": "KEZAD Group",
+      "country": "United Arab Emirates",
+      "industry": "integrated economic cities, free zones and industrial real estate",
+      "source": "official website",
+      "source_url": "https://www.kezadgroup.com/en/about-us",
+      "intel_summary": "Official page describes KEZAD Group as the UAE's largest provider and operator of integrated economic cities, free zones, value-added business services, staff accommodation and industrial real estate solutions, with industrial zones and logistics supply chains.",
+      "known_signal": "industrial real estate and economic zone operator with warehouse and logistics infrastructure"
+    },
+    {
+      "company_name": "Tatu City",
+      "country": "Kenya",
+      "industry": "private Special Economic Zone and industrial park",
+      "source": "official website",
+      "source_url": "https://www.tatucity.com/business-at-tatu-city/",
+      "intel_summary": "Official business locations page describes Tatu Industrial Park as a leading logistics park and private Special Economic Zone in East Africa, with development-ready land, 100+ operating industrial firms, and The Link offering flexible warehouses for lease.",
+      "known_signal": "industrial park and warehouse development context in East Africa"
+    }
+  ]
+}

@@ -50,7 +50,7 @@ business_scenes:
 ## 当前落地边界
 
 - 仓库真实源：当前目录
-- Obsidian 展现层：`工具工作间/02_场景拆解/外贸skill/孵化中/trade-market-pulse`
+- Obsidian 展现层：`工具工作间/02_场景拆解/外贸业务主干Skill/制作中/trade-market-pulse`
 - 最终工具库：暂不进入，等最小样例验证通过后再判断
 - 作战台主页面：暂不进入，只能作为后续弹药库 / 自动化候选方向
 

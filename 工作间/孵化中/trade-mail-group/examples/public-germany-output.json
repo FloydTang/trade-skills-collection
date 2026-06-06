@@ -1,0 +1,128 @@
+{
+  "sample_type": "real_public_industry_sample",
+  "one_line_conclusion": "The five public DACH examples should not receive one generic cold email; they split into full-service merchandising partners, adjacent sustainable gift fit, and direct tote-bag category overlap.",
+  "input_quality": {
+    "customer_count": 5,
+    "market": "Germany / DACH",
+    "source_type": "public official websites",
+    "usable_facts": [
+      "industry positioning",
+      "service range",
+      "public bags / corporate gifts / sustainability signals"
+    ],
+    "forbidden_claims": [
+      "active procurement demand",
+      "budget",
+      "supplier gap",
+      "specific decision maker",
+      "reply probability"
+    ]
+  },
+  "groups": [
+    {
+      "group_id": "G1",
+      "group_name": "Full-service merchandising and branded assortment partners",
+      "companies": [
+        "BRANDCRAFT",
+        "Verticas GmbH",
+        "gbc"
+      ],
+      "facts": [
+        "BRANDCRAFT publicly positions around custom-made accessories, bags, packaging and corporate gifts for premium brands.",
+        "Verticas publicly positions as a full-service promotional products and merchandising provider, including bags and accessories, shop systems, distribution and sustainability language.",
+        "gbc publicly positions around promotional products and corporate fashion full service, including assortment concept, online shops, logistics, finishing and sustainability-oriented supply chain."
+      ],
+      "inferences": [
+        "These companies may evaluate branded bag options for selected client briefs.",
+        "No current sourcing demand is proven."
+      ],
+      "outreach_angle": "Offer recycled PET tote bags as one optional category for sustainable merchandise or branded bag briefs.",
+      "subject_candidates": [
+        "Recycled PET tote option for branded merchandise briefs",
+        "A practical tote bag option for sustainable corporate gift programs",
+        "Custom recycled PET bags for selected merchandising projects"
+      ],
+      "first_email_draft": "Hi {{first_name}},\n\nI saw that {{company_name}} works with branded merchandise, corporate gifts, or customized product assortments.\n\nWe produce recycled PET tote bags for retail campaigns, corporate gifting, and event merchandise. This may be a useful option when a client brief needs a practical branded bag with a clearer recycled-material story.\n\nI do not want to assume you are currently sourcing this category. If it is relevant for selected projects, I can send a short overview of material options, common sizes, and customization notes.\n\nBest,\n{{sender_name}}",
+      "follow_up_cadence": "Follow up once after 4-6 working days with one concrete product detail.",
+      "human_review_points": [
+        "Check public bag or sustainable merchandise cases.",
+        "Confirm whether purchasing, product development, project management, or brand partnership is the right contact route."
+      ]
+    },
+    {
+      "group_id": "G2",
+      "group_name": "Sustainable promotional gift adjacent fit",
+      "companies": [
+        "WERKHAUS"
+      ],
+      "facts": [
+        "WERKHAUS publicly describes customized promotional products and gifts, environmentally friendly materials, German production, and design-to-finished-product support.",
+        "The checked source does not prove that WERKHAUS currently buys or sells tote bags."
+      ],
+      "inferences": [
+        "The company is adjacent to sustainable gift projects.",
+        "It is not a confirmed bag buyer."
+      ],
+      "outreach_angle": "A soft-goods or event-bag add-on idea for selected sustainable gift projects.",
+      "subject_candidates": [
+        "A recycled PET tote idea for selected sustainable gift projects",
+        "Exploring a soft-goods option for custom promotional gifts",
+        "Recycled tote bags as an adjacent gift category"
+      ],
+      "first_email_draft": "Hi {{first_name}},\n\nI noticed that {{company_name}} focuses on customized promotional products and sustainable gift ideas.\n\nWe make recycled PET tote bags for retail and corporate gifting projects. The category may be relevant only if your team ever explores soft-goods or event-bag options alongside your current custom products.\n\nIf this is outside your scope, no problem. If it is occasionally relevant, I can send a one-page overview for reference.\n\nBest,\n{{sender_name}}",
+      "follow_up_cadence": "Follow up at most once after 5-7 working days with reference material, not a hard sales ask.",
+      "human_review_points": [
+        "Check for soft goods, textile accessories, event bags or partner sourcing signals.",
+        "Decide whether it should remain a positioning reference rather than a sales target."
+      ]
+    },
+    {
+      "group_id": "G3",
+      "group_name": "Direct tote-bag category overlap / benchmark",
+      "companies": [
+        "goodbag"
+      ],
+      "facts": [
+        "goodbag publicly offers individually printed branded bags.",
+        "The checked source positions the use cases as corporate gifting, employer branding and branded merchandise.",
+        "The checked source emphasizes cotton goodbags and smart reuse impact."
+      ],
+      "inferences": [
+        "This is a direct category overlap, not a normal buyer profile.",
+        "Material complementarity may be a discussion angle only if manually confirmed."
+      ],
+      "outreach_angle": "Default to competitor or collaboration research; do not use a standard supplier sales email.",
+      "subject_candidates": [
+        "Exploring material complementarity in branded reusable bags",
+        "Recycled PET tote bags as a possible adjacent option",
+        "A cautious note on reusable branded bag materials"
+      ],
+      "first_email_draft": "Hi {{first_name}},\n\nI saw that goodbag already works deeply in branded reusable bags, so I do not want to approach this as a standard supplier email.\n\nWe produce recycled PET tote bags for retail and corporate gifting projects. If material complementarity or selected project collaboration is ever relevant, I can share a brief overview. If not, I will keep this as market research only.\n\nBest,\n{{sender_name}}",
+      "follow_up_cadence": "No default follow-up. If a human confirms a collaboration reason, follow up after 7-10 working days with material differences only.",
+      "human_review_points": [
+        "Decide whether to remove from sales list.",
+        "Consider moving to competitor monitoring or market intelligence.",
+        "Look for a collaboration route before any outreach."
+      ]
+    }
+  ],
+  "handoff": {
+    "to_customer_intel_skill": [
+      "contacts",
+      "cases",
+      "bag product lines",
+      "supply chain signals",
+      "partnership entry points"
+    ],
+    "to_outreach_email_skill": [
+      "G1",
+      "human-approved G2"
+    ],
+    "non_goals": [
+      "no automatic sending",
+      "no sending infrastructure setup",
+      "no reply-rate promise",
+      "do not send G3 as standard outreach unless manually approved"
+    ]
+  }
+}

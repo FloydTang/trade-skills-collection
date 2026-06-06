@@ -32,7 +32,7 @@ Top-level principle: `实事求是、简洁高效`.
 - Do not restate or duplicate large chunks of the daily-discovery master into new files.
 - Prefer updating existing `工作间/` records over creating any new long-term document.
 - Keep the output aligned with the current lightweight strategy, especially for competitor monitoring.
-- When a record is clearly long-term and human-facing, keep it compatible with later Obsidian presentation under `工具工作间/02_场景拆解/外贸skill`.
+- When a record is clearly long-term and human-facing, keep it compatible with later Obsidian presentation under `工具工作间/02_场景拆解/外贸业务主干Skill`.
 
 ### Daily Review Actions
 
@@ -52,9 +52,9 @@ Top-level principle: `实事求是、简洁高效`.
 7. If `工作间/` or `skill需求池.md` changed, run:
    - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/工作间/GitHub开源发现自动化/scripts/sync_obsidian_workspace.sh`
 8. Verify the Obsidian mirror reflects the same updates at:
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/内部维护/精选外挂开源/开源工具总表.md`
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/内部维护/精选外挂开源/路线映射.md`
-   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸skill/内部维护/外贸业务主干/skill需求池.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/精选外挂开源Skill/内部维护/开源工具总表.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/精选外挂开源Skill/内部维护/路线映射.md`
+   - `/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/02_场景拆解/外贸业务主干Skill/内部维护/skill需求池.md`
 9. Do not maintain separate long-term watchlist/backlog/decision documents. Those older files are migration stubs only.
 10. Only recommend upgrading into `skill需求池.md` when the project already has:
    - a clear business direction

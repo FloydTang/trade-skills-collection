@@ -1,0 +1,7 @@
+interface:
+  display_name: "Mail Group Outreach Planner"
+  short_description: "Group prospects before drafting cold emails"
+  default_prompt: "Use $trade-mail-group to group this prospect list and draft conservative first-touch outreach angles."
+
+policy:
+  allow_implicit_invocation: true
