@@ -131,3 +131,34 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 - 4 个单节点是阶段能力，不是 4 个平级主入口
 - 仓库负责开源说明
 - 增强事项直接看飞书入口，不在仓库里继续展开
+
+---
+
+<!-- jiuliang-about-start -->
+
+## 关于半斤九两 / About EVEN BETTER
+
+半斤九两科技（EVEN BETTER）专注“外贸 + AI”的真实落地。我们希望帮助外贸企业把产品、客户、渠道和团队流程，沉淀成客户看得懂、渠道跑得动、团队留得下的系统。
+
+我们主要提供：
+
+- 外贸 AI 落地方法：围绕 Build / Traffic / Team，判断企业该先建资产、放流量，还是建系统。
+- 企业表达与内容增长：把产品、案例、FAQ、老板经验和信任证据，整理成海外客户看得懂的内容资产。
+- 主动开发流程：从客户画像、线索搜索、客户背调到开发信和跟进复盘，跑出可复用闭环。
+- 团队 AI 工作流：把经验写进 AGENTS.md、SOP、模板库、检查清单和可复用 Skill。
+
+更多内容可以查看我们整理的 [《外贸人 Codex 蓝皮书》](https://github.com/FloydTang/waimaoren-codex-bluebook)。
+
+### 找到我们
+
+- 官网：[tang92.com](https://tang92.com)
+- 公众号：半斤九两
+- GitHub：[@FloydTang](https://github.com/FloydTang)
+
+扫码关注公众号，领取后续模板、案例和更新；也可以通过公众号后台留言联系九两。
+
+<p>
+  <img src="https://raw.githubusercontent.com/FloydTang/waimaoren-codex-bluebook/main/assets/wechat-qr.png" alt="半斤九两公众号二维码" width="180">
+</p>
+
+<!-- jiuliang-about-end -->
