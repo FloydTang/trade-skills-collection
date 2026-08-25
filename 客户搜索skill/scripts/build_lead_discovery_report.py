@@ -15,7 +15,12 @@ from pathlib import Path
 from typing import Any
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-REPO_ROOT = SCRIPT_DIR.parent.parent
+REPO_ROOT = next(
+    (root for root in SCRIPT_DIR.parents if (root / "workflow_runtime" / "contracts.py").is_file()),
+    None,
+)
+if REPO_ROOT is None:
+    raise RuntimeError("Could not locate workflow_runtime/contracts.py.")
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 

@@ -14,7 +14,7 @@ SCHEMA_PATH = SKILL_ROOT / "schemas" / "email-draft-input.schema.json"
 BRIDGE_SCRIPT = SCRIPT_DIR / "build_email_input_from_customer_intel.py"
 OPENCLAW_SCRIPT = SKILL_ROOT / "for-openclaw" / "scripts" / "build_email_draft_from_openclaw.py"
 OPENCLAW_SAMPLE = SKILL_ROOT / "for-openclaw" / "examples" / "sample-input.json"
-COMBO_FIXTURE = SKILL_ROOT.parent / "主动开发链路组合包" / "examples" / "reviewed-customer-intel-report.json"
+CUSTOMER_INTEL_FIXTURE = SKILL_ROOT / "examples" / "customer-intel-report.json"
 
 CASES = [
     {
@@ -110,7 +110,7 @@ def load_module(name: str, path: Path):
 def run_customer_intel_gate_case() -> tuple[bool, str]:
     bridge = load_module("email_bridge_gate_test", BRIDGE_SCRIPT)
     core = load_module("email_core_gate_test", BUILD_SCRIPT)
-    report = json.loads(COMBO_FIXTURE.read_text(encoding="utf-8"))
+    report = json.loads(CUSTOMER_INTEL_FIXTURE.read_text(encoding="utf-8"))
     approved_payload = bridge.build_bridge_payload(
         report,
         "first_touch",

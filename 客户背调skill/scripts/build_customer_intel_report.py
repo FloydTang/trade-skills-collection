@@ -20,7 +20,13 @@ from pathlib import Path
 from typing import Any
 
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = next(
+    (root for root in SCRIPT_DIR.parents if (root / "workflow_runtime" / "customer_intel_v2.py").is_file()),
+    None,
+)
+if REPO_ROOT is None:
+    raise RuntimeError("Could not locate workflow_runtime/customer_intel_v2.py.")
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 

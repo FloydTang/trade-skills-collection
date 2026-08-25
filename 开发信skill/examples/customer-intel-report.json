@@ -1,4 +1,32 @@
 {
+  "contract_version": "2.0",
+  "industry_lens": "food",
+  "seller_context": {
+    "company_name": "Ningbo FreshGrow Foods",
+    "product_or_offer": "frozen mixed vegetables",
+    "product_categories": ["frozen vegetables", "private-label frozen food"],
+    "target_customer_types": ["importer", "private-label buyer"],
+    "target_industries": ["frozen food", "retail food"],
+    "value_propositions": ["stable specifications", "packaging coordination", "supply reliability"],
+    "certifications": [],
+    "proof_points": ["Fixed classroom fixture; replace with authorized company evidence in real use."],
+    "authorized_materials": ["test-fixture:frozen-food-capability-sheet"],
+    "excluded_customer_signals": [],
+    "forbidden_claims": ["Do not claim confirmed purchase intent or an active sourcing project."]
+  },
+  "decision_brief": {
+    "decision": "ready_for_email_draft",
+    "decision_gates": {
+      "identity": {"status": "pass", "reason": "固定样例已完成人工主体复核。"},
+      "evidence": {"status": "pass", "reason": "固定样例保留官网与 LinkedIn 两类公开依据。"},
+      "seller_offer": {"status": "pass", "reason": "已提供演示用产品与能力上下文。"},
+      "product_fit": {"status": "pass", "reason": "公开业务方向与 frozen vegetables/private label 存在交集。"},
+      "risk": {"status": "pass", "reason": "未触发高风险拦截。"}
+    },
+    "top_supported_claims": [],
+    "research_gaps": ["采购角色与实际采购计划仍需人工确认。"],
+    "next_action": "使用已人工批准的 ANGLE-01 生成复核型开发信草稿。"
+  },
   "summary_cn": "当前线索更像是 GreenHarvest Foods。公开线索主要集中在官网联系页与 LinkedIn 公司页，现阶段更适合先用保守的一封首轮开发信验证对方是否有进一步沟通意愿。",
   "summary_en": "The lead most likely maps to GreenHarvest Foods. The strongest public footprint appears on the company website and LinkedIn company page. Use a conservative first-touch email before moving to pricing, MOQ, or sample discussions.",
   "missing_input_fields": [],
@@ -41,8 +69,60 @@
       "confidence": "medium"
     }
   ],
+  "recent_signals": [
+    {
+      "signal_type": "expansion",
+      "title": "GreenHarvest Foods LinkedIn company page",
+      "source_title": "GreenHarvest Foods LinkedIn company page",
+      "source_url": "https://www.linkedin.com/company/greenharvestfoods",
+      "source_type": "linkedin",
+      "observed_at_or_period": "unknown",
+      "freshness": "unknown",
+      "confidence": "low",
+      "why_it_matters": "LinkedIn presence gives a possible public context for a careful first-touch opening, but the specific activity must be manually checked before sending.",
+      "product_relevance": "If the company is actively updating its distribution or private-label programs, frozen mixed vegetables may be relevant as a supply conversation starter."
+    }
+  ],
+  "market_signals": [
+    {
+      "signal_type": "compliance",
+      "title": "Poland / EU frozen food compliance context",
+      "source_title": "Course demo market context",
+      "source_url": "",
+      "source_type": "manual_review_context",
+      "observed_at_or_period": "unknown",
+      "freshness": "unknown",
+      "confidence": "low",
+      "why_it_matters": "EU food buyers may care about stable specifications, documentation, and compliance-ready communication.",
+      "product_relevance": "Use only as a cautious business context; do not present it as a confirmed requirement from this customer."
+    }
+  ],
   "sales_angles": [
     {
+      "angle_id": "ANGLE-01",
+      "approval_status": "approved",
+      "claim_type": "hypothesis",
+      "claim_ids": ["CL-001", "CL-002"],
+      "evidence_ids": ["EV-001", "EV-002"],
+      "cn": "优先从其 LinkedIn / 官网公开线索切入，说明这不是模板群发，而是围绕其冷冻食品与 private label 方向做的保守沟通。",
+      "en": "Open by referencing the public LinkedIn/website context cautiously, then connect the note to private-label frozen vegetable supply support.",
+      "why": "This gives the email Skill a concrete, reviewable opening signal without inventing a recent event.",
+      "avoid": "Do not claim a verified new warehouse, expansion, or current sourcing need unless manually confirmed before sending.",
+      "evidence_refs": [
+        "https://greenharvestfoods.com/contact",
+        "https://www.linkedin.com/company/greenharvestfoods"
+      ],
+      "buyer_or_component_clue": "公开来源未覆盖；未发现对方现用品牌/部件线索，不作假设。",
+      "replacement_point": "公开来源未覆盖；需结合我方已授权资料和采购参数人工确认具体替代点。",
+      "authorized_materials": ["test-fixture:frozen-food-capability-sheet"],
+      "why_this_angle_fits": "This gives the email Skill a concrete, reviewable opening signal without inventing a recent event."
+    },
+    {
+      "angle_id": "ANGLE-02",
+      "approval_status": "proposed",
+      "claim_type": "hypothesis",
+      "claim_ids": ["CL-002"],
+      "evidence_ids": ["EV-001", "EV-002"],
       "cn": "可从其 private label 冷冻食品方向切入，强调稳定规格、包装配合与基础供货能力。",
       "en": "Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
       "why": "This angle aligns with the apparent business profile and avoids overclaiming demand.",
@@ -68,11 +148,15 @@
     "risk_rating": "Medium",
     "recommended_next_action": "ready_for_email_draft",
     "manual_review_required": false,
+    "manual_review_resolution": "固定课程样例已人工复核并只批准 ANGLE-01。",
+    "decision_gates": {
+      "identity": {"status": "pass", "reason": "人工复核通过。"},
+      "evidence": {"status": "pass", "reason": "人工复核通过。"},
+      "seller_offer": {"status": "pass", "reason": "演示产品上下文已提供。"},
+      "product_fit": {"status": "pass", "reason": "业务方向存在交集。"},
+      "risk": {"status": "pass", "reason": "无高风险拦截。"}
+    },
     "review_focus": [
-      "当前仍需人工确认采购角色与实际产品匹配度。"
-    ],
-    "sieger_status": "ready_for_email_draft",
-    "sieger_review_focus": [
       "当前仍需人工确认采购角色与实际产品匹配度。"
     ]
   },
@@ -133,34 +217,157 @@
       "note": "Public company page."
     }
   ],
+  "evidence_ledger": [
+    {
+      "evidence_id": "EV-001",
+      "title": "GreenHarvest Foods contact page",
+      "url": "https://greenharvestfoods.com/contact",
+      "source_type": "web",
+      "source_quality": "primary",
+      "observed_at_or_period": "fixture_snapshot",
+      "retrieved_at": "2026-03-25T00:00:00+08:00",
+      "freshness": "fixture",
+      "confidence": "medium",
+      "note": "Fixed demo contact-page evidence.",
+      "claims": []
+    },
+    {
+      "evidence_id": "EV-002",
+      "title": "GreenHarvest Foods LinkedIn company page",
+      "url": "https://www.linkedin.com/company/greenharvestfoods",
+      "source_type": "linkedin",
+      "source_quality": "strong_secondary",
+      "observed_at_or_period": "fixture_snapshot",
+      "retrieved_at": "2026-03-25T00:00:00+08:00",
+      "freshness": "fixture",
+      "confidence": "medium",
+      "note": "Fixed demo company-page evidence.",
+      "claims": []
+    }
+  ],
+  "claim_ledger": [
+    {
+      "claim_id": "CL-001",
+      "category": "business_line",
+      "statement": "The fixture models an importer with frozen-vegetable and private-label relevance.",
+      "statement_type": "inference",
+      "confidence": "medium",
+      "evidence_ids": ["EV-001", "EV-002"],
+      "observed_at_or_period": "fixture_snapshot",
+      "dimension": "",
+      "rating": null,
+      "status": "needs_review"
+    },
+    {
+      "claim_id": "CL-002",
+      "category": "product_fit",
+      "statement": "Frozen mixed vegetables may fit the apparent private-label direction, but current demand is not confirmed.",
+      "statement_type": "hypothesis",
+      "confidence": "medium",
+      "evidence_ids": ["EV-001", "EV-002"],
+      "observed_at_or_period": "fixture_snapshot",
+      "dimension": "product_fit",
+      "rating": 3,
+      "status": "needs_review"
+    }
+  ],
   "verdict_card": {
-    "score": 5,
-    "customer_grade": "B",
+    "dimensions": [
+      {"name": "客户成熟度", "rating": "★★★☆☆（推断）", "basis": "官网与 LinkedIn 公开业务线索"},
+      {"name": "潜在采购能力", "rating": "公开来源未覆盖", "basis": "未获得可靠规模、营收或采购记录"},
+      {"name": "技术定制能力", "rating": "公开来源未覆盖", "basis": "未获得产品、工程或技术栈证据"},
+      {"name": "合作价值", "rating": "★★★☆☆（推断）", "basis": "基于公开业务方向，需人工验证"},
+      {"name": "价格敏感度", "rating": "公开来源未覆盖", "basis": "未获得报价、采购或财务谈判信号"}
+    ],
+    "score": null,
+    "score_status": "insufficient_evidence",
+    "score_basis": "少于三个有证据评分维度，不计算综合分。",
+    "customer_grade": "未分级",
+    "grade_reason": "这是链路演示 fixture，不把资料完整度伪装成客户价值评分。",
     "intel_decision": "ready_for_email_draft",
     "review_focus": ["当前仍需人工确认采购角色与实际产品匹配度。"],
-    "one_line_verdict": "公开信息显示其可能涉及 private-label 冷冻食品项目；当前建议进入人工复核后的开发信草稿。"
+    "one_line_verdict": "公开信息显示其可能涉及进口冷冻蔬菜和 private-label 项目；当前建议进入人工复核后的开发信草稿。"
   },
   "company_business_breakdown": {
-    "business_lines": [{"name": "公开业务方向", "representative_products": ["进口冷冻蔬菜与 private-label 冷冻食品项目"], "evidence_refs": ["https://greenharvestfoods.com/contact"]}],
-    "business_model_judgment": {"value": "公开来源未覆盖", "basis": "公开证据不足以确认具体商业模式。", "confidence": "low"}
+    "business_lines": [
+      {
+        "name": "公开业务方向",
+        "representative_products": ["Company appears focused on imported frozen vegetables and private-label frozen food programs for the Poland market."],
+        "customer_types": "公开来源未覆盖",
+        "evidence_refs": ["https://greenharvestfoods.com/contact", "https://www.linkedin.com/company/greenharvestfoods"]
+      }
+    ],
+    "entity_facts": {
+      "registration_and_entity": "公开来源未覆盖",
+      "address_notes": "公开来源未覆盖",
+      "facilities": "公开来源未覆盖",
+      "management_background": "公开来源未覆盖"
+    },
+    "business_model_judgment": {
+      "value": "进口商/分销或 private-label 角色未完成区分",
+      "basis": "公开证据不足以确认具体商业模式。",
+      "confidence": "low"
+    }
   },
   "tech_capability_procurement_concerns": {
     "technical_stack": "公开来源未覆盖",
-    "procurement_concerns": [{"item": "规格、包装、认证与交期", "assessment": "公开来源未覆盖", "priority": "待确认"}]
+    "technical_stack_basis": "未获得可核验的加工、冷链、包装或技术栈证据。",
+    "procurement_concerns": [
+      {"item": "规格与兼容性", "assessment": "公开来源未覆盖", "priority": "待确认"},
+      {"item": "交期与供货稳定性", "assessment": "公开来源未覆盖", "priority": "待确认"},
+      {"item": "认证与包装要求", "assessment": "公开来源未覆盖", "priority": "待确认"}
+    ],
+    "most_important_for_us": "先确认产品规格、包装、认证和供货节奏。"
   },
   "scale_financial_signals": {
     "revenue": "公开免费来源未覆盖",
     "employee_count": "公开免费来源未覆盖",
-    "operating_trend": "公开来源未覆盖"
+    "operating_trend": "公开来源未覆盖",
+    "procurement_behavior_interpretation": "公开来源未覆盖",
+    "manual_check_entry": "建议补查工商/注册局、公开财务数据库或可信新闻来源。"
   },
   "sales_model_procurement_logic": {
     "sales_model": "公开来源未覆盖",
-    "supplier_entry_point": "先从 private-label 产品规格、包装和供货稳定性问题进入。"
+    "sales_cycle": "公开来源未覆盖",
+    "supplier_entry_point": "先从 private-label 产品规格、包装和供货稳定性问题进入。",
+    "basis": "进入点是保守推断，不是已确认采购流程。"
   },
-  "competition_map": {"potential_competitors": [], "note": "公开来源未覆盖；不做一一对应宣称。"},
-  "growth_opportunities": [{"opportunity": "围绕 private-label 方向补齐产品或供应链能力（推断）", "status": "推断，需人工验证", "evidence_refs": ["https://greenharvestfoods.com/contact"]}],
-  "image_summary": {"score": 5, "customer_grade": "B", "summary_cn": "技术能力、规模财务和采购逻辑目前多为公开来源未覆盖，不能据此确认采购意向。"},
-  "sieger_standard": {"name": "SIEGER", "version": "2026-08-23"},
+  "competition_map": {
+    "potential_competitors": [],
+    "note": "公开来源未覆盖；不做潜在竞争者一一对应宣称。"
+  },
+  "growth_opportunities": [
+    {
+      "opportunity": "围绕 private-label 冷冻食品方向补齐产品或供应链能力（推断）",
+      "logic": "公开业务方向可能对应持续的产品、交付或替代供应需求，但采购意向未被证实。",
+      "status": "推断，需人工验证",
+      "evidence_refs": ["https://greenharvestfoods.com/contact"]
+    },
+    {
+      "opportunity": "以规格、包装、认证或交期作为供应商切入点（推断）",
+      "logic": "行业常见关注项不等于该客户当前需求。",
+      "status": "推断，需人工验证",
+      "evidence_refs": []
+    }
+  ],
+  "image_summary": {
+    "summary_cn": "主体初步判断：可能涉及进口冷冻蔬菜和 private-label 项目。技术能力、规模财务和采购逻辑目前多为公开来源未覆盖，不能据此确认采购意向。",
+    "score": null,
+    "customer_grade": "未分级",
+    "maximum_opportunity": "先用已核验的公开业务方向建立相关性，再补充具体采购场景。",
+    "maximum_risk": "主体、采购角色和业务匹配度仍可能需要人工确认。",
+    "strategy": "不要用“产品目录+低价”直接开发；应先引用来源，再用问题验证业务线、规格和采购标准。"
+  },
+  "sieger_standard": {
+    "name": "SIEGER",
+    "version": "2.0-2026-08-25",
+    "iron_rules": [
+      "事实挂来源；推断明确标注。",
+      "查不到写公开来源未覆盖。",
+      "证据不足、实体未确认或敏感场景继续拦截开发信。",
+      "只有人工批准的销售角度才能进入开发信。"
+    ]
+  },
   "notes": "这是组合包首版的稳定背调 fixture，用于课程演示和本地闭环验证，不表示实时联网抓取结果。",
   "generated_at": "2026-03-25T00:00:00+08:00"
 }
