@@ -2,6 +2,8 @@
 
 当前状态：可交付
 
+> 唯一开发源是 [trade-skills-collection](https://github.com/FloydTang/trade-skills-collection)；[trade-outreach-email](https://github.com/FloydTang/trade-outreach-email) 是独立发行镜像。
+
 这个 Skill 用于把已确认的客户信息、客户画像摘要和背调信号，转成可人工修改后发送的英文邮件草稿。
 
 它的当前公开定位是：`复核型开发信工作台`。
@@ -30,8 +32,10 @@
 - 中文复核提示
 - 关键输入依据回显
 - 依据过的证据列表
+- 保留 `ANGLE-*`、`CL-*` 和 `EV-*` 复核链路
 - 近期客户信号和市场信号引用提示
 - 未确认事实清单
+- 客户背调桥接时，没有明确批准的销售角度则不生成草稿
 - 固定发送策略 `manual_review_only`
 
 ## 当前不默认承诺

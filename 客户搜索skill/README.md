@@ -2,6 +2,8 @@
 
 用公开网页、LinkedIn 结果线索，以及用户授权的数据源，找出第一批可继续进入线索整理的候选客户。
 
+> 唯一开发源是 [trade-skills-collection](https://github.com/FloydTang/trade-skills-collection)；[trade-lead-discovery](https://github.com/FloydTang/trade-lead-discovery) 是独立发行镜像。
+
 当前状态：可交付
 
 ## 这个 Skill 解决什么问题
@@ -33,6 +35,7 @@
 - 官网、电话、通用邮箱抓取
 - LinkedIn 公司页和可见联系人线索补充
 - 候选证据分级与下一步建议
+- 将卖方产品、目标客户、排除信号和行业视角原样传入初筛
 
 ## 当前不默认承诺
 

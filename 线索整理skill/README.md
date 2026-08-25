@@ -2,6 +2,8 @@
 
 当前状态：可交付
 
+> 唯一开发源是 [trade-skills-collection](https://github.com/FloydTang/trade-skills-collection)；[trade-lead-screening](https://github.com/FloydTang/trade-lead-screening) 是独立发行镜像。
+
 这个 Skill 用于把搜索阶段得到的零散候选线索整理成可继续进入客户背调的标准输入。
 
 ## 这个 Skill 解决什么问题
@@ -23,9 +25,10 @@
 
 - 标准化候选线索字段
 - 接收搜索阶段证据等级和缺口
+- 分开评估主体信息完整度与卖方业务适配度
 - 标记缺失项和人工复核原因
 - 给出保守的下一步动作建议
-- 生成兼容 `客户背调skill` 的桥接输入
+- 生成保留卖方上下文的 `客户背调skill` 桥接输入
 
 ## 当前不默认承诺
 

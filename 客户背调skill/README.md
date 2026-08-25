@@ -2,6 +2,8 @@
 
 中英双语的开源 Codex Skill，用公开网页线索为外贸销售和客户开发生成结构化客户情报报告。
 
+> 唯一开发源是 [trade-skills-collection](https://github.com/FloydTang/trade-skills-collection)；[trade-customer-intel](https://github.com/FloydTang/trade-customer-intel) 是独立发行镜像。
+
 它是整套主动开发链路里的核心判断层：搜索负责找到候选，整理负责标准化，背调负责看清“这个客户最近发生了什么、为什么值得跟、应该从哪里切入”，开发信再调用这些判断写草稿。
 
 ## 这个 Skill 解决什么问题
@@ -30,8 +32,10 @@
 - 双语结构化报告
 - 保守的风险评级
 - 近期客户信号和市场/合规信号
-- 基于证据的销售切入点建议
-- 明确给出是否可进入开发信的判断
+- `EV-*` 证据账本与 `CL-*` 主张账本，区分事实、推断和假设
+- SIEGER v2 主体、证据、卖方能力、产品匹配和风险决策门
+- 少于 3 个证据化维度时不计算综合分
+- 销售角度默认为 `proposed`，不自动批准
 
 ## 当前不默认承诺
 
