@@ -27,32 +27,12 @@ OpenClaw 版的目标是：
 
 ## Input Contract
 
-OpenClaw 版接收一个包装后的 JSON：
+OpenClaw 版接收 `operator_input + public_context`。完整可运行样例见
+[sample-input.json](./examples/sample-input.json)。
 
-```json
-{
-  "operator_input": {
-    "email_type": "follow_up",
-    "customer_name": "Nadia",
-    "company_name": "Nordic Home Textile AB",
-    "product_or_offer": "washed linen table textile collections",
-    "goal": "follow up on our catalog sharing and ask whether selected fabric swatches would be useful for review",
-    "country_or_market": "Sweden",
-    "tone": "professional,warm",
-    "sender_name": "Mia",
-    "sender_company": "Hangzhou LinenCraft Textiles",
-    "signature": "Best regards,\nMia\nHangzhou LinenCraft Textiles"
-  },
-  "public_context": {
-    "customer_profile_summary": "Brand appears focused on Scandinavian home textile collections with natural material positioning.",
-    "previous_contact_context": "We shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.",
-    "constraints": "Keep the follow-up soft and design-oriented.",
-    "risk_rating": "Medium",
-    "entity_confidence": "medium",
-    "recommended_sales_angle_en": "Lead with a clean and design-oriented offer rather than a hard sell."
-  }
-}
-```
+`public_context` 必须带完整五门决策、`manual_review_required`、SIEGER 状态、主体与证据状态，以及相互引用一致的销售角度、Claim 和 Evidence。脚本重新计算授权；调用方单独填写 `draft_authorization=approved` 不会放行。
+
+样品能力、禁用承诺和其他卖方授权材料只能放在 `operator_input.seller_context`。`public_context` 中自报的卖方能力不会启用客户可见承诺。
 
 ## Run Locally
 
@@ -67,7 +47,7 @@ python3 ./for-openclaw/scripts/build_email_draft_from_openclaw.py \
 
 - `operator_input` 中的业务字段优先
 - `public_context` 只作为保守补充，不应覆盖明确的操作员输入
-- 如果 `risk_rating` 为 `High`，脚本会附加更强的人审约束
+- 如果 `risk_rating` 为 `High`、任一决策门未通过、仍需人工复核或证据引用不完整，脚本直接阻断草稿生成
 - 任何 `previous_contact_context` 仍然需要人工复核
 
 

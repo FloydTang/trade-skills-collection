@@ -69,6 +69,12 @@ description: Generate conservative, editable English outreach drafts for foreign
 - 必须包含 `evidence_signals_used`
 - 必须包含 `unconfirmed_fact_checklist`
 - 必须包含 `send_policy = manual_review_only`
+- 公司级线索缺少联系人时使用自然的公司团队称呼；不得输出 `Dear there`、`Dear unknown` 等占位语
+- 最终 JSON 必须保留批准的 `ANGLE-*`、对应 `CL-*` 与 `EV-*` 结构化对象，不只保留文本摘要
+- 批准角度属于内部策略与审计上下文，不得把 `Open by...`、`Connect the note...` 等写作指令原样复制到客户正文
+- 工业场景默认只使用通用应用与参数确认表达；BOM、automation module、motor/drive、ASRS 或物料搬运等细节必须同时有上游主张和证据支持
+- `follow_up` 必须消费真实 `previous_contact_context`；缺失时阻断，不得自动补写历史沟通
+- `follow_up` 默认只承诺产品详情与规格；只有卖方能力、证明或授权资料明确支持样品时才能使用 sample 表达
 - 必须包含 `workflow_guidance`
 - 必须回显关键输入依据
 - 如引用近期动态、市场变化或合规信号，必须来自上游 `source_context`

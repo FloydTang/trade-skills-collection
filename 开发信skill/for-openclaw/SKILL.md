@@ -32,8 +32,9 @@ metadata: {"openclaw":{"role":"stage_worker","workspace_owner_skill":"trade-acti
 其中：
 
 - `operator_input` 提供邮件场景、产品、目标、发件人等明确业务输入
-- `public_context` 提供客户画像摘要、历史沟通、风险提示，以及已明确批准的 `selected_sales_angle`、`selected_claims`、`selected_evidence`
-- 由客户背调桥接时，`draft_authorization` 必须为 `approved`
+- 卖方样品能力、禁用承诺等只能来自 `operator_input.seller_context`；公开客户上下文不能替卖方授权
+- `public_context` 提供完整五门决策、人工复核状态，以及已批准且证据绑定的 `selected_sales_angle`、`selected_claims`、`selected_evidence`
+- `draft_authorization=approved` 只是输入声明；脚本会重新核对五门、SIEGER 状态、风险、主体置信度和 Claim/Evidence 引用，单独一个批准字段无效
 
 ## Rules
 
@@ -42,6 +43,7 @@ metadata: {"openclaw":{"role":"stage_worker","workspace_owner_skill":"trade-acti
 - 不重新背调，不自行生成“客户最近发生了什么”
 - 近期动态、市场变化、合规/关税/贸易信号必须来自上游客户背调输出
 - 上游判定 `High` 风险、尚未 ready 或没有批准切入角度时，终止背调桥接的草稿生成
+- 五个 `decision_gates` 必须齐全且全部为 `pass`；产品匹配主张必须绑定至少一条强证据
 - 在邮件包中保留 `ANGLE-*`、`CL-*` 和 `EV-*` 引用，便于人工复核
 - `follow_up` 仍要求有历史沟通上下文
 

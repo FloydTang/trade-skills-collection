@@ -109,6 +109,9 @@ EOF
 - If `tvly` is installed, the script uses it first for web search.
 - If `tvly` is not installed, the script falls back to DuckDuckGo HTML search.
 - If evidence is sparse, the script still produces a report and explicitly flags low confidence.
+- If one or more providers fail, preserve the errors in `collection_errors`; do not convert a collection outage into a successful intel decision.
+- Reject malformed identity or nested context types instead of coercing them to strings.
+- Create missing parent directories for requested JSON and Markdown outputs.
 
 ## Output Requirements
 
@@ -124,6 +127,7 @@ EOF
 - Include the SIEGER Verdict Card, but never fabricate a score to make the report look complete.
 - Include `recent_signals` and `market_signals` where evidence supports them.
 - Include sales angles with `angle_id`, claim/evidence references, authorized-material references, and `approval_status = proposed`.
+- Apply BOM, motor/drive, ASRS, or engineering-fit language only when the resolved `industry_lens` is `industrial` and the selected claims plus seller offer support the concept; never leak that copy into food, consumer, or general reports.
 - If the person match is weak, say so explicitly instead of inventing a firm personal profile.
 - Keep outreach personalization conservative. Do not invent private preferences or present weak inferences as facts.
 - Do not replace `客户搜索skill/` or `线索整理skill/` as the lead-entry stage.

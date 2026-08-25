@@ -53,6 +53,8 @@ The final report-builder input must wrap that lead together with an evidence bun
 }
 ```
 
+Validate this envelope against [customer-intel-evidence-input.schema.json](./schemas/customer-intel-evidence-input.schema.json). Reject malformed nested objects or arrays instead of coercing them.
+
 `evidence_items` 可为每条证据显式提供 `claims`。报告会将结论标为 `fact`、`inference` 或 `hypothesis`，并用 `EV-*` 和 `CL-*` 保留证据到结论的对应关系。
 
 ## Tooling Rules

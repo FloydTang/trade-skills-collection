@@ -15,10 +15,45 @@
         "product_or_offer",
         "goal"
       ],
+      "properties": {
+        "seller_context": {"type": "object"}
+      },
       "additionalProperties": true
     },
     "public_context": {
       "type": "object",
+      "required": [
+        "draft_authorization",
+        "risk_rating",
+        "entity_confidence",
+        "evidence_sufficiency",
+        "intel_recommended_next_action",
+        "manual_review_required",
+        "sieger_status",
+        "decision_gates",
+        "selected_sales_angle",
+        "selected_claims",
+        "selected_evidence"
+      ],
+      "properties": {
+        "draft_authorization": {"type": "string", "enum": ["approved", "hold"]},
+        "risk_rating": {"type": "string", "enum": ["Low", "Medium", "High"]},
+        "entity_confidence": {"type": "string", "enum": ["high", "medium", "low"]},
+        "evidence_sufficiency": {"type": "string", "enum": ["sufficient", "limited", "thin"]},
+        "intel_recommended_next_action": {
+          "type": "string",
+          "enum": ["ready_for_email_draft", "hold_for_manual_review"]
+        },
+        "manual_review_required": {"type": "boolean"},
+        "sieger_status": {
+          "type": "string",
+          "enum": ["ready_for_email_draft", "needs_manual_review"]
+        },
+        "decision_gates": {"type": "object"},
+        "selected_sales_angle": {"type": "object"},
+        "selected_claims": {"type": "array"},
+        "selected_evidence": {"type": "array"}
+      },
       "additionalProperties": true
     }
   }

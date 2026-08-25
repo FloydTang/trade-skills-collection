@@ -1,6 +1,6 @@
 # OpenClaw Runtime Rules
 
-OpenClaw 版只负责“上下文整合 + 保守生成”，不负责复杂业务判断。
+OpenClaw 版只负责“上下文整合 + 保守生成”，不重新背调，但会独立复核上游授权契约。
 
 ## 输入优先级
 
@@ -14,9 +14,11 @@ OpenClaw 版只负责“上下文整合 + 保守生成”，不负责复杂业�
 - 公开资料摘要只能进入 `customer_profile_summary`
 - 历史沟通只进入 `previous_contact_context`
 - 风险提示只转换成更强的人审约束，不直接改写邮件事实
+- `approved` 不能自证；五门、SIEGER、风险、人工复核状态和 Claim/Evidence 引用必须同时通过
 
 ## 不做什么
 
 - 不自动推断产品
 - 不自动编造成交意向
 - 不自动改写操作员明确目标
+- 不自动发送邮件

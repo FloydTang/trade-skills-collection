@@ -163,18 +163,21 @@ def export_default_artifacts(
     combo_run_id: str,
     selected_lead_id: str,
     include_feishu: bool = True,
+    artifact_output_dir: Path | None = None,
 ) -> None:
+    artifact_output_dir = artifact_output_dir or output_dir
+    artifact_output_dir.mkdir(parents=True, exist_ok=True)
     container_bundle = build_container_bundle(output_dir, combo_run_id, selected_lead_id)
     markdown = render_container_bundle_markdown(container_bundle)
     csv_text = render_master_records_csv(container_bundle["master_records"])
 
-    dump_json(container_bundle, output_dir / "09-container-bundle.json")
-    dump_text(markdown, output_dir / "10-container-bundle.md")
-    dump_text(csv_text, output_dir / "11-lead-workflow.csv")
+    dump_json(container_bundle, artifact_output_dir / "09-container-bundle.json")
+    dump_text(markdown, artifact_output_dir / "10-container-bundle.md")
+    dump_text(csv_text, artifact_output_dir / "11-lead-workflow.csv")
     if include_feishu:
         feishu_bundle = build_bundle(output_dir, combo_run_id, selected_lead_id)
-        dump_json(feishu_bundle, output_dir / "12-feishu-sandbox-bundle.json")
-        dump_json(feishu_bundle, output_dir / "09-feishu-workflow-bundle.json")
+        dump_json(feishu_bundle, artifact_output_dir / "12-feishu-sandbox-bundle.json")
+        dump_json(feishu_bundle, artifact_output_dir / "09-feishu-workflow-bundle.json")
 
 
 def main() -> None:

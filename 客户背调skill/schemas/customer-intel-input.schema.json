@@ -2,11 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Trade Customer Intel Input v2",
   "type": "object",
-  "additionalProperties": true,
+  "additionalProperties": false,
   "anyOf": [
-    { "required": ["company_name"] },
-    { "required": ["person_name"] },
-    { "required": ["email"] }
+    {
+      "required": ["company_name"],
+      "properties": { "company_name": { "type": "string", "minLength": 1 } }
+    },
+    {
+      "required": ["person_name"],
+      "properties": { "person_name": { "type": "string", "minLength": 1 } }
+    },
+    {
+      "required": ["email"],
+      "properties": { "email": { "type": "string", "minLength": 1 } }
+    }
   ],
   "properties": {
     "company_name": { "type": "string" },

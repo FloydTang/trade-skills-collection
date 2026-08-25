@@ -1,8 +1,8 @@
 # 客户搜索 / 线索发现 Skill for OpenClaw
 
-当前状态：可演示
+当前状态：可交付运行时适配器
 
-这个目录提供 OpenClaw-native 的最小包装版本。
+这个目录提供 OpenClaw-native 运行时适配器，复用同一套客户搜索核心契约与回归。
 
 定位：
 

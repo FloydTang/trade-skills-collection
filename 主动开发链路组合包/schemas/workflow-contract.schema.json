@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/FloydTang/trade-skills-collection/主动开发链路组合包/schemas/workflow-contract.schema.json",
+  "title": "Trade Active Outreach Workflow Config v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "run_id",
+    "start_mode",
+    "customer_intel",
+    "outreach"
+  ],
+  "properties": {
+    "contract_version": { "const": "1.0" },
+    "run_id": { "type": "string", "minLength": 1, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$" },
+    "start_mode": { "enum": ["discovery", "customer_intel"] },
+    "lead_discovery": { "$ref": "#/$defs/lead_discovery" },
+    "customer_intel": { "$ref": "#/$defs/customer_intel" },
+    "outreach": { "$ref": "#/$defs/outreach" },
+    "exports": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "container_bundle": { "type": "boolean", "default": true },
+        "feishu_sandbox": { "type": "boolean", "default": false }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "start_mode": { "const": "discovery" } } },
+      "then": { "required": ["lead_discovery"] }
+    }
+  ],
+  "$defs": {
+    "inline_or_path": {
+      "oneOf": [
+        { "required": ["input"] },
+        { "required": ["input_json"] }
+      ]
+    },
+    "lead_discovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "selected_lead_id"],
+      "properties": {
+        "mode": { "enum": ["fixture", "live"] },
+        "selected_lead_id": { "type": "string", "minLength": 1 },
+        "input": { "type": "object" },
+        "input_json": { "type": "string", "minLength": 1 },
+        "fixtures": { "type": "object" },
+        "fixtures_json": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        { "$ref": "#/$defs/inline_or_path" },
+        {
+          "if": { "properties": { "mode": { "const": "fixture" } } },
+          "then": {
+            "oneOf": [
+              { "required": ["fixtures"] },
+              { "required": ["fixtures_json"] }
+            ]
+          }
+        }
+      ]
+    },
+    "customer_intel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": { "enum": ["live_web", "evidence", "reviewed_report"] },
+        "input": { "type": "object" },
+        "input_json": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "object" },
+        "evidence_json": { "type": "string", "minLength": 1 },
+        "report": { "type": "object" },
+        "report_json": { "type": "string", "minLength": 1 }
+      }
+    },
+    "outreach": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sender_company"],
+      "properties": {
+        "email_type": { "type": "string", "minLength": 1, "default": "first_touch" },
+        "product_or_offer": { "type": "string" },
+        "sender_name": { "type": "string" },
+        "sender_company": { "type": "string", "minLength": 1 },
+        "previous_contact_context": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["email_type"],
+            "properties": { "email_type": { "const": "follow_up" } }
+          },
+          "then": {
+            "required": ["previous_contact_context"],
+            "properties": {
+              "previous_contact_context": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "run_id",
+        "report_sha256",
+        "angle_id",
+        "reviewer",
+        "approved_at"
+      ],
+      "properties": {
+        "contract_version": { "const": "1.0" },
+        "run_id": { "type": "string", "minLength": 1 },
+        "report_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "angle_id": { "type": "string", "pattern": "^ANGLE-[0-9]{2,}$" },
+        "reviewer": { "type": "string", "minLength": 1 },
+        "approved_at": { "type": "string", "minLength": 1 }
+      }
+    },
+    "run_manifest": {
+      "type": "object",
+      "required": [
+        "contract_version",
+        "run_id",
+        "config_hash",
+        "status",
+        "current_stage",
+        "stages",
+        "artifacts",
+        "updated_at"
+      ],
+      "properties": {
+        "contract_version": { "const": "1.0" },
+        "status": {
+          "enum": [
+            "running",
+            "applying_approval",
+            "awaiting_sales_angle_approval",
+            "hold_for_manual_review",
+            "failed",
+            "completed"
+          ]
+        }
+      }
+    }
+  }
+}

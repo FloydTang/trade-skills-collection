@@ -3,6 +3,20 @@
   "title": "TradeCustomerIntelLeadInput",
   "type": "object",
   "additionalProperties": false,
+  "anyOf": [
+    {
+      "required": ["company_name"],
+      "properties": { "company_name": { "type": "string", "minLength": 1 } }
+    },
+    {
+      "required": ["person_name"],
+      "properties": { "person_name": { "type": "string", "minLength": 1 } }
+    },
+    {
+      "required": ["email"],
+      "properties": { "email": { "type": "string", "minLength": 1 } }
+    }
+  ],
   "properties": {
     "company_name": {
       "type": "string"

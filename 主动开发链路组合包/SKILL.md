@@ -1,14 +1,14 @@
 ---
 name: trade-active-outreach-combo
-description: "Run a minimal active-outreach workflow by reusing four existing foreign-trade skills: lead discovery, lead screening, customer intel, and outreach email. Use when an operator wants a conservative end-to-end demo with visible intermediate artifacts and a final editable email draft."
+description: "Run or resume a deliverable active-outreach workflow across lead discovery, screening, customer intel, and outreach email. Use when an operator or system pipeline needs durable run state, visible intermediate artifacts, evidence gates, report-bound human approval, and a final editable email draft that is never auto-sent."
 metadata: {"openclaw":{"role":"workflow_owner","container_owner":"active_outreach_combo","container_mode":"container_neutral_with_feishu_sandbox_adapter","single_skill_policy":"attach_only","table_policy":"adapt_existing_or_create_minimal","rule_capture":"ask_before_skill_update"}}
 ---
 
-# 主动开发最小闭环链路组合包
+# 主动开发工作流组合包
 
 ## Overview
 
-用这个组合包把以下 4 个已可用节点串成一条最小主动开发闭环：
+用这个组合包把以下 4 个已可用节点串成一条可暂停、可续跑、可审计的主动开发闭环：
 
 `客户搜索skill -> 线索整理skill -> 客户背调skill -> 开发信skill`
 
@@ -26,12 +26,12 @@ metadata: {"openclaw":{"role":"workflow_owner","container_owner":"active_outreac
 
 ## Workflow
 
-1. Choose `fixture` mode for repeatable regression or `live` mode for real search and customer-intel execution.
+1. Use `run_workflow.py` with a config that matches `schemas/workflow-contract.schema.json`; keep `run_minimal_demo.py` only for fixed classroom and regression runs.
 2. Convert discovery output into the lead-screening input shape.
 3. Run lead screening and export the customer-intel batch payload.
 4. Select one lead for the reviewed customer-intel stage.
 5. In fixture mode, reuse the reviewed customer-intel fixture; in live mode, execute the real customer-intel builder.
-6. Stop before email when intel gates fail or no `ANGLE-*` has explicit human approval.
+6. Stop before email when intel gates fail or no `ANGLE-*` has explicit human approval bound to the reviewed report hash.
 7. Bridge the approved angle, selected claims, and selected evidence into outreach-email input.
 8. Generate editable English outreach drafts and review notes without inventing new customer facts.
 9. Export `ContainerBundle` to JSON / Markdown / CSV and Feishu Sandbox Adapter.
@@ -57,10 +57,13 @@ metadata: {"openclaw":{"role":"workflow_owner","container_owner":"active_outreac
 ## Output Requirements
 
 - 必须生成阶段化中间产物
+- 必须生成 `00-run-manifest.json`，供系统判断完成、等待审批、业务拦截或执行失败
 - 必须保留人工复核点
-- 必须明确这是固定样例链路，不是实时联网结果承诺
 - 必须同时保留固定回归模式和真实运行模式
 - 真实模式不得自动批准销售角度，也不得绕过客户背调决策门槛
+- 首次运行不得携带销售角度批准；批准只能在报告生成后，通过 `--resume` 绑定报告哈希、审核人与时间
+- 续跑必须先核对 manifest 已登记产物的 SHA-256；产物缺失或被修改时失败关闭，不得用当前文件重写旧哈希
+- `follow_up` 必须从配置取得真实 `previous_contact_context`，不得虚构历史触达
 - 必须输出最终邮件草稿和中间桥接 JSON
 - 必须输出容器中立的 `ContainerBundle`
 - 背调节点必须给开发信提供可复核的近期信号、市场信号或保守销售角度
@@ -71,15 +74,19 @@ metadata: {"openclaw":{"role":"workflow_owner","container_owner":"active_outreac
 
 ## Main Script
 
-- [run_minimal_demo.py](./scripts/run_minimal_demo.py)
+- 生产入口：[run_workflow.py](./scripts/run_workflow.py)
+- 课堂/回归入口：[run_minimal_demo.py](./scripts/run_minimal_demo.py)
+- 配置、审批与 manifest 契约：[workflow-contract.schema.json](./schemas/workflow-contract.schema.json)
 
 ### Example
 
 ```bash
-python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
+python3 ./主动开发链路组合包/scripts/run_workflow.py \
+  --config /path/to/workflow.json \
+  --output-dir /path/to/run
 ```
 
-真实运行时可使用 `--discovery-mode live --customer-intel-mode live`。背调完成后由人工确认 `ANGLE-*`，再通过 `--approved-sales-angle-id` 继续；未批准时链路会停在背调产物。
+退出码 `10` 表示正常等待人工审批，不是执行故障。审核报告后使用 `--resume --approved-sales-angle-id ANGLE-XX --reviewer REVIEWER` 续跑；审批记录会绑定审核前报告的 SHA-256。
 
 ## Enhancement Entry
 

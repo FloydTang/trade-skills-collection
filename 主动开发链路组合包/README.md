@@ -1,15 +1,15 @@
-# 主动开发最小闭环链路组合包
+# 主动开发工作流组合包
 
-当前状态：可演示
+当前状态：可交付
 
-这个目录是默认主入口，用来把以下 4 个已完成节点串成一个最小开源闭环：
+这个目录是默认主入口，用来把以下 4 个节点串成可暂停、可续跑、可审计的主动开发工作流：
 
 `客户搜索skill -> 线索整理skill -> 客户背调skill -> 开发信skill`
 
-当前默认按两种模式理解：
+当前提供两个入口：
 
-- `课堂稳定模式`：固定样例、固定桥接、稳定演示
-- `真实业务模式`：真实输入，结果受公开数据质量和关键词配置影响
+- `scripts/run_workflow.py`：系统管道入口，使用显式配置、稳定运行目录和机器可读 manifest
+- `scripts/run_minimal_demo.py`：固定课堂样例与回归兼容入口
 
 当前落地时不建议把“组合包”当成执念。组合包的价值是让主代理少切换、能安排、能收口；真实执行仍然建议一个节点一个节点跑稳：
 
@@ -21,14 +21,20 @@
 
 当前链路里，客户背调是核心判断层：搜索找候选，整理做标准化，背调负责近期客户信号、市场/合规信号、风险判断和销售角度，开发信只调用这些信号生成可复核草稿。
 
-## 当前开源范围
+## 可交付能力
 
 开源版当前提供：
 
-- 固定样例入口
-- 最小串联脚本
+- 真实输入与固定回归两种运行方式
+- 从客户搜索开始，或从现成客户背调证据包开始
 - 阶段化中间产物
-- 可重复运行的 demo 输出
+- `00-run-manifest.json` 运行状态、失败阶段、下一步和产物哈希
+- 人工审批暂停与 `--resume` 续跑
+- 销售角度审批绑定被审阅报告的 SHA-256、审核人和审核时间
+- 每次续跑先校验 manifest 已登记产物的 SHA-256；文件缺失或被修改时拒绝继续
+- `follow_up` 模式要求在配置中提供真实的 `previous_contact_context`
+- 预期等待、业务拦截、配置错误和执行失败使用不同退出码
+- 阶段输出先写临时文件，再原子替换正式产物
 - 4 个子 skill 的开源衔接样板
 - 企业表格适配与 Skill 规则沉淀契约
 - 背调到开发信的近期信号和销售角度桥接样板
@@ -72,7 +78,44 @@
 
 ## Quick Start
 
-运行最小 demo：
+运行生产工作流：
+
+```bash
+python3 ./主动开发链路组合包/scripts/run_workflow.py \
+  --config /path/to/workflow.json \
+  --output-dir /path/to/runs/customer-001
+```
+
+当退出码为 `10` 时，读取 `00-run-manifest.json` 和 `06-customer-intel-report.json`。人工确认销售角度后续跑：
+
+```bash
+python3 ./主动开发链路组合包/scripts/run_workflow.py \
+  --config /path/to/workflow.json \
+  --output-dir /path/to/runs/customer-001 \
+  --resume \
+  --approved-sales-angle-id ANGLE-01 \
+  --reviewer reviewer-name
+```
+
+工作流配置契约见 `schemas/workflow-contract.schema.json`。稳定退出码：
+
+- `0`：完成
+- `10`：等待人工批准销售角度
+- `11`：业务门槛未通过，等待补证据或人工复核
+- `2`：配置或审批输入错误
+- `3`：阶段执行失败，可按 manifest 修复后续跑
+
+跟进邮件在 `outreach` 中使用：
+
+```json
+{
+  "email_type": "follow_up",
+  "previous_contact_context": "We shared a short product overview on 2026-08-20.",
+  "sender_company": "Your Company"
+}
+```
+
+运行固定 demo：
 
 ```bash
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
@@ -95,7 +138,7 @@ python3 ./主动开发链路组合包/scripts/run_regression_checks.py
 
 - 负责串联，不负责重写
 - 负责减少上下文切换，不负责催每条线索硬跑完整链路
-- 负责最小闭环，不负责自动发信
-- 负责开源演示，不负责在仓库里展开增强正文
+- 负责闭环运行和失败收口，不负责自动发信
+- 负责可交付系统入口，不负责在仓库里展开企业私有增强正文
 - 负责输出中立容器 bundle，不把飞书写死成唯一容器
 - 负责提供表头映射和规则沉淀契约，不负责替企业强制迁移到固定表格形态

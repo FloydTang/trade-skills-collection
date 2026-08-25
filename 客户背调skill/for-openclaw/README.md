@@ -52,6 +52,7 @@ for-openclaw/
 │   ├── report-template.md
 │   └── source-playbook.md
 ├── schemas/
+│   ├── customer-intel-evidence-input.schema.json
 │   ├── lead-input.json
 │   └── evidence-bundle.json
 └── scripts/

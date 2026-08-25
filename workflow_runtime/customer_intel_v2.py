@@ -11,6 +11,48 @@ ALLOWED_STATEMENT_TYPES = {"fact", "inference", "hypothesis"}
 ALLOWED_CONFIDENCE = {"high", "medium", "low"}
 CONFIDENCE_WEIGHT = {"high": 3, "medium": 2, "low": 1}
 SOURCE_WEIGHT = {"primary": 4, "strong_secondary": 3, "secondary": 2, "weak": 1}
+TRUSTED_STRONG_SECONDARY_DOMAINS = {
+    "bloomberg.com",
+    "crunchbase.com",
+    "dnb.com",
+    "linkedin.com",
+    "reuters.com",
+    "thecompanycheck.com",
+    "tofler.in",
+}
+BARE_PUBLIC_SUFFIX_LABELS = {"ac", "co", "com", "edu", "gob", "gov", "int", "mil", "net", "org"}
+TRUSTED_GOVERNMENT_SUFFIXES = {
+    "gc.ca",
+    "go.jp",
+    "go.kr",
+    "gob.cl",
+    "gob.es",
+    "gob.mx",
+    "gob.pe",
+    "gouv.fr",
+    "gov.ae",
+    "gov.au",
+    "gov.bd",
+    "gov.br",
+    "gov.cn",
+    "gov.hk",
+    "gov.id",
+    "gov.in",
+    "gov.ke",
+    "gov.lk",
+    "gov.my",
+    "gov.ng",
+    "gov.nz",
+    "gov.ph",
+    "gov.pk",
+    "gov.qa",
+    "gov.sa",
+    "gov.sg",
+    "gov.tw",
+    "gov.uk",
+    "gov.vn",
+    "gov.za",
+}
 DIMENSION_LABELS = {
     "customer_maturity": "客户成熟度",
     "buying_capacity": "潜在采购能力",
@@ -62,41 +104,152 @@ def resolve_industry_lens(requested: str, seller_context: dict[str, Any], compan
         ]
     ).lower()
     keyword_sets = {
-        "industrial": ("automation", "machinery", "machine", "equipment", "component", "asrs", "plc", "servo", "制造", "机械", "自动化", "零部件", "仓储"),
-        "food": ("food", "frozen", "beverage", "private label", "cold chain", "食品", "冷冻", "饮料", "冷链"),
-        "consumer": ("retail", "consumer", "apparel", "furniture", "home textile", "零售", "消费品", "服装", "家具", "家纺"),
+        "industrial": (
+            "industrial",
+            "industrial automation",
+            "factory automation",
+            "warehouse automation",
+            "material handling",
+            "automation",
+            "machinery",
+            "machine",
+            "manufacturing",
+            "robotics",
+            "robot",
+            "plc",
+            "servo",
+            "cnc",
+            "pneumatic",
+            "conveyor",
+            "asrs",
+            "工业",
+            "工厂自动化",
+            "工业自动化",
+            "机械",
+            "制造",
+            "机器人",
+            "仓储自动化",
+            "物料搬运",
+        ),
+        "food": (
+            "food",
+            "food processing",
+            "frozen",
+            "beverage",
+            "private label",
+            "cold chain",
+            "bakery",
+            "dairy",
+            "seafood",
+            "食品",
+            "食品加工",
+            "冷冻",
+            "饮料",
+            "冷链",
+            "烘焙",
+            "乳制品",
+            "海鲜",
+        ),
+        "consumer": (
+            "retail",
+            "consumer",
+            "consumer electronics",
+            "home appliance",
+            "apparel",
+            "furniture",
+            "home textile",
+            "cosmetics",
+            "toys",
+            "零售",
+            "消费电子",
+            "消费品",
+            "家电",
+            "服装",
+            "家具",
+            "家纺",
+            "化妆品",
+            "玩具",
+        ),
     }
     scores = {
         lens: sum(1 for keyword in keywords if keyword in corpus)
         for lens, keywords in keyword_sets.items()
     }
-    best = max(scores, key=scores.get)
-    return best if scores[best] else "general"
+    best_score = max(scores.values(), default=0)
+    winners = [lens for lens, score in scores.items() if score == best_score and score > 0]
+    return winners[0] if len(winners) == 1 else "general"
 
 
 def _domain(url: str) -> str:
     if not url:
         return ""
     parsed = urllib.parse.urlparse(url if "://" in url else f"https://{url}")
-    return parsed.netloc.lower().removeprefix("www.")
+    return (parsed.hostname or "").lower().removeprefix("www.")
+
+
+def _plausible_official_domain(domain: str) -> bool:
+    labels = [label for label in domain.split(".") if label]
+    if len(labels) < 2:
+        return False
+    if len(labels) == 2 and labels[0] in BARE_PUBLIC_SUFFIX_LABELS:
+        return False
+    government_labels = {"go", "gob", "gouv", "gov"}.intersection(labels)
+    return not government_labels or bool(_government_source_key(domain))
+
+
+def _government_source_key(domain: str) -> str:
+    labels = domain.split(".")
+    if domain.endswith(".gov") and len(labels) >= 2:
+        return ".".join(labels[-2:])
+    for suffix in TRUSTED_GOVERNMENT_SUFFIXES:
+        if domain.endswith(f".{suffix}"):
+            return ".".join(labels[-(len(suffix.split(".")) + 1):])
+    return ""
+
+
+def _trusted_strong_source_key(domain: str) -> str:
+    return next(
+        (
+            host
+            for host in TRUSTED_STRONG_SECONDARY_DOMAINS
+            if domain == host or domain.endswith(f".{host}")
+        ),
+        "",
+    )
+
+
+def _independent_source_key(url: str, source_identity: str = "") -> str:
+    domain = _domain(url)
+    if domain:
+        return _trusted_strong_source_key(domain) or _government_source_key(domain) or domain
+    return _text(source_identity).casefold()
+
+
+def _auditable_http_url(value: str) -> str:
+    text = _text(value)
+    if not text:
+        return ""
+    parsed = urllib.parse.urlparse(text)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        return ""
+    return text
 
 
 def classify_source_quality(url: str, source_type: str, official_website: str) -> str:
-    source = source_type.lower()
     domain = _domain(url)
     official_domain = _domain(official_website)
-    if official_domain and domain == official_domain:
+    if _plausible_official_domain(official_domain) and domain == official_domain:
         return "primary"
-    if domain.endswith("linkedin.com"):
-        return "strong_secondary"
-    if any(domain.endswith(host) for host in ("facebook.com", "instagram.com", "youtube.com", "x.com", "twitter.com")):
-        return "secondary"
-    if any(token in source for token in ("government", "registry", "filing", "official")):
+    if _government_source_key(domain):
         return "primary"
-    if any(token in source for token in ("financial", "database", "news", "linkedin", "association")):
+    if _trusted_strong_source_key(domain):
         return "strong_secondary"
-    if any(token in source for token in ("facebook", "instagram", "youtube", "x", "twitter", "snapshot")):
+    if any(
+        domain == host or domain.endswith(f".{host}")
+        for host in ("facebook.com", "instagram.com", "youtube.com", "x.com", "twitter.com")
+    ):
         return "secondary"
+    source = re.sub(r"[^a-z0-9]+", "_", source_type.lower()).strip("_")
     if source in {"web", "duckduckgo", "tavily", "search"}:
         return "weak"
     return "secondary"
@@ -110,15 +263,28 @@ def build_evidence_ledger(
     for raw in evidence:
         if not isinstance(raw, dict):
             continue
-        url = _text(raw.get("url"))
-        title = _text(raw.get("title")) or url or "Untitled evidence"
+        url = _auditable_http_url(_text(raw.get("url") or raw.get("source_url")))
+        source_identity = _text(
+            raw.get("source_id")
+            or raw.get("source_name")
+            or raw.get("source_title")
+            or raw.get("title")
+        )
+        title = _text(raw.get("title")) or source_identity or url
         note = _text(raw.get("note") or raw.get("snippet") or raw.get("text"))
+        if not title or (
+            not url
+            and title.casefold() in {"untitled evidence", "unknown", "n/a", "na", "web", "source"}
+        ):
+            continue
         key = (url.rstrip("/"), note[:120])
         if key in seen or (not url and not note):
             continue
         seen.add(key)
         source_type = _text(raw.get("source_type") or raw.get("source") or raw.get("platform")) or "web"
-        quality = _text(raw.get("source_quality")) or classify_source_quality(url, source_type, official_website)
+        quality = classify_source_quality(url, source_type, official_website)
+        if not url and quality in {"primary", "strong_secondary"}:
+            quality = "secondary"
         observed_at = _text(raw.get("observed_at_or_period") or raw.get("observed_at")) or "unknown"
         confidence = _text(raw.get("confidence")).lower()
         if confidence not in ALLOWED_CONFIDENCE:
@@ -130,6 +296,7 @@ def build_evidence_ledger(
                 "title": title,
                 "url": url,
                 "source_type": source_type,
+                "source_identity": source_identity or title,
                 "source_quality": quality,
                 "observed_at_or_period": observed_at,
                 "retrieved_at": _text(raw.get("retrieved_at")) or generated_at,
@@ -198,10 +365,12 @@ def build_claim_ledger(
                 claims.append(claim)
 
     evidence_by_url = {item["url"].rstrip("/"): item["evidence_id"] for item in evidence_ledger if item["url"]}
+    official_domain = _domain(official_website)
     official_ids = [
         item["evidence_id"]
         for item in evidence_ledger
-        if item["source_quality"] == "primary"
+        if _plausible_official_domain(official_domain)
+        and _domain(item.get("url", "")) == official_domain
     ]
     if official_website and not any(item["category"] == "identity" for item in claims):
         claims.append(
@@ -219,6 +388,27 @@ def build_claim_ledger(
             }
         )
     if company_summary and not any(item["category"] == "business_line" for item in claims):
+        summary_tokens = _tokens(company_summary)
+        summary_evidence_ids = [
+            item["evidence_id"]
+            for item in evidence_ledger
+            if summary_tokens
+            and summary_tokens.intersection(
+                _tokens(
+                    " ".join(
+                        [
+                            _text(item.get("title")),
+                            _text(item.get("note")),
+                            *[
+                                _text(claim.get("statement") or claim.get("claim"))
+                                for claim in item.get("claims") or []
+                                if isinstance(claim, dict)
+                            ],
+                        ]
+                    )
+                )
+            )
+        ]
         claims.append(
             {
                 "claim_id": f"CL-{len(claims) + 1:03d}",
@@ -226,7 +416,7 @@ def build_claim_ledger(
                 "statement": company_summary,
                 "statement_type": "inference",
                 "confidence": "medium" if official_ids else "low",
-                "evidence_ids": official_ids[:3] or [item["evidence_id"] for item in evidence_ledger[:2]],
+                "evidence_ids": summary_evidence_ids[:3],
                 "observed_at_or_period": "current_snapshot",
                 "dimension": "",
                 "rating": None,
@@ -260,8 +450,17 @@ def build_claim_ledger(
         ]
     )
     overlap = _tokens(product_text) & _tokens(company_summary)
-    if product_text:
-        fit_rating = 4 if len(overlap) >= 2 else 3 if overlap else None
+    if product_text and not any(item["category"] == "product_fit" for item in claims):
+        fit_evidence_ids = list(
+            dict.fromkeys(
+                evidence_id
+                for claim in claims
+                if claim.get("category") == "business_line"
+                and overlap.intersection(_tokens(_text(claim.get("statement"))))
+                for evidence_id in claim.get("evidence_ids") or []
+            )
+        )
+        fit_rating = 4 if len(overlap) >= 2 and fit_evidence_ids else 3 if overlap and fit_evidence_ids else None
         claims.append(
             {
                 "claim_id": f"CL-{len(claims) + 1:03d}",
@@ -273,7 +472,7 @@ def build_claim_ledger(
                 ),
                 "statement_type": "hypothesis",
                 "confidence": "medium" if overlap else "low",
-                "evidence_ids": official_ids[:3] or [item["evidence_id"] for item in evidence_ledger[:2]],
+                "evidence_ids": fit_evidence_ids[:3],
                 "observed_at_or_period": "current_snapshot",
                 "dimension": "product_fit",
                 "rating": fit_rating,
@@ -365,22 +564,63 @@ def build_decision(
     seller_context: dict[str, Any],
     ambiguity_notes: list[str],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    strong_evidence_keys = {
-        item["url"].rstrip("/") or item["evidence_id"]
-        for item in evidence_ledger
-        if SOURCE_WEIGHT.get(item["source_quality"], 0) >= 3
-    }
-    core_claims = [item for item in claims if item["category"] in {"identity", "business_line"} and item["evidence_ids"]]
-    product_fit = _best_dimension(claims, "product_fit")
+    evidence_by_id = {item["evidence_id"]: item for item in evidence_ledger}
+
+    def strong_source_keys(selected_claims: list[dict[str, Any]]) -> set[str]:
+        keys: set[str] = set()
+        for claim in selected_claims:
+            for evidence_id in claim.get("evidence_ids") or []:
+                evidence = evidence_by_id.get(evidence_id)
+                if not evidence or SOURCE_WEIGHT.get(evidence.get("source_quality"), 0) < 3:
+                    continue
+                key = _independent_source_key(
+                    evidence.get("url", ""), evidence.get("source_identity", "")
+                )
+                if key:
+                    keys.add(key)
+        return keys
+
+    identity_claims = [
+        item
+        for item in claims
+        if item["category"] in {"identity", "registration", "address"}
+        and item.get("status") == "supported"
+        and item.get("evidence_ids")
+    ]
+    business_claims = [
+        item
+        for item in claims
+        if item["category"] in {"business_line", "business_model"}
+        and item.get("status") == "supported"
+        and item.get("evidence_ids")
+    ]
+    identity_strong_keys = strong_source_keys(identity_claims)
+    business_strong_keys = strong_source_keys(business_claims)
+    core_strong_keys = identity_strong_keys | business_strong_keys
+    product_fit_candidates = [
+        item
+        for item in claims
+        if item.get("category") == "product_fit" and item.get("rating")
+    ]
+    product_fit = max(
+        product_fit_candidates,
+        key=lambda item: (
+            bool(strong_source_keys([item])),
+            CONFIDENCE_WEIGHT.get(item["confidence"], 0),
+            len(item.get("evidence_ids") or []),
+        ),
+        default=None,
+    )
+    product_fit_strong_keys = strong_source_keys([product_fit]) if product_fit else set()
     identity_gate = (
         _gate("pass", "主体置信度高。") if entity_confidence == "high"
         else _gate("review", "主体置信度中等，需要人工确认。") if entity_confidence == "medium"
         else _gate("hold", "主体置信度低。")
     )
     evidence_gate = (
-        _gate("pass", "至少两条强证据支持主体或业务判断。")
-        if len(strong_evidence_keys) >= 2 and len(core_claims) >= 2
-        else _gate("review", "证据可用但强来源或核心主张不足。")
+        _gate("pass", "至少两个独立强来源分别绑定主体与业务主张。")
+        if identity_strong_keys and business_strong_keys and len(core_strong_keys) >= 2
+        else _gate("review", "强来源未绑定到完整的主体与业务主张，或独立来源不足。")
         if evidence_ledger
         else _gate("hold", "没有可审计证据。")
     )
@@ -396,9 +636,9 @@ def build_decision(
         else _gate("hold", "缺少我方产品上下文。")
     )
     fit_gate = (
-        _gate("pass", "公开业务与我方产品存在证据化交集。")
-        if product_fit and product_fit["rating"] >= 3
-        else _gate("hold", "尚未证明产品匹配。")
+        _gate("pass", "产品匹配主张已绑定至少一个强来源。")
+        if product_fit and product_fit["rating"] >= 3 and product_fit_strong_keys
+        else _gate("hold", "尚未以强来源证明产品匹配。")
     )
     risk_gate = _gate("hold", "风险评级为 High。") if risk_rating == "High" else _gate("pass", "未触发高风险拦截。")
     gates = {
@@ -450,29 +690,263 @@ def _claim_text(claims: list[dict[str, Any]], category: str, fallback: str = "�
     return matches[0]["statement"] if matches else fallback
 
 
+def _first_claim(claims: list[dict[str, Any]], *categories: str) -> dict[str, Any] | None:
+    matches = _claims_for(claims, *categories)
+    return matches[0] if matches else None
+
+
+INDUSTRIAL_CONCEPT_RULES = (
+    ("asrs", (r"(?<![A-Za-z0-9_])asrs(?![A-Za-z0-9_])",), "相关系统", "the relevant system"),
+    (
+        "industrial-automation",
+        (r"\bindustrial[\s-]+automation(?:[\s-]+module)?\b", r"工业自动化(?:模块|系统|方案)?", r"自动化模块"),
+        "相关业务应用",
+        "the relevant business application",
+    ),
+    (
+        "engineering-integration",
+        (r"\b(?:engineering|system)[\s-]+integration\b", r"工程集成", r"系统集成"),
+        "相关业务协作",
+        "the relevant business coordination",
+    ),
+    (
+        "bom",
+        (r"(?<![A-Za-z0-9_])bom(?![A-Za-z0-9_])", r"\bbill\s+of\s+materials\b", r"物料清单"),
+        "相关配置",
+        "the relevant configuration",
+    ),
+    ("motor", (r"\bmotors?\b", r"电机"), "相关部件", "the relevant part"),
+    ("drive", (r"\bdrives?\b", r"驱动"), "相关控制要求", "the relevant control requirements"),
+    (
+        "warehouse-automation",
+        (r"warehouse[\s-]+automation", r"仓储自动化"),
+        "相关仓储应用",
+        "the relevant warehouse application",
+    ),
+    ("storage", (r"\bstorage\b",), "相关方案", "the relevant solution"),
+    (
+        "material-handling",
+        (r"\bmaterial[\s-]+handling\b", r"物料搬运"),
+        "相关应用",
+        "the relevant application",
+    ),
+)
+
+INDUSTRIAL_CONCEPT_LABELS = {
+    "asrs": ("ASRS", "ASRS"),
+    "industrial-automation": ("工业自动化", "industrial automation"),
+    "engineering-integration": ("工程集成", "engineering integration"),
+    "bom": ("BOM", "BOM"),
+    "motor": ("电机", "motor"),
+    "drive": ("驱动", "drive"),
+    "warehouse-automation": ("仓储自动化", "warehouse automation"),
+    "storage": ("仓储方案", "storage solution"),
+    "material-handling": ("物料搬运", "material handling"),
+}
+
+
+def _seller_offer_text(seller_context: dict[str, Any]) -> str:
+    return " ".join(
+        [
+            _text(seller_context.get("product_or_offer")),
+            *_list(seller_context.get("product_categories")),
+            *_list(seller_context.get("value_propositions")),
+        ]
+    ).lower()
+
+
+def _matches_any_pattern(text: str, patterns: tuple[str, ...]) -> bool:
+    return any(re.search(pattern, text, flags=re.IGNORECASE) for pattern in patterns)
+
+
+def _supported_industrial_concepts(
+    selected_claims: list[dict[str, Any]], seller_context: dict[str, Any]
+) -> set[str]:
+    claim_text = " ".join(_text(claim.get("statement")) for claim in selected_claims).lower()
+    seller_text = _seller_offer_text(seller_context)
+    return {
+        name
+        for name, patterns, _, _ in INDUSTRIAL_CONCEPT_RULES
+        if _matches_any_pattern(claim_text, patterns) and _matches_any_pattern(seller_text, patterns)
+    }
+
+
+def _sanitize_angle_text(
+    text: str,
+    selected_claims: list[dict[str, Any]],
+    seller_context: dict[str, Any],
+) -> str:
+    text = _text(text)
+    if not text:
+        return ""
+    supported = _supported_industrial_concepts(selected_claims, seller_context)
+    use_chinese = bool(re.search(r"[\u4e00-\u9fff]", text))
+    sanitized = text
+    for name, patterns, chinese_replacement, english_replacement in INDUSTRIAL_CONCEPT_RULES:
+        if name in supported:
+            continue
+        if not _matches_any_pattern(sanitized, patterns):
+            continue
+        replacement = chinese_replacement if use_chinese else english_replacement
+        for pattern in patterns:
+            sanitized = re.sub(pattern, replacement, sanitized, flags=re.IGNORECASE)
+    return _text(sanitized)
+
+
+def _claim_basis(
+    claims: list[dict[str, Any]], seller_context: dict[str, Any]
+) -> str:
+    return "；".join(
+        _sanitize_angle_text(claim.get("statement", ""), claims, seller_context)
+        for claim in claims
+        if _text(claim.get("statement"))
+    )
+
+
+def build_evidence_sales_angles(
+    claims: list[dict[str, Any]], seller_context: dict[str, Any], industry_lens: str
+) -> list[dict[str, Any]]:
+    offer = seller_context.get("product_or_offer") or "我方产品/方案"
+    value_propositions = seller_context.get("value_propositions") or []
+    value_text = "、".join(value_propositions[:3]) or "选型、交期和定制支持"
+    product_fit = _first_claim(claims, "product_fit")
+    procurement_clue = _first_claim(claims, "procurement_clue")
+    supplier_entry = _first_claim(claims, "supplier_entry_point")
+    replacement = _first_claim(claims, "replacement_point")
+    procurement_concern = _first_claim(claims, "procurement_concern")
+    technical = _first_claim(claims, "technical_capability")
+    business_line = _first_claim(claims, "business_line")
+
+    if industry_lens != "industrial":
+        return []
+    if not offer or not product_fit or not (procurement_clue or supplier_entry):
+        return []
+
+    clue = procurement_clue or supplier_entry
+    opening_claims = [clue, product_fit]
+    supported_concepts = _supported_industrial_concepts(opening_claims, seller_context)
+    topic_cn = "、".join(
+        INDUSTRIAL_CONCEPT_LABELS.get(name, (name, name))[0]
+        for name in sorted(supported_concepts)
+    ) or "公开线索中的具体产品线或项目"
+    topic_en = ", ".join(
+        INDUSTRIAL_CONCEPT_LABELS.get(name, (name, name))[1]
+        for name in sorted(supported_concepts)
+    ) or "the specific product line or project in the public clue"
+    angles: list[dict[str, Any]] = [
+        {
+            "cn": (
+                f"围绕{topic_cn}先确认公开线索中的规格、接口和采购约束，"
+                f"再评估我方 {offer} 是否匹配。"
+            ),
+            "en": (
+                f"Based on the public clue about {topic_en}, could we confirm the relevant specifications, "
+                f"interfaces and purchasing constraints before assessing whether our {offer} fits?"
+            ),
+            "why": _claim_basis(opening_claims, seller_context),
+            "avoid": "不要把公开线索中的可能性写成已确认的采购计划、现用品牌或替代意向。",
+            "_claim_ids": [clue["claim_id"], product_fit["claim_id"]],
+        }
+    ]
+
+    if replacement or procurement_concern:
+        replacement_basis = replacement or procurement_concern
+        claim_ids = [replacement_basis["claim_id"], product_fit["claim_id"]]
+        if procurement_concern and procurement_concern["claim_id"] not in claim_ids:
+            claim_ids.append(procurement_concern["claim_id"])
+        replacement_claims = [replacement_basis, product_fit]
+        if procurement_concern and procurement_concern["claim_id"] not in {
+            claim["claim_id"] for claim in replacement_claims
+        }:
+            replacement_claims.append(procurement_concern)
+        angles.append(
+            {
+                "cn": (
+                    f"先确认公开线索中的具体需求和约束，再用我方 {offer} 对照 {value_text}，"
+                    "以参数或技术资料核对作为下一步。"
+                ),
+                "en": (
+                    "After confirming the specific requirements and constraints in the public clue, we can "
+                    f"compare our {offer} against {', '.join(value_propositions[:3]) or 'selection, lead time and customization'} "
+                    "and use a parameter or technical-document review as the next step."
+                ),
+                "why": _claim_basis(replacement_claims, seller_context),
+                "avoid": "没有现用型号和工况参数时，不承诺兼容、降本比例、寿命或交期优势。",
+                "_claim_ids": claim_ids,
+            }
+        )
+
+    if technical or business_line:
+        engineering_basis = technical or business_line
+        engineering_claims = [engineering_basis, product_fit]
+        if technical:
+            angle_cn = (
+                f"把首轮目标设为工程需求确认，而不是立即报价。围绕有证据支持的技术能力，"
+                f"提供一页 {offer} 选型清单，邀请相关工程人员确认应用参数和验证条件。"
+            )
+            angle_en = (
+                "A practical first step may be an engineering-fit review rather than a price-first pitch. "
+                f"We can share a one-page selection checklist for our {offer} and ask the relevant technical "
+                "contact to confirm the application parameters and validation conditions."
+            )
+        else:
+            angle_cn = (
+                f"把首轮目标设为应用需求确认，而不是立即报价。围绕公开业务线提供一页 {offer} "
+                "适配问题清单，请相关产品或采购人员确认需求与验证条件。"
+            )
+            angle_en = (
+                "A practical first step may be an application-fit review rather than a price-first pitch. "
+                f"We can share a one-page fit checklist for our {offer} and ask the relevant product or sourcing "
+                "contact to confirm the requirements and validation conditions."
+            )
+        angles.append(
+            {
+                "cn": angle_cn,
+                "en": angle_en,
+                "why": _claim_basis(engineering_claims, seller_context),
+                "avoid": (
+                    "不要把对方具备研发能力推断成其正在采购，也不要未经确认发送大而全目录。"
+                    if technical
+                    else "不要把公开业务线写成已确认采购，也不要未经确认发送大而全目录。"
+                ),
+                "_claim_ids": [engineering_basis["claim_id"], product_fit["claim_id"]],
+            }
+        )
+    return angles[:3]
+
+
 def enrich_sales_angles(
     sales_angles: list[dict[str, Any]],
     claims: list[dict[str, Any]],
     evidence_ledger: list[dict[str, Any]],
     seller_context: dict[str, Any],
+    industry_lens: str,
 ) -> list[dict[str, Any]]:
     evidence_by_id = {item["evidence_id"]: item for item in evidence_ledger}
     fallback_claims = _claims_for(claims, "product_fit", "recent_signal", "business_line")
+    evidence_angles = build_evidence_sales_angles(claims, seller_context, industry_lens)
+    source_angles = evidence_angles or sales_angles
     enriched: list[dict[str, Any]] = []
-    for index, angle in enumerate(sales_angles, start=1):
+    for index, angle in enumerate(source_angles, start=1):
         item = dict(angle)
-        angle_tokens = _tokens(" ".join(_text(item.get(key)) for key in ("cn", "en", "why")))
-        ranked = sorted(
-            claims,
-            key=lambda claim: (
-                len(angle_tokens & _tokens(claim["statement"])),
-                CONFIDENCE_WEIGHT.get(claim["confidence"], 0),
-            ),
-            reverse=True,
-        )
-        selected_claims = [claim for claim in ranked if angle_tokens & _tokens(claim["statement"])][:2]
-        if not selected_claims:
-            selected_claims = fallback_claims[:2]
+        preferred_claim_ids = item.pop("_claim_ids", [])
+        if preferred_claim_ids:
+            selected_claims = [claim for claim in claims if claim["claim_id"] in preferred_claim_ids]
+        else:
+            angle_tokens = _tokens(" ".join(_text(item.get(key)) for key in ("cn", "en", "why")))
+            ranked = sorted(
+                claims,
+                key=lambda claim: (
+                    len(angle_tokens & _tokens(claim["statement"])),
+                    CONFIDENCE_WEIGHT.get(claim["confidence"], 0),
+                ),
+                reverse=True,
+            )
+            selected_claims = [claim for claim in ranked if angle_tokens & _tokens(claim["statement"])][:2]
+            if not selected_claims:
+                selected_claims = fallback_claims[:2]
+        for key in ("cn", "en", "why", "avoid"):
+            item[key] = _sanitize_angle_text(item.get(key, ""), selected_claims, seller_context)
         evidence_ids = list(
             dict.fromkeys(
                 evidence_id
@@ -494,10 +968,16 @@ def enrich_sales_angles(
                         if eid in evidence_by_id and evidence_by_id[eid]["url"]
                     )
                 ),
-                "buyer_or_component_clue": _claim_text(claims, "procurement_clue"),
-                "replacement_point": _claim_text(claims, "replacement_point"),
+                "buyer_or_component_clue": _sanitize_angle_text(
+                    _claim_text(selected_claims, "procurement_clue"), selected_claims, seller_context
+                ),
+                "replacement_point": _sanitize_angle_text(
+                    _claim_text(selected_claims, "replacement_point"), selected_claims, seller_context
+                ),
                 "authorized_materials": seller_context["authorized_materials"],
-                "why_this_angle_fits": item.get("why") or _claim_text(claims, "product_fit"),
+                "why_this_angle_fits": item.get("why") or _sanitize_angle_text(
+                    _claim_text(selected_claims, "product_fit"), selected_claims, seller_context
+                ),
             }
         )
         enriched.append(item)
@@ -643,7 +1123,13 @@ def upgrade_customer_intel_report(
     verdict = build_verdict_card(claim_ledger, intel_decision["recommended_next_action"], intel_decision["review_focus"])
     intel_decision["sieger_status"] = verdict["intel_decision"]
     intel_decision["sieger_review_focus"] = verdict["review_focus"]
-    enriched_angles = enrich_sales_angles(sales_angles, claim_ledger, evidence_ledger, seller_context)
+    enriched_angles = enrich_sales_angles(
+        sales_angles,
+        claim_ledger,
+        evidence_ledger,
+        seller_context,
+        industry_lens,
+    )
     return {
         "contract_version": "2.0",
         "seller_context": seller_context,

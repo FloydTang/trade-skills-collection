@@ -73,28 +73,49 @@ class SearchResult:
 
 def load_input(path: str | None) -> dict[str, Any]:
     if path:
-        return json.loads(Path(path).read_text())
+        payload = json.loads(Path(path).read_text(encoding="utf-8"))
+        if not isinstance(payload, dict):
+            raise SystemExit("Customer-intel input must be a JSON object.")
+        return payload
     raw = sys.stdin.read().strip()
     if raw:
-        return json.loads(raw)
+        payload = json.loads(raw)
+        if not isinstance(payload, dict):
+            raise SystemExit("Customer-intel input must be a JSON object.")
+        return payload
     return {}
 
 
+def input_text(data: dict[str, Any], key: str, default: str = "") -> str:
+    value = data.get(key, default)
+    if value is None:
+        return ""
+    if not isinstance(value, str):
+        raise SystemExit(f"{key} must be a string.")
+    return value.strip()
+
+
 def normalize_input(data: dict[str, Any]) -> dict[str, Any]:
+    if "seller_context" in data and not isinstance(data.get("seller_context"), dict):
+        raise SystemExit("seller_context must be an object.")
+    if "screening_context" in data and not isinstance(data.get("screening_context"), dict):
+        raise SystemExit("screening_context must be an object.")
     normalized = {
-        "company_name": str(data.get("company_name", "")).strip(),
-        "person_name": str(data.get("person_name", "")).strip(),
-        "email": str(data.get("email", "")).strip(),
-        "company_website": str(data.get("company_website", "")).strip(),
-        "country_or_market": str(data.get("country_or_market", "")).strip(),
-        "product_or_offer": str(data.get("product_or_offer", "")).strip(),
-        "industry_lens": str(data.get("industry_lens", "auto")).strip() or "auto",
+        "company_name": input_text(data, "company_name"),
+        "person_name": input_text(data, "person_name"),
+        "email": input_text(data, "email"),
+        "company_website": input_text(data, "company_website"),
+        "country_or_market": input_text(data, "country_or_market"),
+        "product_or_offer": input_text(data, "product_or_offer"),
+        "industry_lens": input_text(data, "industry_lens", "auto") or "auto",
         "seller_context": data.get("seller_context") if isinstance(data.get("seller_context"), dict) else {},
         "screening_context": data.get("screening_context") if isinstance(data.get("screening_context"), dict) else {},
-        "notes": str(data.get("notes", "")).strip(),
+        "notes": input_text(data, "notes"),
     }
     if not any(normalized[key] for key in ("company_name", "person_name", "email")):
         raise SystemExit("At least one of company_name, person_name, or email is required.")
+    if normalized["industry_lens"] not in {"auto", "industrial", "food", "consumer", "general"}:
+        raise SystemExit("industry_lens must be auto, industrial, food, consumer, or general.")
     return normalized
 
 
@@ -195,10 +216,7 @@ def search(query: str, limit: int = SEARCH_LIMIT) -> list[SearchResult]:
 
 def fetch_snapshot(url: str) -> str:
     reader_url = "https://r.jina.ai/http://" + url.removeprefix("https://").removeprefix("http://")
-    try:
-        return fetch_url(reader_url)
-    except Exception:
-        return ""
+    return fetch_url(reader_url)
 
 
 def build_queries(data: dict[str, str], domain: str) -> list[str]:
@@ -660,7 +678,12 @@ def entity_confidence(data: dict[str, str], website: str, results: list[SearchRe
 SIEGER_NO_COVERAGE = "公开来源未覆盖"
 
 
-def build_report(data: dict[str, str], results: list[SearchResult], snapshots: dict[str, str]) -> dict[str, Any]:
+def build_report(
+    data: dict[str, str],
+    results: list[SearchResult],
+    snapshots: dict[str, str],
+    collection_errors: list[dict[str, str]] | None = None,
+) -> dict[str, Any]:
     domain = extract_domain(data["email"]) or website_to_domain(data["company_website"])
     website = choose_website(data, results, domain)
     website_summary = " ".join(summarize_text_blocks([snapshots.get(website, "")])) if website else ""
@@ -762,6 +785,8 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         ),
     ]
 
+    errors = collection_errors or []
+    collection_status = "complete" if not errors else "partial" if results else "failed"
     return {
         "summary_cn": " ".join(summary_cn_parts),
         "summary_en": " ".join(summary_en_parts),
@@ -797,6 +822,8 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         "evidence": evidence[:15],
         "notes": data["notes"] or None,
         "generated_at": generated_at,
+        "collection_status": collection_status,
+        "collection_errors": errors,
         **v2_sections,
     }
 
@@ -1102,24 +1129,50 @@ def main() -> None:
         return
 
     gathered: list[SearchResult] = []
+    collection_errors: list[dict[str, str]] = []
     for query in queries:
         if query.startswith("http://") or query.startswith("https://"):
             gathered.append(SearchResult(query=query, title=query, url=query, snippet="", source="direct"))
             continue
-        gathered.extend(search(query, limit=SEARCH_LIMIT))
+        try:
+            gathered.extend(search(query, limit=SEARCH_LIMIT))
+        except Exception as exc:
+            collection_errors.append(
+                {
+                    "stage": "search",
+                    "query_or_url": query,
+                    "error_type": type(exc).__name__,
+                    "message": str(exc)[:500],
+                }
+            )
 
     results = dedupe_results(gathered)
     snapshots: dict[str, str] = {}
     for item in results[:8]:
-        snapshots[item.url] = fetch_snapshot(item.url)
+        try:
+            snapshots[item.url] = fetch_snapshot(item.url)
+        except Exception as exc:
+            snapshots[item.url] = ""
+            collection_errors.append(
+                {
+                    "stage": "snapshot",
+                    "query_or_url": item.url,
+                    "error_type": type(exc).__name__,
+                    "message": str(exc)[:500],
+                }
+            )
 
-    report = build_report(data, results, snapshots)
+    report = build_report(data, results, snapshots, collection_errors)
     markdown = render_markdown(report)
 
     if args.json_out:
-        Path(args.json_out).write_text(json.dumps(report, ensure_ascii=False, indent=2))
+        json_path = Path(args.json_out)
+        json_path.parent.mkdir(parents=True, exist_ok=True)
+        json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     if args.markdown_out:
-        Path(args.markdown_out).write_text(markdown)
+        markdown_path = Path(args.markdown_out)
+        markdown_path.parent.mkdir(parents=True, exist_ok=True)
+        markdown_path.write_text(markdown, encoding="utf-8")
     if not args.json_out and not args.markdown_out:
         print(markdown)
 

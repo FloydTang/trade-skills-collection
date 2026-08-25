@@ -2,6 +2,8 @@
 
 中英双语的开源 Codex Skill，用公开网页线索为外贸销售和客户开发生成结构化客户情报报告。
 
+当前状态：可交付
+
 > 唯一开发源是 [trade-skills-collection](https://github.com/FloydTang/trade-skills-collection)；[trade-customer-intel](https://github.com/FloydTang/trade-customer-intel) 是独立发行镜像。
 
 它是整套主动开发链路里的核心判断层：搜索负责找到候选，整理负责标准化，背调负责看清“这个客户最近发生了什么、为什么值得跟、应该从哪里切入”，开发信再调用这些判断写草稿。
@@ -36,6 +38,10 @@
 - SIEGER v2 主体、证据、卖方能力、产品匹配和风险决策门
 - 少于 3 个证据化维度时不计算综合分
 - 销售角度默认为 `proposed`，不自动批准
+- 工业客户可生成 BOM 确认、工程验证和有条件替代角度；其他行业继续沿用对应行业线索，不套工业模板
+- 输入类型错误会直接拒绝，不会悄悄转换成文本
+- 联网搜索或网页快照失败时仍会输出报告，并通过 `collection_status`、`collection_errors` 和决策门安全停在人工复核
+- JSON / Markdown 输出目录不存在时会自动创建
 
 ## 当前不默认承诺
 

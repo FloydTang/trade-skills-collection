@@ -17,10 +17,34 @@
       "draft_authorization": "approved",
       "authorization_reasons": [],
       "risk_rating": "Medium",
-      "entity_confidence": "medium",
-      "evidence_sufficiency": "",
-      "intel_recommended_next_action": "",
-      "sieger_status": "",
+      "entity_confidence": "high",
+      "evidence_sufficiency": "sufficient",
+      "intel_recommended_next_action": "ready_for_email_draft",
+      "manual_review_required": false,
+      "decision_gates": {
+        "identity": {
+          "status": "pass",
+          "reason": "Operator-confirmed prior contact and company identity."
+        },
+        "evidence": {
+          "status": "pass",
+          "reason": "The approved angle is bound to the prior-contact record."
+        },
+        "seller_offer": {
+          "status": "pass",
+          "reason": "The product offer is supplied by the operator."
+        },
+        "product_fit": {
+          "status": "pass",
+          "reason": "The follow-up concerns the same catalog and product line."
+        },
+        "risk": {
+          "status": "pass",
+          "reason": "No high-risk block is present."
+        }
+      },
+      "sieger_status": "ready_for_email_draft",
+      "industry_lens": "general",
       "verdict_card": {},
       "company_business_breakdown": {},
       "tech_capability_procurement_concerns": {},
@@ -42,20 +66,23 @@
         "angle_id": "ANGLE-01",
         "approval_status": "approved",
         "title_en": "Low-friction swatch review",
+        "en": "Offer a small swatch review as the next step after the catalog follow-up.",
         "message_en": "Offer selected fabric swatches as the next small step after the catalog review.",
-        "claim_refs": [
+        "claim_ids": [
           "CL-01"
         ],
-        "evidence_refs": [
+        "evidence_ids": [
           "EV-01"
         ]
       },
       "selected_claims": [
         {
           "claim_id": "CL-01",
-          "claim_type": "fact",
-          "text": "A digital catalog was shared in the previous contact.",
-          "evidence_refs": [
+          "category": "product_fit",
+          "statement_type": "hypothesis",
+          "status": "needs_review",
+          "statement": "The prior catalog exchange provides a reviewable basis for a follow-up on the same product line.",
+          "evidence_ids": [
             "EV-01"
           ]
         }
@@ -64,22 +91,25 @@
         {
           "evidence_id": "EV-01",
           "source_type": "operator_provided_contact_history",
+          "source_quality": "primary",
+          "source_identity": "operator-confirmed prior contact record",
           "title": "Previous catalog-sharing note",
           "url": "",
           "confidence": "high"
         }
       ],
       "unconfirmed_fact_list": [],
-      "ambiguity_notes": []
+      "ambiguity_notes": [],
+      "seller_context": {}
     }
   },
   "subject_options": [
     "Following Up on Washed Linen Table Textile Collections for Nordic Home Textile AB",
-    "Checking Whether Washed Linen Table Textile Collections Samples Would Help"
+    "Checking Whether Washed Linen Table Textile Collections Details Would Help"
   ],
   "drafts": {
-    "version_a": "Dear Nadia,\n\nI hope you have been well since my last email.\n\nI wanted to follow up regarding our earlier note about washed linen table textile collections and see whether it may be relevant for Nordic Home Textile AB. In my last message, I shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.\n\nI wanted to check in specifically about our catalog sharing and ask whether selected fabric swatches would be useful for review.\n\nIf useful, I can resend the key product details and prepare sample information for your review.\n\nPlease let me know whether it would be helpful for me to send the next details or samples.\n\nBest regards,\nMia\nHangzhou LinenCraft Textiles",
-    "version_b": "Dear Nadia,\n\nI hope you have been well since my last email.\n\nI am following up on washed linen table textile collections. Last time, I shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.\n\nIf this is still relevant for your team, I would be glad to send the next details.\n\nPlease let me know whether it would be helpful for me to send the next details or samples.\n\nBest regards,\nMia\nHangzhou LinenCraft Textiles"
+    "version_a": "Dear Nadia,\n\nI hope you have been well since my last email.\n\nI wanted to follow up regarding our earlier note about washed linen table textile collections and see whether it may be relevant for Nordic Home Textile AB. In my last message, I shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.\n\nRather than assume your current priorities, I would like to understand the relevant product and business requirements before suggesting a fit.\n\nIf useful, I can resend the key product details and specifications for your review.\n\nPlease let me know whether it would be helpful for me to send the next product details and specifications.\n\nBest regards,\nMia\nHangzhou LinenCraft Textiles",
+    "version_b": "Dear Nadia,\n\nI hope you have been well since my last email.\n\nI am following up on washed linen table textile collections. Last time, I shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.\n\nIf this is still relevant for your team, I would be glad to send the next details.\n\nPlease let me know whether it would be helpful for me to send the next product details and specifications.\n\nBest regards,\nMia\nHangzhou LinenCraft Textiles"
   },
   "review_notes": [
     "建议人工复核后发送，不要把未确认信息直接写成既定事实。",
@@ -90,7 +120,8 @@
   "evidence_signals_used": [
     "sales_angle: Offer a small, editable swatch review tied to the earlier catalog follow-up.",
     "risk_rating: Medium",
-    "entity_confidence: medium",
+    "entity_confidence: high",
+    "evidence_sufficiency: sufficient",
     "approved_angle_id: ANGLE-01",
     "evidence: EV-01 | Previous catalog-sharing note",
     "evidence_title: Previous catalog-sharing note"

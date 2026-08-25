@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trade Customer Intel OpenClaw Evidence Input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["lead", "evidence_bundle"],
+  "properties": {
+    "lead": { "$ref": "./lead-input.json" },
+    "evidence_bundle": { "$ref": "./evidence-bundle.json" }
+  }
+}

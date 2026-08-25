@@ -18,7 +18,18 @@
     "previous_contact_context": "We shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.",
     "constraints": "Keep the follow-up soft and design-oriented.",
     "risk_rating": "Medium",
-    "entity_confidence": "medium",
+    "entity_confidence": "high",
+    "evidence_sufficiency": "sufficient",
+    "intel_recommended_next_action": "ready_for_email_draft",
+    "manual_review_required": false,
+    "sieger_status": "ready_for_email_draft",
+    "decision_gates": {
+      "identity": {"status": "pass", "reason": "Operator-confirmed prior contact and company identity."},
+      "evidence": {"status": "pass", "reason": "The approved angle is bound to the prior-contact record."},
+      "seller_offer": {"status": "pass", "reason": "The product offer is supplied by the operator."},
+      "product_fit": {"status": "pass", "reason": "The follow-up concerns the same catalog and product line."},
+      "risk": {"status": "pass", "reason": "No high-risk block is present."}
+    },
     "recommended_sales_angle_en": "Offer a small, editable swatch review tied to the earlier catalog follow-up.",
     "recommended_opening_signal_en": "",
     "recent_signals": [],
@@ -27,22 +38,27 @@
       "angle_id": "ANGLE-01",
       "approval_status": "approved",
       "title_en": "Low-friction swatch review",
+      "en": "Offer a small swatch review as the next step after the catalog follow-up.",
       "message_en": "Offer selected fabric swatches as the next small step after the catalog review.",
-      "claim_refs": ["CL-01"],
-      "evidence_refs": ["EV-01"]
+      "claim_ids": ["CL-01"],
+      "evidence_ids": ["EV-01"]
     },
     "selected_claims": [
       {
         "claim_id": "CL-01",
-        "claim_type": "fact",
-        "text": "A digital catalog was shared in the previous contact.",
-        "evidence_refs": ["EV-01"]
+        "category": "product_fit",
+        "statement_type": "hypothesis",
+        "status": "needs_review",
+        "statement": "The prior catalog exchange provides a reviewable basis for a follow-up on the same product line.",
+        "evidence_ids": ["EV-01"]
       }
     ],
     "selected_evidence": [
       {
         "evidence_id": "EV-01",
         "source_type": "operator_provided_contact_history",
+        "source_quality": "primary",
+        "source_identity": "operator-confirmed prior contact record",
         "title": "Previous catalog-sharing note",
         "url": "",
         "confidence": "high"

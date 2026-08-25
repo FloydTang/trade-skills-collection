@@ -6,6 +6,7 @@ import importlib.util
 import json
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -14,6 +15,19 @@ SKILL_ROOT = FOR_OPENCLAW_ROOT.parent
 CORE_SCRIPT_PATH = SKILL_ROOT / "scripts" / "build_email_draft.py"
 OPENCLAW_SCHEMA_PATH = FOR_OPENCLAW_ROOT / "schemas" / "openclaw-email-input.json"
 CORE_SCHEMA_PATH = SKILL_ROOT / "schemas" / "email-draft-input.schema.json"
+REQUIRED_DECISION_GATES = ("identity", "evidence", "seller_offer", "product_fit", "risk")
+GENERIC_SOURCE_IDENTITIES = {
+    "evidence",
+    "n/a",
+    "na",
+    "none",
+    "source",
+    "unknown",
+    "untitled",
+    "untitled evidence",
+    "web",
+    "website",
+}
 
 
 def load_json(path_arg: str | None) -> dict:
@@ -41,11 +55,159 @@ def validate_openclaw_payload(payload: dict, schema: dict) -> None:
         raise SystemExit("operator_input must be an object.")
     if not isinstance(payload.get("public_context"), dict):
         raise SystemExit("public_context must be an object.")
+    properties = schema.get("properties") or {}
+    for section_name in ("operator_input", "public_context"):
+        section = payload[section_name]
+        section_schema = properties.get(section_name) or {}
+        section_missing = [key for key in section_schema.get("required", []) if key not in section]
+        if section_missing:
+            raise SystemExit(
+                f"Missing required {section_name} fields: {', '.join(section_missing)}"
+            )
+
+
+def _text(value: object) -> str:
+    return value.strip() if isinstance(value, str) else ""
+
+
+def _ids(value: object) -> tuple[list[str], bool]:
+    if not isinstance(value, list) or not value:
+        return [], False
+    normalized = [_text(item) for item in value]
+    return normalized, all(normalized) and len(normalized) == len(set(normalized))
+
+
+def _usable_source_identity(evidence: dict) -> bool:
+    for key in ("source_id", "source_name", "source_title", "source_identity", "title"):
+        identity = " ".join(_text(evidence.get(key)).lower().split())
+        if (
+            identity
+            and identity not in GENERIC_SOURCE_IDENTITIES
+            and not identity.startswith("unknown ")
+            and not identity.startswith("untitled ")
+        ):
+            return True
+    return False
+
+
+def _usable_evidence(evidence: dict) -> bool:
+    url = _text(evidence.get("url") or evidence.get("source_url"))
+    parsed = urlparse(url)
+    return (parsed.scheme in {"http", "https"} and bool(parsed.netloc)) or _usable_source_identity(evidence)
+
+
+def derive_authorization(public_context: dict) -> tuple[str, list[str]]:
+    """Recompute authorization from the report contract; never trust one caller-supplied flag."""
+    reasons: list[str] = []
+    if public_context.get("draft_authorization") != "approved":
+        supplied = public_context.get("authorization_reasons")
+        if isinstance(supplied, list):
+            reasons.extend(_text(item) for item in supplied if _text(item))
+        if not reasons:
+            reasons.append("draft_authorization is not approved")
+
+    if public_context.get("intel_recommended_next_action") != "ready_for_email_draft":
+        reasons.append("customer intel did not clear ready_for_email_draft")
+    if public_context.get("manual_review_required") is not False:
+        reasons.append("customer intel still requires manual review")
+    if _text(public_context.get("sieger_status")) != "ready_for_email_draft":
+        reasons.append("SIEGER status is not ready_for_email_draft")
+    if _text(public_context.get("entity_confidence")).lower() != "high":
+        reasons.append("entity confidence is not high")
+    if _text(public_context.get("evidence_sufficiency")).lower() != "sufficient":
+        reasons.append("evidence sufficiency is not sufficient")
+    risk_rating = _text(public_context.get("risk_rating")).lower()
+    if risk_rating not in {"low", "medium"}:
+        reasons.append("risk rating is not an allowed outreach value")
+    if risk_rating == "high":
+        reasons.append("risk rating is high")
+
+    gates = public_context.get("decision_gates")
+    if not isinstance(gates, dict):
+        reasons.append("decision_gates are missing")
+    else:
+        missing_gates = [name for name in REQUIRED_DECISION_GATES if name not in gates]
+        if missing_gates:
+            reasons.append("decision_gates are incomplete: " + ", ".join(missing_gates))
+        failed_gates = [
+            str(name)
+            for name, gate in gates.items()
+            if not isinstance(gate, dict) or gate.get("status") != "pass"
+        ]
+        if failed_gates:
+            reasons.append("decision_gates did not all pass: " + ", ".join(failed_gates))
+
+    angle = public_context.get("selected_sales_angle")
+    if not isinstance(angle, dict) or angle.get("approval_status") != "approved" or not _text(angle.get("angle_id")):
+        reasons.append("selected sales angle is not explicitly approved")
+        angle = {}
+    claim_ids, valid_claim_ids = _ids(angle.get("claim_ids"))
+    evidence_ids, valid_evidence_ids = _ids(angle.get("evidence_ids"))
+    if not valid_claim_ids:
+        reasons.append("selected sales angle has invalid claim_ids")
+    if not valid_evidence_ids:
+        reasons.append("selected sales angle has invalid evidence_ids")
+
+    selected_claims = public_context.get("selected_claims")
+    selected_evidence = public_context.get("selected_evidence")
+    claim_by_id = {
+        _text(item.get("claim_id")): item
+        for item in selected_claims
+        if isinstance(item, dict) and _text(item.get("claim_id"))
+    } if isinstance(selected_claims, list) else {}
+    evidence_by_id = {
+        _text(item.get("evidence_id")): item
+        for item in selected_evidence
+        if isinstance(item, dict) and _text(item.get("evidence_id"))
+    } if isinstance(selected_evidence, list) else {}
+    if not isinstance(selected_claims, list) or len(claim_by_id) != len(selected_claims):
+        reasons.append("selected_claims are missing or contain invalid/duplicate IDs")
+    if not isinstance(selected_evidence, list) or len(evidence_by_id) != len(selected_evidence):
+        reasons.append("selected_evidence are missing or contain invalid/duplicate IDs")
+    if set(claim_ids) != set(claim_by_id):
+        reasons.append("selected claim IDs do not resolve exactly")
+    if set(evidence_ids) != set(evidence_by_id):
+        reasons.append("selected evidence IDs do not resolve exactly")
+
+    strong_evidence_ids = {
+        evidence_id
+        for evidence_id, evidence in evidence_by_id.items()
+        if _text(evidence.get("source_quality")).lower() in {"primary", "strong_secondary"}
+    }
+    if evidence_by_id and not strong_evidence_ids:
+        reasons.append("selected evidence does not include a strong source")
+    product_fit_claims = []
+    for evidence_id, evidence in evidence_by_id.items():
+        if not _usable_evidence(evidence):
+            reasons.append(f"selected evidence {evidence_id} has no auditable URL or source identity")
+    for claim_id, claim in claim_by_id.items():
+        if not _text(claim.get("statement")):
+            reasons.append(f"selected claim {claim_id} has no statement")
+        status = _text(claim.get("status")).lower()
+        statement_type = _text(claim.get("statement_type")).lower()
+        if status != "supported" and not (
+            status == "needs_review" and statement_type in {"hypothesis", "inference"}
+        ):
+            reasons.append(f"selected claim {claim_id} has an unauthorized status")
+        linked_ids, linked_ids_valid = _ids(claim.get("evidence_ids"))
+        if not linked_ids_valid or not set(linked_ids).issubset(evidence_by_id):
+            reasons.append(f"selected claim {claim_id} has invalid evidence_ids")
+        elif not set(linked_ids).intersection(evidence_ids):
+            reasons.append(f"selected claim {claim_id} is not bound to the selected evidence")
+        if _text(claim.get("category")).lower() == "product_fit":
+            product_fit_claims.append(claim_id)
+            if not set(linked_ids).intersection(strong_evidence_ids):
+                reasons.append(f"selected product_fit claim {claim_id} is not bound to strong evidence")
+    if claim_by_id and not product_fit_claims:
+        reasons.append("selected claims do not include product_fit")
+
+    return ("hold", list(dict.fromkeys(reasons))) if reasons else ("approved", [])
 
 
 def merge_payload(payload: dict) -> dict:
     operator_input = dict(payload.get("operator_input") or {})
     public_context = dict(payload.get("public_context") or {})
+    draft_authorization, authorization_reasons = derive_authorization(public_context)
 
     merged = {
         "email_type": operator_input.get("email_type", ""),
@@ -64,13 +226,16 @@ def merge_payload(payload: dict) -> dict:
         "signature": operator_input.get("signature", ""),
         "constraints": operator_input.get("constraints") or public_context.get("constraints", ""),
         "source_context": {
-            "draft_authorization": public_context.get("draft_authorization", "hold"),
-            "authorization_reasons": public_context.get("authorization_reasons", []),
+            "draft_authorization": draft_authorization,
+            "authorization_reasons": authorization_reasons,
             "risk_rating": public_context.get("risk_rating", ""),
             "entity_confidence": public_context.get("entity_confidence", ""),
             "evidence_sufficiency": public_context.get("evidence_sufficiency", ""),
             "intel_recommended_next_action": public_context.get("intel_recommended_next_action", ""),
+            "manual_review_required": public_context.get("manual_review_required"),
+            "decision_gates": public_context.get("decision_gates", {}),
             "sieger_status": public_context.get("sieger_status", ""),
+            "industry_lens": public_context.get("industry_lens", "general"),
             "verdict_card": public_context.get("verdict_card", {}),
             "company_business_breakdown": public_context.get("company_business_breakdown", {}),
             "tech_capability_procurement_concerns": public_context.get("tech_capability_procurement_concerns", {}),
@@ -91,6 +256,7 @@ def merge_payload(payload: dict) -> dict:
             "selected_evidence": public_context.get("selected_evidence", []),
             "unconfirmed_fact_list": public_context.get("unconfirmed_fact_list", []),
             "ambiguity_notes": public_context.get("ambiguity_notes", []),
+            "seller_context": operator_input.get("seller_context", {}),
         },
     }
 
