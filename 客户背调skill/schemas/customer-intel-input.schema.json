@@ -1,13 +1,20 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "OpenClaw Lead Bundle",
+  "title": "Trade Customer Intel Input v2",
   "type": "object",
-  "additionalProperties": false,
-  "required": ["lead_candidates"],
+  "additionalProperties": true,
+  "anyOf": [
+    { "required": ["company_name"] },
+    { "required": ["person_name"] },
+    { "required": ["email"] }
+  ],
   "properties": {
+    "company_name": { "type": "string" },
+    "person_name": { "type": "string" },
+    "email": { "type": "string" },
+    "company_website": { "type": "string" },
     "country_or_market": { "type": "string" },
     "product_or_offer": { "type": "string" },
-    "target_customer_type": { "type": "string" },
     "industry_lens": {
       "type": "string",
       "enum": ["auto", "industrial", "food", "consumer", "general"]
@@ -29,13 +36,7 @@
         "forbidden_claims": { "type": "array", "items": { "type": "string" } }
       }
     },
-    "operator_notes": { "type": "string" },
-    "lead_candidates": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object"
-      }
-    }
+    "screening_context": { "type": "object" },
+    "notes": { "type": "string" }
   }
 }

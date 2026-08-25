@@ -122,18 +122,39 @@ def normalize_data_sources(value: Any) -> list[dict[str, Any]]:
     return sources
 
 
+def normalize_seller_context(value: Any, product_or_offer: str, customer_type: str) -> dict[str, Any]:
+    raw = value if isinstance(value, dict) else {}
+    return {
+        "company_name": normalize_text(raw.get("company_name")),
+        "product_or_offer": normalize_text(raw.get("product_or_offer")) or product_or_offer,
+        "product_categories": normalize_terms(raw.get("product_categories")),
+        "target_customer_types": normalize_terms(raw.get("target_customer_types")) or [customer_type],
+        "target_industries": normalize_terms(raw.get("target_industries")),
+        "value_propositions": normalize_terms(raw.get("value_propositions")),
+        "certifications": normalize_terms(raw.get("certifications")),
+        "proof_points": normalize_terms(raw.get("proof_points")),
+        "authorized_materials": normalize_terms(raw.get("authorized_materials")),
+        "excluded_customer_signals": normalize_terms(raw.get("excluded_customer_signals")),
+        "forbidden_claims": normalize_terms(raw.get("forbidden_claims")),
+    }
+
+
 def normalize_input(data: Any) -> dict[str, Any]:
     if not isinstance(data, dict):
         raise ValueError("Input must be a JSON object.")
+    product_or_offer = normalize_text(data.get("product_or_offer"))
+    customer_type = normalize_text(data.get("customer_type"))
     normalized = {
-        "product_or_offer": normalize_text(data.get("product_or_offer")),
+        "product_or_offer": product_or_offer,
         "target_market": normalize_text(data.get("target_market")),
-        "customer_type": normalize_text(data.get("customer_type")),
+        "customer_type": customer_type,
         "search_keywords": normalize_terms(data.get("search_keywords")),
         "must_include": normalize_terms(data.get("must_include")),
         "exclude_terms": normalize_terms(data.get("exclude_terms")),
         "max_results": data.get("max_results") or DEFAULT_MAX_RESULTS,
         "notes": normalize_text(data.get("notes")),
+        "industry_lens": normalize_text(data.get("industry_lens")) or "auto",
+        "seller_context": normalize_seller_context(data.get("seller_context"), product_or_offer, customer_type),
         "data_sources": normalize_data_sources(data.get("data_sources")),
     }
     if not all(normalized[key] for key in ("product_or_offer", "target_market", "customer_type")):
@@ -685,7 +706,7 @@ def build_candidates(
     return output
 
 
-def build_lead_screening_input(candidates: list[dict[str, Any]], notes: str) -> dict[str, Any]:
+def build_lead_screening_input(candidates: list[dict[str, Any]], data: dict[str, Any]) -> dict[str, Any]:
     leads = []
     for item in candidates:
         person_name = ""
@@ -711,7 +732,7 @@ def build_lead_screening_input(candidates: list[dict[str, Any]], notes: str) -> 
                 "source_url": item["source_url"],
                 "linkedin_url": item["linkedin_url"],
                 "notes": " | ".join(
-                    part for part in [notes, item["search_snippet"], item["follow_up_suggestion"]] if part
+                    part for part in [data["notes"], item["search_snippet"], item["follow_up_suggestion"]] if part
                 ),
                 "evidence_grade": item["evidence_grade"],
                 "match_reason": item["match_reason"],
@@ -727,7 +748,15 @@ def build_lead_screening_input(candidates: list[dict[str, Any]], notes: str) -> 
                 "match_basis": item.get("match_basis", ""),
             }
         )
-    return {"default_country_or_market": "", "operator_notes": notes, "leads": leads}
+    return {
+        "default_country_or_market": data["target_market"],
+        "operator_notes": data["notes"],
+        "product_or_offer": data["product_or_offer"],
+        "target_customer_type": data["customer_type"],
+        "industry_lens": data["industry_lens"],
+        "seller_context": data["seller_context"],
+        "leads": leads,
+    }
 
 
 def render_markdown(report: dict[str, Any]) -> str:
@@ -828,6 +857,14 @@ def main() -> None:
             "product_or_offer": data["product_or_offer"],
             "target_market": data["target_market"],
             "customer_type": data["customer_type"],
+            "industry_lens": data["industry_lens"],
+            "seller_context_complete": bool(
+                data["seller_context"]["product_or_offer"]
+                and (
+                    data["seller_context"]["value_propositions"]
+                    or data["seller_context"]["product_categories"]
+                )
+            ),
             "queries": queries,
             "raw_result_count": len(filtered),
             "candidate_count": len(candidates),
@@ -835,7 +872,7 @@ def main() -> None:
         },
         "search_strategy": search_strategy,
         "candidates": candidates,
-        "lead_screening_input": build_lead_screening_input(candidates, data["notes"]),
+        "lead_screening_input": build_lead_screening_input(candidates, data),
     }
     markdown = render_markdown(report)
     dump_json(report, args.json_out)

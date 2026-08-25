@@ -46,7 +46,15 @@
       "cn": "可从其 private label 冷冻食品方向切入，强调稳定规格、包装配合与基础供货能力。",
       "en": "Lead with private-label support, stable frozen vegetable specifications, and reliable supply coordination for retail programs.",
       "why": "This angle aligns with the apparent business profile and avoids overclaiming demand.",
-      "avoid": "Avoid claiming confirmed sourcing demand, pricing readiness, or purchase intent."
+      "avoid": "Avoid claiming confirmed sourcing demand, pricing readiness, or purchase intent.",
+      "evidence_refs": [
+        "https://greenharvestfoods.com/contact",
+        "https://www.linkedin.com/company/greenharvestfoods"
+      ],
+      "buyer_or_component_clue": "公开来源未覆盖；未发现对方现用品牌/部件线索，不作假设。",
+      "replacement_point": "公开来源未覆盖；需结合我方已授权资料和采购参数人工确认具体替代点。",
+      "authorized_materials": [],
+      "why_this_angle_fits": "This angle aligns with the apparent business profile and avoids overclaiming demand."
     }
   ],
   "risk_rating": "Medium",
@@ -61,6 +69,10 @@
     "recommended_next_action": "ready_for_email_draft",
     "manual_review_required": false,
     "review_focus": [
+      "当前仍需人工确认采购角色与实际产品匹配度。"
+    ],
+    "sieger_status": "ready_for_email_draft",
+    "sieger_review_focus": [
       "当前仍需人工确认采购角色与实际产品匹配度。"
     ]
   },
@@ -121,6 +133,34 @@
       "note": "Public company page."
     }
   ],
+  "verdict_card": {
+    "score": 5,
+    "customer_grade": "B",
+    "intel_decision": "ready_for_email_draft",
+    "review_focus": ["当前仍需人工确认采购角色与实际产品匹配度。"],
+    "one_line_verdict": "公开信息显示其可能涉及 private-label 冷冻食品项目；当前建议进入人工复核后的开发信草稿。"
+  },
+  "company_business_breakdown": {
+    "business_lines": [{"name": "公开业务方向", "representative_products": ["进口冷冻蔬菜与 private-label 冷冻食品项目"], "evidence_refs": ["https://greenharvestfoods.com/contact"]}],
+    "business_model_judgment": {"value": "公开来源未覆盖", "basis": "公开证据不足以确认具体商业模式。", "confidence": "low"}
+  },
+  "tech_capability_procurement_concerns": {
+    "technical_stack": "公开来源未覆盖",
+    "procurement_concerns": [{"item": "规格、包装、认证与交期", "assessment": "公开来源未覆盖", "priority": "待确认"}]
+  },
+  "scale_financial_signals": {
+    "revenue": "公开免费来源未覆盖",
+    "employee_count": "公开免费来源未覆盖",
+    "operating_trend": "公开来源未覆盖"
+  },
+  "sales_model_procurement_logic": {
+    "sales_model": "公开来源未覆盖",
+    "supplier_entry_point": "先从 private-label 产品规格、包装和供货稳定性问题进入。"
+  },
+  "competition_map": {"potential_competitors": [], "note": "公开来源未覆盖；不做一一对应宣称。"},
+  "growth_opportunities": [{"opportunity": "围绕 private-label 方向补齐产品或供应链能力（推断）", "status": "推断，需人工验证", "evidence_refs": ["https://greenharvestfoods.com/contact"]}],
+  "image_summary": {"score": 5, "customer_grade": "B", "summary_cn": "技术能力、规模财务和采购逻辑目前多为公开来源未覆盖，不能据此确认采购意向。"},
+  "sieger_standard": {"name": "SIEGER", "version": "2026-08-23"},
   "notes": "这是组合包首版的稳定背调 fixture，用于课程演示和本地闭环验证，不表示实时联网抓取结果。",
   "generated_at": "2026-03-25T00:00:00+08:00"
 }

@@ -84,6 +84,10 @@ def validate(data: dict, raw: dict, schema: dict) -> None:
         raise SystemExit("email_type must be one of: first_touch, follow_up")
     if data["email_type"] == "follow_up" and not data["previous_contact_context"]:
         raise SystemExit("follow_up emails require previous_contact_context for conservative drafting.")
+    source_context = data.get("source_context") or {}
+    if source_context and source_context.get("draft_authorization") != "approved":
+        reasons = source_context.get("authorization_reasons") or ["missing approved customer-intel angle"]
+        raise SystemExit("Draft blocked: " + "; ".join(str(item) for item in reasons))
 
 
 def scenario_label(email_type: str) -> str:
@@ -254,6 +258,8 @@ def build_review_notes(data: dict) -> list[str]:
         notes.append("背调阶段证据仍有限，本草稿只适合作为复核底稿，不适合直接发送。")
     if source_context.get("intel_recommended_next_action") == "hold_for_manual_review":
         notes.append("上游背调尚未建议进入开发信，请先完成人工复核。")
+    if source_context.get("sieger_status") == "needs_manual_review":
+        notes.append("SIEGER Verdict Card 尚未通过人工复核，请先确认主体、采购角色和关键证据。")
     if source_context.get("recent_signals") or source_context.get("market_signals"):
         notes.append("本邮件引用了背调阶段的近期或市场信号，请确认来源、时间、新鲜度和语境后再发送。")
     if source_context.get("recommended_opening_signal_en"):
@@ -296,6 +302,13 @@ def build_evidence_signals(data: dict) -> list[str]:
         signals.append(f"entity_confidence: {source_context['entity_confidence']}")
     if source_context.get("evidence_sufficiency"):
         signals.append(f"evidence_sufficiency: {source_context['evidence_sufficiency']}")
+    selected_angle = source_context.get("selected_sales_angle") or {}
+    if selected_angle.get("angle_id"):
+        signals.append(f"approved_angle_id: {selected_angle['angle_id']}")
+    for item in source_context.get("selected_evidence") or []:
+        if isinstance(item, dict):
+            parts = [str(item.get(key) or "").strip() for key in ("evidence_id", "title", "url")]
+            signals.append("evidence: " + " | ".join(part for part in parts if part))
     for title in source_context.get("evidence_titles") or []:
         signals.append(f"evidence_title: {title}")
     for signal in source_context.get("recent_signals") or []:
@@ -321,9 +334,10 @@ def build_unconfirmed_fact_checklist(data: dict) -> list[str]:
 def build_workflow_guidance(data: dict) -> dict:
     source_context = data.get("source_context") or {}
     intel_action = source_context.get("intel_recommended_next_action")
+    authorized = source_context.get("draft_authorization") in {None, "", "approved"}
     next_action = (
         "ready_for_manual_send"
-        if intel_action in {None, "", "ready_for_email_draft"}
+        if intel_action in {None, "", "ready_for_email_draft"} and authorized
         else "hold_for_manual_review"
     )
     return {

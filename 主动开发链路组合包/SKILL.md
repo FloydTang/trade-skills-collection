@@ -1,12 +1,7 @@
 ---
 name: trade-active-outreach-combo
-description: Run a minimal active-outreach workflow by reusing four existing foreign-trade skills: lead discovery, lead screening, customer intel, and outreach email. Use when an operator wants a conservative end-to-end demo with visible intermediate artifacts and a final editable email draft.
-openclaw_role: workflow_owner
-container_owner: active_outreach_combo
-container_mode: container_neutral_with_feishu_sandbox_adapter
-single_skill_policy: attach_only
-table_policy: adapt_existing_or_create_minimal
-rule_capture: ask_before_skill_update
+description: "Run a minimal active-outreach workflow by reusing four existing foreign-trade skills: lead discovery, lead screening, customer intel, and outreach email. Use when an operator wants a conservative end-to-end demo with visible intermediate artifacts and a final editable email draft."
+metadata: {"openclaw":{"role":"workflow_owner","container_owner":"active_outreach_combo","container_mode":"container_neutral_with_feishu_sandbox_adapter","single_skill_policy":"attach_only","table_policy":"adapt_existing_or_create_minimal","rule_capture":"ask_before_skill_update"}}
 ---
 
 # 主动开发最小闭环链路组合包
@@ -31,14 +26,15 @@ rule_capture: ask_before_skill_update
 
 ## Workflow
 
-1. Run lead discovery in fixture-backed classroom mode for a stable demo start.
+1. Choose `fixture` mode for repeatable regression or `live` mode for real search and customer-intel execution.
 2. Convert discovery output into the lead-screening input shape.
 3. Run lead screening and export the customer-intel batch payload.
 4. Select one lead for the reviewed customer-intel stage.
-5. Reuse the reviewed customer-intel fixture for stable downstream demonstration, including recent/market signals.
-6. Bridge the intel report into outreach-email input.
-7. Generate editable English outreach drafts and review notes without inventing new customer facts.
-8. Export `ContainerBundle` to JSON / Markdown / CSV and Feishu Sandbox Adapter.
+5. In fixture mode, reuse the reviewed customer-intel fixture; in live mode, execute the real customer-intel builder.
+6. Stop before email when intel gates fail or no `ANGLE-*` has explicit human approval.
+7. Bridge the approved angle, selected claims, and selected evidence into outreach-email input.
+8. Generate editable English outreach drafts and review notes without inventing new customer facts.
+9. Export `ContainerBundle` to JSON / Markdown / CSV and Feishu Sandbox Adapter.
 
 ## Recommended Rollout Pace
 
@@ -63,6 +59,8 @@ rule_capture: ask_before_skill_update
 - 必须生成阶段化中间产物
 - 必须保留人工复核点
 - 必须明确这是固定样例链路，不是实时联网结果承诺
+- 必须同时保留固定回归模式和真实运行模式
+- 真实模式不得自动批准销售角度，也不得绕过客户背调决策门槛
 - 必须输出最终邮件草稿和中间桥接 JSON
 - 必须输出容器中立的 `ContainerBundle`
 - 背调节点必须给开发信提供可复核的近期信号、市场信号或保守销售角度
@@ -80,6 +78,8 @@ rule_capture: ask_before_skill_update
 ```bash
 python3 ./主动开发链路组合包/scripts/run_minimal_demo.py
 ```
+
+真实运行时可使用 `--discovery-mode live --customer-intel-mode live`。背调完成后由人工确认 `ANGLE-*`，再通过 `--approved-sales-angle-id` 继续；未批准时链路会停在背调产物。
 
 ## Enhancement Entry
 

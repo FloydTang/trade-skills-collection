@@ -11,6 +11,29 @@
     "operator_notes": {
       "type": "string"
     },
+    "product_or_offer": { "type": "string" },
+    "target_customer_type": { "type": "string" },
+    "industry_lens": {
+      "type": "string",
+      "enum": ["auto", "industrial", "food", "consumer", "general"]
+    },
+    "seller_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "company_name": { "type": "string" },
+        "product_or_offer": { "type": "string" },
+        "product_categories": { "type": "array", "items": { "type": "string" } },
+        "target_customer_types": { "type": "array", "items": { "type": "string" } },
+        "target_industries": { "type": "array", "items": { "type": "string" } },
+        "value_propositions": { "type": "array", "items": { "type": "string" } },
+        "certifications": { "type": "array", "items": { "type": "string" } },
+        "proof_points": { "type": "array", "items": { "type": "string" } },
+        "authorized_materials": { "type": "array", "items": { "type": "string" } },
+        "excluded_customer_signals": { "type": "array", "items": { "type": "string" } },
+        "forbidden_claims": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "leads": {
       "type": "array",
       "minItems": 1,
@@ -33,6 +56,11 @@
           "freshness": { "type": "string" },
           "confidence": { "type": "string" },
           "match_basis": { "type": "string" }
+          ,"evidence_grade": { "type": "string" }
+          ,"match_reason": { "type": "string" }
+          ,"evidence_summary": { "type": "string" }
+          ,"discovery_missing_fields": { "type": "array", "items": { "type": "string" } }
+          ,"discovery_next_action": { "type": "string" }
         }
       }
     }

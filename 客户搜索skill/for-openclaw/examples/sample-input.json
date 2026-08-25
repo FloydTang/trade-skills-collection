@@ -2,6 +2,25 @@
   "product_or_offer": "washed linen table textile",
   "target_market": "Germany",
   "customer_type": "brand",
+  "industry_lens": "consumer",
+  "seller_context": {
+    "product_or_offer": "washed linen table textile",
+    "product_categories": [
+      "washed linen tablecloths",
+      "linen napkins"
+    ],
+    "target_customer_types": [
+      "design-led home textile brands with private-label collections"
+    ],
+    "value_propositions": [
+      "small-batch sampling",
+      "custom colors",
+      "washed linen production"
+    ],
+    "excluded_customer_signals": [
+      "consumer-only retailer with no private-label activity"
+    ]
+  },
   "search_keywords": [
     "table linen brand",
     "home textile collections"
@@ -14,5 +33,5 @@
   ],
   "max_results": 4,
   "notes": "Prefer design-led brands.",
-  "fixtures_json": "/Users/evenbetter/Downloads/半斤九两/Obsidian Vault/工具工作间/01_在整理的Skill/外贸skill源文件/客户搜索skill/examples/textile-fixtures.json"
+  "fixtures_json": "客户搜索skill/examples/textile-fixtures.json"
 }

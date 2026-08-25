@@ -29,6 +29,7 @@ def resolve_skill_root() -> Path:
 SKILL_ROOT = resolve_skill_root()
 SEARCH_SKILL = SKILL_ROOT / "客户搜索skill"
 SCREENING_SKILL = SKILL_ROOT / "线索整理skill"
+INTEL_SKILL = SKILL_ROOT / "客户背调skill"
 EMAIL_SKILL = SKILL_ROOT / "开发信skill"
 
 PACKAGE_EXAMPLES = PACKAGE_ROOT / "examples"
@@ -85,6 +86,27 @@ def validate_fixture_matches_selected_input(selected_input: dict, fixture_report
         )
 
 
+def approve_sales_angle(report_path: Path, angle_id: str) -> None:
+    report = load_json(report_path)
+    if (report.get("intel_decision") or {}).get("recommended_next_action") != "ready_for_email_draft":
+        raise SystemExit("Customer intel has not cleared ready_for_email_draft; angle approval is forbidden.")
+    angles = report.get("sales_angles") or []
+    selected = next((item for item in angles if item.get("angle_id") == angle_id), None)
+    if not selected:
+        raise SystemExit(f"Sales angle '{angle_id}' was not found in the customer-intel report.")
+    for item in angles:
+        item["approval_status"] = "approved" if item is selected else "proposed"
+    write_json(report_path, report)
+
+
+def approved_angle_id(report_path: Path) -> str:
+    report = load_json(report_path)
+    for item in report.get("sales_angles") or []:
+        if item.get("approval_status") == "approved" and item.get("angle_id"):
+            return str(item["angle_id"])
+    return ""
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run the minimal active-outreach combo demo by reusing the four node-level skills."
@@ -100,10 +122,26 @@ def parse_args() -> argparse.Namespace:
         help="Lead ID to carry from screening into the reviewed customer-intel stage.",
     )
     parser.add_argument(
-        "--customer-intel-mode",
-        choices=["fixture"],
+        "--discovery-mode",
+        choices=["fixture", "live"],
         default="fixture",
-        help="Current stable mode. Uses the reviewed customer-intel fixture for repeatable demos.",
+        help="Use fixed search fixtures for regression or run the discovery search providers live.",
+    )
+    parser.add_argument(
+        "--search-input",
+        default=str(SEARCH_SKILL / "examples" / "frozen-food-search.json"),
+        help="Lead-discovery input JSON.",
+    )
+    parser.add_argument(
+        "--customer-intel-mode",
+        choices=["fixture", "live"],
+        default="fixture",
+        help="Use the reviewed fixture or execute the customer-intel search and report builder live.",
+    )
+    parser.add_argument(
+        "--approved-sales-angle-id",
+        default="",
+        help="Explicit human approval for one ANGLE-* ID in live mode.",
     )
     parser.add_argument(
         "--product-or-offer",
@@ -134,7 +172,7 @@ def main() -> None:
     output_dir = Path(args.output_dir).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    discovery_input_path = SEARCH_SKILL / "examples" / "frozen-food-search.json"
+    discovery_input_path = Path(args.search_input).resolve()
     discovery_fixture_path = SEARCH_SKILL / "examples" / "frozen-food-fixtures.json"
     discovery_output_path = output_dir / "01-lead-discovery-output.json"
     screening_input_path = output_dir / "02-lead-screening-input.json"
@@ -147,18 +185,17 @@ def main() -> None:
     email_json_path = output_dir / "08-email-draft.json"
     email_md_path = output_dir / "08-email-draft.md"
 
-    run_python(
-        [
-            sys.executable,
-            str(SEARCH_SKILL / "scripts" / "build_lead_discovery_report.py"),
-            "--input-json",
-            str(discovery_input_path),
-            "--fixtures-json",
-            str(discovery_fixture_path),
-            "--json-out",
-            str(discovery_output_path),
-        ]
-    )
+    discovery_command = [
+        sys.executable,
+        str(SEARCH_SKILL / "scripts" / "build_lead_discovery_report.py"),
+        "--input-json",
+        str(discovery_input_path),
+        "--json-out",
+        str(discovery_output_path),
+    ]
+    if args.discovery_mode == "fixture":
+        discovery_command.extend(["--fixtures-json", str(discovery_fixture_path)])
+    run_python(discovery_command)
 
     run_python(
         [
@@ -198,11 +235,30 @@ def main() -> None:
     selected_input = build_selected_customer_intel_input(screening_json_path, args.selected_lead_id)
     write_json(selected_intel_input_path, selected_input)
 
-    if args.customer_intel_mode != "fixture":
-        raise SystemExit("Only fixture mode is supported in the current combo package version.")
-    fixture_report_path = PACKAGE_EXAMPLES / "reviewed-customer-intel-report.json"
-    validate_fixture_matches_selected_input(selected_input, fixture_report_path)
-    shutil.copyfile(fixture_report_path, customer_intel_report_path)
+    if args.customer_intel_mode == "fixture":
+        fixture_report_path = PACKAGE_EXAMPLES / "reviewed-customer-intel-report.json"
+        validate_fixture_matches_selected_input(selected_input, fixture_report_path)
+        shutil.copyfile(fixture_report_path, customer_intel_report_path)
+    else:
+        run_python(
+            [
+                sys.executable,
+                str(INTEL_SKILL / "scripts" / "build_customer_intel_report.py"),
+                "--input-json",
+                str(selected_intel_input_path),
+                "--json-out",
+                str(customer_intel_report_path),
+            ]
+        )
+        if args.approved_sales_angle_id:
+            approve_sales_angle(customer_intel_report_path, args.approved_sales_angle_id)
+
+    selected_angle_id = approved_angle_id(customer_intel_report_path)
+    if not selected_angle_id:
+        raise SystemExit(
+            "Customer-intel output is complete, but no sales angle is approved. "
+            "Review the report and rerun with --approved-sales-angle-id ANGLE-XX."
+        )
 
     run_python(
         [
@@ -218,6 +274,8 @@ def main() -> None:
             args.sender_name,
             "--sender-company",
             args.sender_company,
+            "--approved-sales-angle-id",
+            selected_angle_id,
             "--json-out",
             str(email_input_path),
         ]

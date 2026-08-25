@@ -8,6 +8,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 SKILL_ROOT = SCRIPT_DIR.parent
 BUILD_SCRIPT = SCRIPT_DIR / "build_lead_screening_report.py"
+DISCOVERY_EXAMPLES = SKILL_ROOT.parent / "客户搜索skill" / "examples"
 
 CASES = [
     {
@@ -29,6 +30,18 @@ CASES = [
             "邮箱使用公共域名，不能直接当作企业身份强证据。",
             "atelier-loom.de",
             "needs_enrichment",
+        ],
+    },
+    {
+        "label": "frozen-food-context-bridge",
+        "input_path": DISCOVERY_EXAMPLES / "frozen-food-screening-input.json",
+        "must_include": [
+            "Ready for Customer Intel: 3",
+            "Business Fit: high",
+            "Recommended Next Action: ready_for_customer_intel",
+            "\"industry_lens\": \"food\"",
+            "\"company_name\": \"Ningbo FreshGrow Foods\"",
+            "supply reliability",
         ],
     },
 ]

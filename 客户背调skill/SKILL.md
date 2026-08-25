@@ -1,6 +1,6 @@
 ---
 name: trade-customer-intel
-description: Build bilingual, evidence-backed customer intelligence reports for foreign-trade leads from a company name, contact name, email, or website. Use when Openclaw or a sales operator needs the deep research layer of the outreach workflow: company profile, public footprint, recent customer signals, market/compliance signals, risk rating, and precise sales angles for downstream outreach drafting.
+description: Build bilingual, evidence-backed, SIEGER v2 customer intelligence reports for foreign-trade leads. Use when OpenClaw or a sales operator needs claim-level citations, decision gates, an industry-specific analysis lens, a non-fabricated verdict card, and sales angles that require approval before downstream outreach drafting.
 ---
 
 # Trade Customer Intel
@@ -37,6 +37,18 @@ Use this skill to turn sparse lead data into a structured public-web due-diligen
   "company_website": "",
   "country_or_market": "",
   "product_or_offer": "",
+  "industry_lens": "auto",
+  "seller_context": {
+    "company_name": "",
+    "product_or_offer": "",
+    "product_categories": [],
+    "target_customer_types": [],
+    "target_industries": [],
+    "value_propositions": [],
+    "proof_points": [],
+    "authorized_materials": [],
+    "forbidden_claims": []
+  },
   "notes": ""
 }
 ```
@@ -56,13 +68,22 @@ Use this skill to turn sparse lead data into a structured public-web due-diligen
    - Prefer direct identifiers over inference.
    - Do not merge ambiguous people or companies unless multiple signals line up.
    - Mark weak conclusions as inference, not fact.
-6. Assemble a report using the format in [report-template.md](./references/report-template.md).
-7. Score risk conservatively using [source-playbook.md](./references/source-playbook.md).
-8. If public evidence is too thin, mark weak conclusions as limited evidence instead of forcing over-personalized content.
+6. Convert raw sources into an `evidence_ledger`; every item receives an `EV-*` ID and source-quality label.
+7. Convert facts, inferences, and hypotheses into a `claim_ledger`; every claim receives a `CL-*` ID and references its supporting evidence.
+8. Apply the selected industry lens. Industrial accounts emphasize BOM and component clues; food accounts emphasize SKU, channel, certification, packaging, and cold-chain clues.
+9. Run identity, evidence, seller-offer, product-fit, and risk decision gates.
+10. Assemble the SIEGER v2 report using [report-template.md](./references/report-template.md).
+11. Score only when at least three verdict dimensions have evidence-backed ratings; otherwise return `score = null` and `customer_grade = 未分级`.
+12. Generate sales angles as `proposed`; this Skill must never approve its own angle.
 
 ## Main Script
 
 Use [build_customer_intel_report.py](./scripts/build_customer_intel_report.py) as the default entrypoint.
+
+Contracts:
+
+- [customer-intel-input.schema.json](./schemas/customer-intel-input.schema.json)
+- [customer-intel-report.schema.json](./schemas/customer-intel-report.schema.json)
 
 ### Example run
 
@@ -97,8 +118,12 @@ EOF
 - Attach source URLs to every material claim when possible.
 - Use `Low`, `Medium`, or `High` risk ratings only.
 - Include `IntelDecision` with evidence sufficiency and next action.
+- Include `decision_brief`, `evidence_ledger`, `claim_ledger`, and `decision_gates`.
+- Every factual claim must reference at least one `evidence_id`.
+- Preserve `seller_context` and the resolved `industry_lens` in the report.
+- Include the SIEGER Verdict Card, but never fabricate a score to make the report look complete.
 - Include `recent_signals` and `market_signals` where evidence supports them.
-- Include sales angles that can be directly consumed by `开发信skill/`.
+- Include sales angles with `angle_id`, claim/evidence references, authorized-material references, and `approval_status = proposed`.
 - If the person match is weak, say so explicitly instead of inventing a firm personal profile.
 - Keep outreach personalization conservative. Do not invent private preferences or present weak inferences as facts.
 - Do not replace `客户搜索skill/` or `线索整理skill/` as the lead-entry stage.
@@ -122,6 +147,7 @@ EOF
 - Conservative entity matching.
 - Conservative risk scoring.
 - This is the flagship judgment layer in the outreach chain; email drafting should depend on this output instead of inventing recent events.
+- The email bridge may only consume an angle after a human or authorized workflow changes its status to `approved`.
 - Default intel-stage action: `ready_for_email_draft | hold_for_manual_review`
 
 ## Table and Rule Capture

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trade Customer Intel Report v2",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "identity_snapshot",
+    "seller_context",
+    "industry_lens",
+    "decision_brief",
+    "intel_decision",
+    "verdict_card",
+    "sales_angles",
+    "claim_ledger",
+    "evidence_ledger"
+  ],
+  "properties": {
+    "contract_version": { "const": "2.0" },
+    "identity_snapshot": { "type": "object" },
+    "seller_context": { "type": "object" },
+    "industry_lens": {
+      "type": "string",
+      "enum": ["industrial", "food", "consumer", "general"]
+    },
+    "decision_brief": {
+      "type": "object",
+      "required": ["decision", "decision_gates", "next_action"]
+    },
+    "intel_decision": {
+      "type": "object",
+      "required": [
+        "entity_confidence",
+        "evidence_sufficiency",
+        "risk_rating",
+        "recommended_next_action",
+        "manual_review_required",
+        "decision_gates"
+      ]
+    },
+    "verdict_card": {
+      "type": "object",
+      "required": ["dimensions", "score", "score_status", "customer_grade", "intel_decision"]
+    },
+    "sales_angles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "angle_id",
+          "approval_status",
+          "cn",
+          "en",
+          "claim_ids",
+          "evidence_ids",
+          "authorized_materials"
+        ],
+        "properties": {
+          "approval_status": {
+            "type": "string",
+            "enum": ["proposed", "approved", "rejected"]
+          }
+        }
+      }
+    },
+    "claim_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "category",
+          "statement",
+          "statement_type",
+          "confidence",
+          "evidence_ids",
+          "status"
+        ],
+        "properties": {
+          "statement_type": {
+            "type": "string",
+            "enum": ["fact", "inference", "hypothesis"]
+          }
+        }
+      }
+    },
+    "evidence_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "evidence_id",
+          "title",
+          "url",
+          "source_type",
+          "source_quality",
+          "retrieved_at",
+          "confidence"
+        ],
+        "properties": {
+          "source_quality": {
+            "type": "string",
+            "enum": ["primary", "strong_secondary", "secondary", "weak"]
+          }
+        }
+      }
+    }
+  }
+}

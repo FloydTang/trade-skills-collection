@@ -72,7 +72,20 @@
     "source_context": {
       "type": "object",
       "description": "桥接场景下的来源上下文，不直接进入邮件正文。",
-      "additionalProperties": true
+      "additionalProperties": true,
+      "properties": {
+        "draft_authorization": {
+          "type": "string",
+          "enum": ["approved", "hold"]
+        },
+        "authorization_reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "selected_sales_angle": { "type": "object" },
+        "selected_claims": { "type": "array" },
+        "selected_evidence": { "type": "array" }
+      }
     }
   }
 }

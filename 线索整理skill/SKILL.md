@@ -23,6 +23,13 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
 {
   "default_country_or_market": "",
   "operator_notes": "",
+  "product_or_offer": "linen table textile",
+  "target_customer_type": "importer",
+  "industry_lens": "consumer",
+  "seller_context": {
+    "product_or_offer": "linen table textile",
+    "value_propositions": ["small-batch design support"]
+  },
   "leads": [
     {
       "company_name": "Nordic Home Textile AB",
@@ -49,25 +56,28 @@ description: Normalize and screen scattered foreign-trade leads into a conservat
 
 1. Normalize each lead field into a stable shape.
 2. Receive upstream search evidence and detect obvious missing fields and risky inconsistencies.
-3. Classify the lead into a conservative bucket.
-4. Suggest the next action:
+3. Separate identity completeness from `business_fit`; a complete but irrelevant lead must not be treated as qualified.
+4. Classify the lead into a conservative bucket.
+5. Suggest the next action:
    - `ready_for_customer_intel`
    - `needs_enrichment`
    - `hold_for_manual_review`
-5. Keep a legacy-compatible action field for adapter compatibility.
-6. Build a `customer_intel_input` payload for downstream use.
-7. Output the result in JSON and optionally Markdown.
+6. Keep a legacy-compatible action field for adapter compatibility.
+7. Build a `customer_intel_input` payload that preserves seller context, industry lens, product offer, evidence grade, and business-fit reasons.
+8. Output the result in JSON and optionally Markdown.
 
 ## Output Requirements
 
 - 必须包含汇总统计
 - 必须包含每条线索的标准化字段
 - 必须包含 `evidence_grade`
+- 必须包含独立的 `business_fit`，并说明匹配依据或为什么无法判断
 - 必须包含缺失项
 - 必须包含人工复核原因
 - 必须包含下一步动作建议
 - 必须包含 `legacy_recommended_next_action`
 - 必须包含兼容客户背调 Skill 的桥接字段
+- 不能仅因为公司名、官网和邮箱齐全就判定值得背调
 - 不能把推断写成事实
 - 不能越权替代 `客户背调skill/` 输出客户情报报告
 - 不能越权替代 `开发信skill/` 生成触达文案

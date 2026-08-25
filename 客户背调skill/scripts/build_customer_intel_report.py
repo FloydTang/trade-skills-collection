@@ -19,6 +19,13 @@ from html import unescape
 from pathlib import Path
 from typing import Any
 
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from workflow_runtime.customer_intel_v2 import upgrade_customer_intel_report
+
 USER_AGENT = "trade-customer-intel/0.1"
 SEARCH_LIMIT = 5
 PHASE2_PLATFORMS = {"linkedin", "instagram", "x", "web"}
@@ -67,7 +74,7 @@ def load_input(path: str | None) -> dict[str, Any]:
     return {}
 
 
-def normalize_input(data: dict[str, Any]) -> dict[str, str]:
+def normalize_input(data: dict[str, Any]) -> dict[str, Any]:
     normalized = {
         "company_name": str(data.get("company_name", "")).strip(),
         "person_name": str(data.get("person_name", "")).strip(),
@@ -75,6 +82,9 @@ def normalize_input(data: dict[str, Any]) -> dict[str, str]:
         "company_website": str(data.get("company_website", "")).strip(),
         "country_or_market": str(data.get("country_or_market", "")).strip(),
         "product_or_offer": str(data.get("product_or_offer", "")).strip(),
+        "industry_lens": str(data.get("industry_lens", "auto")).strip() or "auto",
+        "seller_context": data.get("seller_context") if isinstance(data.get("seller_context"), dict) else {},
+        "screening_context": data.get("screening_context") if isinstance(data.get("screening_context"), dict) else {},
         "notes": str(data.get("notes", "")).strip(),
     }
     if not any(normalized[key] for key in ("company_name", "person_name", "email")):
@@ -641,37 +651,7 @@ def entity_confidence(data: dict[str, str], website: str, results: list[SearchRe
     return "low"
 
 
-def evidence_sufficiency(
-    website: str,
-    results: list[SearchResult],
-    signals: list[dict[str, str]],
-    ambiguity_notes: list[str],
-) -> str:
-    if website and len(results) >= 5 and len(signals) >= 2 and not ambiguity_notes:
-        return "sufficient"
-    if (website and len(results) >= 3) or signals:
-        return "limited"
-    return "thin"
-
-
-def build_intel_decision(
-    entity_level: str,
-    sufficiency: str,
-    risk_rating_value: str,
-    ambiguity_notes: list[str],
-) -> dict[str, Any]:
-    if entity_level == "high" and sufficiency == "sufficient" and risk_rating_value != "High":
-        next_action = "ready_for_email_draft"
-    else:
-        next_action = "hold_for_manual_review"
-    return {
-        "entity_confidence": entity_level,
-        "evidence_sufficiency": sufficiency,
-        "risk_rating": risk_rating_value,
-        "recommended_next_action": next_action,
-        "manual_review_required": next_action == "hold_for_manual_review",
-        "review_focus": ambiguity_notes[:3],
-    }
+SIEGER_NO_COVERAGE = "公开来源未覆盖"
 
 
 def build_report(data: dict[str, str], results: list[SearchResult], snapshots: dict[str, str]) -> dict[str, Any]:
@@ -718,7 +698,6 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
     )
     rating, risk_reasons = risk_rating(data, website, results, snapshots)
     entity_level = entity_confidence(data, website, results)
-    sufficiency = evidence_sufficiency(website, results, signals, ambiguity_notes)
     sales_angles = build_sales_angles(signals, company_summary, recent_signals, market_signals)
     platform_map = collect_platform_evidence(results, snapshots)
     phase_2_status, outreach_persona_card = build_outreach_persona_card(
@@ -735,12 +714,28 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         data["person_name"],
     )
     missing_fields = [key for key in ("company_name", "person_name", "email") if not data[key]]
+    generated_at = datetime.now(timezone.utc).isoformat()
+    v2_sections = upgrade_customer_intel_report(
+        lead=data,
+        raw_evidence=evidence,
+        company_summary=company_summary,
+        official_website=website,
+        recent_signals=recent_signals,
+        market_signals=market_signals,
+        sales_angles=sales_angles,
+        risk_rating=rating,
+        risk_reasons=risk_reasons,
+        entity_confidence=entity_level,
+        ambiguity_notes=ambiguity_notes,
+        generated_at=generated_at,
+    )
+    intel_decision = v2_sections["intel_decision"]
+    sales_angles = v2_sections["sales_angles"]
     unconfirmed_fact_list = list(ambiguity_notes)
-    if sufficiency != "sufficient":
+    if intel_decision.get("evidence_sufficiency") != "sufficient":
         unconfirmed_fact_list.append("公开证据仍不足以支持强个性化判断，进入开发信前需人工确认。")
     if rating == "High":
         unconfirmed_fact_list.append("当前风险评级为 High，不建议直接进入开发信。")
-    intel_decision = build_intel_decision(entity_level, sufficiency, rating, ambiguity_notes)
 
     summary_cn_parts = [
         f"当前线索更像是{data['company_name'] or '一个待确认的公司主体'}",
@@ -795,8 +790,79 @@ def build_report(data: dict[str, str], results: list[SearchResult], snapshots: d
         "personalized_outreach_pack": personalized_outreach_pack,
         "evidence": evidence[:15],
         "notes": data["notes"] or None,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": generated_at,
+        **v2_sections,
     }
+
+
+def render_sieger_sections(report: dict[str, Any]) -> list[str]:
+    verdict = report.get("verdict_card") or {}
+    business = report.get("company_business_breakdown") or {}
+    tech = report.get("tech_capability_procurement_concerns") or {}
+    scale = report.get("scale_financial_signals") or {}
+    sales_model = report.get("sales_model_procurement_logic") or {}
+    competition = report.get("competition_map") or {}
+    growth = report.get("growth_opportunities") or []
+    score_display = verdict.get("score") if verdict.get("score") is not None else "未评分"
+    lines = [
+        "",
+        "## Verdict Card（结论先看）",
+        "",
+        f"- 综合开发价值：{score_display}/10（{verdict.get('score_basis', SIEGER_NO_COVERAGE)}）",
+        f"- 客户分级：{verdict.get('customer_grade', '未覆盖')}；{verdict.get('grade_reason', SIEGER_NO_COVERAGE)}",
+        f"- Intel Decision：{verdict.get('intel_decision', 'needs_manual_review')}",
+        f"- 一句话总评：{verdict.get('one_line_verdict', SIEGER_NO_COVERAGE)}",
+    ]
+    for dimension in verdict.get("dimensions") or []:
+        lines.append(f"- {dimension.get('name', '维度')}：{dimension.get('display', dimension.get('rating', SIEGER_NO_COVERAGE))}；依据：{dimension.get('basis', SIEGER_NO_COVERAGE)}")
+    for item in verdict.get("review_focus") or []:
+        lines.append(f"- 人工复核：{item}")
+
+    lines.extend(["", "## Company Profile & Business Breakdown（业务拆解）", ""])
+    for business_line in business.get("business_lines") or []:
+        lines.append(f"- 业务线：{business_line.get('name', SIEGER_NO_COVERAGE)}")
+        lines.append(f"  代表产品/描述：{'；'.join(business_line.get('representative_products') or [SIEGER_NO_COVERAGE])}")
+        lines.append(f"  客户类型：{business_line.get('customer_types', SIEGER_NO_COVERAGE)}")
+        if business_line.get("evidence_refs"):
+            lines.append(f"  来源：{'；'.join(business_line['evidence_refs'])}")
+    facts = business.get("entity_facts") or {}
+    for label, key in (("注册与实体", "registration_and_entity"), ("地址差异", "address_notes"), ("厂房/研发设施", "facilities"), ("管理层背景", "management_background")):
+        lines.append(f"- {label}：{facts.get(key, SIEGER_NO_COVERAGE)}")
+    judgment = business.get("business_model_judgment") or {}
+    lines.append(f"- 商业模式判断：{judgment.get('value', SIEGER_NO_COVERAGE)}（{judgment.get('basis', SIEGER_NO_COVERAGE)}）")
+
+    lines.extend(["", "## Tech Capability & Procurement Concerns（技术能力与采购关注点）", ""])
+    lines.append(f"- 技术栈：{tech.get('technical_stack', SIEGER_NO_COVERAGE)}；依据：{tech.get('technical_stack_basis', SIEGER_NO_COVERAGE)}")
+    for concern in tech.get("procurement_concerns") or []:
+        lines.append(f"- 采购关注点：{concern.get('item', SIEGER_NO_COVERAGE)} — {concern.get('assessment', SIEGER_NO_COVERAGE)}（优先级：{concern.get('priority', '待确认')}）")
+    lines.append(f"- 对我方最关键：{tech.get('most_important_for_us', SIEGER_NO_COVERAGE)}")
+
+    lines.extend(["", "## Scale & Financial Signals（规模与财务信号）", ""])
+    lines.append(f"- 营收：{scale.get('revenue', '公开免费来源未覆盖')}")
+    lines.append(f"- 员工数：{scale.get('employee_count', '公开免费来源未覆盖')}")
+    lines.append(f"- 经营趋势：{scale.get('operating_trend', SIEGER_NO_COVERAGE)}")
+    lines.append(f"- 采购行为解读：{scale.get('procurement_behavior_interpretation', SIEGER_NO_COVERAGE)}")
+    lines.append(f"- 人工补查入口：{scale.get('manual_check_entry', SIEGER_NO_COVERAGE)}")
+
+    lines.extend(["", "## Sales Model & Procurement Logic（销售模式与采购逻辑）", ""])
+    lines.append(f"- 销售模式：{sales_model.get('sales_model', SIEGER_NO_COVERAGE)}")
+    lines.append(f"- 典型销售周期：{sales_model.get('sales_cycle', SIEGER_NO_COVERAGE)}")
+    lines.append(f"- 供应商进入点：{sales_model.get('supplier_entry_point', SIEGER_NO_COVERAGE)}")
+    lines.append(f"- 依据：{sales_model.get('basis', SIEGER_NO_COVERAGE)}")
+
+    lines.extend(["", "## Competition Map（竞争对手图谱）", ""])
+    competitors = competition.get("potential_competitors") or []
+    lines.append(f"- 潜在竞争集合：{'；'.join(str(item) for item in competitors) if competitors else SIEGER_NO_COVERAGE}")
+    lines.append(f"- 注记：{competition.get('note', '公开来源未覆盖；不做一一对应宣称。')}")
+
+    lines.extend(["", "## Growth Opportunities（增长机会）", ""])
+    if growth:
+        for opportunity in growth:
+            lines.append(f"- {opportunity.get('opportunity', SIEGER_NO_COVERAGE)}")
+            lines.append(f"  逻辑：{opportunity.get('logic', SIEGER_NO_COVERAGE)}；状态：{opportunity.get('status', '需人工验证')}")
+    else:
+        lines.append(f"- {SIEGER_NO_COVERAGE}")
+    return lines
 
 
 def render_markdown(report: dict[str, Any]) -> str:
@@ -836,6 +902,15 @@ def render_markdown(report: dict[str, Any]) -> str:
     for note in identity["ambiguity_notes"]:
         lines.append(f"- Ambiguity note: {note}")
 
+    decision_brief = report.get("decision_brief") or {}
+    lines.extend(["", "## Decision Brief", ""])
+    lines.append(f"- Decision: {decision_brief.get('decision', 'hold_for_manual_review')}")
+    lines.append(f"- Next action: {decision_brief.get('next_action', '补证据后再判断。')}")
+    for gate_name, gate in (decision_brief.get("decision_gates") or {}).items():
+        lines.append(f"- Gate {gate_name}: {gate.get('status', 'unknown')} - {gate.get('reason', '')}")
+
+    lines.extend(render_sieger_sections(report))
+
     lines.extend(
         [
             "",
@@ -845,7 +920,7 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"- Recommended next action: {report['intel_decision']['recommended_next_action']}",
             f"- Manual review required: {report['intel_decision']['manual_review_required']}",
             "",
-            "## Company Profile",
+            "## Company Profile（兼容字段视图）",
             "",
             f"- Apparent business: {company['apparent_business']}",
             f"- Website quality: {company['website_quality']}",
@@ -900,14 +975,19 @@ def render_markdown(report: dict[str, Any]) -> str:
     else:
         lines.append("- No market or compliance signal confirmed in this pass.")
 
-    lines.extend(["", "## Sales Angles", ""])
+    lines.extend(["", "## Sales Angles（切入策略）", ""])
     for angle in report["sales_angles"]:
         lines.extend(
             [
-                f"- 中文建议：{angle['cn']}",
-                f"  English angle: {angle['en']}",
-                f"  Why: {angle['why']}",
-                f"  Avoid: {angle['avoid']}",
+                f"- 中文建议：{angle.get('cn', SIEGER_NO_COVERAGE)}",
+                f"  English angle: {angle.get('en', SIEGER_NO_COVERAGE)}",
+                f"  Why: {angle.get('why', SIEGER_NO_COVERAGE)}",
+                f"  Why this angle fits: {angle.get('why_this_angle_fits', angle.get('why', SIEGER_NO_COVERAGE))}",
+                f"  Buyer/component clue: {angle.get('buyer_or_component_clue', SIEGER_NO_COVERAGE)}",
+                f"  Replacement point: {angle.get('replacement_point', SIEGER_NO_COVERAGE)}",
+                f"  Authorized materials: {'; '.join(angle.get('authorized_materials') or []) or SIEGER_NO_COVERAGE}",
+                f"  Evidence refs: {'; '.join(angle.get('evidence_refs') or []) or SIEGER_NO_COVERAGE}",
+                f"  Avoid: {angle.get('avoid', SIEGER_NO_COVERAGE)}",
             ]
         )
 
@@ -962,7 +1042,34 @@ def render_markdown(report: dict[str, Any]) -> str:
     for reason in report["risk_reasons"]:
         lines.append(f"- Reason: {reason}")
 
-    lines.extend(["", "## Evidence", ""])
+    image_summary = report.get("image_summary") or {}
+    image_score = image_summary.get("score") if image_summary.get("score") is not None else "未评分"
+    lines.extend(
+        [
+            "",
+            "## 画像总结（收尾）",
+            "",
+            f"- 顾问式总结：{image_summary.get('summary_cn', SIEGER_NO_COVERAGE)}",
+            f"- 综合开发价值：{image_score}/10；客户分级：{image_summary.get('customer_grade', '未覆盖')}",
+            f"- 最大机会：{image_summary.get('maximum_opportunity', SIEGER_NO_COVERAGE)}",
+            f"- 最大风险：{image_summary.get('maximum_risk', SIEGER_NO_COVERAGE)}",
+            f"- 策略：{image_summary.get('strategy', SIEGER_NO_COVERAGE)}",
+        ]
+    )
+
+    lines.extend(["", "## Claim Ledger", ""])
+    for item in report.get("claim_ledger") or []:
+        lines.append(
+            f"- {item['claim_id']} [{item['statement_type']}/{item['confidence']}] "
+            f"{item['statement']} -> {', '.join(item['evidence_ids']) or 'no evidence'}"
+        )
+    lines.extend(["", "## Evidence Ledger", ""])
+    for item in report.get("evidence_ledger") or []:
+        lines.append(
+            f"- {item['evidence_id']} [{item['source_quality']}/{item['confidence']}] "
+            f"{item['title']}: {item['url'] or '(no url)'}"
+        )
+    lines.extend(["", "## Evidence（兼容字段视图）", ""])
     for item in report["evidence"]:
         lines.append(f"- {item['title']}: {item['url']} ({item['source_type']})")
         if item["note"]:

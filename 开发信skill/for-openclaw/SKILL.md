@@ -1,14 +1,7 @@
 ---
 name: trade-outreach-email-for-openclaw
 description: OpenClaw-native version of the foreign-trade outreach email skill. Use structured operator input plus customer-intel source context to generate conservative first-touch or follow-up email drafts without overstating inferred facts or inventing recent customer events.
-openclaw_role: stage_worker
-workspace_owner_skill: trade-active-outreach-combo
-single_skill_policy: attach_only
-feishu_container_creation: forbidden
-requires_master_base: true
-requires_master_record: true
-table_policy: adapt_existing_or_create_minimal
-rule_capture: ask_before_skill_update
+metadata: {"openclaw":{"role":"stage_worker","workspace_owner_skill":"trade-active-outreach-combo","single_skill_policy":"attach_only","feishu_container_creation":"forbidden","requires_master_base":true,"requires_master_record":true,"table_policy":"adapt_existing_or_create_minimal","rule_capture":"ask_before_skill_update"}}
 ---
 
 # 开发信 Skill for OpenClaw
@@ -39,7 +32,8 @@ rule_capture: ask_before_skill_update
 其中：
 
 - `operator_input` 提供邮件场景、产品、目标、发件人等明确业务输入
-- `public_context` 提供客户画像摘要、历史沟通、风险提示、近期客户信号、市场/合规信号和推荐切入角度
+- `public_context` 提供客户画像摘要、历史沟通、风险提示，以及已明确批准的 `selected_sales_angle`、`selected_claims`、`selected_evidence`
+- 由客户背调桥接时，`draft_authorization` 必须为 `approved`
 
 ## Rules
 
@@ -47,7 +41,8 @@ rule_capture: ask_before_skill_update
 - 以 `public_context` 为辅，只做保守补充
 - 不重新背调，不自行生成“客户最近发生了什么”
 - 近期动态、市场变化、合规/关税/贸易信号必须来自上游客户背调输出
-- `High` 风险时提醒人工复核，不默认终止输出
+- 上游判定 `High` 风险、尚未 ready 或没有批准切入角度时，终止背调桥接的草稿生成
+- 在邮件包中保留 `ANGLE-*`、`CL-*` 和 `EV-*` 引用，便于人工复核
 - `follow_up` 仍要求有历史沟通上下文
 
 ## Main Script

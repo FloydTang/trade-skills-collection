@@ -1,10 +1,12 @@
 {
   "summary": {
     "total_leads": 2,
-    "ready_for_customer_intel": 1,
-    "need_enrichment": 0,
+    "ready_for_customer_intel": 0,
+    "needs_enrichment": 1,
     "manual_review": 1,
-    "operator_notes": "Use conservative screening before sending any textile lead into customer intel."
+    "operator_notes": "Use conservative screening before sending any textile lead into customer intel.",
+    "product_or_offer": "washed linen table textile",
+    "industry_lens": "consumer"
   },
   "leads": [
     {
@@ -19,10 +21,32 @@
       "linkedin_url": "https://www.linkedin.com/company/atelier-loom",
       "product_keywords": "washed linen table textile",
       "source_type": "website",
+      "source_name": "",
+      "source_url_or_note": "",
+      "freshness": "",
+      "confidence": "",
+      "match_basis": "",
+      "evidence_grade": "C",
+      "match_reason": "",
+      "evidence_summary": "",
+      "discovery_missing_fields": [],
+      "discovery_next_action": "",
       "lead_bucket": "website_company_full_contact",
+      "business_fit": {
+        "rating": "high",
+        "context_present": true,
+        "matched_terms": [
+          "washed linen table textile",
+          "washed linen tablecloths"
+        ],
+        "reasons": [
+          "候选公开描述与目标上下文匹配：washed linen table textile, washed linen tablecloths"
+        ]
+      },
       "missing_fields": [],
       "manual_review_reasons": [],
-      "recommended_next_action": "enter_customer_intel",
+      "recommended_next_action": "needs_enrichment",
+      "legacy_recommended_next_action": "enrich_then_customer_intel",
       "follow_up_suggestions": [
         "可直接进入客户背调，并在背调阶段继续核对实体匹配。"
       ],
@@ -32,7 +56,48 @@
         "email": "mira@atelier-loom.de",
         "company_website": "https://atelier-loom.de",
         "country_or_market": "Germany",
-        "notes": "Premium table textile positioning. | Source URL: https://atelier-loom.de/about | LinkedIn URL: https://www.linkedin.com/company/atelier-loom"
+        "product_or_offer": "washed linen table textile",
+        "industry_lens": "consumer",
+        "seller_context": {
+          "company_name": "",
+          "product_or_offer": "washed linen table textile",
+          "product_categories": [
+            "washed linen tablecloths",
+            "linen napkins"
+          ],
+          "target_customer_types": [
+            "design-led home textile brands with private-label collections"
+          ],
+          "target_industries": [],
+          "value_propositions": [
+            "small-batch sampling",
+            "custom colors",
+            "washed linen production"
+          ],
+          "certifications": [],
+          "proof_points": [],
+          "authorized_materials": [],
+          "excluded_customer_signals": [
+            "consumer-only retailer with no private-label activity"
+          ],
+          "forbidden_claims": []
+        },
+        "screening_context": {
+          "business_fit": {
+            "rating": "high",
+            "context_present": true,
+            "matched_terms": [
+              "washed linen table textile",
+              "washed linen tablecloths"
+            ],
+            "reasons": [
+              "候选公开描述与目标上下文匹配：washed linen table textile, washed linen tablecloths"
+            ]
+          },
+          "evidence_grade": "C",
+          "recommended_next_action": "needs_enrichment"
+        },
+        "notes": "Premium table textile positioning. | Source URL: https://atelier-loom.de/about | Source Type: website | LinkedIn URL: https://www.linkedin.com/company/atelier-loom"
       }
     },
     {
@@ -47,7 +112,27 @@
       "linkedin_url": "",
       "product_keywords": "table linen",
       "source_type": "marketplace",
+      "source_name": "",
+      "source_url_or_note": "",
+      "freshness": "",
+      "confidence": "",
+      "match_basis": "",
+      "evidence_grade": "C",
+      "match_reason": "",
+      "evidence_summary": "",
+      "discovery_missing_fields": [],
+      "discovery_next_action": "",
       "lead_bucket": "email_only_clue",
+      "business_fit": {
+        "rating": "high",
+        "context_present": true,
+        "matched_terms": [
+          "washed linen table textile"
+        ],
+        "reasons": [
+          "候选公开描述与目标上下文匹配：washed linen table textile"
+        ]
+      },
       "missing_fields": [
         "company_name",
         "company_website",
@@ -58,6 +143,7 @@
         "当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
       ],
       "recommended_next_action": "hold_for_manual_review",
+      "legacy_recommended_next_action": "hold_for_manual_review",
       "follow_up_suggestions": [
         "补公司正式名称或官网标题。",
         "先根据邮箱域名确认官网是否存在。",
@@ -69,7 +155,47 @@
         "email": "hello@gmail.com",
         "company_website": "",
         "country_or_market": "Germany",
-        "notes": "Marketplace listing only. | Source URL: https://marketplace.example/nordhaus | Review: 邮箱使用公共域名，不能直接当作企业身份强证据。；当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
+        "product_or_offer": "washed linen table textile",
+        "industry_lens": "consumer",
+        "seller_context": {
+          "company_name": "",
+          "product_or_offer": "washed linen table textile",
+          "product_categories": [
+            "washed linen tablecloths",
+            "linen napkins"
+          ],
+          "target_customer_types": [
+            "design-led home textile brands with private-label collections"
+          ],
+          "target_industries": [],
+          "value_propositions": [
+            "small-batch sampling",
+            "custom colors",
+            "washed linen production"
+          ],
+          "certifications": [],
+          "proof_points": [],
+          "authorized_materials": [],
+          "excluded_customer_signals": [
+            "consumer-only retailer with no private-label activity"
+          ],
+          "forbidden_claims": []
+        },
+        "screening_context": {
+          "business_fit": {
+            "rating": "high",
+            "context_present": true,
+            "matched_terms": [
+              "washed linen table textile"
+            ],
+            "reasons": [
+              "候选公开描述与目标上下文匹配：washed linen table textile"
+            ]
+          },
+          "evidence_grade": "C",
+          "recommended_next_action": "hold_for_manual_review"
+        },
+        "notes": "Marketplace listing only. | Source URL: https://marketplace.example/nordhaus | Source Type: marketplace | Review: 邮箱使用公共域名，不能直接当作企业身份强证据。；当前只有邮箱线索，建议先补公司名或官网再进入客户背调。"
       }
     }
   ]

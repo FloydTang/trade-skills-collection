@@ -27,6 +27,14 @@ def convert_payload(payload: object) -> dict:
         raise ValueError("Input must include a non-empty lead_candidates array.")
     return {
         "default_country_or_market": str(payload.get("country_or_market") or ""),
+        "product_or_offer": str(payload.get("product_or_offer") or ""),
+        "target_customer_type": str(payload.get("target_customer_type") or ""),
+        "industry_lens": str(payload.get("industry_lens") or "auto"),
+        "seller_context": (
+            payload.get("seller_context")
+            if isinstance(payload.get("seller_context"), dict)
+            else {}
+        ),
         "operator_notes": str(payload.get("operator_notes") or ""),
         "leads": candidates,
     }

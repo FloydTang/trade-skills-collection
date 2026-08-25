@@ -1,14 +1,7 @@
 ---
 name: trade-customer-intel-for-openclaw
-description: OpenClaw-native version of Trade Customer Intel. Use coze-web-search for search, scrapling-official for primary page extraction, and coze-web-fetch as fallback. Generate a bilingual, evidence-backed customer intelligence report with recent customer signals, market/compliance signals, risk judgment, and sales angles from a structured evidence bundle.
-openclaw_role: stage_worker
-workspace_owner_skill: trade-active-outreach-combo
-single_skill_policy: attach_only
-feishu_container_creation: forbidden
-requires_master_base: true
-requires_master_record: true
-table_policy: adapt_existing_or_create_minimal
-rule_capture: ask_before_skill_update
+description: OpenClaw-native SIEGER-aligned customer intelligence. Use a structured evidence bundle to produce a bilingual report with claim-level evidence, decision gates, industry-specific analysis, and proposed sales angles that require explicit approval before email drafting.
+metadata: {"openclaw":{"role":"stage_worker","workspace_owner_skill":"trade-active-outreach-combo","single_skill_policy":"attach_only","feishu_container_creation":"forbidden","requires_master_base":true,"requires_master_record":true,"table_policy":"adapt_existing_or_create_minimal","rule_capture":"ask_before_skill_update"}}
 ---
 
 # Trade Customer Intel for OpenClaw
@@ -39,6 +32,8 @@ Normalize operator input into this lead shape:
   "company_website": "",
   "country_or_market": "",
   "product_or_offer": "",
+  "industry_lens": "auto",
+  "seller_context": {},
   "notes": ""
 }
 ```
@@ -49,6 +44,7 @@ The final report-builder input must wrap that lead together with an evidence bun
 {
   "lead": {},
   "evidence_bundle": {
+    "evidence_items": [],
     "search_results": [],
     "page_snapshots": [],
     "search_runs": [],
@@ -56,6 +52,8 @@ The final report-builder input must wrap that lead together with an evidence bun
   }
 }
 ```
+
+`evidence_items` 可为每条证据显式提供 `claims`。报告会将结论标为 `fact`、`inference` 或 `hypothesis`，并用 `EV-*` 和 `CL-*` 保留证据到结论的对应关系。
 
 ## Tooling Rules
 
@@ -108,8 +106,11 @@ Follow [report-template.md](./references/report-template.md) and [source-playboo
 - Keep sales-facing content bilingual
 - Keep risk scoring conservative
 - Preserve `Low`, `Medium`, `High` ratings only
+- Use the SIEGER v2 decision gates: identity, evidence, seller offer, product fit, and risk
+- Do not produce a numeric score until at least three SIEGER dimensions have evidence-backed claims
 - Include recent customer signals and market/compliance signals when evidence supports them
-- Provide sales angles that downstream email drafting can consume without inventing facts
+- Keep every generated sales angle at `proposed`; only an explicit human or authorized workflow action may mark it `approved`
+- Provide sales angles with valid `CL-*` and `EV-*` references so downstream email drafting can consume them without inventing facts
 - Generate outreach persona and outreach pack only when public evidence supports them
 - If evidence is thin, use `limited_evidence` instead of forcing personalization
 
@@ -128,8 +129,7 @@ python3 ./scripts/build_customer_intel_report_from_evidence.py \
 
 ## Notes
 
-- This skill is parallel to the classic version; it does not replace it
-- The classic version remains the baseline for comparison
+- This skill and the classic version share the same v2 contract and judgment core
 - This version optimizes for cloud stability and controlled tool orchestration
 
 ## Feishu 回写规则（经验教训沉淀）
@@ -194,7 +194,7 @@ python3 ./scripts/build_customer_intel_report_from_evidence.py \
 - `fetch_snapshot()` 依赖 `r.jina.ai` 外部服务，不可靠
 - 脚本没有网络超时后自动降级机制
 
-**正确做法：** OpenClaw 环境下搜索层用内置 `web_search`（Tavily API）+ `web_fetch` 替代，完成搜索后再自行组装报告。
+**正确做法：** OpenClaw 环境下按本 Skill 的工具规则使用 `coze-web-search` + `scrapling-official`，失败时再用 `coze-web-fetch`，然后组装证据包。
 
 ## Enhancement Entry
 

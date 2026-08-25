@@ -27,6 +27,16 @@ description: Find the first batch of foreign-trade prospect companies from publi
   "product_or_offer": "frozen mixed vegetables",
   "target_market": "Poland",
   "customer_type": "importer",
+  "industry_lens": "food",
+  "seller_context": {
+    "company_name": "Ningbo FreshGrow Foods",
+    "product_or_offer": "frozen mixed vegetables",
+    "product_categories": ["frozen vegetables"],
+    "target_customer_types": ["importer", "private-label buyer"],
+    "target_industries": ["frozen food"],
+    "value_propositions": ["stable specifications", "supply reliability"],
+    "authorized_materials": ["authorized capability sheet"]
+  },
   "search_keywords": [
     "frozen food importer",
     "private label frozen vegetables"
@@ -63,7 +73,7 @@ description: Find the first batch of foreign-trade prospect companies from publi
 
 ## Workflow
 
-1. Normalize search inputs, available data sources, and authorization status.
+1. Normalize search inputs, seller context, industry lens, available data sources, and authorization status.
 2. Build public search queries when public search is available.
 3. Search public-web results and LinkedIn company-result clues.
 4. Merge user-authorized data sources such as customs exports, trade show lists, association directories, CRM/Excel files, or historical customer data.
@@ -71,7 +81,7 @@ description: Find the first batch of foreign-trade prospect companies from publi
 6. Group results into candidate companies using website, LinkedIn URL, normalized company name, or imported source record.
 7. Grade each candidate conservatively with `evidence_grade` and `next_action`.
 8. Build a structured candidate list with source links, source type, source name, match basis, freshness, confidence, visible contact clues, evidence summary, and follow-up suggestions.
-9. Generate a lead-screening bridge payload for downstream use.
+9. Generate a lead-screening bridge payload that preserves `product_or_offer`, `seller_context`, target customer type, and `industry_lens`.
 
 ## Output Requirements
 
@@ -92,6 +102,7 @@ description: Find the first batch of foreign-trade prospect companies from publi
 - 必须包含 `freshness`
 - 必须包含 `confidence`
 - 必须包含可桥接到 `线索整理skill/` 的输出
+- 必须把我方产品和授权资料上下文完整传给线索整理，不在阶段切换时丢失
 - 不能把搜索结果写成客户价值判断
 - 不能越权替代 `线索整理skill/` 做标准化初筛
 - 不能越权替代 `客户背调skill/` 做证据驱动背调

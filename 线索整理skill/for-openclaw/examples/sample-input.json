@@ -1,5 +1,26 @@
 {
   "country_or_market": "Germany",
+  "product_or_offer": "washed linen table textile",
+  "target_customer_type": "design-led home textile brands",
+  "industry_lens": "consumer",
+  "seller_context": {
+    "product_or_offer": "washed linen table textile",
+    "product_categories": [
+      "washed linen tablecloths",
+      "linen napkins"
+    ],
+    "target_customer_types": [
+      "design-led home textile brands with private-label collections"
+    ],
+    "value_propositions": [
+      "small-batch sampling",
+      "custom colors",
+      "washed linen production"
+    ],
+    "excluded_customer_signals": [
+      "consumer-only retailer with no private-label activity"
+    ]
+  },
   "operator_notes": "Use conservative screening before sending any textile lead into customer intel.",
   "lead_candidates": [
     {

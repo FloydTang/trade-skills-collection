@@ -2,6 +2,20 @@
   "product_or_offer": "frozen mixed vegetables",
   "target_market": "Poland",
   "customer_type": "importer",
+  "industry_lens": "food",
+  "seller_context": {
+    "company_name": "Ningbo FreshGrow Foods",
+    "product_or_offer": "frozen mixed vegetables",
+    "product_categories": ["frozen vegetables", "private-label frozen food"],
+    "target_customer_types": ["importer", "private-label buyer"],
+    "target_industries": ["frozen food", "retail food"],
+    "value_propositions": ["stable specifications", "packaging coordination", "supply reliability"],
+    "certifications": [],
+    "proof_points": ["Fixture-only proof point; replace with authorized company evidence in real use."],
+    "authorized_materials": ["test-fixture:frozen-food-capability-sheet"],
+    "excluded_customer_signals": [],
+    "forbidden_claims": ["Do not claim confirmed purchase intent."]
+  },
   "search_keywords": [
     "frozen food importer",
     "private label frozen vegetables"

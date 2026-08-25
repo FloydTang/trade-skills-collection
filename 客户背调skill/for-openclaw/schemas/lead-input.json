@@ -22,6 +22,31 @@
     "product_or_offer": {
       "type": "string"
     },
+    "industry_lens": {
+      "type": "string",
+      "enum": ["auto", "industrial", "food", "consumer", "general"]
+    },
+    "seller_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "company_name": { "type": "string" },
+        "product_or_offer": { "type": "string" },
+        "product_categories": { "type": "array", "items": { "type": "string" } },
+        "target_customer_types": { "type": "array", "items": { "type": "string" } },
+        "target_industries": { "type": "array", "items": { "type": "string" } },
+        "value_propositions": { "type": "array", "items": { "type": "string" } },
+        "certifications": { "type": "array", "items": { "type": "string" } },
+        "proof_points": { "type": "array", "items": { "type": "string" } },
+        "authorized_materials": { "type": "array", "items": { "type": "string" } },
+        "excluded_customer_signals": { "type": "array", "items": { "type": "string" } },
+        "forbidden_claims": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "screening_context": {
+      "type": "object",
+      "additionalProperties": true
+    },
     "notes": {
       "type": "string"
     }

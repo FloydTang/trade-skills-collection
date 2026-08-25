@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
@@ -69,6 +70,30 @@ def normalize_url(value: object) -> str:
     return text
 
 
+def normalize_list(value: object) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [normalize_text(item) for item in value if normalize_text(item)]
+
+
+def normalize_seller_context(value: object, product_or_offer: str, target_customer_type: str) -> dict:
+    raw = value if isinstance(value, dict) else {}
+    return {
+        "company_name": normalize_text(raw.get("company_name")),
+        "product_or_offer": normalize_text(raw.get("product_or_offer")) or product_or_offer,
+        "product_categories": normalize_list(raw.get("product_categories")),
+        "target_customer_types": normalize_list(raw.get("target_customer_types"))
+        or ([target_customer_type] if target_customer_type else []),
+        "target_industries": normalize_list(raw.get("target_industries")),
+        "value_propositions": normalize_list(raw.get("value_propositions")),
+        "certifications": normalize_list(raw.get("certifications")),
+        "proof_points": normalize_list(raw.get("proof_points")),
+        "authorized_materials": normalize_list(raw.get("authorized_materials")),
+        "excluded_customer_signals": normalize_list(raw.get("excluded_customer_signals")),
+        "forbidden_claims": normalize_list(raw.get("forbidden_claims")),
+    }
+
+
 def email_domain(email: str) -> str:
     if "@" not in email:
         return ""
@@ -100,9 +125,17 @@ def validate_payload(payload: object) -> dict:
     leads = payload.get("leads")
     if not isinstance(leads, list) or not leads:
         raise ValueError("Input must include a non-empty leads array.")
+    product_or_offer = normalize_text(payload.get("product_or_offer"))
+    target_customer_type = normalize_text(payload.get("target_customer_type"))
     validated = {
         "default_country_or_market": normalize_text(payload.get("default_country_or_market")),
         "operator_notes": normalize_text(payload.get("operator_notes")),
+        "product_or_offer": product_or_offer,
+        "target_customer_type": target_customer_type,
+        "industry_lens": normalize_text(payload.get("industry_lens")) or "auto",
+        "seller_context": normalize_seller_context(
+            payload.get("seller_context"), product_or_offer, target_customer_type
+        ),
         "leads": [],
     }
     for index, lead in enumerate(leads, start=1):
@@ -185,7 +218,85 @@ def review_reasons(lead: dict) -> list[str]:
     return reasons
 
 
-def follow_up_suggestions(lead: dict, reasons: list[str]) -> list[str]:
+FIT_STOPWORDS = {
+    "and", "for", "the", "with", "from", "into", "supply", "supplier",
+    "company", "product", "products", "service", "services", "solution", "solutions",
+}
+
+
+def fit_tokens(text: str) -> set[str]:
+    return {
+        token
+        for token in re.findall(r"[a-z0-9][a-z0-9+-]{2,}", text.lower())
+        if token not in FIT_STOPWORDS
+    }
+
+
+def assess_business_fit(lead: dict, payload: dict) -> dict:
+    seller_context = payload["seller_context"]
+    context_terms = [
+        payload["product_or_offer"],
+        payload["target_customer_type"],
+        *seller_context["product_categories"],
+        *seller_context["target_customer_types"],
+        *seller_context["target_industries"],
+    ]
+    context_terms = list(dict.fromkeys(term for term in context_terms if term))
+    context_present = bool(context_terms)
+    haystack = " ".join(
+        str(lead.get(key, ""))
+        for key in (
+            "company_name", "notes", "product_keywords", "match_basis",
+            "match_reason", "evidence_summary",
+        )
+    ).lower()
+    excluded = [
+        term for term in seller_context["excluded_customer_signals"]
+        if term.lower() in haystack
+    ]
+    if excluded:
+        return {
+            "rating": "low",
+            "context_present": context_present,
+            "matched_terms": [],
+            "reasons": [f"命中排除信号：{', '.join(excluded)}"],
+        }
+    if not context_present:
+        return {
+            "rating": "unknown",
+            "context_present": False,
+            "matched_terms": [],
+            "reasons": ["未提供我方产品或目标客户上下文，暂不判断业务匹配度。"],
+        }
+    haystack_tokens = fit_tokens(haystack)
+    matched: list[str] = []
+    overlap_tokens: set[str] = set()
+    for term in context_terms:
+        term_tokens = fit_tokens(term)
+        overlap = term_tokens & haystack_tokens
+        if term.lower() in haystack or len(overlap) >= 2:
+            matched.append(term)
+        overlap_tokens.update(overlap)
+    if matched or len(overlap_tokens) >= 2:
+        rating = "high"
+    elif overlap_tokens:
+        rating = "medium"
+    else:
+        rating = "unknown"
+    reasons = (
+        [f"候选公开描述与目标上下文匹配：{', '.join(matched[:4] or sorted(overlap_tokens)[:4])}"]
+        if rating in {"high", "medium"}
+        else ["现有线索未证明该客户与我方产品匹配，需要补业务线或采购场景证据。"]
+    )
+    return {
+        "rating": rating,
+        "context_present": True,
+        "matched_terms": matched[:6] or sorted(overlap_tokens)[:6],
+        "reasons": reasons,
+    }
+
+
+def follow_up_suggestions(lead: dict, reasons: list[str], business_fit: dict) -> list[str]:
     suggestions = []
     if not lead["company_name"]:
         suggestions.append("补公司正式名称或官网标题。")
@@ -197,6 +308,10 @@ def follow_up_suggestions(lead: dict, reasons: list[str]) -> list[str]:
         suggestions.append("补国家市场，方便背调和后续触达语言判断。")
     if reasons:
         suggestions.append("先处理人工复核项，再决定是否进入客户背调。")
+    if business_fit["rating"] == "unknown" and business_fit["context_present"]:
+        suggestions.append("补充客户业务线、产品或采购场景证据，确认与我方产品是否匹配。")
+    if business_fit["rating"] == "low":
+        suggestions.append("已命中排除信号，除非人工纠正，否则不进入客户背调。")
     if lead.get("evidence_grade") in {"C", "D"}:
         suggestions.append("优先补官网、LinkedIn 或主体可验证字段，再进入客户背调。")
     if not suggestions:
@@ -204,7 +319,7 @@ def follow_up_suggestions(lead: dict, reasons: list[str]) -> list[str]:
     return suggestions
 
 
-def recommended_action(lead: dict, reasons: list[str]) -> str:
+def recommended_action(lead: dict, reasons: list[str], business_fit: dict) -> str:
     strong_clues = 0
     if lead["company_name"]:
         strong_clues += 1
@@ -220,7 +335,10 @@ def recommended_action(lead: dict, reasons: list[str]) -> str:
 
     if discovery_next_action == "reject_low_evidence":
         return "hold_for_manual_review"
-    if evidence_grade in {"A", "B"} and strong_clues >= 2 and len(reasons) <= 1:
+    if business_fit["rating"] == "low":
+        return "hold_for_manual_review"
+    fit_allows_progress = business_fit["rating"] in {"high", "medium"} or not business_fit["context_present"]
+    if evidence_grade in {"A", "B"} and strong_clues >= 2 and len(reasons) <= 1 and fit_allows_progress:
         return "ready_for_customer_intel"
     if strong_clues >= 1:
         return "needs_enrichment"
@@ -256,14 +374,15 @@ def build_notes(lead: dict, reasons: list[str]) -> str:
     return " | ".join(parts)
 
 
-def normalize_lead(lead: dict, default_country_or_market: str, index: int) -> dict:
+def normalize_lead(lead: dict, payload: dict, index: int) -> dict:
     normalized = dict(lead)
-    if not normalized["country_or_market"] and default_country_or_market:
-        normalized["country_or_market"] = default_country_or_market
+    if not normalized["country_or_market"] and payload["default_country_or_market"]:
+        normalized["country_or_market"] = payload["default_country_or_market"]
 
     domain_clue = email_domain(normalized["email"])
     reasons = review_reasons(normalized)
-    action = recommended_action(normalized, reasons)
+    business_fit = assess_business_fit(normalized, payload)
+    action = recommended_action(normalized, reasons, business_fit)
     missing = [
         key
         for key in ["company_name", "company_website", "person_name", "email", "country_or_market"]
@@ -292,17 +411,26 @@ def normalize_lead(lead: dict, default_country_or_market: str, index: int) -> di
         "discovery_missing_fields": normalized["discovery_missing_fields"],
         "discovery_next_action": normalized["discovery_next_action"],
         "lead_bucket": classify_lead(normalized),
+        "business_fit": business_fit,
         "missing_fields": missing,
         "manual_review_reasons": reasons,
         "recommended_next_action": action,
         "legacy_recommended_next_action": screening_action_legacy(action),
-        "follow_up_suggestions": follow_up_suggestions(normalized, reasons),
+        "follow_up_suggestions": follow_up_suggestions(normalized, reasons, business_fit),
         "customer_intel_input": {
             "company_name": normalized["company_name"],
             "person_name": normalized["person_name"],
             "email": normalized["email"],
             "company_website": normalized["company_website"],
             "country_or_market": normalized["country_or_market"],
+            "product_or_offer": payload["product_or_offer"] or payload["seller_context"]["product_or_offer"],
+            "industry_lens": payload["industry_lens"],
+            "seller_context": payload["seller_context"],
+            "screening_context": {
+                "business_fit": business_fit,
+                "evidence_grade": normalized["evidence_grade"] or "C",
+                "recommended_next_action": action,
+            },
             "notes": build_notes(normalized, reasons),
         },
     }
@@ -311,7 +439,7 @@ def normalize_lead(lead: dict, default_country_or_market: str, index: int) -> di
 
 def build_report(payload: dict) -> dict:
     normalized_leads = [
-        normalize_lead(lead, payload["default_country_or_market"], index)
+        normalize_lead(lead, payload, index)
         for index, lead in enumerate(payload["leads"], start=1)
     ]
     summary = {
@@ -326,6 +454,8 @@ def build_report(payload: dict) -> dict:
             1 for lead in normalized_leads if lead["recommended_next_action"] == "hold_for_manual_review"
         ),
         "operator_notes": payload["operator_notes"],
+        "product_or_offer": payload["product_or_offer"],
+        "industry_lens": payload["industry_lens"],
     }
     return {"summary": summary, "leads": normalized_leads}
 
@@ -354,6 +484,7 @@ def render_markdown(report: dict) -> str:
                 f"- Country/Market: {lead['country_or_market'] or '(missing)'}",
                 f"- Lead Bucket: {lead['lead_bucket']}",
                 f"- Evidence Grade: {lead['evidence_grade']}",
+                f"- Business Fit: {lead['business_fit']['rating']}",
                 f"- Discovery Next Action: {lead['discovery_next_action'] or '(missing)'}",
                 f"- Recommended Next Action: {lead['recommended_next_action']}",
                 f"- Legacy Recommended Next Action: {lead['legacy_recommended_next_action']}",
@@ -366,6 +497,8 @@ def render_markdown(report: dict) -> str:
             lines.append(f"- Evidence Summary: {lead['evidence_summary']}")
         if lead["match_reason"]:
             lines.append(f"- Match Reason: {lead['match_reason']}")
+        for reason in lead["business_fit"]["reasons"]:
+            lines.append(f"- Business Fit Reason: {reason}")
         if lead["source_type"]:
             lines.append(f"- Source Type: {lead['source_type']}")
         if lead["source_name"]:

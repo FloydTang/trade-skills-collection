@@ -52,11 +52,13 @@ description: Generate conservative, editable English outreach drafts for foreign
 
 1. Normalize the input fields.
 2. Validate the input against the local JSON schema and confirm `email_type` is `first_touch` or `follow_up`.
-3. Build subject options based on scenario, product, and company name.
-4. Generate one main draft and one lighter alternative draft.
-5. Attach review notes for any claim that depends on summary, historical context, pricing, capability, or other unconfirmed details.
-6. If `source_context` includes recent customer signals or market signals, use them only as cautious opening context and preserve review notes.
-7. Output in the structure defined in [output-template.md](./references/output-template.md).
+3. When `source_context` comes from customer intel, require `draft_authorization = approved` and one approved `selected_sales_angle`.
+4. Build subject options based on scenario, product, and company name.
+5. Generate one main draft and one lighter alternative draft.
+6. Preserve the selected `ANGLE-*`, `CL-*`, and `EV-*` references in the review package.
+7. Attach review notes for any claim that depends on summary, historical context, pricing, capability, or other unconfirmed details.
+8. If `source_context` includes recent customer signals or market signals, use them only when a dated source URL and medium/high confidence are present.
+9. Output in the structure defined in [output-template.md](./references/output-template.md).
 
 ## Output Requirements
 
@@ -70,6 +72,8 @@ description: Generate conservative, editable English outreach drafts for foreign
 - 必须包含 `workflow_guidance`
 - 必须回显关键输入依据
 - 如引用近期动态、市场变化或合规信号，必须来自上游 `source_context`
+- 背调桥接场景必须有明确批准的销售角度；未批准时脚本直接拦截，不生成草稿
+- 必须保留被选中的 claim 和 evidence，而不是只传来源标题
 - 不能把不确定信息写成确定事实
 - 不能越权替代人工执行发送
 - 不能越权替代 `客户背调skill/` 编造客户事实

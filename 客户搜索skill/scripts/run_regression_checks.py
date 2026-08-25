@@ -21,6 +21,9 @@ CASES = [
             "Next Action:",
             "Follow-up Suggestion:",
             "Lead Screening Bridge",
+            "Ningbo FreshGrow Foods",
+            "supply reliability",
+            "\"industry_lens\": \"food\"",
         ],
     },
     {

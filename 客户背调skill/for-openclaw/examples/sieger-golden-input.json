@@ -1,0 +1,299 @@
+{
+  "lead": {
+    "company_name": "SIEGER SPINTECH EQUIPMENTS PRIVATE LIMITED",
+    "person_name": "",
+    "email": "",
+    "company_website": "https://www.siegerglobal.net/",
+    "country_or_market": "India",
+    "product_or_offer": "servo motors, gear motors, sensors and industrial automation components",
+    "industry_lens": "industrial",
+    "seller_context": {
+      "company_name": "Golden Fixture Industrial Components Supplier",
+      "product_or_offer": "servo motors, gear motors, sensors and industrial automation components",
+      "product_categories": [
+        "servo motors",
+        "gear motors",
+        "industrial sensors",
+        "automation components"
+      ],
+      "target_customer_types": ["industrial automation equipment manufacturer", "system integrator"],
+      "target_industries": ["industrial automation", "ASRS", "material handling"],
+      "value_propositions": ["compatible replacement", "shorter lead time", "custom configuration"],
+      "certifications": [],
+      "proof_points": ["Golden regression fixture only; replace with authorized seller proof before real outreach."],
+      "authorized_materials": ["test-fixture:industrial-components-catalog"],
+      "excluded_customer_signals": [],
+      "forbidden_claims": ["Do not claim an existing Sieger purchase order or current supplier replacement project."]
+    },
+    "notes": "Public-source golden regression fixture derived from the SIEGER benchmark structure. It is not a claim of current purchase intent."
+  },
+  "evidence_bundle": {
+    "search_results": [
+      {
+        "query": "SIEGER official company automation",
+        "title": "Sieger Global",
+        "url": "https://www.siegerglobal.net/",
+        "snippet": "Sieger presents textile automation, automated parking, automated storage and material handling solutions backed by R&D and manufacturing.",
+        "source": "official_web",
+        "platform": "web"
+      },
+      {
+        "query": "SIEGER ASTOR ASRS official",
+        "title": "ASTOR Automatic Storage Solutions",
+        "url": "https://www.siegerglobal.net/storage-solutions.php",
+        "snippet": "The official ASTOR page lists ASRS, pallet shuttle, WMS, conveyors and customized storage systems.",
+        "source": "official_web",
+        "platform": "web"
+      },
+      {
+        "query": "Sieger Spintech company financials",
+        "title": "Sieger Spintech Equipments Private Limited",
+        "url": "https://www.thecompanycheck.com/company/sieger-spintech-equipments-private-limited/U29268TZ1994PTC005345",
+        "snippet": "The company database identifies an active private machinery company incorporated in 1994 and reports FY2024 revenue of INR 158.2 crore.",
+        "source": "company_database",
+        "platform": "web"
+      },
+      {
+        "query": "Sieger Spintech Tofler",
+        "title": "Sieger Spintech Equipments Financials",
+        "url": "https://www.tofler.in/sieger-spintech-equipments-private-limited/company/U29268TZ1994PTC005345",
+        "snippet": "Tofler lists the company as active and unlisted, with March 2025 metrics showing pressure in revenue, EBITDA and net profit.",
+        "source": "financial_database",
+        "platform": "web"
+      }
+    ],
+    "page_snapshots": [
+      {
+        "url": "https://www.siegerglobal.net/",
+        "title": "Sieger Global",
+        "text": "Sieger is an engineering and manufacturing company with more than three decades in textile automation. Its public portfolio includes textile automation, ASTOR automated storage and material handling, SHEETSMART sheet handling, and automated car parking. The C2C system combines transport automation, image processing, pallet formation, conditioning, packing and automated storage.",
+        "source": "official_snapshot",
+        "status": "ok"
+      }
+    ],
+    "search_runs": [
+      {
+        "stage": "golden_fixture",
+        "provider": "reviewed_public_sources",
+        "query": "SIEGER public-source benchmark",
+        "status": "ok",
+        "result_count": 4
+      }
+    ],
+    "errors": [],
+    "evidence_items": [
+      {
+        "title": "Sieger About Us",
+        "url": "https://www.siegerglobal.net/about.php",
+        "source_type": "official_website",
+        "source_quality": "primary",
+        "observed_at_or_period": "current_snapshot",
+        "retrieved_at": "2026-08-25",
+        "freshness": "current",
+        "confidence": "high",
+        "note": "Official company page describing facilities, R&D, leadership, worldwide sales and channel partners.",
+        "claims": [
+          {
+            "statement": "The company states that its Coimbatore campus has about 15,000 square metres of covered manufacturing space within a 40,000 square metre campus.",
+            "category": "facility",
+            "statement_type": "fact",
+            "confidence": "high",
+            "dimension": "customer_maturity",
+            "rating": 5
+          },
+          {
+            "statement": "The company states that its R&D centre covers CAD, control-system development and software development and is certified by the Government of India.",
+            "category": "technical_capability",
+            "statement_type": "fact",
+            "confidence": "high",
+            "dimension": "technical_customization",
+            "rating": 5
+          },
+          {
+            "statement": "Sieger describes a worldwide go-to-market model using its own sales team and channel partners, with service backup.",
+            "category": "sales_model",
+            "statement_type": "fact",
+            "confidence": "high"
+          },
+          {
+            "statement": "Govindarajulu Radhakrishnan is listed as Managing Director and Sriram Natarajan as Director.",
+            "category": "management",
+            "statement_type": "fact",
+            "confidence": "high"
+          }
+        ]
+      },
+      {
+        "title": "Sieger Divisions and Product Portfolio",
+        "url": "https://www.siegerglobal.net/divisions.php",
+        "source_type": "official_website",
+        "source_quality": "primary",
+        "observed_at_or_period": "current_snapshot",
+        "retrieved_at": "2026-08-25",
+        "freshness": "current",
+        "confidence": "high",
+        "note": "Official portfolio page covering textile machinery, parking, storage and sheet handling.",
+        "claims": [
+          {
+            "statement": "The public portfolio spans textile machinery, automated car parking, automatic storage and material handling, and automatic sheet storage and handling.",
+            "category": "business_line",
+            "statement_type": "fact",
+            "confidence": "high"
+          },
+          {
+            "statement": "The breadth of integrated equipment and software offerings supports classifying Sieger as a manufacturer and industrial automation system integrator rather than a simple trader.",
+            "category": "business_model",
+            "statement_type": "inference",
+            "confidence": "high"
+          },
+          {
+            "statement": "For an industrial component supplier, the range of automation systems creates a plausible multi-product and repeat-project cooperation opportunity, but no current purchase intent is proven.",
+            "category": "product_fit",
+            "statement_type": "hypothesis",
+            "confidence": "medium",
+            "dimension": "cooperation_value",
+            "rating": 4
+          }
+        ]
+      },
+      {
+        "title": "ASTOR Automatic Storage Solutions",
+        "url": "https://www.siegerglobal.net/storage-solutions.php",
+        "source_type": "official_website",
+        "source_quality": "primary",
+        "observed_at_or_period": "current_snapshot",
+        "retrieved_at": "2026-08-25",
+        "freshness": "current",
+        "confidence": "high",
+        "note": "Official ASTOR product page with ASRS, shuttle, WMS, conveyors and technical specifications.",
+        "claims": [
+          {
+            "statement": "ASTOR includes ASRS stacker cranes, pallet shuttles, warehouse management software, racking and conveyor automation.",
+            "category": "business_line",
+            "statement_type": "fact",
+            "confidence": "high"
+          },
+          {
+            "statement": "Its published system specifications and customized-design positioning imply procurement attention to compatibility, reliability, controls integration, lead time and service response.",
+            "category": "procurement_concern",
+            "statement_type": "inference",
+            "confidence": "medium"
+          },
+          {
+            "statement": "The highest-value next research step is to identify installed PLC, servo, gear-motor, sensor, guide and pneumatic brands by product line before proposing a replacement.",
+            "category": "supplier_entry_point",
+            "statement_type": "hypothesis",
+            "confidence": "medium"
+          },
+          {
+            "statement": "Potential demand for compatible automation components is plausible across ASRS, shuttle and conveyor projects, subject to confirming the installed bill of materials.",
+            "category": "procurement_clue",
+            "statement_type": "hypothesis",
+            "confidence": "medium"
+          },
+          {
+            "statement": "A defensible angle is compatible replacement, shorter lead time and custom configuration after the installed component brands are confirmed.",
+            "category": "replacement_point",
+            "statement_type": "hypothesis",
+            "confidence": "medium"
+          }
+        ]
+      },
+      {
+        "title": "Role of Design in Sieger Products",
+        "url": "https://www.siegerglobal.net/blog/Role-of-Design-in-Sieger-Products.php",
+        "source_type": "official_company_blog",
+        "source_quality": "primary",
+        "observed_at_or_period": "2025",
+        "retrieved_at": "2026-08-25",
+        "freshness": "within_18_months",
+        "confidence": "high",
+        "note": "Official article describing design staffing and a large automated pallet-storage project.",
+        "claims": [
+          {
+            "statement": "Sieger says it has more than 60 design professionals.",
+            "category": "technical_capability",
+            "statement_type": "fact",
+            "confidence": "high",
+            "dimension": "technical_customization",
+            "rating": 5
+          },
+          {
+            "statement": "The company describes an automated storage project about 40 metres high with more than 1,248 pallet positions and a dual-shuttle mechanism.",
+            "category": "technical_capability",
+            "statement_type": "fact",
+            "confidence": "high"
+          },
+          {
+            "statement": "Cross-industry growth is plausible if the ASTOR platform is reused in manufacturing, food and cold storage, pharmaceuticals and general engineering.",
+            "category": "growth_opportunity",
+            "statement_type": "inference",
+            "confidence": "medium"
+          }
+        ]
+      },
+      {
+        "title": "Sieger Spintech Company Details",
+        "url": "https://www.thecompanycheck.com/company/sieger-spintech-equipments-private-limited/U29268TZ1994PTC005345",
+        "source_type": "company_database",
+        "source_quality": "strong_secondary",
+        "observed_at_or_period": "FY2024 / registry current to 2025",
+        "retrieved_at": "2026-08-25",
+        "freshness": "recent_filing_context",
+        "confidence": "medium",
+        "note": "Public company database page summarizing registry and FY2024 figures.",
+        "claims": [
+          {
+            "statement": "The company is listed as an active private limited machinery business incorporated on 19 September 1994 under CIN U29268TZ1994PTC005345.",
+            "category": "registration",
+            "statement_type": "fact",
+            "confidence": "medium",
+            "dimension": "customer_maturity",
+            "rating": 5
+          },
+          {
+            "statement": "The database reports FY2024 revenue of INR 158.2 crore, up 11 percent year over year.",
+            "category": "revenue",
+            "statement_type": "fact",
+            "confidence": "medium",
+            "dimension": "buying_capacity",
+            "rating": 4
+          },
+          {
+            "statement": "The registered office and the operating/manufacturing address shown by the official website differ, consistent with separate registered and operating locations but still requiring entity matching.",
+            "category": "address",
+            "statement_type": "inference",
+            "confidence": "medium"
+          }
+        ]
+      },
+      {
+        "title": "Sieger Spintech Financial Trend",
+        "url": "https://www.tofler.in/sieger-spintech-equipments-private-limited/company/U29268TZ1994PTC005345",
+        "source_type": "financial_database",
+        "source_quality": "strong_secondary",
+        "observed_at_or_period": "FY2025",
+        "retrieved_at": "2026-08-25",
+        "freshness": "recent_filing_context",
+        "confidence": "medium",
+        "note": "Public financial summary showing pressure in revenue, EBITDA and net profit; exact paid report figures remain outside this fixture.",
+        "claims": [
+          {
+            "statement": "The public FY2025 summary shows weaker revenue, EBITDA and net-profit trends while assets increased.",
+            "category": "operating_trend",
+            "statement_type": "fact",
+            "confidence": "medium"
+          },
+          {
+            "statement": "The weaker profitability trend supports a hypothesis that procurement may emphasize cost reduction, supplier comparison and payment terms more strongly.",
+            "category": "procurement_behavior",
+            "statement_type": "inference",
+            "confidence": "medium",
+            "dimension": "price_sensitivity",
+            "rating": 4
+          }
+        ]
+      }
+    ]
+  }
+}

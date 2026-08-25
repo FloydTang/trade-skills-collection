@@ -75,6 +75,29 @@ def assert_selected_lead_matches_fixture(output_dir: Path) -> None:
             "Mismatch between selected lead, generated report, and combo-package fixture."
         )
 
+    required_sieger_keys = {
+        "verdict_card",
+        "company_business_breakdown",
+        "tech_capability_procurement_concerns",
+        "scale_financial_signals",
+        "sales_model_procurement_logic",
+        "competition_map",
+        "growth_opportunities",
+        "image_summary",
+        "sieger_standard",
+    }
+    if not required_sieger_keys.issubset(report):
+        missing = ", ".join(sorted(required_sieger_keys - set(report)))
+        raise SystemExit(f"Customer-intel report is missing SIEGER keys: {missing}")
+    stable_angle_keys = {"cn", "en", "why", "avoid"}
+    angle = (report.get("sales_angles") or [{}])[0]
+    if not stable_angle_keys.issubset(angle):
+        raise SystemExit("Customer-intel sales angle lost a stable downstream key.")
+    if angle.get("approval_status") != "approved" or not angle.get("angle_id"):
+        raise SystemExit("Stable combo fixture must include one explicitly approved sales angle.")
+    if not report.get("evidence_ledger") or not report.get("claim_ledger"):
+        raise SystemExit("Stable combo fixture must carry the v2 evidence and claim ledgers.")
+
 
 def assert_email_artifacts(output_dir: Path) -> None:
     email_input = load_json(output_dir / "07-email-input.json")
@@ -88,14 +111,20 @@ def assert_email_artifacts(output_dir: Path) -> None:
     if email_output.get("send_policy") != "manual_review_only":
         raise SystemExit("Email draft JSON should declare manual_review_only send policy.")
     source_context = email_input.get("source_context") or {}
-    if not source_context.get("recommended_opening_signal_en"):
-        raise SystemExit("Email bridge payload should carry the customer-intel opening signal.")
+    if source_context.get("draft_authorization") != "approved":
+        raise SystemExit("Email bridge payload should carry explicit draft authorization.")
+    if not (source_context.get("selected_sales_angle") or {}).get("angle_id"):
+        raise SystemExit("Email bridge payload should carry the approved sales angle object.")
+    if not source_context.get("selected_evidence") or not source_context.get("selected_claims"):
+        raise SystemExit("Email bridge payload should preserve selected claims and evidence.")
     if not source_context.get("recent_signals") or not source_context.get("market_signals"):
         raise SystemExit("Email bridge payload should carry recent and market signals from customer intel.")
+    if not source_context.get("verdict_card") or not source_context.get("sieger_standard"):
+        raise SystemExit("Email bridge payload should carry optional SIEGER review context.")
     if "GreenHarvest Foods" not in email_markdown:
         raise SystemExit("Email draft markdown does not mention the expected company.")
-    if "recent_signal:" not in email_markdown or "market_signal:" not in email_markdown:
-        raise SystemExit("Email draft markdown should expose recent and market signals used.")
+    if "approved_angle_id: ANGLE-01" not in email_markdown:
+        raise SystemExit("Email draft markdown should expose the approved angle ID.")
     if "Recommended Next Action: ready_for_manual_send" not in email_markdown:
         raise SystemExit("Email draft markdown should expose the workflow guidance section.")
 

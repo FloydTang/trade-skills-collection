@@ -12,7 +12,66 @@
     "sender_name": "Mia",
     "sender_company": "Hangzhou LinenCraft Textiles",
     "signature": "Best regards,\nMia\nHangzhou LinenCraft Textiles",
-    "constraints": "Keep the follow-up soft and design-oriented."
+    "constraints": "Keep the follow-up soft and design-oriented.",
+    "source_context": {
+      "draft_authorization": "approved",
+      "authorization_reasons": [],
+      "risk_rating": "Medium",
+      "entity_confidence": "medium",
+      "evidence_sufficiency": "",
+      "intel_recommended_next_action": "",
+      "sieger_status": "",
+      "verdict_card": {},
+      "company_business_breakdown": {},
+      "tech_capability_procurement_concerns": {},
+      "scale_financial_signals": {},
+      "sales_model_procurement_logic": {},
+      "competition_map": {},
+      "growth_opportunities": [],
+      "image_summary": {},
+      "sieger_standard": {},
+      "recommended_sales_angle_en": "Offer a small, editable swatch review tied to the earlier catalog follow-up.",
+      "recommended_opening_signal_en": "",
+      "recent_signals": [],
+      "market_signals": [],
+      "evidence_titles": [
+        "Previous catalog-sharing note"
+      ],
+      "evidence_refs": [],
+      "selected_sales_angle": {
+        "angle_id": "ANGLE-01",
+        "approval_status": "approved",
+        "title_en": "Low-friction swatch review",
+        "message_en": "Offer selected fabric swatches as the next small step after the catalog review.",
+        "claim_refs": [
+          "CL-01"
+        ],
+        "evidence_refs": [
+          "EV-01"
+        ]
+      },
+      "selected_claims": [
+        {
+          "claim_id": "CL-01",
+          "claim_type": "fact",
+          "text": "A digital catalog was shared in the previous contact.",
+          "evidence_refs": [
+            "EV-01"
+          ]
+        }
+      ],
+      "selected_evidence": [
+        {
+          "evidence_id": "EV-01",
+          "source_type": "operator_provided_contact_history",
+          "title": "Previous catalog-sharing note",
+          "url": "",
+          "confidence": "high"
+        }
+      ],
+      "unconfirmed_fact_list": [],
+      "ambiguity_notes": []
+    }
   },
   "subject_options": [
     "Following Up on Washed Linen Table Textile Collections for Nordic Home Textile AB",
@@ -28,6 +87,21 @@
     "跟进内容引用了历史沟通背景，请确认时间点、附件和表达与实际一致。",
     "已应用输入约束：Keep the follow-up soft and design-oriented."
   ],
+  "evidence_signals_used": [
+    "sales_angle: Offer a small, editable swatch review tied to the earlier catalog follow-up.",
+    "risk_rating: Medium",
+    "entity_confidence: medium",
+    "approved_angle_id: ANGLE-01",
+    "evidence: EV-01 | Previous catalog-sharing note",
+    "evidence_title: Previous catalog-sharing note"
+  ],
+  "unconfirmed_fact_checklist": [
+    "确认客户画像摘要、销售切入点和任何具体需求判断都来自公开且已核实的信息。"
+  ],
+  "workflow_guidance": {
+    "recommended_next_action": "ready_for_manual_send",
+    "send_policy": "manual_review_only"
+  },
   "input_signals_used": [
     "email_type: follow_up",
     "customer_name: Nadia",

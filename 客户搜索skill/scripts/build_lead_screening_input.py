@@ -40,7 +40,16 @@ def build(payload: Any) -> dict[str, Any]:
                 "match_basis": item.get("match_basis", ""),
             }
         )
-    return {"default_country_or_market": "", "operator_notes": "", "leads": leads}
+    summary = payload.get("summary") if isinstance(payload.get("summary"), dict) else {}
+    return {
+        "default_country_or_market": summary.get("target_market", ""),
+        "operator_notes": "",
+        "product_or_offer": summary.get("product_or_offer", ""),
+        "target_customer_type": summary.get("customer_type", ""),
+        "industry_lens": summary.get("industry_lens", "auto"),
+        "seller_context": payload.get("seller_context", {}),
+        "leads": leads,
+    }
 
 
 def parse_args() -> argparse.Namespace:

@@ -12,22 +12,44 @@
     "signature": "Best regards,\nMia\nHangzhou LinenCraft Textiles"
   },
   "public_context": {
+    "draft_authorization": "approved",
+    "authorization_reasons": [],
     "customer_profile_summary": "Brand appears focused on Scandinavian home textile collections with natural material positioning.",
     "previous_contact_context": "We shared our digital catalog three days ago and mentioned low-MOQ support for seasonal collections.",
     "constraints": "Keep the follow-up soft and design-oriented.",
     "risk_rating": "Medium",
     "entity_confidence": "medium",
-    "recommended_sales_angle_en": "Lead with a clean and design-oriented offer rather than a hard sell.",
-    "recommended_opening_signal_en": "Nordic Home Textile AB's recent natural materials collection update",
-    "recent_signals": [
-      "Nordic Home Textile AB's recent natural materials collection update | product_launch | recent_or_needs_date_check | medium"
+    "recommended_sales_angle_en": "Offer a small, editable swatch review tied to the earlier catalog follow-up.",
+    "recommended_opening_signal_en": "",
+    "recent_signals": [],
+    "market_signals": [],
+    "selected_sales_angle": {
+      "angle_id": "ANGLE-01",
+      "approval_status": "approved",
+      "title_en": "Low-friction swatch review",
+      "message_en": "Offer selected fabric swatches as the next small step after the catalog review.",
+      "claim_refs": ["CL-01"],
+      "evidence_refs": ["EV-01"]
+    },
+    "selected_claims": [
+      {
+        "claim_id": "CL-01",
+        "claim_type": "fact",
+        "text": "A digital catalog was shared in the previous contact.",
+        "evidence_refs": ["EV-01"]
+      }
     ],
-    "market_signals": [
-      "EU textile sustainability compliance update | compliance | recent_or_needs_date_check | low"
+    "selected_evidence": [
+      {
+        "evidence_id": "EV-01",
+        "source_type": "operator_provided_contact_history",
+        "title": "Previous catalog-sharing note",
+        "url": "",
+        "confidence": "high"
+      }
     ],
     "evidence_titles": [
-      "Nordic Home Textile AB LinkedIn update",
-      "EU textile sustainability compliance update"
+      "Previous catalog-sharing note"
     ]
   }
 }

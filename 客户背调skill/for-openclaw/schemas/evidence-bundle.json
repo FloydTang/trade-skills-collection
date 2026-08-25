@@ -108,6 +108,45 @@
           }
         }
       }
+    },
+    "evidence_items": {
+      "type": "array",
+      "description": "可选的结构化证据。每条证据可携带事实、推断或假设主张，供 SIEGER v2 建立 claim_id 到 evidence_id 的映射。",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "properties": {
+          "title": { "type": "string" },
+          "url": { "type": "string" },
+          "source_type": { "type": "string" },
+          "source_quality": {
+            "type": "string",
+            "enum": ["primary", "strong_secondary", "secondary", "weak"]
+          },
+          "observed_at_or_period": { "type": "string" },
+          "retrieved_at": { "type": "string" },
+          "freshness": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+          "note": { "type": "string" },
+          "claims": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["statement", "category", "statement_type", "confidence"],
+              "properties": {
+                "statement": { "type": "string" },
+                "category": { "type": "string" },
+                "statement_type": { "type": "string", "enum": ["fact", "inference", "hypothesis"] },
+                "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+                "observed_at_or_period": { "type": "string" },
+                "dimension": { "type": "string" },
+                "rating": { "type": "integer", "minimum": 1, "maximum": 5 }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "required": [
